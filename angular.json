@@ -26,8 +26,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/primeng/resources/primeng.min.css",
+              "src/theme.css",
+              "src/styles.scss"
+            ],
+            "scripts": ["node_modules/socket.io-client/dist/socket.io.slim.js"]
           },
           "configurations": {
             "production": {
