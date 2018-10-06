@@ -5,6 +5,8 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
+      "@common/*": ["src/app/common/*"],
+      "@auth/*": ["src/app/auth/*"],
       "~/*": ["src/*"],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
     }
