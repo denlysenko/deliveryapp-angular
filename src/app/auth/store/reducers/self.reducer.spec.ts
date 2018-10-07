@@ -1,31 +1,31 @@
 import { User } from '../../models';
-import * as fromActions from '../actions/user.actions';
-import * as fromUser from './user.reducer';
+import * as fromActions from '../actions/self.actions';
+import * as fromSelf from './self.reducer';
 
-describe('UserReducer', () => {
+describe('SelfReducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
-      const { initialState } = fromUser;
+      const { initialState } = fromSelf;
       const action = {} as any;
-      const state = fromUser.reducer(undefined, action);
+      const state = fromSelf.reducer(undefined, action);
       expect(state).toEqual(initialState);
     });
   });
 
-  describe('LOAD_USER action', () => {
+  describe('LOAD_SELF action', () => {
     it('should set loading to true', () => {
-      const { initialState } = fromUser;
-      const action = new fromActions.LoadUser();
-      const state = fromUser.reducer(initialState, action);
+      const { initialState } = fromSelf;
+      const action = new fromActions.LoadSelf();
+      const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(true);
       expect(state.error).toEqual(null);
-      expect(state.user).toEqual(null);
+      expect(state.self).toEqual(null);
     });
   });
 
-  describe('LOAD_USER_SUCCESS Action', () => {
+  describe('LOAD_SELF_SUCCESS Action', () => {
     it('should set loading to false', () => {
-      const { initialState } = fromUser;
+      const { initialState } = fromSelf;
       const payload: User = {
         id: 1,
         email: 'test@test.com',
@@ -35,33 +35,33 @@ describe('UserReducer', () => {
         phone: '1(111) 111-11-11',
         role: 1
       };
-      const action = new fromActions.LoadUserSuccess(payload);
-      const state = fromUser.reducer(initialState, action);
+      const action = new fromActions.LoadSelfSuccess(payload);
+      const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(false);
-      expect(state.user).toEqual(payload);
+      expect(state.self).toEqual(payload);
       expect(state.loggedIn).toEqual(true);
     });
   });
 
-  describe('LOAD_USER_FAIL Action', () => {
+  describe('LOAD_SELF_FAIL Action', () => {
     it('should set error to payload value', () => {
-      const { initialState } = fromUser;
+      const { initialState } = fromSelf;
       const payload = { message: 'Error message' };
-      const action = new fromActions.LoadUserFail(payload);
-      const state = fromUser.reducer(initialState, action);
+      const action = new fromActions.LoadSelfFail(payload);
+      const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(false);
       expect(state.error).toEqual(payload);
-      expect(state.user).toEqual(null);
+      expect(state.self).toEqual(null);
       expect(state.loggedIn).toEqual(false);
     });
   });
 
   describe('LOGOUT Action', () => {
     it('should set user to null', () => {
-      const { initialState } = fromUser;
+      const { initialState } = fromSelf;
       const action = new fromActions.Logout();
-      const state = fromUser.reducer(initialState, action);
-      expect(state.user).toEqual(null);
+      const state = fromSelf.reducer(initialState, action);
+      expect(state.self).toEqual(null);
       expect(state.loggedIn).toEqual(false);
     });
   });

@@ -1,17 +1,17 @@
 import { User } from '../../models';
-import * as fromUser from './user.actions';
+import * as fromSelf from './self.actions';
 
-describe('User Actions', () => {
-  describe('LoadUser', () => {
+describe('Self Actions', () => {
+  describe('LoadSelf', () => {
     it('should create an action', () => {
-      const action = new fromUser.LoadUser();
+      const action = new fromSelf.LoadSelf();
       expect({ ...action }).toEqual({
-        type: fromUser.LOAD_USER
+        type: fromSelf.LOAD_SELF
       });
     });
   });
 
-  describe('LoadUserSuccess', () => {
+  describe('LoadSelfSuccess', () => {
     it('should create an action', () => {
       const payload: User = {
         id: 1,
@@ -22,20 +22,20 @@ describe('User Actions', () => {
         phone: '1(111) 111-11-11',
         role: 1
       };
-      const action = new fromUser.LoadUserSuccess(payload);
+      const action = new fromSelf.LoadSelfSuccess(payload);
       expect({ ...action }).toEqual({
-        type: fromUser.LOAD_USER_SUCCESS,
+        type: fromSelf.LOAD_SELF_SUCCESS,
         payload: payload
       });
     });
   });
 
-  describe('LoadUserFail', () => {
+  describe('LoadSelfFail', () => {
     it('should create an action', () => {
       const payload = { message: 'Error message' };
-      const action = new fromUser.LoadUserFail(payload);
+      const action = new fromSelf.LoadSelfFail(payload);
       expect({ ...action }).toEqual({
-        type: fromUser.LOAD_USER_FAIL,
+        type: fromSelf.LOAD_SELF_FAIL,
         payload: payload
       });
     });
@@ -43,9 +43,9 @@ describe('User Actions', () => {
 
   describe('Logout', () => {
     it('should create an action', () => {
-      const action = new fromUser.Logout();
+      const action = new fromSelf.Logout();
       expect({ ...action }).toEqual({
-        type: fromUser.LOGOUT
+        type: fromSelf.LOGOUT
       });
     });
   });
