@@ -12,6 +12,7 @@
     "baseUrl": ".",
     "paths": {
       "@common/*": ["src/app/common/*"],
+      "@core/*": ["src/app/core/*"],
       "@auth/*": ["src/app/auth/*"],
       "~/*": ["src/*"],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
