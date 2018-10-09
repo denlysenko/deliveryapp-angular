@@ -1,0 +1,18 @@
+<div class="login-body">
+  <div class="login-panel ui-fluid">
+    <div class="ui-g">
+      <div class="ui-g-12 logo-container">
+        <i class="fa fa-shield"
+           aria-hidden="true"></i>
+        <i class="fa fa-sign-in"
+           aria-hidden="true"></i>
+        <h2>Login
+          <a [routerLink]="['..', 'registration']">Register</a>
+        </h2>
+      </div>
+      <da-login-form [loading]="loading$ | async"
+                     [error]="error$ | async"
+                     (formSubmit)="login($event)"></da-login-form>
+    </div>
+  </div>
+</div>

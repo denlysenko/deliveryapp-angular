@@ -1,0 +1,48 @@
+<form [formGroup]="loginForm"
+      (submit)="submitForm()"
+      autocomplete="off"
+      novalidate>
+  <div class="ui-g-12">
+    <div class="input-wrapper ui-float-label">
+      <input type="text"
+             autocomplete="off"
+             pInputText
+             formControlName="email">
+      <label for="email">Email</label>
+      <i class="fa fa-user-circle-o"
+         aria-hidden="true"></i>
+    </div>
+    <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched"
+         class="ui-message ui-messages-error ui-corner-all">
+      <i class="fa fa-close"></i>
+      <span *ngIf="loginForm.get('email').hasError('required')">Required field</span>
+      <span *ngIf="loginForm.get('email').hasError('email')">Invalid email</span>
+      <span *ngIf="loginForm.get('email').hasError('serverError')">{{ errors['email'] }}</span>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <div class="input-wrapper ui-float-label">
+      <input type="password"
+             autocomplete="off"
+             pInputText
+             formControlName="password">
+      <label for="email">Password</label>
+      <i class="fa fa-lock"
+         aria-hidden="true"></i>
+    </div>
+    <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched"
+         class="ui-message ui-messages-error ui-corner-all">
+      <i class="fa fa-close"></i>
+      <span *ngIf="loginForm.get('password').hasError('required')">Required field</span>
+      <span *ngIf="loginForm.get('password').hasError('serverError')">{{ errors['password'] }}</span>
+    </div>
+  </div>
+  <div class="ui-g-12 button-container">
+    <button type="submit"
+            pButton
+            label="Login"
+            class="ui-corner-all ui-button-text-only blue-btn raised-btn"
+            [disabled]="loading">
+    </button>
+  </div>
+</form>

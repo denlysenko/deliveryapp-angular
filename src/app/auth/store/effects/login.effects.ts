@@ -5,7 +5,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
-import { ACCESS_TOKEN } from '@common/constants.ts';
+import { ACCESS_TOKEN } from '@common/constants';
 import { CoreFacade } from '@core/store/core.facade';
 
 import { AuthService } from '../../services/auth.service';

@@ -1,0 +1,68 @@
+<ActionBar>
+  <Label text="Login"
+         class="font-weight-bold"></Label>
+</ActionBar>
+<GridLayout>
+  <StackLayout orientation="vertical"
+               verticalAlignment="center"
+               class="login m-r-20 m-l-20">
+    <GridLayout columns="*, auto"
+                rows="50"
+                class="header p-20">
+      <Label col="0"
+             text="Login"
+             class="title"></Label>
+      <Label col="1"
+             class="fa"
+             text="&#xf132;"></Label>
+    </GridLayout>
+    <StackLayout class="form p-20"
+                 [formGroup]="form">
+      <StackLayout class="input-field"
+                   [class.has-error]="submitting && form.get('email').invalid">
+        <TextField #email
+                   formControlName="email"
+                   class="input input-border"
+                   hint="Email"
+                   keyboardType="email"
+                   autocorrect="false"
+                   autocapitalizationType="none"></TextField>
+        <Label *ngIf="submitting && form.get('email').hasError('required')"
+               text="Required field"
+               class="error"></Label>
+        <Label *ngIf="submitting && form.get('email').hasError('email')"
+               text="Incorrect email"
+               class="error"></Label>
+      </StackLayout>
+      <StackLayout class="input-field"
+                   [class.has-error]="submitting && form.get('password').invalid">
+        <TextField #password
+                   formControlName="password"
+                   class="input input-border"
+                   (loaded)="setHintColors()"
+                   hint="Пароль"
+                   secure="true"></TextField>
+        <Label *ngIf="submitting && form.get('password').hasError('required')"
+               text="Required field"
+               class="error"></Label>
+      </StackLayout>
+      <StackLayout>
+        <Button class="btn btn-primary btn-active"
+                text="Log In"
+                [isEnabled]="!isLoading"
+                (tap)="submit()"></Button>
+        <Button class="btn btn-outline btn-active"
+                text="Register"
+                [isEnabled]="!isLoading"
+                (tap)="navigateToSignup()"></Button>
+      </StackLayout>
+    </StackLayout>
+  </StackLayout>
+  <GridLayout class="dimmer"
+              rows="*"
+              [visibility]="isLoading ? 'visible' : 'collapse'">
+    <ActivityIndicator [busy]="isLoading"
+                       horizontalAlignment="center"
+                       verticalAlignment="center"></ActivityIndicator>
+  </GridLayout>
+</GridLayout>

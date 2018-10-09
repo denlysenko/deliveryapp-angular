@@ -2721,8 +2721,8 @@ body .ui-tree.ui-tree-horizontal {
 }
 
 body .ui-tree.ui-tree-horizontal .ui-treenode {
-  background: url('../layout/images/tth-connector.png') repeat-x scroll center
-    center transparent;
+  /* background: url('../layout/images/tth-connector.png') repeat-x scroll center
+    center transparent; */
 }
 
 body .ui-tree.ui-tree-horizontal .ui-treenode .ui-treenode-content {
@@ -2766,8 +2766,8 @@ body
 }
 
 body .ui-tree.ui-tree-horizontal .ui-treenode-connector-line {
-  background: url('../layout/images/tth-connector.png') repeat-y scroll 0 0
-    transparent;
+  /* background: url('../layout/images/tth-connector.png') repeat-y scroll 0 0
+    transparent; */
 }
 
 body .fc .fc-toolbar .ui-icon-circle-triangle-e {
