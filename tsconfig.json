@@ -13,8 +13,8 @@
     "paths": {
       "@base/*": ["src/app/base/*"],
       "@common/*": ["src/app/common/*"],
-      "@core/*": ["src/app/core/*"],
-      "@auth/*": ["src/app/auth/*"],
+      "@core/*": ["src/app/modules/core/*"],
+      "@auth/*": ["src/app/modules/auth/*"],
       "@validators/*": ["src/app/validators/*"],
       "~/*": ["src/*"],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]

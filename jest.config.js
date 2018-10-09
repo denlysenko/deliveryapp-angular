@@ -3,9 +3,12 @@ module.exports = {
   roots: ['src'],
   setupTestFrameworkScriptFile: '<rootDir>/src/jest/setup-jest.ts',
   moduleNameMapper: {
-    '@core/(.*)': '<rootDir>/src/app/core/$1',
+    '@base/(.*)': '<rootDir>/src/app/base/$1',
     '@common/(.*)': '<rootDir>/src/app/common/$1',
-    '@auth/(.*)': '<rootDir>/src/app/auth/$1',
+    '@validators/(.*)': '<rootDir>/src/app/validators/$1',
+    '@base/(.*)': '<rootDir>/src/app/base/$1',
+    '@core/(.*)': '<rootDir>/src/app/modules/core/$1',
+    '@auth/(.*)': '<rootDir>/src/app/modules/auth/$1',
     '~/(.*)': '<rootDir>/src/$1'
   }
 };
