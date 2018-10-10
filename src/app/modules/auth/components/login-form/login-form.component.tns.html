@@ -17,7 +17,7 @@
              text="&#xf132;"></Label>
     </GridLayout>
     <StackLayout class="form p-20"
-                 [formGroup]="form">
+                 [formGroup]="loginForm">
       <StackLayout class="input-field"
                    [class.has-error]="submitting && form.get('email').invalid">
         <TextField #email

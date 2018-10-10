@@ -13,7 +13,7 @@
          aria-hidden="true"></i>
     </div>
     <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched"
-         class="ui-message ui-messages-error ui-corner-all">
+         class="ui-message ui-message-error ui-corner-all">
       <i class="fa fa-close"></i>
       <span *ngIf="loginForm.get('email').hasError('required')">Required field</span>
       <span *ngIf="loginForm.get('email').hasError('email')">Invalid email</span>
@@ -31,7 +31,7 @@
          aria-hidden="true"></i>
     </div>
     <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched"
-         class="ui-message ui-messages-error ui-corner-all">
+         class="ui-message ui-message-error ui-corner-all">
       <i class="fa fa-close"></i>
       <span *ngIf="loginForm.get('password').hasError('required')">Required field</span>
       <span *ngIf="loginForm.get('password').hasError('serverError')">{{ errors['password'] }}</span>

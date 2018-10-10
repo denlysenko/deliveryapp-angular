@@ -1,30 +1,22 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 
 import { ButtonModule, InputTextModule } from 'primeng/primeng';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { components } from './components';
-import { containers } from './containers';
-import { AuthService } from './services/auth.service';
-import { effects, reducers } from './store';
-import { AuthFacade } from './store/auth.facade';
+import { componentDeclarations, importDeclarations, providerDeclarations } from './auth.common';
+import { effects, MessagesEffects } from './store';
 
 @NgModule({
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
     AuthRoutingModule,
-    StoreModule.forFeature('auth', reducers),
-    EffectsModule.forFeature(effects),
+    ...importDeclarations,
+    EffectsModule.forFeature([...effects, MessagesEffects]),
     InputTextModule,
     ButtonModule
   ],
-  declarations: [...containers, ...components],
-  providers: [AuthService, AuthFacade]
+  declarations: [...componentDeclarations],
+  providers: [...providerDeclarations]
 })
 export class AuthModule {}
