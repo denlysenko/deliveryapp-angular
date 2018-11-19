@@ -4,6 +4,9 @@
     "id": "org.nativescript.deliveryapp",
     "tns-ios": {
       "version": "5.0.0"
+    },
+    "tns-android": {
+      "version": "5.0.0"
     }
   },
   "version": "1.0.0",
