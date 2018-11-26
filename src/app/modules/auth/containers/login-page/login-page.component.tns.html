@@ -1,3 +1,19 @@
-<da-login-form [loading]="loading$ | async"
-               [error]="error$ | async"
-               (formSubmit)="login($event)"></da-login-form>
+<GridLayout class="page-content">
+  <StackLayout orientation="vertical"
+               verticalAlignment="center"
+               class="login m-r-20 m-l-20">
+    <GridLayout columns="*, auto"
+                rows="50"
+                class="header p-20">
+      <Label col="0"
+             text="Login"
+             class="title"></Label>
+      <Label col="1"
+             class="fa"
+             [text]="'fa-shield' | fonticon"></Label>
+    </GridLayout>
+    <da-login-form [loading]="loading$ | async"
+                   [error]="error$ | async"
+                   (formSubmit)="login($event)"></da-login-form>
+  </StackLayout>
+</GridLayout>

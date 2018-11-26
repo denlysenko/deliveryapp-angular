@@ -1,0 +1,22 @@
+@import '../../../../../app-variables';
+
+.login {
+  background-color: $white;
+  border-width: 1;
+  border-color: $grey-light;
+
+  .title {
+    font-size: 18;
+    color: $grey-darker;
+  }
+
+  .fa {
+    font-size: 50;
+    color: $grey-light;
+  }
+
+  .header {
+    border-bottom-width: 8;
+    border-bottom-color: $grey-light;
+  }
+}

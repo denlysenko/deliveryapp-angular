@@ -4,6 +4,7 @@ import { LoginForm } from '../../models';
 import { AuthFacade } from '../../store/auth.facade';
 
 @Component({
+  moduleId: module.id,
   templateUrl: './login-page.component.html',
   styleUrls: ['../common-styles/page.component.scss']
 })

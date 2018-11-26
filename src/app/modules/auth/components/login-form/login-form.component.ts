@@ -7,6 +7,7 @@ import { emailValidator } from '@common/validators';
 import { LoginError, LoginForm } from '../../models';
 
 @Component({
+  moduleId: module.id,
   selector: 'da-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['../common-styles/form.component.scss']

@@ -1,0 +1,26 @@
+@import '../../../../../app-variables';
+
+.form {
+  .input {
+    &.input-border {
+      padding: 8;
+    }
+  }
+
+  .input-field,
+  .btn {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.input-field.has-error {
+  .input {
+    border-color: $error;
+  }
+
+  .error {
+    color: $error;
+    font-size: 12 !important;
+  }
+}
