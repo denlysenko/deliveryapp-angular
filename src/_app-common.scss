@@ -1,2 +1,37 @@
-// Place any CSS rules you want to apply on both iOS and Android here.
-// This is where the vast majority of your CSS code goes.
+@import '~nativescript-theme-core/scss/light';
+@import 'app-variables';
+@import '~nativescript-theme-core/scss/index';
+
+.fa {
+  font-family: 'FontAwesome';
+}
+
+.btn[isEnabled='false'] {
+  background-color: rgba(57, 132, 184, 0.35);
+  border-color: transparent;
+}
+
+.page-content {
+  background-color: $grey-lighter;
+}
+
+ActionBar {
+  background-color: #f2f8fa;
+  color: $accent;
+}
+
+.card {
+  background-color: $white;
+  border-width: 1;
+  border-color: $grey-light;
+}
+
+.text-success {
+  color: $green;
+}
+
+.segmented-bar {
+  selected-background-color: $accent;
+  color: $accent;
+  background-color: $white;
+}

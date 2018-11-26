@@ -1,8 +1,47 @@
- 
-// Import the theme’s variables. If you’re using a color scheme
-// other than “light”, switch the path to the alternative scheme,
-// for example '~nativescript-theme-core/scss/dark'.
 @import '~nativescript-theme-core/scss/light';
 
-// Place any custom variables here. For example:
-// $page-content-placeholder-font-size: 20;
+$accent-dark: #3984b8;
+$accent-darker: #2d6891;
+$grey-darker: #7d8286;
+$grey-dark: #bdc3c9;
+$grey-lighter: #f2f8fa;
+$grey: #7d8286;
+$grey-light: #dee4e9;
+$white: #fff;
+$error: #e17576;
+$green: #3eb839;
+
+$background: $grey-light;
+$background-dark: $accent-darker;
+$text-color: $grey-darker;
+$accent: $accent-dark;
+$enable-rounded: true;
+$btn-radius: 2;
+$btn-color: $accent-dark;
+$btn-color-secondary: $accent-darker;
+$btn-color-outline-highlighted: $accent-dark;
+$btn-color-disabled: $white;
+
+// Drawer navigation custom styles
+$sidedrawer-header-image-size: 60;
+$sidedrawer-header-image-offset-top: 20;
+$sidedrawer-header-image-offset-bottom: 5;
+
+$sidedrawer-list-item-offset-left: 15;
+$sidedrawer-list-icon-offset: 10;
+$sidedrawer-list-icon-size: 20;
+
+// SideDrawer
+$item-active-background: #f6f9fb;
+$item-active-color: $accent-dark;
+$item-active-icon-color: $item-active-color;
+$item-color-ios: $grey;
+$item-color-android: $grey;
+
+$side-drawer-header-background: #fafafa;
+$side-drawer-header-brand: #737373;
+$side-drawer-background: $white;
+
+// ActionBar
+$ab-background: $accent;
+$ab-color: $white;
