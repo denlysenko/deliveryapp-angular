@@ -20,7 +20,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "android": "tns run android --hmr",
-    "ios": "tns run ios --hmr"
+    "ios": "tns run ios --device 78098771-7F90-4752-BD6A-8F65BB39B317 --hmr"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +40,7 @@
     "font-awesome": "^4.7.0",
     "inputmask": "^4.0.3",
     "nativescript-angular": "~7.0.2",
+    "nativescript-ngx-fonticon": "^4.2.0",
     "nativescript-theme-core": "~1.0.4",
     "primeng": "^6.1.7",
     "reflect-metadata": "~0.1.12",

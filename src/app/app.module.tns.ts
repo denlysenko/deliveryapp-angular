@@ -4,17 +4,18 @@ import { AuthModule } from '@auth/auth.module';
 import { CoreModule } from '@core/core.module';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
+import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-// Uncomment and add to NgModule imports if you need to use two-way binding
-// import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 
 @NgModule({
   imports: [
     NativeScriptModule,
     NativeScriptHttpClientModule,
+    TNSFontIconModule.forRoot({
+      fa: './fonts/font-awesome.css'
+    }),
     AppRoutingModule,
     CoreModule,
     AuthModule
