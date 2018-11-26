@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
-import { emailValidator } from '@validators/email.validator';
+import { emailValidator } from '@common/validators';
 
 import { LoginError, LoginForm } from '../../models';
 
