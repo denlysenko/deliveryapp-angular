@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
@@ -10,7 +10,8 @@ import { LoginError, LoginForm } from '../../models';
   moduleId: module.id,
   selector: 'da-login-form',
   templateUrl: './login-form.component.html',
-  styleUrls: ['../common-styles/form.component.scss']
+  styleUrls: ['../common-styles/form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginFormComponent extends BaseFormComponent implements OnInit {
   loginForm: FormGroup;
