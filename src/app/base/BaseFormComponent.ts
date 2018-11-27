@@ -1,6 +1,7 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
 export abstract class BaseFormComponent {
+  form: FormGroup;
   errors: { [key: string]: string } = {};
 
   protected handleError(formGroup: FormGroup, error: any) {

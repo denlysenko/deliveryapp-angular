@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm"
+<form [formGroup]="form"
       (submit)="submitForm()"
       autocomplete="off"
       novalidate>
@@ -12,12 +12,12 @@
       <i class="fa fa-user-circle-o"
          aria-hidden="true"></i>
     </div>
-    <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched"
+    <div *ngIf="form.get('email').invalid && form.get('email').touched"
          class="ui-message ui-message-error ui-corner-all">
       <i class="fa fa-close"></i>
-      <span *ngIf="loginForm.get('email').hasError('required')">Required field</span>
-      <span *ngIf="loginForm.get('email').hasError('email')">Invalid email</span>
-      <span *ngIf="loginForm.get('email').hasError('serverError')">{{ errors['email'] }}</span>
+      <span *ngIf="form.get('email').hasError('required')">Required field</span>
+      <span *ngIf="form.get('email').hasError('email')">Invalid email</span>
+      <span *ngIf="form.get('email').hasError('serverError')">{{ errors['email'] }}</span>
     </div>
   </div>
   <div class="ui-g-12">
@@ -30,11 +30,11 @@
       <i class="fa fa-lock"
          aria-hidden="true"></i>
     </div>
-    <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched"
+    <div *ngIf="form.get('password').invalid && form.get('password').touched"
          class="ui-message ui-message-error ui-corner-all">
       <i class="fa fa-close"></i>
-      <span *ngIf="loginForm.get('password').hasError('required')">Required field</span>
-      <span *ngIf="loginForm.get('password').hasError('serverError')">{{ errors['password'] }}</span>
+      <span *ngIf="form.get('password').hasError('required')">Required field</span>
+      <span *ngIf="form.get('password').hasError('serverError')">{{ errors['password'] }}</span>
     </div>
   </div>
   <div class="ui-g-12 button-container">

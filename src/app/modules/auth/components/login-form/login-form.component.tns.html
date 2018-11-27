@@ -1,7 +1,7 @@
 <StackLayout class="form p-20"
-             [formGroup]="loginForm">
+             [formGroup]="form">
   <StackLayout class="input-field"
-               [class.has-error]="loginForm.get('email').invalid && loginForm.get('email').touched">
+               [class.has-error]="form.get('email').invalid && form.get('email').touched">
     <TextField #email
                formControlName="email"
                class="input input-border"
@@ -9,24 +9,24 @@
                keyboardType="email"
                autocorrect="false"
                autocapitalizationType="none"></TextField>
-    <StackLayout *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">
-      <Label *ngIf="loginForm.get('email').hasError('required')"
+    <StackLayout *ngIf="form.get('email').invalid && form.get('email').touched">
+      <Label *ngIf="form.get('email').hasError('required')"
              text="Required field"
              class="error"></Label>
-      <Label *ngIf="loginForm.get('email').hasError('email')"
+      <Label *ngIf="form.get('email').hasError('email')"
              text="Incorrect email"
              class="error"></Label>
     </StackLayout>
   </StackLayout>
   <StackLayout class="input-field"
-               [class.has-error]="loginForm.get('password').invalid && loginForm.get('password').touched">
+               [class.has-error]="form.get('password').invalid && form.get('password').touched">
     <TextField #password
                formControlName="password"
                class="input input-border"
                hint="Password"
                secure="true"></TextField>
-    <StackLayout *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
-      <Label *ngIf="loginForm.get('password').hasError('required')"
+    <StackLayout *ngIf="form.get('password').invalid && form.get('password').touched">
+      <Label *ngIf="form.get('password').hasError('required')"
              text="Required field"
              class="error"></Label>
     </StackLayout>
@@ -34,12 +34,12 @@
   <StackLayout>
     <Button class="btn btn-primary btn-active"
             text="Log In"
-            [isEnabled]="!isLoading"
+            [isEnabled]="!loading"
             (tap)="submitForm()"></Button>
     <Button class="btn btn-outline btn-active"
             text="Register"
             height="auto"
-            [isEnabled]="!isLoading"
+            [isEnabled]="!loading"
             (tap)="navigateToSignup()"></Button>
   </StackLayout>
 </StackLayout>

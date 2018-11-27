@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
 import { emailValidator } from '@common/validators';
@@ -14,8 +14,6 @@ import { LoginError, LoginForm } from '../../models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginFormComponent extends BaseFormComponent implements OnInit {
-  loginForm: FormGroup;
-
   @Input()
   loading: boolean;
 
@@ -29,26 +27,30 @@ export class LoginFormComponent extends BaseFormComponent implements OnInit {
   @Output()
   formSubmitted = new EventEmitter<LoginForm>();
 
+  constructor(private fb: FormBuilder) {
+    super();
+  }
+
   ngOnInit() {
     this.initForm();
   }
 
   submitForm() {
-    if (this.loginForm.valid) {
-      this.formSubmitted.emit(this.loginForm.value);
+    if (this.form.valid) {
+      this.formSubmitted.emit(this.form.value);
     } else {
-      this.validateAllFormFields(this.loginForm);
+      this.validateAllFormFields(this.form);
     }
   }
 
   private initForm() {
-    this.loginForm = new FormGroup(
+    this.form = this.fb.group(
       {
-        email: new FormControl(
+        email: [
           null,
           Validators.compose([Validators.required, emailValidator])
-        ),
-        password: new FormControl(null, Validators.required)
+        ],
+        password: [null, Validators.required]
       },
       { updateOn: 'submit' }
     );
@@ -58,7 +60,7 @@ export class LoginFormComponent extends BaseFormComponent implements OnInit {
   protected handleError(error: any) {
     if (error && error.message) {
       error.fields.forEach(field => {
-        this.loginForm.get(field).setErrors({ serverError: true });
+        this.form.get(field).setErrors({ serverError: true });
         this.errors[field] = error.message;
       });
     }
