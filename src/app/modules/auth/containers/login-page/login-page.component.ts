@@ -9,8 +9,8 @@ import { AuthFacade } from '../../store/auth.facade';
   styleUrls: ['../common-styles/page.component.scss']
 })
 export class LoginPageComponent {
-  loading$ = this.authFacade.loginError$;
-  error$ = this.authFacade.loginError$;
+  loading$ = this.authFacade.error$;
+  error$ = this.authFacade.error$;
 
   constructor(private authFacade: AuthFacade) {}
 

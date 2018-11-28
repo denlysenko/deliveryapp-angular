@@ -8,7 +8,7 @@ import { AuthPayload, LoginForm, RegistrationForm, User } from '../models';
 
 // import { Message } from '../../lib/messages/Message';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AuthService {
   constructor(private apiService: ApiService) {}
 
