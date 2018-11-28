@@ -1,5 +1,5 @@
 import { RouterPayload } from '../../models';
-import * as fromRouter from './router.actions';
+import { Back, Forward, Go, RouterActionTypes } from './router.actions';
 
 describe('Router Actions', () => {
   describe('Go', () => {
@@ -7,9 +7,9 @@ describe('Router Actions', () => {
       const payload: RouterPayload = {
         path: ['path']
       };
-      const action = new fromRouter.Go(payload);
+      const action = new Go(payload);
       expect({ ...action }).toEqual({
-        type: fromRouter.GO,
+        type: RouterActionTypes.GO,
         payload: payload
       });
     });
@@ -17,18 +17,18 @@ describe('Router Actions', () => {
 
   describe('Back', () => {
     it('should create an action', () => {
-      const action = new fromRouter.Back();
+      const action = new Back();
       expect({ ...action }).toEqual({
-        type: fromRouter.BACK
+        type: RouterActionTypes.BACK
       });
     });
   });
 
   describe('Forward', () => {
     it('should create an action', () => {
-      const action = new fromRouter.Forward();
+      const action = new Forward();
       expect({ ...action }).toEqual({
-        type: fromRouter.FORWARD
+        type: RouterActionTypes.FORWARD
       });
     });
   });

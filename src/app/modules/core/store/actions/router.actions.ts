@@ -2,22 +2,24 @@ import { Action } from '@ngrx/store';
 
 import { RouterPayload } from '../../models';
 
-export const GO = '[Router] Go';
-export const BACK = '[Router] Back';
-export const FORWARD = '[Router] Forward';
+export enum RouterActionTypes {
+  GO = '[Router] Go',
+  BACK = '[Router] Back',
+  FORWARD = '[Router] Forward'
+}
 
 export class Go implements Action {
-  readonly type = GO;
+  readonly type = RouterActionTypes.GO;
 
   constructor(public payload: RouterPayload) {}
 }
 
 export class Back implements Action {
-  readonly type = BACK;
+  readonly type = RouterActionTypes.BACK;
 }
 
 export class Forward implements Action {
-  readonly type = FORWARD;
+  readonly type = RouterActionTypes.FORWARD;
 }
 
-export type Actions = Go | Back | Forward;
+export type RouterAction = Go | Back | Forward;

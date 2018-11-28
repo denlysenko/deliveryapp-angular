@@ -9,11 +9,11 @@ export interface RouterStateUrl {
   params: Params;
 }
 
-export interface State {
+export interface CoreState {
   routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<CoreState> = {
   routerReducer: fromRouter.routerReducer
 };
 
