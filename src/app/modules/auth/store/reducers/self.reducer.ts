@@ -1,7 +1,6 @@
 import { User } from '../../models';
-import * as fromLogin from '../actions/login.actions';
-import * as fromRegister from '../actions/registration.actions';
-import * as fromSelf from '../actions/self.actions';
+import { AuthAction, AuthActionTypes } from '../actions/auth.actions';
+import { SelfActionTypes, UserAction } from '../actions/self.actions';
 
 // import * as fromProfile from '../../../pages/profile/store/actions';
 
@@ -21,14 +20,11 @@ export const initialState: SelfState = {
 
 export function reducer(
   state = initialState,
-  action:
-    | fromSelf.UserAction
-    | fromLogin.LoginAction
-    | fromRegister.RegisterAction
+  action: UserAction | AuthAction
   // | fromProfile.ProfileActions
 ): SelfState {
   switch (action.type) {
-    case fromSelf.LOAD_SELF: {
+    case SelfActionTypes.LOAD_SELF: {
       return {
         ...state,
         loading: true,
@@ -37,15 +33,14 @@ export function reducer(
       };
     }
 
-    case fromLogin.LOGIN_SUCCESS:
-    case fromRegister.REGISTER_SUCCESS: {
+    case AuthActionTypes.AUTH_SUCCESS: {
       return {
         ...state,
         loggedIn: true
       };
     }
 
-    case fromSelf.LOAD_SELF_SUCCESS: {
+    case SelfActionTypes.LOAD_SELF_SUCCESS: {
       return {
         ...state,
         loggedIn: true,
@@ -61,7 +56,7 @@ export function reducer(
     //   };
     // }
 
-    case fromSelf.LOAD_SELF_FAIL: {
+    case SelfActionTypes.LOAD_SELF_FAIL: {
       return {
         ...state,
         loggedIn: false,
@@ -70,7 +65,7 @@ export function reducer(
       };
     }
 
-    case fromSelf.LOGOUT: {
+    case SelfActionTypes.LOGOUT: {
       return {
         ...state,
         loggedIn: false,

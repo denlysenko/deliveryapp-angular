@@ -1,4 +1,4 @@
-import * as fromMessages from '../actions/messages.actions';
+import { MessagesActions, MessagesActionTypes } from '../actions/messages.actions';
 
 // import { Message } from '../../../lib/messages/Message';
 
@@ -19,17 +19,17 @@ export const initialState: MessageState = {
 
 export function reducer(
   state = initialState,
-  action: fromMessages.MessagesActions
+  action: MessagesActions
 ): MessageState {
   switch (action.type) {
-    case fromMessages.LOAD_MESSAGES: {
+    case MessagesActionTypes.LOAD_MESSAGES: {
       return {
         ...state,
         loading: true
       };
     }
 
-    case fromMessages.LOAD_MESSAGES_SUCCESS: {
+    case MessagesActionTypes.LOAD_MESSAGES_SUCCESS: {
       const messages = action.payload;
       let unread = state.unread;
 
@@ -56,7 +56,7 @@ export function reducer(
       };
     }
 
-    case fromMessages.LOAD_MESSAGES_FAIL: {
+    case MessagesActionTypes.LOAD_MESSAGES_FAIL: {
       return {
         ...state,
         loading: false,
@@ -64,7 +64,7 @@ export function reducer(
       };
     }
 
-    case fromMessages.HANDLE_MESSAGE_RECEIVE: {
+    case MessagesActionTypes.HANDLE_MESSAGE_RECEIVE: {
       const message = action.payload;
 
       return {
@@ -77,7 +77,7 @@ export function reducer(
       };
     }
 
-    case fromMessages.MARK_AS_READ_SUCCESS: {
+    case MessagesActionTypes.MARK_AS_READ_SUCCESS: {
       const messageId = action.payload;
       const updatedMessage = state.entities[messageId];
       updatedMessage.read = true;
@@ -92,7 +92,7 @@ export function reducer(
       };
     }
 
-    case fromMessages.RESET_MESSAGES_STATE: {
+    case MessagesActionTypes.RESET_MESSAGES_STATE: {
       return {
         ...state,
         ...initialState

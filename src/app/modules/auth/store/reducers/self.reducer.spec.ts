@@ -1,5 +1,5 @@
 import { User } from '../../models';
-import * as fromActions from '../actions/self.actions';
+import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout } from '../actions/self.actions';
 import * as fromSelf from './self.reducer';
 
 describe('SelfReducer', () => {
@@ -15,7 +15,7 @@ describe('SelfReducer', () => {
   describe('LOAD_SELF action', () => {
     it('should set loading to true', () => {
       const { initialState } = fromSelf;
-      const action = new fromActions.LoadSelf();
+      const action = new LoadSelf();
       const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(true);
       expect(state.error).toEqual(null);
@@ -35,7 +35,7 @@ describe('SelfReducer', () => {
         phone: '1(111) 111-11-11',
         role: 1
       };
-      const action = new fromActions.LoadSelfSuccess(payload);
+      const action = new LoadSelfSuccess(payload);
       const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(false);
       expect(state.self).toEqual(payload);
@@ -47,7 +47,7 @@ describe('SelfReducer', () => {
     it('should set error to payload value', () => {
       const { initialState } = fromSelf;
       const payload = { message: 'Error message' };
-      const action = new fromActions.LoadSelfFail(payload);
+      const action = new LoadSelfFail(payload);
       const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(false);
       expect(state.error).toEqual(payload);
@@ -59,7 +59,7 @@ describe('SelfReducer', () => {
   describe('LOGOUT Action', () => {
     it('should set user to null', () => {
       const { initialState } = fromSelf;
-      const action = new fromActions.Logout();
+      const action = new Logout();
       const state = fromSelf.reducer(initialState, action);
       expect(state.self).toEqual(null);
       expect(state.loggedIn).toEqual(false);

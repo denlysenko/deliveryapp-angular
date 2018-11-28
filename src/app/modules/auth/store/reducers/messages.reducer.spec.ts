@@ -1,4 +1,11 @@
-import * as fromActions from '../actions/messages.actions';
+import {
+  HandleMessageReceive,
+  LoadMessages,
+  LoadMessagesFail,
+  LoadMessagesSuccess,
+  MarkAsReadSuccess,
+  ResetMessagesState,
+} from '../actions/messages.actions';
 import * as fromMessages from './messages.reducer';
 
 // import { Message } from '../../../lib/messages/Message';
@@ -16,7 +23,7 @@ describe('MessagesReducer', () => {
   describe('LOAD_MESSAGES action', () => {
     it('should set loading to true', () => {
       const { initialState } = fromMessages;
-      const action = new fromActions.LoadMessages();
+      const action = new LoadMessages();
       const state = fromMessages.reducer(initialState, action);
       expect(state.loading).toEqual(true);
     });
@@ -56,7 +63,7 @@ describe('MessagesReducer', () => {
       };
 
       const { initialState } = fromMessages;
-      const action = new fromActions.LoadMessagesSuccess(messages);
+      const action = new LoadMessagesSuccess(messages);
       const state = fromMessages.reducer(initialState, action);
       expect(state.loading).toEqual(false);
       expect(state.entities).toEqual(entities);
@@ -69,7 +76,7 @@ describe('MessagesReducer', () => {
       const error = { message: 'Error message' };
 
       const { initialState } = fromMessages;
-      const action = new fromActions.LoadMessagesFail(error);
+      const action = new LoadMessagesFail(error);
       const state = fromMessages.reducer(initialState, action);
       expect(state.loading).toEqual(false);
       expect(state.error).toEqual(error);
@@ -88,7 +95,7 @@ describe('MessagesReducer', () => {
       };
 
       const { initialState } = fromMessages;
-      const action = new fromActions.HandleMessageReceive(message);
+      const action = new HandleMessageReceive(message);
       const state = fromMessages.reducer(initialState, action);
       expect(state.entities['1']).toEqual(message);
       expect(state.unread).toEqual(1);
@@ -109,9 +116,9 @@ describe('MessagesReducer', () => {
       ];
 
       const { initialState } = fromMessages;
-      const loadAction = new fromActions.LoadMessagesSuccess(messages);
+      const loadAction = new LoadMessagesSuccess(messages);
       const state = fromMessages.reducer(initialState, loadAction);
-      const markAsReadAction = new fromActions.MarkAsReadSuccess('1');
+      const markAsReadAction = new MarkAsReadSuccess('1');
       const updatedState = fromMessages.reducer(state, markAsReadAction);
       expect(updatedState.entities['1'].read).toEqual(true);
       expect(updatedState.unread).toEqual(0);
@@ -121,7 +128,7 @@ describe('MessagesReducer', () => {
   describe('RESET_MESSAGES_STATE action', () => {
     it('should set state to initialState', () => {
       const { initialState } = fromMessages;
-      const action = new fromActions.ResetMessagesState();
+      const action = new ResetMessagesState();
       const state = fromMessages.reducer(initialState, action);
       expect(state).toEqual(initialState);
     });
