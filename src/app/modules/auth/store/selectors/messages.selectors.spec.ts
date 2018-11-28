@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 
 import { combineReducers, Store, StoreModule } from '@ngrx/store';
 
-import * as fromActions from '../actions';
+import { LoadMessages, LoadMessagesFail, LoadMessagesSuccess } from '../actions/messages.actions';
 import * as fromReducers from '../reducers';
 import * as fromSelectors from './messages.selectors';
 
 // import { Message } from '../../../lib/messages/Message';
 
 describe('Messages Selectors', () => {
-  let store: Store<fromReducers.AuthState>;
+  let store: Store<fromReducers.AuthFeatureState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -33,7 +33,7 @@ describe('Messages Selectors', () => {
       });
 
       expect(result).toEqual(false);
-      store.dispatch(new fromActions.LoadMessages());
+      store.dispatch(new LoadMessages());
       expect(result).toEqual(true);
     });
 
@@ -55,7 +55,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess(messages));
       expect(result).toEqual(false);
     });
   });
@@ -72,7 +72,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadMessagesFail(error));
+      store.dispatch(new LoadMessagesFail(error));
       expect(result).toEqual(error);
     });
   });
@@ -100,7 +100,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess(messages));
       expect(result).toEqual(entities);
     });
   });
@@ -124,7 +124,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess(messages));
       expect(result).toEqual(1);
     });
   });
@@ -148,7 +148,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess(messages));
       expect(result).toEqual(messages);
     });
   });

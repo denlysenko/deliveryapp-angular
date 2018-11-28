@@ -5,18 +5,30 @@ import * as fromSelf from '../reducers/self.reducer';
 
 export const getSelfState = createSelector(
   fromFeature.getAuthState,
-  (state: fromFeature.AuthState) => state.self
+  (state: fromFeature.AuthFeatureState) => state.self
 );
 
-export const getLoggedIn = createSelector(getSelfState, fromSelf.getLoggedIn);
+export const getLoggedIn = createSelector(
+  getSelfState,
+  fromSelf.getLoggedIn
+);
 
-export const getSelf = createSelector(getSelfState, fromSelf.getSelf);
+export const getSelf = createSelector(
+  getSelfState,
+  fromSelf.getSelf
+);
 
-export const getSelfRole = createSelector(getSelf, user => user && user.role);
+export const getSelfRole = createSelector(
+  getSelf,
+  user => user && user.role
+);
 
 export const getSelfLoading = createSelector(
   getSelfState,
   fromSelf.getSelfLoading
 );
 
-export const getSelfError = createSelector(getSelfState, fromSelf.getSelfError);
+export const getSelfError = createSelector(
+  getSelfState,
+  fromSelf.getSelfError
+);

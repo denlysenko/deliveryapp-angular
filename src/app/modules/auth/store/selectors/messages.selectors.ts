@@ -5,7 +5,7 @@ import * as fromMessages from '../reducers/messages.reducer';
 
 export const getMessagesState = createSelector(
   fromFeature.getAuthState,
-  (state: fromFeature.AuthState) => state.messages
+  (state: fromFeature.AuthFeatureState) => state.messages
 );
 
 export const getMessagesLoading = createSelector(
@@ -28,6 +28,7 @@ export const getUnreadMessages = createSelector(
   fromMessages.getUnreadMessages
 );
 
-export const getAllMessages = createSelector(getMessageEntities, entities =>
-  Object.keys(entities).map(id => entities[id])
+export const getAllMessages = createSelector(
+  getMessageEntities,
+  entities => Object.keys(entities).map(id => entities[id])
 );

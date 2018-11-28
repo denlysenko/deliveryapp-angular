@@ -3,12 +3,12 @@ import { TestBed } from '@angular/core/testing';
 import { combineReducers, Store, StoreModule } from '@ngrx/store';
 
 import { User } from '../../models';
-import * as fromActions from '../actions';
+import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout } from '../actions/self.actions';
 import * as fromReducers from '../reducers';
 import * as fromSelectors from './self.selectors';
 
 describe('User Selectors', () => {
-  let store: Store<fromReducers.AuthState>;
+  let store: Store<fromReducers.AuthFeatureState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -32,7 +32,7 @@ describe('User Selectors', () => {
       });
 
       expect(result).toEqual(false);
-      store.dispatch(new fromActions.LoadSelf());
+      store.dispatch(new LoadSelf());
       expect(result).toEqual(true);
     });
 
@@ -52,7 +52,7 @@ describe('User Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadSelfSuccess(payload));
+      store.dispatch(new LoadSelfSuccess(payload));
       expect(result).toEqual(false);
     });
   });
@@ -69,7 +69,7 @@ describe('User Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadSelfFail(loadUserError));
+      store.dispatch(new LoadSelfFail(loadUserError));
       expect(result).toEqual(loadUserError);
     });
   });
@@ -91,7 +91,7 @@ describe('User Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadSelfSuccess(payload));
+      store.dispatch(new LoadSelfSuccess(payload));
       expect(result).toEqual(true);
     });
 
@@ -102,7 +102,7 @@ describe('User Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.Logout());
+      store.dispatch(new Logout());
       expect(result).toEqual(false);
     });
   });
@@ -124,7 +124,7 @@ describe('User Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.LoadSelfSuccess(payload));
+      store.dispatch(new LoadSelfSuccess(payload));
       expect(result).toEqual(payload);
     });
 
@@ -135,7 +135,7 @@ describe('User Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new fromActions.Logout());
+      store.dispatch(new Logout());
       expect(result).toEqual(null);
     });
   });
@@ -152,7 +152,7 @@ describe('User Selectors', () => {
         phone: '1(111) 111-11-11',
         role: 1
       };
-      store.dispatch(new fromActions.LoadSelfSuccess(payload));
+      store.dispatch(new LoadSelfSuccess(payload));
 
       store.select(fromSelectors.getSelfRole).subscribe(value => {
         result = value;

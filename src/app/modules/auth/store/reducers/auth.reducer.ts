@@ -43,5 +43,5 @@ export function reducer(state = initialState, action: AuthAction): AuthState {
   return state;
 }
 
-export const getLoginLoading = (state: AuthState) => state.loading;
-export const getLoginError = (state: AuthState) => state.error;
+export const getAuthLoading = (state: AuthState) => state.loading;
+export const getAuthError = (state: AuthState) => state.error;
