@@ -1,10 +1,8 @@
-import { LoginEffects } from './login.effects';
-import { RegisterEffects } from './register.effects';
+import { AuthEffects } from './auth.effects';
 import { SelfEffects } from './self.effects';
 
-export const effects: any[] = [LoginEffects, RegisterEffects, SelfEffects];
+export const effects: any[] = [AuthEffects, SelfEffects];
 
-export * from './login.effects';
+export * from './auth.effects';
 export * from './messages.effects';
-export * from './register.effects';
 export * from './self.effects';

@@ -9,7 +9,7 @@ import { ACCESS_TOKEN } from '@common/constants';
 import { CoreFacade } from '@core/store/core.facade';
 
 import { AuthService } from '../../services/auth.service';
-import * as selfActions from '../actions/self.actions';
+import { LoadSelfFail, LoadSelfSuccess, SelfActionTypes } from '../actions/self.actions';
 
 // import * as orderFilterActions from '../../../pages/orders/store/actions/filter.actions';
 // import * as paymentFilterActions from '../../../pages/payments/store/actions/filter.actions';
@@ -27,25 +27,27 @@ export class SelfEffects {
   ) {}
 
   @Effect()
-  loadSelf$ = this.actions$.ofType(selfActions.LOAD_SELF).pipe(
+  loadSelf$ = this.actions$.ofType(SelfActionTypes.LOAD_SELF).pipe(
     switchMap(() => {
       return this.authService.loadLoggedUser().pipe(
-        map(response => new selfActions.LoadSelfSuccess(response)),
-        catchError(err => of(new selfActions.LoadSelfFail(err)))
+        map(response => new LoadSelfSuccess(response)),
+        catchError(err => of(new LoadSelfFail(err)))
       );
     })
   );
 
   @Effect({ dispatch: false })
-  loadSelfSuccess$ = this.actions$.ofType(selfActions.LOAD_SELF_SUCCESS).pipe(
-    map((action: selfActions.LoadSelfSuccess) => action.payload),
-    tap(user => {
-      // this.messagesService.join(localStorage.getItem('lg_access_token'));
-    })
-  );
+  loadSelfSuccess$ = this.actions$
+    .ofType(SelfActionTypes.LOAD_SELF_SUCCESS)
+    .pipe(
+      map((action: LoadSelfSuccess) => action.payload),
+      tap(user => {
+        // this.messagesService.join(localStorage.getItem('lg_access_token'));
+      })
+    );
 
   @Effect()
-  logout$ = this.actions$.ofType(selfActions.LOGOUT).pipe(
+  logout$ = this.actions$.ofType(SelfActionTypes.LOGOUT).pipe(
     tap(() => {
       // this.messagesService.leave(localStorage.getItem('lg_access_token'));
       localStorage.removeItem(ACCESS_TOKEN);

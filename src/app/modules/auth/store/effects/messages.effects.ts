@@ -9,7 +9,12 @@ import { MESSAGE_SUBJECT } from '@common/constants';
 import { MessageService } from 'primeng/components/common/messageservice';
 
 import { AuthService } from '../../services/auth.service';
-import * as messagesActions from '../actions/messages.actions';
+import {
+  HandleMessageReceive,
+  LoadMessagesFail,
+  LoadMessagesSuccess,
+  MessagesActionTypes,
+} from '../actions/messages.actions';
 
 // import { MessagesService } from '../../../lib/messages/messages.service';
 
@@ -23,11 +28,11 @@ export class MessagesEffects {
   ) {}
 
   @Effect()
-  loadMessages$ = this.actions$.ofType(messagesActions.LOAD_MESSAGES).pipe(
+  loadMessages$ = this.actions$.ofType(MessagesActionTypes.LOAD_MESSAGES).pipe(
     switchMap(() => {
       return this.authService.loadMessages().pipe(
-        map(messages => new messagesActions.LoadMessagesSuccess(messages)),
-        catchError(err => of(new messagesActions.LoadMessagesFail(err)))
+        map(messages => new LoadMessagesSuccess(messages)),
+        catchError(err => of(new LoadMessagesFail(err)))
       );
     })
   );
@@ -42,9 +47,9 @@ export class MessagesEffects {
 
   @Effect({ dispatch: false })
   handleMessageReceive$ = this.actions$
-    .ofType(messagesActions.HANDLE_MESSAGE_RECEIVE)
+    .ofType(MessagesActionTypes.HANDLE_MESSAGE_RECEIVE)
     .pipe(
-      map((action: messagesActions.HandleMessageReceive) => action.payload),
+      map((action: HandleMessageReceive) => action.payload),
       tap(message => {
         if (
           'Notification' in window &&
