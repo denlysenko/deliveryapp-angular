@@ -8,12 +8,12 @@ import { LoginError, LoginForm } from '../../models';
 
 @Component({
   moduleId: module.id,
-  selector: 'da-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['../common-styles/form.component.scss'],
+  selector: 'da-auth-form',
+  templateUrl: './auth-form.component.html',
+  styleUrls: ['./auth-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginFormComponent extends BaseFormComponent implements OnInit {
+export class AuthFormComponent extends BaseFormComponent implements OnInit {
   @Input()
   loading: boolean;
 

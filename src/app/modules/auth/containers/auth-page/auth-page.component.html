@@ -10,9 +10,9 @@
           <a [routerLink]="['..', 'registration']">Register</a>
         </h2>
       </div>
-      <da-login-form [loading]="loading$ | async"
+      <da-auth-form [loading]="loading$ | async"
                      [error]="error$ | async"
-                     (formSubmit)="login($event)"></da-login-form>
+                     (formSubmit)="login($event)"></da-auth-form>
     </div>
   </div>
 </div>

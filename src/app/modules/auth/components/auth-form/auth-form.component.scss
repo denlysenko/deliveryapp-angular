@@ -1,3 +1,5 @@
+@import 'src/app-variables';
+
 .ui-g-12 {
   padding: 15px 100px;
 
@@ -14,7 +16,7 @@
     width: 14px;
     right: 8px;
     font-size: 14px;
-    color: #dee4e9;
+    color: $grey-light;
   }
 
   .fa-user-circle-o,
