@@ -88,7 +88,7 @@
            aria-hidden="true"></i>
       </div>
       <div *ngIf="form.get('confirmPassword').invalid && form.get('confirmPassword').touched"
-           class="ui-message ui-messages-error ui-corner-all">
+           class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
         <span *ngIf="form.get('confirmPassword').hasError('mismatch')">Passwords do not match</span>
       </div>

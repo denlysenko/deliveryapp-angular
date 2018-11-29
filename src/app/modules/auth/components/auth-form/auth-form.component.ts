@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
-import { emailValidator } from '@common/validators';
+import { emailValidator, passwordMatchValidator } from '@common/validators';
 
 import { LoginError, LoginForm } from '../../models';
 
@@ -83,7 +83,10 @@ export class AuthFormComponent extends BaseFormComponent {
         phone: [null],
         confirmPassword: [null]
       },
-      { updateOn: 'submit' }
+      {
+        updateOn: 'submit',
+        validators: passwordMatchValidator('password', 'confirmPassword')
+      }
     );
   }
 

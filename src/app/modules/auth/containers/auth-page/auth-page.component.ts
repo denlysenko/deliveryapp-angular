@@ -16,6 +16,7 @@ export class AuthPageComponent {
   constructor(private authFacade: AuthFacade) {}
 
   login(event: LoginForm) {
-    this.authFacade.login(event);
+    console.log(event);
+    // this.authFacade.login(event);
   }
 }
