@@ -1,10 +1,18 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
 import { emailValidator } from '@common/validators';
 
 import { LoginError, LoginForm } from '../../models';
+
+const REGISTER_FIELDS = [
+  'firstName',
+  'lastName',
+  'company',
+  'phone',
+  'confirmPassword'
+];
 
 @Component({
   moduleId: module.id,
@@ -13,9 +21,18 @@ import { LoginError, LoginForm } from '../../models';
   styleUrls: ['./auth-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthFormComponent extends BaseFormComponent implements OnInit {
+export class AuthFormComponent extends BaseFormComponent {
   @Input()
   loading: boolean;
+
+  @Input()
+  set isLoggingIn(value: boolean) {
+    this._isLoggingIn = value;
+    this[value ? 'disableFields' : 'enableFields']();
+  }
+  get isLoggingIn(): boolean {
+    return this._isLoggingIn;
+  }
 
   @Input()
   set error(value: LoginError) {
@@ -24,14 +41,13 @@ export class AuthFormComponent extends BaseFormComponent implements OnInit {
     }
   }
 
+  private _isLoggingIn: boolean;
+
   @Output()
   formSubmitted = new EventEmitter<LoginForm>();
 
   constructor(private fb: FormBuilder) {
     super();
-  }
-
-  ngOnInit() {
     this.initForm();
   }
 
@@ -43,19 +59,6 @@ export class AuthFormComponent extends BaseFormComponent implements OnInit {
     }
   }
 
-  private initForm() {
-    this.form = this.fb.group(
-      {
-        email: [
-          null,
-          Validators.compose([Validators.required, emailValidator])
-        ],
-        password: [null, Validators.required]
-      },
-      { updateOn: 'submit' }
-    );
-  }
-
   // override parent method due to different error object from server
   protected handleError(error: any) {
     if (error && error.message) {
@@ -64,5 +67,35 @@ export class AuthFormComponent extends BaseFormComponent implements OnInit {
         this.errors[field] = error.message;
       });
     }
+  }
+
+  private initForm() {
+    this.form = this.fb.group(
+      {
+        email: [
+          null,
+          Validators.compose([Validators.required, emailValidator])
+        ],
+        password: [null, Validators.required],
+        firstName: [null],
+        lastName: [null],
+        company: [null],
+        phone: [null],
+        confirmPassword: [null]
+      },
+      { updateOn: 'submit' }
+    );
+  }
+
+  private disableFields() {
+    REGISTER_FIELDS.forEach(field => {
+      this.form.get(field).disable();
+    });
+  }
+
+  private enableFields() {
+    REGISTER_FIELDS.forEach(field => {
+      this.form.get(field).enable();
+    });
   }
 }

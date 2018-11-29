@@ -2,13 +2,54 @@
       (submit)="submitForm()"
       autocomplete="off"
       novalidate>
+  <ng-container *ngIf="!isLoggingIn">
+    <div class="ui-g-12">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               pInputText
+               formControlName="firstName">
+        <label>First Name</label>
+        <i class="fa fa-user-circle-o"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               pInputText
+               formControlName="lastName">
+        <label>Last Name</label>
+        <i class="fa fa-user-circle-o"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               pInputText
+               formControlName="company">
+        <label>Company</label>
+        <i class="fa fa-building-o"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               pInputText
+               formControlName="phone">
+        <label>Phone</label>
+        <i class="fa fa-phone"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+  </ng-container>
   <div class="ui-g-12">
     <div class="input-wrapper ui-float-label">
       <input type="text"
-             autocomplete="off"
              pInputText
              formControlName="email">
-      <label for="email">Email</label>
+      <label>Email</label>
       <i class="fa fa-user-circle-o"
          aria-hidden="true"></i>
     </div>
@@ -23,10 +64,9 @@
   <div class="ui-g-12">
     <div class="input-wrapper ui-float-label">
       <input type="password"
-             autocomplete="off"
              pInputText
              formControlName="password">
-      <label for="email">Password</label>
+      <label>Password</label>
       <i class="fa fa-lock"
          aria-hidden="true"></i>
     </div>
@@ -37,10 +77,27 @@
       <span *ngIf="form.get('password').hasError('serverError')">{{ errors['password'] }}</span>
     </div>
   </div>
+  <ng-container *ngIf="!isLoggingIn">
+    <div class="ui-g-12">
+      <div class="input-wrapper ui-float-label">
+        <input type="password"
+               pInputText
+               formControlName="confirmPassword">
+        <label>Confirm Password</label>
+        <i class="fa fa-lock"
+           aria-hidden="true"></i>
+      </div>
+      <div *ngIf="form.get('confirmPassword').invalid && form.get('confirmPassword').touched"
+           class="ui-message ui-messages-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('confirmPassword').hasError('mismatch')">Passwords do not match</span>
+      </div>
+    </div>
+  </ng-container>
   <div class="ui-g-12 button-container">
     <button type="submit"
             pButton
-            label="Login"
+            [label]="isLoggingIn ? 'Login' : 'Register'"
             class="ui-corner-all ui-button-text-only blue-btn raised-btn"
             [disabled]="loading">
     </button>

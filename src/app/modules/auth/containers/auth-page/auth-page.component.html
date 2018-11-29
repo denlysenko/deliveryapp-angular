@@ -6,13 +6,15 @@
            aria-hidden="true"></i>
         <i class="fa fa-sign-in"
            aria-hidden="true"></i>
-        <h2>Login
-          <a [routerLink]="['..', 'registration']">Register</a>
+        <h2>{{ isLoggingIn ? 'Login' : 'Register' }}
+          <a href="javascript:void(0)"
+             (click)="isLoggingIn = !isLoggingIn">{{ isLoggingIn ? 'Register' : 'Login' }}</a>
         </h2>
       </div>
-      <da-auth-form [loading]="loading$ | async"
-                     [error]="error$ | async"
-                     (formSubmit)="login($event)"></da-auth-form>
+      <da-auth-form [isLoggingIn]="isLoggingIn"
+                    [loading]="loading$ | async"
+                    [error]="error$ | async"
+                    (formSubmit)="login($event)"></da-auth-form>
     </div>
   </div>
 </div>

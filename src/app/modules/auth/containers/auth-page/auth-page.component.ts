@@ -11,6 +11,7 @@ import { AuthFacade } from '../../store/auth.facade';
 export class AuthPageComponent {
   loading$ = this.authFacade.error$;
   error$ = this.authFacade.error$;
+  isLoggingIn = true;
 
   constructor(private authFacade: AuthFacade) {}
 
