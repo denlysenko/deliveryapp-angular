@@ -17,7 +17,7 @@
       </GridLayout>
       <da-auth-form [loading]="loading$ | async"
                      [error]="error$ | async"
-                     (formSubmit)="login($event)"></da-auth-form>
+                     (formSubmit)="doAuth($event)"></da-auth-form>
     </StackLayout>
   </FlexboxLayout>
 </ScrollView>

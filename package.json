@@ -42,6 +42,7 @@
     "nativescript-angular": "~7.0.2",
     "nativescript-ngx-fonticon": "^4.2.0",
     "nativescript-theme-core": "~1.0.4",
+    "primeicons": "^1.0.0",
     "primeng": "^6.1.7",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.3.3",

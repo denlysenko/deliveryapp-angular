@@ -14,7 +14,7 @@
       <da-auth-form [isLoggingIn]="isLoggingIn"
                     [loading]="loading$ | async"
                     [error]="error$ | async"
-                    (formSubmitted)="login($event)"></da-auth-form>
+                    (formSubmitted)="doAuth($event)"></da-auth-form>
     </div>
   </div>
 </div>

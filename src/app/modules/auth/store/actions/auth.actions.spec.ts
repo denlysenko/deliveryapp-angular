@@ -1,10 +1,10 @@
-import { LoginForm, RegistrationForm } from '../../models';
+import { AuthForm } from '../../models';
 import { AuthActionTypes, AuthFail, AuthSuccess, Login, Register } from './auth.actions';
 
 describe('Auth Actions', () => {
   describe('Login', () => {
     it('should create an action', () => {
-      const payload: LoginForm = {
+      const payload: AuthForm = {
         email: 'test@test.com',
         password: 'password'
       };
@@ -18,7 +18,7 @@ describe('Auth Actions', () => {
 
   describe('Register', () => {
     it('should create an action', () => {
-      const payload: RegistrationForm = {
+      const payload: AuthForm = {
         email: 'test@test.com',
         password: 'password'
       };

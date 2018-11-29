@@ -1,4 +1,4 @@
-export interface RegistrationForm {
+export interface AuthForm {
   email: string;
   password: string;
   firstName?: string;

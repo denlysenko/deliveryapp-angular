@@ -3,8 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
 import { emailValidator, passwordMatchValidator } from '@common/validators';
+import { MessageService } from 'primeng/primeng';
 
-import { LoginError, LoginForm } from '../../models';
+import { AuthForm, LoginError } from '../../models';
 
 const REGISTER_FIELDS = [
   'firstName',
@@ -44,28 +45,25 @@ export class AuthFormComponent extends BaseFormComponent {
   private _isLoggingIn: boolean;
 
   @Output()
-  formSubmitted = new EventEmitter<LoginForm>();
+  formSubmitted = new EventEmitter<AuthForm>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    protected feedbackService: MessageService
+  ) {
     super();
     this.initForm();
   }
 
   submitForm() {
     if (this.form.valid) {
+      if (!this.isLoggingIn) {
+        delete this.form.value.confirmPassword;
+      }
+
       this.formSubmitted.emit(this.form.value);
     } else {
-      this.validateAllFormFields(this.form);
-    }
-  }
-
-  // override parent method due to different error object from server
-  protected handleError(error: any) {
-    if (error && error.message) {
-      error.fields.forEach(field => {
-        this.form.get(field).setErrors({ serverError: true });
-        this.errors[field] = error.message;
-      });
+      this.validateAllFormFields();
     }
   }
 

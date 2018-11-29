@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { ACCESS_TOKEN } from '@common/constants';
-import { CoreFacade } from '@core/store/core.facade';
+import { Go } from '@core/store/actions';
 
 import { AuthService } from '../../services/auth.service';
 import { AuthActionTypes, AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
@@ -15,11 +15,7 @@ import { LoadSelf } from '../actions/self.actions';
 
 @Injectable()
 export class AuthEffects {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private coreFacade: CoreFacade
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 
   @Effect()
   login$ = this.actions$.ofType(AuthActionTypes.LOGIN).pipe(
@@ -52,7 +48,7 @@ export class AuthEffects {
       mergeMap(() => [
         new LoadSelf(),
         new LoadMessages(),
-        this.coreFacade.navigate({ path: [''] })
+        new Go({ path: [''] })
       ])
     );
 }

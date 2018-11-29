@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { LoginForm } from '../../models';
+import { AuthForm } from '../../models';
 import { AuthFacade } from '../../store/auth.facade';
 
 @Component({
@@ -9,14 +9,13 @@ import { AuthFacade } from '../../store/auth.facade';
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent {
-  loading$ = this.authFacade.error$;
+  loading$ = this.authFacade.loading$;
   error$ = this.authFacade.error$;
   isLoggingIn = true;
 
   constructor(private authFacade: AuthFacade) {}
 
-  login(event: LoginForm) {
-    console.log(event);
-    // this.authFacade.login(event);
+  doAuth(formValue: AuthForm) {
+    this.authFacade[this.isLoggingIn ? 'login' : 'register'](formValue);
   }
 }

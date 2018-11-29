@@ -1,19 +1,29 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
+import { MessageService } from 'primeng/primeng';
+
 export abstract class BaseFormComponent {
   form: FormGroup;
   errors: { [key: string]: string } = {};
 
-  protected handleError(formGroup: FormGroup, error: any) {
+  protected abstract feedbackService: MessageService;
+
+  protected handleError(error: any) {
     if (error.errors && error.errors.length) {
       error.errors.forEach(field => {
-        formGroup.get(field.path).setErrors({ serverError: true });
+        this.form.get(field.path).setErrors({ serverError: true });
         this.errors[field.path] = field.message;
+      });
+    } else if (error.message) {
+      this.feedbackService.add({
+        severity: 'error',
+        summary: 'Error Message',
+        detail: error.message
       });
     }
   }
 
-  protected validateAllFormFields(formGroup: FormGroup) {
+  protected validateAllFormFields(formGroup: FormGroup = this.form) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {

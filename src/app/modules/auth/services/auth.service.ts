@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ApiService } from '@core/services/api.service';
 
-import { AuthPayload, LoginForm, RegistrationForm, User } from '../models';
+import { AuthForm, AuthPayload, User } from '../models';
 
 // import { Message } from '../../lib/messages/Message';
 
@@ -12,11 +12,11 @@ import { AuthPayload, LoginForm, RegistrationForm, User } from '../models';
 export class AuthService {
   constructor(private apiService: ApiService) {}
 
-  login(creds: LoginForm): Observable<AuthPayload> {
+  login(creds: AuthForm): Observable<AuthPayload> {
     return this.apiService.post('/auth/login', creds);
   }
 
-  register(creds: RegistrationForm): Observable<AuthPayload> {
+  register(creds: AuthForm): Observable<AuthPayload> {
     return this.apiService.post('/auth/register', creds);
   }
 

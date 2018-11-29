@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
-import { LoginForm } from '../models';
-import { Login } from './actions/auth.actions';
+import { AuthForm } from '../models';
+import { Login, Register } from './actions/auth.actions';
 import { AuthFeatureState } from './reducers';
 import * as fromSelectors from './selectors';
 
@@ -14,7 +14,11 @@ export class AuthFacade {
 
   constructor(private store: Store<AuthFeatureState>) {}
 
-  login(creds: LoginForm) {
-    this.store.dispatch(new Login(creds));
+  login(formValue: AuthForm) {
+    this.store.dispatch(new Login(formValue));
+  }
+
+  register(formValue: AuthForm) {
+    this.store.dispatch(new Register(formValue));
   }
 }

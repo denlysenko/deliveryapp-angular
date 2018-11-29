@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { ValidationError } from '@common/models';
 
-import { LoginError, LoginForm, RegistrationForm } from '../../models';
+import { AuthForm, LoginError } from '../../models';
 
 export enum AuthActionTypes {
   LOGIN = '[Auth] Login',
@@ -14,13 +14,13 @@ export enum AuthActionTypes {
 export class Register implements Action {
   readonly type = AuthActionTypes.REGISTER;
 
-  constructor(public payload: RegistrationForm) {}
+  constructor(public payload: AuthForm) {}
 }
 
 export class Login implements Action {
   readonly type = AuthActionTypes.LOGIN;
 
-  constructor(public payload: LoginForm) {}
+  constructor(public payload: AuthForm) {}
 }
 
 export class AuthSuccess implements Action {
