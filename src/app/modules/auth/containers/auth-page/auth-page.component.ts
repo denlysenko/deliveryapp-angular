@@ -5,10 +5,10 @@ import { AuthFacade } from '../../store/auth.facade';
 
 @Component({
   moduleId: module.id,
-  templateUrl: './login-page.component.html',
-  styleUrls: ['../common-styles/page.component.scss']
+  templateUrl: './auth-page.component.html',
+  styleUrls: ['./auth-page.component.scss']
 })
-export class LoginPageComponent {
+export class AuthPageComponent {
   loading$ = this.authFacade.error$;
   error$ = this.authFacade.error$;
 

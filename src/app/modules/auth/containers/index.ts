@@ -1,3 +1,3 @@
-import { LoginPageComponent } from './login-page/login-page.component';
+import { AuthPageComponent } from './auth-page/auth-page.component';
 
-export const containers: any[] = [LoginPageComponent];
+export const containers: any[] = [AuthPageComponent];

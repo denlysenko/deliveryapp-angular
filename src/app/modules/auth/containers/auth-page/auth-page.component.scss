@@ -1,12 +1,14 @@
+@import 'src/app-variables';
+
 .login-body {
   height: auto;
 
   .login-panel {
     width: 600px;
     margin: 0 auto;
-    background-color: #ffffff;
+    background-color: $white;
     margin-top: 125px;
-    border: 1px solid #dee4e9;
+    border: 1px solid $grey-light;
 
     &.registration {
       margin-top: 50px;
@@ -20,14 +22,14 @@
 
   .logo-container {
     padding: 50px 50px 25px;
-    border-bottom: 8px solid #dee4e9;
+    border-bottom: 8px solid $grey-light;
     margin-bottom: 20px;
 
     .fa-shield,
     .fa-sign-in {
       height: 50px;
       font-size: 50px;
-      color: #dee4e9;
+      color: $grey-light;
     }
 
     .fa-sign-in {
@@ -38,7 +40,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #7d8286;
+      color: $grey;
       font-size: 16px;
       font-weight: 300;
       margin-top: 12px;
