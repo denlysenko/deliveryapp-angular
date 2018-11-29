@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { combineReducers, Store, StoreModule } from '@ngrx/store';
 
-import { LoginForm, RegistrationForm } from '../../models';
+import { AuthForm } from '../../models';
 import { AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
 import * as fromReducers from '../reducers';
 import * as fromSelectors from './auth.selectors';
@@ -25,7 +25,7 @@ describe('Auth Selectors', () => {
 
   describe('getAuthLoading', () => {
     it('should return true when Login was dispatched', () => {
-      const payload: LoginForm = {
+      const payload: AuthForm = {
         email: 'test@test.com',
         password: 'password'
       };
@@ -42,7 +42,7 @@ describe('Auth Selectors', () => {
     });
 
     it('should return true when Register was dispatched', () => {
-      const payload: RegistrationForm = {
+      const payload: AuthForm = {
         email: 'test@test.com',
         password: 'password'
       };
