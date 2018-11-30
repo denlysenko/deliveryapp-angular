@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 
 import { MessageService } from 'primeng/primeng';
 
@@ -63,7 +63,7 @@ describe('AuthFormComponent', () => {
 
   describe('Validations', () => {
     describe('email field', () => {
-      let email: FormControl;
+      let email: AbstractControl;
 
       beforeEach(() => {
         email = component.form.get('email');
@@ -91,7 +91,7 @@ describe('AuthFormComponent', () => {
     });
 
     describe('password field', () => {
-      let password: FormControl;
+      let password: AbstractControl;
 
       beforeEach(() => {
         password = component.form.get('password');
@@ -109,8 +109,8 @@ describe('AuthFormComponent', () => {
     });
 
     describe('confirmPassword field', () => {
-      let password: FormControl;
-      let confirmPassword: FormControl;
+      let password: AbstractControl;
+      let confirmPassword: AbstractControl;
 
       beforeEach(() => {
         component.isLoggingIn = false;
@@ -134,8 +134,8 @@ describe('AuthFormComponent', () => {
   });
 
   describe('submitForm', () => {
-    let email: FormControl;
-    let password: FormControl;
+    let email: AbstractControl;
+    let password: AbstractControl;
 
     beforeEach(() => {
       spyOn(component.formSubmitted, 'emit');
@@ -168,7 +168,7 @@ describe('AuthFormComponent', () => {
   });
 
   describe('handleError()', () => {
-    const error = {
+    const error: any = {
       errors: [
         {
           path: 'email',

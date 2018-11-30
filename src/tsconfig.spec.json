@@ -7,5 +7,12 @@
   },
   "files": ["polyfills.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts"],
-  "exclude": ["**/*.tns.ts", "**/*.android.ts", "**/*.ios.ts"]
+  "exclude": [
+    "**/*.tns.ts",
+    "**/*.android.ts",
+    "**/*.ios.ts",
+    "main.ns.aot.ts",
+    "main.ns.ts",
+    "vendor.ts"
+  ]
 }
