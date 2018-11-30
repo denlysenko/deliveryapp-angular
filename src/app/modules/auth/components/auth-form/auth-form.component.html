@@ -37,6 +37,8 @@
       <div class="input-wrapper ui-float-label">
         <input type="text"
                pInputText
+               daInputMask
+               [mask]="{ alias: 'phone', showMaskOnHover: false }"
                formControlName="phone">
         <label>Phone</label>
         <i class="fa fa-phone"

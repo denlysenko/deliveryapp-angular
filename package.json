@@ -39,6 +39,7 @@
     "core-js": "^2.5.7",
     "font-awesome": "^4.7.0",
     "inputmask": "^4.0.3",
+    "inputmask.phone": "^1.0.4",
     "nativescript-angular": "~7.0.2",
     "nativescript-ngx-fonticon": "^4.2.0",
     "nativescript-theme-core": "~1.0.4",
