@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
+import { ValidationError } from '@common/models';
 import { emailValidator, passwordMatchValidator } from '@common/validators';
 import { MessageService } from 'primeng/primeng';
 
 import { AuthForm, LoginError } from '../../models';
 
-const REGISTER_FIELDS = [
+export const REGISTER_FIELDS = [
   'firstName',
   'lastName',
   'company',
@@ -36,7 +37,7 @@ export class AuthFormComponent extends BaseFormComponent {
   }
 
   @Input()
-  set error(value: LoginError) {
+  set error(value: LoginError | ValidationError) {
     if (value) {
       this.handleError(value);
     }
