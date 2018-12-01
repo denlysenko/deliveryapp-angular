@@ -1,45 +1,88 @@
-<StackLayout class="form p-20"
-             [formGroup]="form">
-  <StackLayout class="input-field"
-               [class.has-error]="form.get('email').invalid && form.get('email').touched">
-    <TextField #email
-               formControlName="email"
-               class="input input-border"
-               hint="Email"
-               keyboardType="email"
-               autocorrect="false"
-               autocapitalizationType="none"></TextField>
-    <StackLayout *ngIf="form.get('email').invalid && form.get('email').touched">
-      <Label *ngIf="form.get('email').hasError('required')"
-             text="Required field"
-             class="error"></Label>
-      <Label *ngIf="form.get('email').hasError('email')"
-             text="Incorrect email"
-             class="error"></Label>
+<PreviousNextView>
+  <StackLayout class="form p-20"
+               [formGroup]="form">
+    <ng-container *ngIf="!isLoggingIn">
+      <StackLayout class="input-field">
+        <TextField formControlName="firstName"
+                   class="input input-border"
+                   hint="First Name"
+                   autocorrect="false"></TextField>
+      </StackLayout>
+      <StackLayout class="input-field">
+        <TextField formControlName="lastName"
+                   class="input input-border"
+                   hint="Last Name"
+                   autocorrect="false"></TextField>
+      </StackLayout>
+      <StackLayout class="input-field">
+        <TextField formControlName="company"
+                   class="input input-border"
+                   hint="Company"
+                   autocorrect="false"></TextField>
+      </StackLayout>
+      <StackLayout class="input-field">
+        <TextField formControlName="phone"
+                   class="input input-border"
+                   hint="Phone"
+                   keyboardType="phone"
+                   autocorrect="false"></TextField>
+      </StackLayout>
+    </ng-container>
+    <StackLayout class="input-field"
+                 [class.has-error]="form.get('email').invalid && form.get('email').touched">
+      <TextField #email
+                 formControlName="email"
+                 class="input input-border"
+                 hint="Email"
+                 keyboardType="email"
+                 autocorrect="false"
+                 autocapitalizationType="none"></TextField>
+      <StackLayout *ngIf="form.get('email').invalid && form.get('email').touched">
+        <Label *ngIf="form.get('email').hasError('required')"
+               text="Required field"
+               class="error"></Label>
+        <Label *ngIf="form.get('email').hasError('email')"
+               text="Incorrect email"
+               class="error"></Label>
+        <Label *ngIf="form.get('email').hasError('serverError')"
+               [text]="errors['email']"
+               class="error"></Label>
+      </StackLayout>
     </StackLayout>
-  </StackLayout>
-  <StackLayout class="input-field"
-               [class.has-error]="form.get('password').invalid && form.get('password').touched">
-    <TextField #password
-               formControlName="password"
-               class="input input-border"
-               hint="Password"
-               secure="true"></TextField>
-    <StackLayout *ngIf="form.get('password').invalid && form.get('password').touched">
-      <Label *ngIf="form.get('password').hasError('required')"
-             text="Required field"
-             class="error"></Label>
+    <StackLayout class="input-field"
+                 [class.has-error]="form.get('password').invalid && form.get('password').touched">
+      <TextField #password
+                 formControlName="password"
+                 class="input input-border"
+                 hint="Password"
+                 secure="true"></TextField>
+      <StackLayout *ngIf="form.get('password').invalid && form.get('password').touched">
+        <Label *ngIf="form.get('password').hasError('required')"
+               text="Required field"
+               class="error"></Label>
+        <Label *ngIf="form.get('password').hasError('serverError')"
+               [text]="errors['password']"
+               class="error"></Label>
+      </StackLayout>
     </StackLayout>
-  </StackLayout>
-  <StackLayout>
+    <ng-container *ngIf="!isLoggingIn">
+      <StackLayout class="input-field"
+                   [class.has-error]="form.get('confirmPassword').invalid && form.get('confirmPassword').touched">
+        <TextField #password
+                   formControlName="confirmPassword"
+                   class="input input-border"
+                   hint="Confirm Password"
+                   secure="true"></TextField>
+        <StackLayout *ngIf="form.get('confirmPassword').invalid && form.get('confirmPassword').touched">
+          <Label *ngIf="form.get('confirmPassword').hasError('mismatch')"
+                 text="Passwords do not match"
+                 class="error"></Label>
+        </StackLayout>
+      </StackLayout>
+    </ng-container>
     <Button class="btn btn-primary btn-active"
-            text="Log In"
+            [text]="isLoggingIn ? 'Login' : 'Register'"
             [isEnabled]="!loading"
             (tap)="submitForm()"></Button>
-    <Button class="btn btn-outline btn-active"
-            text="Register"
-            height="auto"
-            [isEnabled]="!loading"
-            (tap)="navigateToSignup()"></Button>
   </StackLayout>
-</StackLayout>
+</PreviousNextView>

@@ -1,23 +1,29 @@
-<ScrollView>
-  <FlexboxLayout flexDirection="column"
-                 justifyContent="center"
-                 class="page-content">
+<FlexboxLayout flexDirection="column"
+               justifyContent="center"
+               class="page-content">
+  <ScrollView>
     <StackLayout orientation="vertical"
                  verticalAlignment="center"
-                 class="login m-r-20 m-l-20">
+                 class="login m-x-20 ">
       <GridLayout columns="*, auto"
                   rows="50"
                   class="header p-20">
         <Label col="0"
-               text="Login"
+               [text]="isLoggingIn ? 'Login' : 'Register'"
                class="title"></Label>
         <Label col="1"
                class="fa"
                [text]="'fa-shield' | fonticon"></Label>
       </GridLayout>
       <da-auth-form [loading]="loading$ | async"
-                     [error]="error$ | async"
-                     (formSubmit)="doAuth($event)"></da-auth-form>
+                    [error]="error$ | async"
+                    [isLoggingIn]="isLoggingIn"
+                    (formSubmitted)="doAuth($event)"></da-auth-form>
+      <Button class="btn btn-outline btn-active"
+              [text]="isLoggingIn ? 'Register' : 'Login'"
+              height="auto"
+              [isEnabled]="!loading"
+              (tap)="isLoggingIn = !isLoggingIn"></Button>
     </StackLayout>
-  </FlexboxLayout>
-</ScrollView>
+  </ScrollView>
+</FlexboxLayout>

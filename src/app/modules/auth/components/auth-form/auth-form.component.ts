@@ -83,7 +83,6 @@ export class AuthFormComponent extends BaseFormComponent {
         confirmPassword: [null]
       },
       {
-        updateOn: 'submit',
         validators: passwordMatchValidator('password', 'confirmPassword')
       }
     );
