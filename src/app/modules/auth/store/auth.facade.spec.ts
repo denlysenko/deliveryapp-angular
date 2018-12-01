@@ -49,7 +49,7 @@ describe('AuthFacade', () => {
   describe('error$', () => {
     it('should return current error$', () => {
       let result;
-      const payload = {
+      const payload: any = {
         message: 'error'
       };
 

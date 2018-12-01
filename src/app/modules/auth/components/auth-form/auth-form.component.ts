@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BaseFormComponent } from '@base/BaseFormComponent';
 import { ValidationError } from '@common/models';
 import { emailValidator, passwordMatchValidator } from '@common/validators';
-import { MessageService } from 'primeng/primeng';
+import { FeedbackService } from '@core/services/feedback/feedback.service';
 
 import { AuthForm, LoginError } from '../../models';
 
@@ -50,7 +50,7 @@ export class AuthFormComponent extends BaseFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    protected feedbackService: MessageService
+    protected feedbackService: FeedbackService
   ) {
     super();
     this.initForm();

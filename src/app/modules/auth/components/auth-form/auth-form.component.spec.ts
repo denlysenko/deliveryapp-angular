@@ -3,12 +3,12 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 
-import { MessageService } from 'primeng/primeng';
+import { FeedbackService } from '@core/services/feedback/feedback.service';
 
 import { AuthFormComponent, REGISTER_FIELDS } from './auth-form.component';
 
-const messageServiceStub = {
-  add: jasmine.createSpy('add')
+const feedbackServiceStub = {
+  error: jasmine.createSpy('error')
 };
 
 describe('AuthFormComponent', () => {
@@ -22,8 +22,8 @@ describe('AuthFormComponent', () => {
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         {
-          provide: MessageService,
-          useValue: messageServiceStub
+          provide: FeedbackService,
+          useValue: feedbackServiceStub
         }
       ]
     }).compileComponents();

@@ -1,12 +1,12 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { MessageService } from 'primeng/primeng';
+import { FeedbackService } from '@core/services/feedback/feedback.service';
 
 export abstract class BaseFormComponent {
   form: FormGroup;
   errors: { [key: string]: string } = {};
 
-  protected abstract feedbackService: MessageService;
+  protected abstract feedbackService: FeedbackService;
 
   protected handleError(error: any) {
     if (error.errors && error.errors.length) {
@@ -15,11 +15,7 @@ export abstract class BaseFormComponent {
         this.errors[field.path] = field.message;
       });
     } else if (error.message) {
-      this.feedbackService.add({
-        severity: 'error',
-        summary: 'Error Message',
-        detail: error.message
-      });
+      this.feedbackService.error(error.message);
     }
   }
 
