@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { ApiService } from './services/api.service';
 import { FeedbackService } from './services/feedback/feedback.service';
+import { StorageService } from './services/storage/storage.service';
 import { CoreFacade } from './store/core.facade';
 import { effects } from './store/effects';
 import { reducers } from './store/reducers';
@@ -16,6 +17,6 @@ import { reducers } from './store/reducers';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects)
   ],
-  providers: [ApiService, FeedbackService, CoreFacade]
+  providers: [ApiService, FeedbackService, StorageService, CoreFacade]
 })
 export class CoreModule {}
