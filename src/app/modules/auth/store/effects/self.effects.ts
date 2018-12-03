@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { ACCESS_TOKEN } from '@common/constants';
+import { StorageService } from '@core/services/storage/storage.service';
 import { CoreFacade } from '@core/store/core.facade';
 
 import { AuthService } from '../../services/auth.service';
@@ -23,6 +24,7 @@ export class SelfEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private storageService: StorageService,
     private coreFacade: CoreFacade // private messagesService: MessagesService
   ) {}
 
@@ -42,15 +44,15 @@ export class SelfEffects {
     .pipe(
       map((action: LoadSelfSuccess) => action.payload),
       tap(user => {
-        // this.messagesService.join(localStorage.getItem('lg_access_token'));
+        // this.messagesService.join(this.storageService.getItem('lg_access_token'));
       })
     );
 
   @Effect()
   logout$ = this.actions$.ofType(SelfActionTypes.LOGOUT).pipe(
     tap(() => {
-      // this.messagesService.leave(localStorage.getItem('lg_access_token'));
-      localStorage.removeItem(ACCESS_TOKEN);
+      // this.messagesService.leave(this.storageService.getItem('lg_access_token'));
+      this.storageService.removeItem(ACCESS_TOKEN);
     }),
     mergeMap(() => [
       this.coreFacade.navigate({ path: ['login'] })
