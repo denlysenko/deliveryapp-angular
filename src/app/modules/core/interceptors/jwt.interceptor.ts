@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { ACCESS_TOKEN } from '@common/constants';
+import { ACCESS_TOKEN, AUTHORIZATION_HEADER } from '@common/constants';
 
-import { StorageService } from '../storage/storage.service';
+import { StorageService } from '../services/storage/storage.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  headerName = 'Authorization';
+  headerName = AUTHORIZATION_HEADER;
 
   constructor(private storageService: StorageService) {}
 

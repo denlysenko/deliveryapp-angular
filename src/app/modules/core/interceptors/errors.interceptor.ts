@@ -6,7 +6,7 @@ import { catchError, concatMap, delay, retryWhen } from 'rxjs/operators';
 
 import { HTTP_RETRY_COUNT, HTTP_RETRY_DELAY, HTTP_STATUS, SERVER_ERRORS } from '@common/constants';
 
-import { FeedbackService } from '../feedback/feedback.service';
+import { FeedbackService } from '../services/feedback/feedback.service';
 
 @Injectable()
 export class ErrorsInterceptor implements HttpInterceptor {
