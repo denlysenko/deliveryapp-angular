@@ -55,7 +55,7 @@
       <i class="fa fa-user-circle-o"
          aria-hidden="true"></i>
     </div>
-    <div *ngIf="form.get('email').invalid && form.get('email').touched"
+    <div *ngIf="form.get('email').invalid && form.get('email').dirty"
          class="ui-message ui-message-error ui-corner-all">
       <i class="fa fa-close"></i>
       <span *ngIf="form.get('email').hasError('required')">Required field</span>
@@ -72,7 +72,7 @@
       <i class="fa fa-lock"
          aria-hidden="true"></i>
     </div>
-    <div *ngIf="form.get('password').invalid && form.get('password').touched"
+    <div *ngIf="form.get('password').invalid && form.get('password').dirty"
          class="ui-message ui-message-error ui-corner-all">
       <i class="fa fa-close"></i>
       <span *ngIf="form.get('password').hasError('required')">Required field</span>
@@ -89,7 +89,7 @@
         <i class="fa fa-lock"
            aria-hidden="true"></i>
       </div>
-      <div *ngIf="form.get('confirmPassword').invalid && form.get('confirmPassword').touched"
+      <div *ngIf="form.get('confirmPassword').invalid && form.get('confirmPassword').dirty"
            class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
         <span *ngIf="form.get('confirmPassword').hasError('mismatch')">Passwords do not match</span>
