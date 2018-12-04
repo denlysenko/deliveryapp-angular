@@ -4,7 +4,9 @@ import { getString, remove, setString } from 'tns-core-modules/application-setti
 
 import { Storage } from './Storage';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class StorageService implements Storage {
   getItem(key: string): any {
     return getString(key);

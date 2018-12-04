@@ -4,7 +4,9 @@ import { MessageService } from 'primeng/primeng';
 
 import { Feedback } from './Feedback';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FeedbackService implements Feedback {
   constructor(private messageService: MessageService) {}
 
