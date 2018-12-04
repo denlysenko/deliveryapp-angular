@@ -4,7 +4,9 @@ import { Feedback as TNSFeedback } from 'nativescript-feedback';
 
 import { Feedback } from './Feedback';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FeedbackService implements Feedback {
   private feedback: TNSFeedback;
 

@@ -1,11 +1,12 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 
-import { ApiService } from './services/api.service';
-import { FeedbackService } from './services/feedback/feedback.service';
+import { ErrorsInterceptor } from './interceptors/errors.interceptor';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { CoreFacade } from './store/core.facade';
 import { effects } from './store/effects';
 import { reducers } from './store/reducers';
@@ -16,6 +17,18 @@ import { reducers } from './store/reducers';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects)
   ],
-  providers: [ApiService, FeedbackService, CoreFacade]
+  providers: [
+    CoreFacade,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorsInterceptor,
+      multi: true
+    }
+  ]
 })
 export class CoreModule {}
