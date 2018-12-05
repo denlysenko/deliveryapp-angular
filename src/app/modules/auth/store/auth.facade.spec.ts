@@ -8,6 +8,16 @@ import { LoadSelfSuccess } from './actions/self.actions';
 import { AuthFacade } from './auth.facade';
 import * as fromAuth from './reducers';
 
+const user: User = {
+  id: 1,
+  email: 'test@test.com',
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  company: 'Company',
+  phone: '1(111) 111-11-11',
+  role: 1
+};
+
 describe('AuthFacade', () => {
   let store: Store<fromAuth.AuthFeatureState>;
   let facade: AuthFacade;
@@ -67,23 +77,27 @@ describe('AuthFacade', () => {
   describe('loggedIn$', () => {
     it('should return current loggedIn$', () => {
       let result;
-      const payload: User = {
-        id: 1,
-        email: 'test@test.com',
-        firstName: 'First Name',
-        lastName: 'Last Name',
-        company: 'Company',
-        phone: '1(111) 111-11-11',
-        role: 1
-      };
 
       facade.loggedIn$.subscribe(value => {
         result = value;
       });
 
       expect(result).toEqual(false);
-      store.dispatch(new LoadSelfSuccess(payload));
+      store.dispatch(new LoadSelfSuccess(user));
       expect(result).toEqual(true);
+    });
+  });
+
+  describe('self$', () => {
+    it('should return current self$', () => {
+      let result;
+
+      facade.self$.subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new LoadSelfSuccess(user));
+      expect(result).toEqual(user);
     });
   });
 
