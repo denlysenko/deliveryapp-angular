@@ -11,6 +11,7 @@ import * as fromSelectors from './selectors';
 export class AuthFacade {
   loading$ = this.store.select(fromSelectors.getAuthLoading);
   error$ = this.store.select(fromSelectors.getAuthError);
+  loggedIn$ = this.store.select(fromSelectors.getLoggedIn);
 
   constructor(private store: Store<AuthFeatureState>) {}
 

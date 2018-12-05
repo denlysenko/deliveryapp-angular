@@ -2,8 +2,9 @@ import { async, TestBed } from '@angular/core/testing';
 
 import { combineReducers, Store, StoreModule } from '@ngrx/store';
 
-import { AuthForm } from '../models';
+import { AuthForm, User } from '../models';
 import { AuthFail, Login, Register } from './actions/auth.actions';
+import { LoadSelfSuccess } from './actions/self.actions';
 import { AuthFacade } from './auth.facade';
 import * as fromAuth from './reducers';
 
@@ -60,6 +61,29 @@ describe('AuthFacade', () => {
       expect(result).toEqual(null);
       store.dispatch(new AuthFail(payload));
       expect(result).toEqual(payload);
+    });
+  });
+
+  describe('loggedIn$', () => {
+    it('should return current loggedIn$', () => {
+      let result;
+      const payload: User = {
+        id: 1,
+        email: 'test@test.com',
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        company: 'Company',
+        phone: '1(111) 111-11-11',
+        role: 1
+      };
+
+      facade.loggedIn$.subscribe(value => {
+        result = value;
+      });
+
+      expect(result).toEqual(false);
+      store.dispatch(new LoadSelfSuccess(payload));
+      expect(result).toEqual(true);
     });
   });
 
