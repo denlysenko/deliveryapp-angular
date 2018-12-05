@@ -1,6 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { AuthModule } from '@auth/auth.module';
 import { CoreModule } from '@core/core.module';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
@@ -17,8 +16,7 @@ import { AppComponent } from './app.component';
       fa: './fonts/font-awesome.css'
     }),
     AppRoutingModule,
-    CoreModule,
-    AuthModule
+    CoreModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

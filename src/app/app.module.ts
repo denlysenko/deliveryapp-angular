@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AuthModule } from '@auth/auth.module';
 import { CoreModule } from '@core/core.module';
 import { MessageService } from 'primeng/primeng';
 import { ToastModule } from 'primeng/toast';
@@ -18,8 +17,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     ToastModule,
     AppRoutingModule,
-    CoreModule,
-    AuthModule
+    CoreModule
   ],
   declarations: [AppComponent],
   providers: [MessageService],
