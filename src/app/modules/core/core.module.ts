@@ -5,6 +5,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 
+import { AuthModule } from '@auth/auth.module';
+
 import { ErrorsInterceptor } from './interceptors/errors.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { CoreFacade } from './store/core.facade';
@@ -15,7 +17,8 @@ import { reducers } from './store/reducers';
   imports: [
     StoreRouterConnectingModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot(effects)
+    EffectsModule.forRoot(effects),
+    AuthModule
   ],
   providers: [
     CoreFacade,
