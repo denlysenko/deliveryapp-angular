@@ -8,7 +8,9 @@ import { AuthFacade } from '@auth/store/auth.facade';
 
 import { CoreFacade } from '../store/core.facade';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RolesGuard implements CanActivate, CanLoad {
   constructor(private authFacade: AuthFacade, private coreFacade: CoreFacade) {}
 
