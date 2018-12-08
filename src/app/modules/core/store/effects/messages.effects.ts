@@ -8,7 +8,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { MESSAGE_SUBJECT } from '@common/constants';
 import { MessageService } from 'primeng/components/common/messageservice';
 
-import { AuthService } from '../../services/auth.service';
+import { UserSelfService } from '../../services/user-self/user-self.service';
 import {
   HandleMessageReceive,
   LoadMessagesFail,
@@ -22,7 +22,7 @@ import {
 export class MessagesEffects {
   constructor(
     private actions$: Actions,
-    private authService: AuthService,
+    private userSelfService: UserSelfService,
     // private messagesService: MessagesService,
     private messageService: MessageService
   ) {}
@@ -30,7 +30,7 @@ export class MessagesEffects {
   @Effect()
   loadMessages$ = this.actions$.ofType(MessagesActionTypes.LOAD_MESSAGES).pipe(
     switchMap(() => {
-      return this.authService.loadMessages().pipe(
+      return this.userSelfService.loadMessages().pipe(
         map(messages => new LoadMessagesSuccess(messages)),
         catchError(err => of(new LoadMessagesFail(err)))
       );

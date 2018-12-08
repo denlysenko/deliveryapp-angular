@@ -4,15 +4,13 @@ import { CanActivate, CanLoad } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-import { AuthFacade } from '@auth/store/auth.facade';
-
-import { CoreFacade } from '../store/core.facade';
+import { CoreFacade } from '../store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private authFacade: AuthFacade, private coreFacade: CoreFacade) {}
+  constructor(private coreFacade: CoreFacade) {}
 
   canActivate(): Observable<boolean> {
     return this.checkIfLoggedIn();
@@ -23,7 +21,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   private checkIfLoggedIn(): Observable<boolean> {
-    return this.authFacade.loggedIn$.pipe(
+    return this.coreFacade.loggedIn$.pipe(
       map(loggedIn => {
         if (!loggedIn) {
           this.coreFacade.navigate({

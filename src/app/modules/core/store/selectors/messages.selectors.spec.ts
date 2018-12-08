@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { combineReducers, Store, StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 
 import { LoadMessages, LoadMessagesFail, LoadMessagesSuccess } from '../actions/messages.actions';
 import * as fromReducers from '../reducers';
@@ -9,15 +9,11 @@ import * as fromSelectors from './messages.selectors';
 // import { Message } from '../../../lib/messages/Message';
 
 describe('Messages Selectors', () => {
-  let store: Store<fromReducers.AuthFeatureState>;
+  let store: Store<fromReducers.CoreState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({
-          auth: combineReducers(fromReducers.reducers)
-        })
-      ]
+      imports: [StoreModule.forRoot(fromReducers.reducers)]
     });
 
     store = TestBed.get(Store);

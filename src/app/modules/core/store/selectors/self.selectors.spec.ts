@@ -1,22 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 
-import { combineReducers, Store, StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 
-import { User } from '../../models';
+import { User } from '@auth/models';
+
 import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout } from '../actions/self.actions';
 import * as fromReducers from '../reducers';
 import * as fromSelectors from './self.selectors';
 
-describe('User Selectors', () => {
-  let store: Store<fromReducers.AuthFeatureState>;
+describe('Self Selectors', () => {
+  let store: Store<fromReducers.CoreState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({
-          auth: combineReducers(fromReducers.reducers)
-        })
-      ]
+      imports: [StoreModule.forRoot(fromReducers.reducers)]
     });
 
     store = TestBed.get(Store);
@@ -74,39 +71,6 @@ describe('User Selectors', () => {
     });
   });
 
-  describe('getLoggedIn', () => {
-    it('should return true when load was success', () => {
-      let result;
-      const payload: User = {
-        id: 1,
-        email: 'test@test.com',
-        firstName: 'First Name',
-        lastName: 'Last Name',
-        company: 'Company',
-        phone: '1(111) 111-11-11',
-        role: 1
-      };
-
-      store.select(fromSelectors.getLoggedIn).subscribe(value => {
-        result = value;
-      });
-
-      store.dispatch(new LoadSelfSuccess(payload));
-      expect(result).toEqual(true);
-    });
-
-    it('should return false when logout was dispatched', () => {
-      let result;
-
-      store.select(fromSelectors.getLoggedIn).subscribe(value => {
-        result = value;
-      });
-
-      store.dispatch(new Logout());
-      expect(result).toEqual(false);
-    });
-  });
-
   describe('getSelf', () => {
     it('should return user', () => {
       let result;
@@ -137,6 +101,39 @@ describe('User Selectors', () => {
 
       store.dispatch(new Logout());
       expect(result).toEqual(null);
+    });
+  });
+
+  describe('getLoggedIn', () => {
+    it('should return true when load was success', () => {
+      let result;
+      const payload: User = {
+        id: 1,
+        email: 'test@test.com',
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        company: 'Company',
+        phone: '1(111) 111-11-11',
+        role: 1
+      };
+
+      store.select(fromSelectors.getLoggedIn).subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new LoadSelfSuccess(payload));
+      expect(result).toEqual(true);
+    });
+
+    it('should return false when logout was dispatched', () => {
+      let result;
+
+      store.select(fromSelectors.getLoggedIn).subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new Logout());
+      expect(result).toEqual(false);
     });
   });
 

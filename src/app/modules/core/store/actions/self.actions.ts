@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { User } from '../../models';
+import { User } from '@auth/models';
 
 export enum SelfActionTypes {
   LOAD_SELF = '[Auth] Load Self',

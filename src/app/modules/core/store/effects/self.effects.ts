@@ -6,10 +6,10 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { ACCESS_TOKEN } from '@common/constants';
-import { StorageService } from '@core/services/storage/storage.service';
-import { CoreFacade } from '@core/store/core.facade';
 
-import { AuthService } from '../../services/auth.service';
+import { StorageService } from '../../services/storage/storage.service';
+import { UserSelfService } from '../../services/user-self/user-self.service';
+import { Go } from '../actions/router.actions';
 import { LoadSelfFail, LoadSelfSuccess, SelfActionTypes } from '../actions/self.actions';
 
 // import * as orderFilterActions from '../../../pages/orders/store/actions/filter.actions';
@@ -23,15 +23,14 @@ import { LoadSelfFail, LoadSelfSuccess, SelfActionTypes } from '../actions/self.
 export class SelfEffects {
   constructor(
     private actions$: Actions,
-    private authService: AuthService,
-    private storageService: StorageService,
-    private coreFacade: CoreFacade // private messagesService: MessagesService
+    private userSelfService: UserSelfService,
+    private storageService: StorageService // private messagesService: MessagesService
   ) {}
 
   @Effect()
   loadSelf$ = this.actions$.ofType(SelfActionTypes.LOAD_SELF).pipe(
     switchMap(() => {
-      return this.authService.loadLoggedUser().pipe(
+      return this.userSelfService.loadSelf().pipe(
         map(response => new LoadSelfSuccess(response)),
         catchError(err => of(new LoadSelfFail(err)))
       );
@@ -55,7 +54,7 @@ export class SelfEffects {
       this.storageService.removeItem(ACCESS_TOKEN);
     }),
     mergeMap(() => [
-      this.coreFacade.navigate({ path: ['login'] })
+      new Go({ path: ['login'] })
       // new orderFilterActions.ResetOrderFilter(),
       // new paymentFilterActions.ResetPaymentFilter(),
       // new paymentActions.ResetPaymentState(),
