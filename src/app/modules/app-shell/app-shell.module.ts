@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { componentDeclarations } from './app-shell.common';
 
 @NgModule({
-  declarations: [],
+  declarations: [...componentDeclarations],
   imports: [CommonModule]
 })
 export class AppShellModule {}
