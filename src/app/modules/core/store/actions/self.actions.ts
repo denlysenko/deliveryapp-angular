@@ -3,10 +3,10 @@ import { Action } from '@ngrx/store';
 import { User } from '@auth/models';
 
 export enum SelfActionTypes {
-  LOAD_SELF = '[Auth] Load Self',
-  LOAD_SELF_SUCCESS = '[Auth] Load Self Success',
-  LOAD_SELF_FAIL = '[Auth] Load Self Fail',
-  LOGOUT = '[Auth] Logout'
+  LOAD_SELF = '[Core] Load Self',
+  LOAD_SELF_SUCCESS = '[Core] Load Self Success',
+  LOAD_SELF_FAIL = '[Core] Load Self Fail',
+  LOGOUT = '[Core] Logout'
 }
 
 export class LoadSelf implements Action {
