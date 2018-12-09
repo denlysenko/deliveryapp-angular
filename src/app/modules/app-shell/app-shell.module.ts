@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { componentDeclarations } from './app-shell.common';
+import { SidebarModule } from 'primeng/primeng';
+
+import { componentDeclarations, importDeclarations } from './app-shell.common';
 
 @NgModule({
-  declarations: [...componentDeclarations],
-  imports: [CommonModule]
+  imports: [CommonModule, ...importDeclarations, SidebarModule],
+  declarations: [...componentDeclarations]
 })
 export class AppShellModule {}

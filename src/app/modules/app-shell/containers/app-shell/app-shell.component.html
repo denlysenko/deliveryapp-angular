@@ -1,3 +1,17 @@
-<p>
-  app-shell works!
-</p>
+<div class="layout">
+  <p>Menu</p>
+  <p>Topbar</p>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<p-sidebar [(visible)]="showMessages"
+           position="right"
+           [baseZIndex]="10000">
+  <p>Messages</p>
+  <button pButton
+          type="button"
+          (click)="showMessages = false"
+          label="Close"
+          class="ui-button-secondary"></button>
+</p-sidebar>
