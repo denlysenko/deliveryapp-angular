@@ -54,7 +54,7 @@ export class SelfEffects {
       this.storageService.removeItem(ACCESS_TOKEN);
     }),
     mergeMap(() => [
-      new Go({ path: ['login'] })
+      new Go({ path: ['auth'] })
       // new orderFilterActions.ResetOrderFilter(),
       // new paymentFilterActions.ResetPaymentFilter(),
       // new paymentActions.ResetPaymentState(),
