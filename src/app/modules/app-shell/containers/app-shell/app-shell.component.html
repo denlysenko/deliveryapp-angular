@@ -1,6 +1,9 @@
 <div class="layout">
   <p>Menu</p>
-  <p>Topbar</p>
+  <da-topbar [user]="user$ | async"
+             [unreadMessages]="unreadMessages$ | async"
+             (openSidebar)="showMessages = true"
+             (logout)="logout()"></da-topbar>
   <div class="content">
     <router-outlet></router-outlet>
   </div>
@@ -8,7 +11,7 @@
 <p-sidebar [(visible)]="showMessages"
            position="right"
            [baseZIndex]="10000">
-  <p>Messages</p>
+  <p>Messages goes here!!</p>
   <button pButton
           type="button"
           (click)="showMessages = false"
