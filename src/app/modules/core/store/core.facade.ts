@@ -6,7 +6,7 @@ import { ACCESS_TOKEN } from '@common/constants';
 import { StorageService } from '@core/services/storage/storage.service';
 
 import { RouterPayload } from '../models';
-import { LoadSelf } from './actions';
+import { LoadSelf, Logout } from './actions';
 import { Back, Forward, Go } from './actions/router.actions';
 import * as fromCore from './reducers';
 import * as fromSelectors from './selectors';
@@ -15,6 +15,7 @@ import * as fromSelectors from './selectors';
 export class CoreFacade {
   loggedIn$ = this.store.select(fromSelectors.getLoggedIn);
   self$ = this.store.select(fromSelectors.getSelf);
+  unreadMessages$ = this.store.select(fromSelectors.getUnreadMessages);
 
   constructor(
     private store: Store<fromCore.CoreState>,
@@ -35,5 +36,9 @@ export class CoreFacade {
 
   navigateForward() {
     this.store.dispatch(new Forward());
+  }
+
+  logout() {
+    this.store.dispatch(new Logout());
   }
 }
