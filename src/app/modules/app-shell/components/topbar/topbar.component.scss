@@ -1,0 +1,134 @@
+.topbar {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  color: #757575;
+  height: 70px;
+  padding: 12px 15px;
+  border-bottom: solid 1px #dee4e9;
+  z-index: 100;
+  background-color: #ffffff;
+  background-image: linear-gradient(to right, #ffffff, #ffffff);
+
+  a {
+    color: #757575;
+  }
+
+  &-logo {
+    .fa {
+      font-size: 44px;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 640px) {
+      width: 144px;
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  &-search {
+    vertical-align: middle;
+    border: 0 none;
+    background-color: transparent;
+    color: #757575;
+    transition: color 0.3s;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+
+  &-badge {
+    position: absolute;
+    top: -8px;
+    right: -6px;
+    background-color: #36ae2c;
+    padding: 2px 8px;
+    display: block;
+    margin-top: -2px;
+    color: #ffffff;
+    border-radius: 2px;
+  }
+
+  .fa-search {
+    font-size: 16px;
+    vertical-align: middle;
+    margin-left: 36px;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+}
+
+#menu-button {
+  font-size: 24px;
+  float: left;
+  margin-left: 0;
+  margin-top: -36px;
+  @media (min-width: 641px) {
+    display: none;
+  }
+}
+
+#user-display {
+  position: relative;
+  float: right;
+  text-align: right;
+  margin-top: 2px;
+  text-decoration: none;
+
+  @media (max-width: 640px) {
+    margin-top: -42px;
+  }
+
+  .username {
+    transition: color 0.3s;
+    vertical-align: middle;
+    color: #757575;
+    margin-right: 8px;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+
+  img {
+    vertical-align: middle;
+    width: 40px;
+    margin-right: 8px;
+  }
+
+  .fa {
+    transition: color 0.3s;
+    font-size: 16px;
+    vertical-align: middle;
+    color: #757575;
+  }
+}
+
+/deep/ .ui-menu {
+  width: 250px;
+
+  &.ui-corner-all {
+    border-radius: 0;
+  }
+
+  .ui-menuitem-link {
+    font-weight: 300 !important;
+    color: #7d8286 !important;
+    padding: 10px 16px !important;
+
+    &.ui-state-active {
+      color: #3984b8 !important;
+      background-color: #f6f9fb !important;
+    }
+
+    &:hover {
+      background-color: #f6f9fb !important;
+    }
+  }
+}
