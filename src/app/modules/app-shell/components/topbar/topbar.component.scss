@@ -1,24 +1,27 @@
+@import 'src/app-variables';
+
 .topbar {
   position: fixed;
   width: 100%;
   left: 0;
   top: 0;
-  color: #757575;
+  color: $grey-darker;
   height: 70px;
   padding: 12px 15px;
-  border-bottom: solid 1px #dee4e9;
+  border-bottom: solid 1px $grey-light;
   z-index: 100;
-  background-color: #ffffff;
-  background-image: linear-gradient(to right, #ffffff, #ffffff);
+  background-color: $white;
+  background-image: linear-gradient(to right, $white, $white);
 
   a {
-    color: #757575;
+    color: $grey-darker;
   }
 
   &-logo {
     .fa {
       font-size: 44px;
       vertical-align: middle;
+      color: $accent-dark;
     }
 
     @media (max-width: 640px) {
@@ -33,7 +36,7 @@
     vertical-align: middle;
     border: 0 none;
     background-color: transparent;
-    color: #757575;
+    color: $grey-darker;
     transition: color 0.3s;
 
     @media (max-width: 640px) {
@@ -45,11 +48,11 @@
     position: absolute;
     top: -8px;
     right: -6px;
-    background-color: #36ae2c;
+    background-color: $green;
     padding: 2px 8px;
     display: block;
     margin-top: -2px;
-    color: #ffffff;
+    color: $white;
     border-radius: 2px;
   }
 
@@ -88,7 +91,7 @@
   .username {
     transition: color 0.3s;
     vertical-align: middle;
-    color: #757575;
+    color: $grey-darker;
     margin-right: 8px;
 
     @media (max-width: 640px) {
@@ -106,7 +109,7 @@
     transition: color 0.3s;
     font-size: 16px;
     vertical-align: middle;
-    color: #757575;
+    color: $grey-darker;
   }
 }
 
@@ -119,16 +122,16 @@
 
   .ui-menuitem-link {
     font-weight: 300 !important;
-    color: #7d8286 !important;
+    color: $grey !important;
     padding: 10px 16px !important;
 
     &.ui-state-active {
-      color: #3984b8 !important;
-      background-color: #f6f9fb !important;
+      color: $accent-dark !important;
+      background-color: $grey-lighter !important;
     }
 
     &:hover {
-      background-color: #f6f9fb !important;
+      background-color: $grey-lighter !important;
     }
   }
 }
