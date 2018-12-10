@@ -127,11 +127,11 @@
 
     &.ui-state-active {
       color: $accent-dark !important;
-      background-color: $grey-lighter !important;
+      background-color: $item-active-background !important;
     }
 
     &:hover {
-      background-color: $grey-lighter !important;
+      background-color: $item-active-background !important;
     }
   }
 }
