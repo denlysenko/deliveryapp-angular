@@ -6,7 +6,7 @@ import { ACCESS_TOKEN } from '@common/constants';
 import { StorageService } from '@core/services/storage/storage.service';
 
 import { RouterPayload } from '../models';
-import { LoadSelf, Logout } from './actions';
+import { LoadSelf, Logout, MarkAsRead } from './actions';
 import { Back, Forward, Go } from './actions/router.actions';
 import * as fromCore from './reducers';
 import * as fromSelectors from './selectors';
@@ -16,6 +16,7 @@ export class CoreFacade {
   loggedIn$ = this.store.select(fromSelectors.getLoggedIn);
   self$ = this.store.select(fromSelectors.getSelf);
   unreadMessages$ = this.store.select(fromSelectors.getUnreadMessages);
+  messages$ = this.store.select(fromSelectors.getAllMessages);
 
   constructor(
     private store: Store<fromCore.CoreState>,
@@ -36,6 +37,10 @@ export class CoreFacade {
 
   navigateForward() {
     this.store.dispatch(new Forward());
+  }
+
+  markMessageAsRead(id: string) {
+    this.store.dispatch(new MarkAsRead(id));
   }
 
   logout() {

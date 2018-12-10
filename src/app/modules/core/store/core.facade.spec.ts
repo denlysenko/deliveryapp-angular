@@ -5,7 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { User } from '@auth/models';
 
 import { RouterPayload } from '../models/router-payload.model';
-import { LoadMessagesSuccess } from './actions/messages.actions';
+import { LoadMessagesSuccess, MarkAsRead } from './actions/messages.actions';
 import { Back, Forward, Go } from './actions/router.actions';
 import { LoadSelfSuccess, Logout } from './actions/self.actions';
 import { CoreFacade } from './core.facade';
@@ -107,6 +107,30 @@ describe('CoreFacade', () => {
     });
   });
 
+  describe('messages$', () => {
+    it('should return all messages array', () => {
+      // TODO add Message type
+      const messages: any[] = [
+        {
+          _id: '1',
+          text: 'message',
+          read: false,
+          recipientId: null,
+          createdAt: new Date().toISOString()
+        }
+      ];
+
+      let result;
+
+      facade.messages$.subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new LoadMessagesSuccess(messages));
+      expect(result).toEqual(messages);
+    });
+  });
+
   describe('navigate()', () => {
     it('should dispatch a Go action', () => {
       const payload: RouterPayload = {
@@ -133,6 +157,15 @@ describe('CoreFacade', () => {
       const action = new Forward();
 
       facade.navigateForward();
+      expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
+  });
+
+  describe('markMessageAsRead', () => {
+    it('should dispatch MarkAsRead action', () => {
+      const payload = '1';
+      const action = new MarkAsRead(payload);
+      facade.markMessageAsRead(payload);
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });

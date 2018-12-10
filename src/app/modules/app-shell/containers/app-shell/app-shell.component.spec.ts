@@ -18,11 +18,24 @@ const USER: User = {
   role: 1
 };
 
+// TODO add Message type
+const MESSAGES: any[] = [
+  {
+    _id: '1',
+    text: 'message',
+    read: false,
+    recipientId: null,
+    createdAt: new Date().toISOString()
+  }
+];
+
 const UNREAD_MESSAGES = 3;
 
 const coreFacadeStub = {
   self$: of(USER),
   unreadMessages$: of(UNREAD_MESSAGES),
+  messages$: of(MESSAGES),
+  markMessageAsRead: jasmine.createSpy('markMessageAsRead'),
   logout: jasmine.createSpy('logout')
 };
 
@@ -71,8 +84,26 @@ describe('AppShellComponent', () => {
     expect(result).toEqual(UNREAD_MESSAGES);
   });
 
+  it('should have `messages$` defined', () => {
+    let result;
+    expect(component.messages$).toBeDefined();
+    component.messages$.subscribe(msg => {
+      result = msg;
+    });
+    expect(result).toEqual(MESSAGES);
+  });
+
   it('should have `showMessages = false` by default', () => {
     expect(component.showMessages).toBeFalsy();
+  });
+
+  describe('markMessageAsRead()', () => {
+    it('should call CoreFacade.markMessageAsRead', () => {
+      const coreFacade = TestBed.get(CoreFacade);
+      const ID = '1';
+      component.markMessageAsRead(ID);
+      expect(coreFacade.markMessageAsRead).toBeCalledWith(ID);
+    });
   });
 
   describe('logout()', () => {
