@@ -1,0 +1,18 @@
+<div class="menu-wrapper">
+  <div class="menu-container">
+    <ul class="menu">
+      <ng-template ngFor
+                   let-item
+                   [ngForOf]="menu">
+        <li *ngIf="canSee(item.allowedRoles)">
+          <a [routerLink]="item.link"
+             routerLinkActive="active"
+             pTooltip="{{ item.label }}"
+             tooltipPosition="right">
+            <i class="fa fa-{{ item.icon }}"></i>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</div>

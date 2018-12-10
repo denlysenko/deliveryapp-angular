@@ -1,9 +1,11 @@
 <div class="layout">
-  <p>Menu</p>
-  <da-topbar [user]="user$ | async"
-             [unreadMessages]="unreadMessages$ | async"
-             (openSidebar)="showMessages = true"
-             (logout)="logout()"></da-topbar>
+  <ng-container *ngIf="(user$ | async) as user">
+    <da-app-menu [role]="user.role"></da-app-menu>
+    <da-topbar [user]="user"
+               [unreadMessages]="unreadMessages$ | async"
+               (openSidebar)="showMessages = true"
+               (logout)="logout()"></da-topbar>
+  </ng-container>
   <div class="content">
     <router-outlet></router-outlet>
   </div>
