@@ -10,7 +10,7 @@ import { ACCESS_TOKEN } from '@common/constants';
 import { StorageService } from '../../services/storage/storage.service';
 import { UserSelfService } from '../../services/user-self/user-self.service';
 import { Go } from '../actions/router.actions';
-import { LoadSelfFail, LoadSelfSuccess, SelfActionTypes } from '../actions/self.actions';
+import { LoadSelfFail, LoadSelfSuccess, Logout, SelfActionTypes } from '../actions/self.actions';
 
 // import * as orderFilterActions from '../../../pages/orders/store/actions/filter.actions';
 // import * as paymentFilterActions from '../../../pages/payments/store/actions/filter.actions';
@@ -46,6 +46,11 @@ export class SelfEffects {
         // this.messagesService.join(this.storageService.getItem('lg_access_token'));
       })
     );
+
+  @Effect()
+  loadSelfFail$ = this.actions$
+    .ofType(SelfActionTypes.LOAD_SELF_FAIL)
+    .pipe(map(() => new Logout()));
 
   @Effect()
   logout$ = this.actions$.ofType(SelfActionTypes.LOGOUT).pipe(

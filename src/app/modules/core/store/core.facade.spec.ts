@@ -7,7 +7,7 @@ import { User } from '@auth/models';
 import { RouterPayload } from '../models/router-payload.model';
 import { LoadMessagesSuccess, MarkAsRead } from './actions/messages.actions';
 import { Back, Forward, Go } from './actions/router.actions';
-import { LoadSelfSuccess, Logout } from './actions/self.actions';
+import { LoadSelf, LoadSelfSuccess, Logout } from './actions/self.actions';
 import { CoreFacade } from './core.facade';
 import * as fromReducers from './reducers';
 
@@ -128,6 +128,15 @@ describe('CoreFacade', () => {
 
       store.dispatch(new LoadMessagesSuccess(messages));
       expect(result).toEqual(messages);
+    });
+  });
+
+  describe('loadSelf()', () => {
+    it('should dispatch a LoadSelf action', () => {
+      const action = new LoadSelf();
+
+      facade.loadSelf();
+      expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });
 
