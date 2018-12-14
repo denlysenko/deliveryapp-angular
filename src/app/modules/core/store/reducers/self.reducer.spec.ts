@@ -1,4 +1,5 @@
-import { User } from '../../models';
+import { User } from '@auth/models';
+
 import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout } from '../actions/self.actions';
 import * as fromSelf from './self.reducer';
 
@@ -19,7 +20,7 @@ describe('SelfReducer', () => {
       const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(true);
       expect(state.error).toEqual(null);
-      expect(state.self).toEqual(null);
+      expect(state.user).toEqual(null);
     });
   });
 
@@ -38,8 +39,7 @@ describe('SelfReducer', () => {
       const action = new LoadSelfSuccess(payload);
       const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(false);
-      expect(state.self).toEqual(payload);
-      expect(state.loggedIn).toEqual(true);
+      expect(state.user).toEqual(payload);
     });
   });
 
@@ -51,8 +51,7 @@ describe('SelfReducer', () => {
       const state = fromSelf.reducer(initialState, action);
       expect(state.loading).toEqual(false);
       expect(state.error).toEqual(payload);
-      expect(state.self).toEqual(null);
-      expect(state.loggedIn).toEqual(false);
+      expect(state.user).toEqual(null);
     });
   });
 
@@ -61,8 +60,7 @@ describe('SelfReducer', () => {
       const { initialState } = fromSelf;
       const action = new Logout();
       const state = fromSelf.reducer(initialState, action);
-      expect(state.self).toEqual(null);
-      expect(state.loggedIn).toEqual(false);
+      expect(state.user).toEqual(null);
     });
   });
 });

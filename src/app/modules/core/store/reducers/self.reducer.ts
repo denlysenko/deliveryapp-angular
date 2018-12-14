@@ -1,26 +1,24 @@
-import { User } from '../../models';
-import { AuthAction, AuthActionTypes } from '../actions/auth.actions';
+import { User } from '@auth/models';
+
 import { SelfActionTypes, UserAction } from '../actions/self.actions';
 
 // import * as fromProfile from '../../../pages/profile/store/actions';
 
 export interface SelfState {
-  loggedIn: boolean;
   loading: boolean;
   error: any | null;
-  self: User | null;
+  user: User | null;
 }
 
 export const initialState: SelfState = {
-  loggedIn: false,
   loading: false,
   error: null,
-  self: null
+  user: null
 };
 
 export function reducer(
   state = initialState,
-  action: UserAction | AuthAction
+  action: UserAction
   // | fromProfile.ProfileActions
 ): SelfState {
   switch (action.type) {
@@ -29,23 +27,15 @@ export function reducer(
         ...state,
         loading: true,
         error: null,
-        self: null
-      };
-    }
-
-    case AuthActionTypes.AUTH_SUCCESS: {
-      return {
-        ...state,
-        loggedIn: true
+        user: null
       };
     }
 
     case SelfActionTypes.LOAD_SELF_SUCCESS: {
       return {
         ...state,
-        loggedIn: true,
         loading: false,
-        self: action.payload
+        user: action.payload
       };
     }
 
@@ -59,7 +49,6 @@ export function reducer(
     case SelfActionTypes.LOAD_SELF_FAIL: {
       return {
         ...state,
-        loggedIn: false,
         loading: false,
         error: action.payload
       };
@@ -68,8 +57,7 @@ export function reducer(
     case SelfActionTypes.LOGOUT: {
       return {
         ...state,
-        loggedIn: false,
-        self: null
+        user: null
       };
     }
   }
@@ -79,5 +67,4 @@ export function reducer(
 
 export const getSelfLoading = (state: SelfState) => state.loading;
 export const getSelfError = (state: SelfState) => state.error;
-export const getSelf = (state: SelfState) => state.self;
-export const getLoggedIn = (state: SelfState) => state.loggedIn;
+export const getSelf = (state: SelfState) => state.user;

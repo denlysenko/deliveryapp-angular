@@ -1,4 +1,4 @@
-import { LoginForm, RegistrationForm } from '../../models';
+import { AuthForm } from '../../models';
 import { AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
 import * as fromAuth from './auth.reducer';
 
@@ -15,7 +15,7 @@ describe('AuthReducer', () => {
   describe('LOGIN action', () => {
     it('should set loading to true', () => {
       const { initialState } = fromAuth;
-      const payload: LoginForm = {
+      const payload: AuthForm = {
         email: 'test@test.com',
         password: 'password'
       };
@@ -29,7 +29,7 @@ describe('AuthReducer', () => {
   describe('REGISTER action', () => {
     it('should set loading to true', () => {
       const { initialState } = fromAuth;
-      const payload: RegistrationForm = {
+      const payload: AuthForm = {
         email: 'test@test.com',
         password: 'password'
       };

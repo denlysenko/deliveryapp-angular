@@ -1,4 +1,5 @@
-import { User } from '../../models';
+import { User } from '@auth/models';
+
 import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout, SelfActionTypes } from './self.actions';
 
 describe('Self Actions', () => {

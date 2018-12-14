@@ -7,12 +7,10 @@ import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { ACCESS_TOKEN } from '@common/constants';
 import { StorageService } from '@core/services/storage/storage.service';
-import { Go } from '@core/store/actions';
+import { Go, LoadMessages, LoadSelf } from '@core/store/actions';
 
 import { AuthService } from '../../services/auth.service';
 import { AuthActionTypes, AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
-import { LoadMessages } from '../actions/messages.actions';
-import { LoadSelf } from '../actions/self.actions';
 
 @Injectable()
 export class AuthEffects {

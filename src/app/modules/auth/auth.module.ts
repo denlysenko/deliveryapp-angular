@@ -7,13 +7,13 @@ import { ButtonModule, InputTextModule } from 'primeng/primeng';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { componentDeclarations, importDeclarations, providerDeclarations } from './auth.common';
-import { effects, MessagesEffects } from './store';
+import { effects } from './store';
 
 @NgModule({
   imports: [
     AuthRoutingModule,
     ...importDeclarations,
-    EffectsModule.forFeature([...effects, MessagesEffects]),
+    EffectsModule.forFeature([...effects]),
     InputTextModule,
     ButtonModule,
     InputMaskModule

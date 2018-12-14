@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { combineReducers, Store, StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 
 import { AuthForm } from '../../models';
 import { AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
@@ -8,13 +8,13 @@ import * as fromReducers from '../reducers';
 import * as fromSelectors from './auth.selectors';
 
 describe('Auth Selectors', () => {
-  let store: Store<fromReducers.AuthFeatureState>;
+  let store: Store<fromReducers.AuthState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          auth: combineReducers(fromReducers.reducers)
+          auth: fromReducers.reducer
         })
       ]
     });

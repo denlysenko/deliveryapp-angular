@@ -1,0 +1,23 @@
+<div class="layout">
+  <ng-container *ngIf="(user$ | async) as user">
+    <da-app-menu [role]="user.role"></da-app-menu>
+    <da-topbar [user]="user"
+               [unreadMessages]="unreadMessages$ | async"
+               (openSidebar)="showMessages = true"
+               (logout)="logout()"></da-topbar>
+  </ng-container>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<p-sidebar [(visible)]="showMessages"
+           position="right"
+           [baseZIndex]="10000">
+  <da-messages [messages]="messages$ | async"
+               (messageMarked)="markMessageAsRead($event)"></da-messages>
+  <button pButton
+          type="button"
+          (click)="showMessages = false"
+          label="Close"
+          class="ui-button-secondary"></button>
+</p-sidebar>

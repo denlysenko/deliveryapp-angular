@@ -1,0 +1,37 @@
+<div class="topbar">
+  <a class="topbar-logo">
+    <i class="fa fa-clock-o"
+       aria-hidden="true"></i>
+  </a>
+  <a href="javascript:void(0)"
+     id="menu-button"
+     (click)="toggleMenu($event)">
+    <i class="fa fa-bars"></i>
+  </a>
+  <a href="javascript:void(0)"
+     id="user-display"
+     (click)="menu.toggle($event)">
+    <span *ngIf="user?.firstName"
+          class="username">{{ user?.firstName }}</span>
+    <span *ngIf="user?.lastName"
+          class="username">{{ user?.lastName }}</span>
+    <span *ngIf="!user?.firstName && !user?.lastName"
+          class="username">{{ user?.email }}</span>
+    <img src="/assets/icons/avatar.svg"
+         alt="avatar">
+    <span class="topbar-badge">{{ unreadMessages }}</span>
+    <i class="fa fa-angle-down"></i>
+  </a>
+  <p-menu #menu
+          popup="popup"
+          [model]="items"
+          appendTo="body"></p-menu>
+  <label for="topbar-search">
+    <i class="fa fa-search topbar-search-icon"></i>
+  </label>
+  <input class="topbar-search"
+         id="topbar-search"
+         placeholder="Search..."
+         type="text"
+         pInputText>
+</div>

@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap, take } from 'rxjs/operators';
 
-import { AuthFacade } from '@auth/store/auth.facade';
+import { ACCESS_TOKEN } from '@common/constants';
 
-import { CoreFacade } from '../store/core.facade';
+import { StorageService } from '../services/storage/storage.service';
+import { CoreFacade } from '../store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private authFacade: AuthFacade, private coreFacade: CoreFacade) {}
+  constructor(
+    private coreFacade: CoreFacade,
+    private storageService: StorageService
+  ) {}
 
   canActivate(): Observable<boolean> {
     return this.checkIfLoggedIn();
@@ -23,18 +27,38 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   private checkIfLoggedIn(): Observable<boolean> {
-    return this.authFacade.loggedIn$.pipe(
+    return this.checkStore().pipe(
+      mergeMap(loggedIn => {
+        if (loggedIn) {
+          return of(true);
+        }
+
+        return this.checkStorage();
+      }),
       map(loggedIn => {
         if (!loggedIn) {
           this.coreFacade.navigate({
-            path: ['login']
+            path: ['auth']
           });
+
           return false;
         }
 
         return true;
-      }),
-      take(1)
+      })
     );
+  }
+
+  private checkStore(): Observable<boolean> {
+    return this.coreFacade.loggedIn$.pipe(take(1));
+  }
+
+  private checkStorage(): Observable<boolean> {
+    if (!this.storageService.getItem(ACCESS_TOKEN)) {
+      return of(false);
+    }
+
+    this.coreFacade.loadSelf();
+    return of(true);
   }
 }

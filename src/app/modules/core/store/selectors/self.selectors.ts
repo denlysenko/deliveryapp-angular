@@ -3,19 +3,14 @@ import { createSelector } from '@ngrx/store';
 import * as fromFeature from '../reducers';
 import * as fromSelf from '../reducers/self.reducer';
 
-export const getSelfState = createSelector(
-  fromFeature.getAuthState,
-  (state: fromFeature.AuthFeatureState) => state.self
+export const getSelf = createSelector(
+  fromFeature.getSelfState,
+  fromSelf.getSelf
 );
 
 export const getLoggedIn = createSelector(
-  getSelfState,
-  fromSelf.getLoggedIn
-);
-
-export const getSelf = createSelector(
-  getSelfState,
-  fromSelf.getSelf
+  getSelf,
+  user => !!user
 );
 
 export const getSelfRole = createSelector(
@@ -24,11 +19,11 @@ export const getSelfRole = createSelector(
 );
 
 export const getSelfLoading = createSelector(
-  getSelfState,
+  fromFeature.getSelfState,
   fromSelf.getSelfLoading
 );
 
 export const getSelfError = createSelector(
-  getSelfState,
+  fromFeature.getSelfState,
   fromSelf.getSelfError
 );
