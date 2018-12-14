@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 
 import { User } from '@auth/models';
 import { MenuItem } from 'primeng/primeng';
@@ -38,10 +39,12 @@ export class TopbarComponent {
   @Output() logout = new EventEmitter<void>();
   @Output() openSidebar = new EventEmitter<void>();
 
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
   toggleMenu(event: MouseEvent) {
     event.stopPropagation();
     event.preventDefault();
-    const layout = document.querySelector('.layout');
+    const layout = this.document.querySelector('.layout');
     layout.classList.toggle('layout-menu-active');
   }
 }
