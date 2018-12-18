@@ -11,7 +11,7 @@
            text="Profile"
            class="p-r-10"></Label>
   </GridLayout>
-  <GridLayout columns="auto, *"
+  <GridLayout columns="auto, auto, auto"
               class="sidedrawer-list-item"
               (tap)="openSidebar.emit()">
     <Label col="0"
@@ -20,6 +20,10 @@
     <Label col="1"
            text="Messages"
            class="p-r-10"></Label>
+    <Label col="2"
+           class="badge"
+           color="white"
+           [text]="unreadMessages"></Label>
   </GridLayout>
   <GridLayout columns="auto, *"
               class="sidedrawer-list-item"

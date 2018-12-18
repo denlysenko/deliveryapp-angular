@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'da-user-menu',
@@ -7,6 +7,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserMenuComponent {
+  @Input() unreadMessages: number;
+
   @Output() logout = new EventEmitter<void>();
   @Output() openSidebar = new EventEmitter<void>();
 }

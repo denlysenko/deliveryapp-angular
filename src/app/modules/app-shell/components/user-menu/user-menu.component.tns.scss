@@ -1,1 +1,9 @@
 @import '../common-styles/menu_mobile';
+
+.badge {
+  font-size: 12;
+  margin-top: -15;
+  padding: 2 4;
+  background-color: $green;
+  border-radius: 2;
+}

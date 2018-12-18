@@ -36,7 +36,8 @@
               <da-app-menu [role]="user.role"></da-app-menu>
             </StackLayout>
             <StackLayout>
-              <da-user-menu (openSidebar)="showMessages = true"
+              <da-user-menu [unreadMessages]="unreadMessages$ | async"
+                            (openSidebar)="showMessages = true"
                             (logout)="logout()"></da-user-menu>
             </StackLayout>
           </StackLayout>
