@@ -6,17 +6,14 @@ import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-ui-sidedraw
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
+import { AppShellBase } from '../../base';
+
 @Component({
   moduleId: module.id,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss']
 })
-export class AppShellComponent {
-  showMessages = false;
-  user$ = this.coreFacade.self$;
-  unreadMessages$ = this.coreFacade.unreadMessages$;
-  messages$ = this.coreFacade.messages$;
-
+export class AppShellComponent extends AppShellBase {
   @ViewChild('drawer')
   drawerComponent: RadSideDrawerComponent;
 
@@ -26,7 +23,8 @@ export class AppShellComponent {
     return this.drawerComponent.sideDrawer;
   }
 
-  constructor(private coreFacade: CoreFacade) {
+  constructor(coreFacade: CoreFacade) {
+    super(coreFacade);
     // iPhone X fix height
     if (
       isIOS &&
@@ -49,13 +47,5 @@ export class AppShellComponent {
 
   onDrawerButtonTap() {
     this.drawer.toggleDrawerState();
-  }
-
-  markMessageAsRead(id: string) {
-    this.coreFacade.markMessageAsRead(id);
-  }
-
-  logout() {
-    this.coreFacade.logout();
   }
 }
