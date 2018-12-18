@@ -1,0 +1,34 @@
+<StackLayout>
+  <GridLayout columns="auto, *"
+              class="sidedrawer-list-item"
+              nsRouterLink="/profile"
+              nsRouterLinkActive="selected"
+              pageTransition="fade">
+    <Label col="0"
+           [text]="'fa-user' | fonticon"
+           class="fa"></Label>
+    <Label col="1"
+           text="Profile"
+           class="p-r-10"></Label>
+  </GridLayout>
+  <GridLayout columns="auto, *"
+              class="sidedrawer-list-item"
+              (tap)="openSidebar.emit()">
+    <Label col="0"
+           [text]="'fa-envelope-o' | fonticon"
+           class="fa"></Label>
+    <Label col="1"
+           text="Messages"
+           class="p-r-10"></Label>
+  </GridLayout>
+  <GridLayout columns="auto, *"
+              class="sidedrawer-list-item"
+              (tap)="logout.emit()">
+    <Label col="0"
+           [text]="'fa-sign-out' | fonticon"
+           class="fa"></Label>
+    <Label col="1"
+           text="Logout"
+           class="p-r-10"></Label>
+  </GridLayout>
+</StackLayout>

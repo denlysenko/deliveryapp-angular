@@ -36,8 +36,8 @@
               <da-app-menu [role]="user.role"></da-app-menu>
             </StackLayout>
             <StackLayout>
-              <!-- <ba-user-menu [items]="userMenuItems"
-                          (onLogout)="logout()"></ba-user-menu> -->
+              <da-user-menu (openSidebar)="showMessages = true"
+                            (logout)="logout()"></da-user-menu>
             </StackLayout>
           </StackLayout>
         </ScrollView>
