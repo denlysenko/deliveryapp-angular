@@ -1,9 +1,9 @@
 <ActionBar class="action-bar"
            flat="true">
   <NavigationButton ios:visibility="collapsed"
-                    icon="res://navigation/menu"
+                    icon="res://menu"
                     (tap)="onDrawerButtonTap()"></NavigationButton>
-  <ActionItem icon="res://menu"
+  <ActionItem icon="res://navigation/menu"
               android:visibility="collapsed"
               (tap)="onDrawerButtonTap()"
               ios.position="left">
@@ -24,7 +24,6 @@
                      class="sidedrawer-header">
           <Label class="sidedrawer-header-image fa"
                  [text]="'fa-user-circle' | fonticon"></Label>
-
           <Label *ngIf="user.firstName && user.lastName"
                  class="sidedrawer-header-brand"
                  [text]="user.firstName + ' ' + user.lastName"></Label>
@@ -44,5 +43,9 @@
         </ScrollView>
       </GridLayout>
     </ng-container>
+  </StackLayout>
+  <StackLayout class="page-content"
+               tkMainContent>
+    <router-outlet></router-outlet>
   </StackLayout>
 </RadSideDrawer>

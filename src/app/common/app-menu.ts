@@ -4,31 +4,31 @@ export const appMenu = [
   {
     link: 'orders',
     label: 'Orders',
-    icon: 'file-text',
+    icon: 'fa-file-text',
     allowedRoles: [Roles.ADMIN, Roles.CLIENT, Roles.MANAGER]
   },
   {
     link: 'payments',
     label: 'Payments',
-    icon: 'money',
+    icon: 'fa-money',
     allowedRoles: [Roles.ADMIN, Roles.CLIENT, Roles.MANAGER]
   },
   {
     link: 'users',
     label: 'Users',
-    icon: 'users',
+    icon: 'fa-users',
     allowedRoles: [Roles.ADMIN]
   },
   {
     link: 'settings',
     label: 'Settings',
-    icon: 'cog',
+    icon: 'fa-cog',
     allowedRoles: [Roles.ADMIN]
   },
   {
     link: 'logs',
     label: 'Logs',
-    icon: 'database',
+    icon: 'fa-database',
     allowedRoles: [Roles.ADMIN]
   }
 ];
