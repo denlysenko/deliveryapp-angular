@@ -1,1 +1,48 @@
-<Button text="app-shell works!" class="btn btn-primary"></Button>
+<ActionBar class="action-bar"
+           flat="true">
+  <NavigationButton ios:visibility="collapsed"
+                    icon="res://navigation/menu"
+                    (tap)="onDrawerButtonTap()"></NavigationButton>
+  <ActionItem icon="res://menu"
+              android:visibility="collapsed"
+              (tap)="onDrawerButtonTap()"
+              ios.position="left">
+  </ActionItem>
+  <Label class="action-bar-title"
+         [text]="selectedPageTitle"></Label>
+</ActionBar>
+<RadSideDrawer #drawer
+               class="drawer"
+               showOverNavigation="true"
+               [drawerTransition]="sideDrawerTransition">
+  <StackLayout tkDrawerContent
+               scrollableContent="true">
+    <ng-container *ngIf="(user$ | async) as user">
+      <GridLayout rows="auto, *"
+                  class="sidedrawer sidedrawer-left">
+        <StackLayout row="0"
+                     class="sidedrawer-header">
+          <Label class="sidedrawer-header-image fa"
+                 [text]="'fa-user-circle' | fonticon"></Label>
+
+          <Label *ngIf="user.firstName && user.lastName"
+                 class="sidedrawer-header-brand"
+                 [text]="user.firstName + ' ' + user.lastName"></Label>
+          <Label class="footnote"
+                 [text]="user.email"></Label>
+        </StackLayout>
+        <ScrollView row="1">
+          <StackLayout class="sidedrawer-content">
+            <StackLayout>
+              <da-app-menu [role]="user.role"></da-app-menu>
+            </StackLayout>
+            <StackLayout>
+              <!-- <ba-user-menu [items]="userMenuItems"
+                          (onLogout)="logout()"></ba-user-menu> -->
+            </StackLayout>
+          </StackLayout>
+        </ScrollView>
+      </GridLayout>
+    </ng-container>
+  </StackLayout>
+</RadSideDrawer>

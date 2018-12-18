@@ -6,8 +6,8 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { MESSAGE_SUBJECT } from '@common/constants';
-import { MessageService } from 'primeng/components/common/messageservice';
 
+import { FeedbackService } from '../../services/feedback/feedback.service';
 import { UserSelfService } from '../../services/user-self/user-self.service';
 import {
   HandleMessageReceive,
@@ -24,7 +24,7 @@ export class MessagesEffects {
     private actions$: Actions,
     private userSelfService: UserSelfService,
     // private messagesService: MessagesService,
-    private messageService: MessageService
+    private feedbackService: FeedbackService
   ) {}
 
   @Effect()
@@ -59,11 +59,7 @@ export class MessagesEffects {
             body: message.text
           });
         } else {
-          return this.messageService.add({
-            severity: 'info',
-            summary: MESSAGE_SUBJECT,
-            detail: message.text
-          });
+          return this.feedbackService.info(message.text);
         }
       })
     );

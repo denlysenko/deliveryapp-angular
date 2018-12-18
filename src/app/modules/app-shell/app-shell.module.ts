@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ButtonModule, InputTextModule, MenuModule, SidebarModule, TooltipModule } from 'primeng/primeng';
 
 import { componentDeclarations, importDeclarations } from './app-shell.common';
-import { TopbarComponent } from './components';
+import { TopbarComponent } from './components/topbar/topbar.component';
 
 @NgModule({
   imports: [

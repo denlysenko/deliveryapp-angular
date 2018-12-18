@@ -1,1 +1,13 @@
-<Button text="app-menu works!" class="btn btn-primary"></Button>
+<GridLayout *ngFor="let item of menu"
+            columns="auto, *"
+            class="sidedrawer-list-item"
+            [nsRouterLink]="'/' + item.link"
+            nsRouterLinkActive="selected"
+            pageTransition="fade">
+  <Label col="0"
+         [text]="item.icon | fonticon"
+         class="fa"></Label>
+  <Label col="1"
+         [text]="item.label"
+         class="p-r-10"></Label>
+</GridLayout>
