@@ -2,23 +2,16 @@ import { Component } from '@angular/core';
 
 import { CoreFacade } from '@core/store';
 
+import { AppShellBase } from '../../base/AppShellBase';
+
 @Component({
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss']
 })
-export class AppShellComponent {
+export class AppShellComponent extends AppShellBase {
   showMessages = false;
-  user$ = this.coreFacade.self$;
-  unreadMessages$ = this.coreFacade.unreadMessages$;
-  messages$ = this.coreFacade.messages$;
 
-  constructor(private coreFacade: CoreFacade) {}
-
-  markMessageAsRead(id: string) {
-    this.coreFacade.markMessageAsRead(id);
-  }
-
-  logout() {
-    this.coreFacade.logout();
+  constructor(coreFacade: CoreFacade) {
+    super(coreFacade);
   }
 }
