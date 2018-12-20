@@ -10,7 +10,7 @@ import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-ui-sidedraw
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
-import { AppShellBase } from '../../base';
+import { AppShellBase } from '../../base/AppShellBase';
 import { MessagesComponent } from '../../components/messages/messages.component';
 
 @Component({
@@ -97,10 +97,6 @@ export class AppShellComponent extends AppShellBase {
 
     const { title } = route.snapshot.data;
 
-    if (title) {
-      this.selectedPageTitle = title;
-    } else {
-      this.selectedPageTitle = '';
-    }
+    this.selectedPageTitle = title ? title : '';
   }
 }

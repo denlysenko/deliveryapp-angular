@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { CoreFacade } from '@core/store';
 
-import { AppShellBase } from '../../base';
+import { AppShellBase } from '../../base/AppShellBase';
 
 @Component({
   templateUrl: './app-shell.component.html',

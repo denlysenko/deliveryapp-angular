@@ -37,7 +37,7 @@
             </StackLayout>
             <StackLayout>
               <da-user-menu [unreadMessages]="unreadMessages$ | async"
-                            (openSidebar)="showMessages()"
+                            (openModal)="showMessages()"
                             (logout)="logout()"></da-user-menu>
             </StackLayout>
           </StackLayout>
