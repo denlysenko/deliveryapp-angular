@@ -1,7 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+
+import { takeUntil } from 'rxjs/operators';
 
 import { CoreFacade } from '@core/store';
-import { DrawerTransitionBase, PushTransition } from 'nativescript-ui-sidedrawer';
+import { DrawerTransitionBase, SlideAlongTransition } from 'nativescript-ui-sidedrawer';
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-ui-sidedrawer/angular';
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
@@ -14,6 +17,8 @@ import { AppShellBase } from '../../base';
   styleUrls: ['./app-shell.component.scss']
 })
 export class AppShellComponent extends AppShellBase {
+  selectedPageTitle: string;
+
   @ViewChild('drawer')
   drawerComponent: RadSideDrawerComponent;
 
@@ -23,7 +28,11 @@ export class AppShellComponent extends AppShellBase {
     return this.drawerComponent.sideDrawer;
   }
 
-  constructor(coreFacade: CoreFacade) {
+  constructor(
+    coreFacade: CoreFacade,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     super(coreFacade);
     // iPhone X fix height
     if (
@@ -38,7 +47,14 @@ export class AppShellComponent extends AppShellBase {
       `);
     }
 
-    this._sideDrawerTransition = new PushTransition();
+    this._sideDrawerTransition = new SlideAlongTransition();
+
+    this.router.events.pipe(takeUntil(this.destroy$)).subscribe(e => {
+      if (e instanceof NavigationEnd && this.drawer) {
+        this.drawer.closeDrawer();
+        this.updateRouteTitle();
+      }
+    });
   }
 
   get sideDrawerTransition(): DrawerTransitionBase {
@@ -47,5 +63,27 @@ export class AppShellComponent extends AppShellBase {
 
   onDrawerButtonTap() {
     this.drawer.toggleDrawerState();
+  }
+
+  private updateRouteTitle() {
+    let route = this.route.firstChild;
+    let child = route;
+
+    while (child) {
+      if (child.firstChild) {
+        child = child.firstChild;
+        route = child;
+      } else {
+        child = null;
+      }
+    }
+
+    const { title } = route.snapshot.data;
+
+    if (title) {
+      this.selectedPageTitle = title;
+    } else {
+      this.selectedPageTitle = '';
+    }
   }
 }
