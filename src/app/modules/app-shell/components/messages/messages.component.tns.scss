@@ -1,1 +1,15 @@
-/* Add mobile styles for the component here.  */
+@import 'src/app-variables';
+
+.container {
+  padding: 7 13;
+  background-color: $grey-lighter;
+}
+
+.card {
+  padding: 16;
+  background-color: $white;
+}
+
+.btn {
+  width: 100%;
+}

@@ -1,1 +1,21 @@
-<Button text="messages works!" class="btn btn-primary"></Button>
+<GridLayout class="container"
+            rows="*, auto">
+  <StackLayout row="0"
+               class="card">
+    <ScrollView>
+      <ng-container *ngIf="(messages$ | async) as messages">
+        <StackLayout *ngFor="let message of messages">
+          <Label [text]="message.text"></Label>
+          <Label [text]="message.createdAt | date: 'dd.MM.yyyy HH:mm'"></Label>
+        </StackLayout>
+        <Label *ngIf="!messages.length"
+               text="You don't have any message yet">
+        </Label>
+      </ng-container>
+    </ScrollView>
+  </StackLayout>
+  <Button row="1"
+          class="btn btn-primary btn-active m-t-10"
+          text="Close"
+          (tap)="close()"></Button>
+</GridLayout>

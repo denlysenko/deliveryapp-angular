@@ -9,6 +9,8 @@ import { AppShellBase } from '../../base';
   styleUrls: ['./app-shell.component.scss']
 })
 export class AppShellComponent extends AppShellBase {
+  showMessages = false;
+
   constructor(coreFacade: CoreFacade) {
     super(coreFacade);
   }

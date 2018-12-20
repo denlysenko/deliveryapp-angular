@@ -1,15 +1,17 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { takeUntil } from 'rxjs/operators';
 
 import { CoreFacade } from '@core/store';
+import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
 import { DrawerTransitionBase, SlideAlongTransition } from 'nativescript-ui-sidedrawer';
 import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-ui-sidedrawer/angular';
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
 import { AppShellBase } from '../../base';
+import { MessagesComponent } from '../../components/messages/messages.component';
 
 @Component({
   moduleId: module.id,
@@ -31,7 +33,9 @@ export class AppShellComponent extends AppShellBase {
   constructor(
     coreFacade: CoreFacade,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private viewContainerRef: ViewContainerRef,
+    private modalService: ModalDialogService
   ) {
     super(coreFacade);
     // iPhone X fix height
@@ -63,6 +67,19 @@ export class AppShellComponent extends AppShellBase {
 
   onDrawerButtonTap() {
     this.drawer.toggleDrawerState();
+  }
+
+  async showMessages() {
+    const options: ModalDialogOptions = {
+      context: { messages$: this.messages$ },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
+    };
+
+    const response = await this.modalService.showModal(
+      MessagesComponent,
+      options
+    );
   }
 
   private updateRouteTitle() {
