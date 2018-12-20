@@ -97,6 +97,6 @@ export class AppShellComponent extends AppShellBase {
 
     const { title } = route.snapshot.data;
 
-    this.selectedPageTitle = title ? title : '';
+    this.selectedPageTitle = title || '';
   }
 }
