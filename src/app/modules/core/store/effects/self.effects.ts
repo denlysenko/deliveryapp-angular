@@ -9,6 +9,7 @@ import { ACCESS_TOKEN } from '@common/constants';
 
 import { StorageService } from '../../services/storage/storage.service';
 import { UserSelfService } from '../../services/user-self/user-self.service';
+import { ResetMessagesState } from '../actions/messages.actions';
 import { Go } from '../actions/router.actions';
 import { LoadSelfFail, LoadSelfSuccess, Logout, SelfActionTypes } from '../actions/self.actions';
 
@@ -59,7 +60,18 @@ export class SelfEffects {
       this.storageService.removeItem(ACCESS_TOKEN);
     }),
     mergeMap(() => [
-      new Go({ path: ['auth'] })
+      new Go({
+        path: ['auth'],
+        extras: {
+          clearHistory: true,
+          transition: {
+            name: 'flip',
+            duration: 300,
+            curve: 'linear'
+          }
+        }
+      }),
+      new ResetMessagesState()
       // new orderFilterActions.ResetOrderFilter(),
       // new paymentFilterActions.ResetPaymentFilter(),
       // new paymentActions.ResetPaymentState(),

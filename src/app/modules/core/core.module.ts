@@ -6,6 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '~/environments/environment';
 
 import { importDeclarations, providerDeclarations } from './core.common';
+import { RouterExtensions } from './services/router-extensions/router-extensions.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { importDeclarations, providerDeclarations } from './core.common';
     }),
     ...importDeclarations
   ],
-  providers: [...providerDeclarations]
+  providers: [...providerDeclarations, RouterExtensions]
 })
 export class CoreModule {}
