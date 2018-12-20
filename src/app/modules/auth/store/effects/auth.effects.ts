@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 
 import { of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { ACCESS_TOKEN } from '@common/constants';
 import { StorageService } from '@core/services/storage/storage.service';
-import { Go, LoadMessages, LoadSelf } from '@core/store/actions';
+import { Go } from '@core/store/actions';
 
 import { AuthService } from '../../services/auth.service';
 import { AuthActionTypes, AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
@@ -49,13 +49,20 @@ export class AuthEffects {
   );
 
   @Effect()
-  authSuccess$ = this.actions$
-    .ofType(AuthActionTypes.AUTH_SUCCESS)
-    .pipe(
-      mergeMap(() => [
-        new LoadSelf(),
-        new LoadMessages(),
-        new Go({ path: [''] })
-      ])
-    );
+  authSuccess$ = this.actions$.ofType(AuthActionTypes.AUTH_SUCCESS).pipe(
+    map(
+      () =>
+        new Go({
+          path: [''],
+          extras: {
+            clearHistory: true,
+            transition: {
+              name: 'flip',
+              duration: 300,
+              curve: 'linear'
+            }
+          }
+        })
+    )
+  );
 }

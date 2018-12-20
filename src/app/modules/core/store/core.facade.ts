@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { RouterPayload } from '../models';
-import { LoadSelf, Logout, MarkAsRead } from './actions';
+import { LoadMessages, LoadSelf, Logout, MarkAsRead } from './actions';
 import { Back, Forward, Go } from './actions/router.actions';
 import * as fromCore from './reducers';
 import * as fromSelectors from './selectors';
@@ -19,6 +19,10 @@ export class CoreFacade {
 
   loadSelf() {
     this.store.dispatch(new LoadSelf());
+  }
+
+  loadMessages() {
+    this.store.dispatch(new LoadMessages());
   }
 
   navigate(payload: RouterPayload) {

@@ -38,7 +38,15 @@ export class AuthGuard implements CanActivate, CanLoad {
       map(loggedIn => {
         if (!loggedIn) {
           this.coreFacade.navigate({
-            path: ['auth']
+            path: ['auth'],
+            extras: {
+              clearHistory: true,
+              transition: {
+                name: 'flip',
+                duration: 300,
+                curve: 'linear'
+              }
+            }
           });
 
           return false;
@@ -59,6 +67,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     }
 
     this.coreFacade.loadSelf();
+    this.coreFacade.loadMessages();
     return of(true);
   }
 }
