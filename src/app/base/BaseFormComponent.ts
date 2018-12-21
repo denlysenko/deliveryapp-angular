@@ -1,6 +1,6 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
-import { FeedbackService } from '@core/services/feedback/feedback.service';
+import { FeedbackService } from '@core/services';
 
 export abstract class BaseFormComponent {
   form: FormGroup;

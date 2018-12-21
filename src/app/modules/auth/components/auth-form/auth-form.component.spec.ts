@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 
-import { FeedbackService } from '@core/services/feedback/feedback.service';
+import { FeedbackService } from '@core/services';
 
 import { AuthFormComponent, REGISTER_FIELDS } from './auth-form.component';
 

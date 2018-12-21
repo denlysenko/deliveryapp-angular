@@ -6,8 +6,8 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { ACCESS_TOKEN } from '@common/constants';
-import { StorageService } from '@core/services/storage/storage.service';
-import { Go } from '@core/store/actions';
+import { StorageService } from '@core/services';
+import { Go } from '@core/store';
 
 import { AuthService } from '../../services/auth.service';
 import { AuthActionTypes, AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
