@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { BaseFormComponent } from '@base/BaseFormComponent';
 import { ValidationError } from '@common/models';
 import { emailValidator, passwordMatchValidator } from '@common/validators';
-import { FeedbackService } from '@core/services/feedback/feedback.service';
+import { FeedbackService } from '@core/services';
 
 import { AuthForm, LoginError } from '../../models';
 
