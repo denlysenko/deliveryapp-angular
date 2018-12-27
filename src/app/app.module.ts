@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AuthModule } from '@auth/auth.module';
+import { AppShellModule } from '@app-shell/app-shell.module';
 import { CoreModule } from '@core/core.module';
+import { SpinnerModule } from '@ui/spinner';
 import { MessageService } from 'primeng/primeng';
 import { ToastModule } from 'primeng/toast';
 
@@ -19,7 +20,8 @@ import { AppComponent } from './app.component';
     ToastModule,
     AppRoutingModule,
     CoreModule,
-    AuthModule
+    AppShellModule,
+    SpinnerModule
   ],
   declarations: [AppComponent],
   providers: [MessageService],

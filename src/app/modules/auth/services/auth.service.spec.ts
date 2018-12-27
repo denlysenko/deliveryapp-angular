@@ -6,7 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ApiService } from '@core/services/api.service';
 import { environment } from '~/environments/environment';
 
-import { User } from '../models';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
@@ -132,109 +131,6 @@ describe('AuthService', () => {
         const req = http.expectOne(`${environment.apiUrl}/auth/register`);
         expect(req.request.method).toBe('POST');
         req.error(new HttpErrorResponse({ error: registerError, status: 422 }));
-
-        tick();
-      })
-    ));
-  });
-
-  describe('loadLoggedUser', () => {
-    it('should return logged user', inject(
-      [AuthService],
-      fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
-        const userResponse: User = {
-          id: 1,
-          email: 'test@test.com',
-          firstName: 'First Name',
-          lastName: 'Last Name',
-          company: 'Company',
-          phone: '1(111) 111-11-11',
-          role: 1
-        };
-
-        authService.loadLoggedUser().subscribe(res => {
-          expect(res).toEqual(userResponse);
-        });
-
-        const req = http.expectOne(`${environment.apiUrl}/users/self`);
-        expect(req.request.method).toBe('GET');
-        req.flush(userResponse);
-
-        tick();
-      })
-    ));
-
-    it('should return error if load user failed', inject(
-      [AuthService],
-      fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
-        const userError = {
-          message: 'Error'
-        };
-
-        authService.loadLoggedUser().subscribe(
-          () => {},
-          err => {
-            expect(err.status).toEqual(401);
-            expect(err.error).toEqual(userError);
-          }
-        );
-
-        const req = http.expectOne(`${environment.apiUrl}/users/self`);
-        expect(req.request.method).toBe('GET');
-        req.error(new HttpErrorResponse({ error: userError, status: 401 }));
-
-        tick();
-      })
-    ));
-  });
-
-  describe('loadMessages', () => {
-    it('should return messages', inject(
-      [AuthService],
-      fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
-        // TODO add Message type
-        const messageResponse: any = {
-          _id: '1',
-          text: 'message',
-          read: false,
-          recipientId: null,
-          createdAt: new Date().toISOString()
-        };
-
-        authService.loadMessages().subscribe(res => {
-          expect(res).toEqual(messageResponse);
-        });
-
-        const req = http.expectOne(`${environment.apiUrl}/users/self/messages`);
-        expect(req.request.method).toBe('GET');
-        req.flush(messageResponse);
-
-        tick();
-      })
-    ));
-
-    it('should return error if load messages failed', inject(
-      [AuthService],
-      fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
-        const userError = {
-          message: 'Error'
-        };
-
-        authService.loadMessages().subscribe(
-          () => {},
-          err => {
-            expect(err.status).toEqual(401);
-            expect(err.error).toEqual(userError);
-          }
-        );
-
-        const req = http.expectOne(`${environment.apiUrl}/users/self/messages`);
-        expect(req.request.method).toBe('GET');
-        req.error(new HttpErrorResponse({ error: userError, status: 401 }));
 
         tick();
       })

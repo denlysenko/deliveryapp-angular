@@ -1,0 +1,23 @@
+@import 'src/app-variables';
+
+.sidedrawer-list-item {
+  padding-left: $sidedrawer-list-item-offset-left;
+
+  label {
+    vertical-align: center;
+    color: $grey;
+  }
+
+  .fa {
+    width: $sidedrawer-list-icon-size;
+    margin-right: $sidedrawer-list-icon-offset;
+  }
+
+  &.selected {
+    background-color: $item-active-background;
+
+    label {
+      color: $item-active-color;
+    }
+  }
+}

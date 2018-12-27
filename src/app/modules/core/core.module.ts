@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 
-import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { ApiService } from './services/api.service';
-import { FeedbackService } from './services/feedback/feedback.service';
-import { CoreFacade } from './store/core.facade';
-import { effects } from './store/effects';
-import { reducers } from './store/reducers';
+import { environment } from '~/environments/environment';
+
+import { importDeclarations, providerDeclarations } from './core.common';
+import { RouterExtensions } from './services/router-extensions/router-extensions.service';
 
 @NgModule({
   imports: [
     StoreRouterConnectingModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot(effects)
+    StoreDevtoolsModule.instrument({
+      logOnly: environment.production
+    }),
+    ...importDeclarations
   ],
-  providers: [ApiService, FeedbackService, CoreFacade]
+  providers: [...providerDeclarations, RouterExtensions]
 })
 export class CoreModule {}
