@@ -41,7 +41,7 @@ describe('Orders Actions', () => {
 
   describe('CreateOrderFail', () => {
     it('should create an action', () => {
-      const payload = { message: 'Error message' };
+      const payload = { message: 'Error message' } as any;
       const action = new CreateOrderFail(payload);
       expect({ ...action }).toEqual({
         type: OrdersActionTypes.CREATE_ORDER_FAIL,
@@ -81,7 +81,7 @@ describe('Orders Actions', () => {
 
   describe('UpdateOrderFail', () => {
     it('should create an action', () => {
-      const payload = { message: 'Error message' };
+      const payload = { message: 'Error message' } as any;
       const action = new UpdateOrderFail(payload);
       expect({ ...action }).toEqual({
         type: OrdersActionTypes.UPDATE_ORDER_FAIL,

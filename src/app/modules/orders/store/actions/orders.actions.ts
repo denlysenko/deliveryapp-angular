@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 
+import { ValidationError } from '@common/models';
+
 import { Order } from '../../models/order.model';
 
 export enum OrdersActionTypes {
@@ -24,7 +26,7 @@ export class CreateOrderSuccess implements Action {
 export class CreateOrderFail implements Action {
   readonly type = OrdersActionTypes.CREATE_ORDER_FAIL;
 
-  constructor(public payload: any) {}
+  constructor(public payload: ValidationError) {}
 }
 
 export class UpdateOrder implements Action {
@@ -40,7 +42,7 @@ export class UpdateOrderSuccess implements Action {
 export class UpdateOrderFail implements Action {
   readonly type = OrdersActionTypes.UPDATE_ORDER_FAIL;
 
-  constructor(public payload: any) {}
+  constructor(public payload: ValidationError) {}
 }
 
 export type OrdersAction =
