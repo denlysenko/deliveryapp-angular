@@ -83,8 +83,8 @@ export function reducer(
   return state;
 }
 
-export const getOrdersLoading = (state: OrdersState) => state.loading;
-export const getOrdersError = (state: OrdersState) => state.error;
-export const getOrdersFilter = (state: OrdersState) => state.filter;
-export const getOrdersSorting = (state: OrdersState) => state.sorting;
-export const getOrdersPagination = (state: OrdersState) => state.pagination;
+export const getLoading = (state: OrdersState) => state.loading;
+export const getError = (state: OrdersState) => state.error;
+export const getFilter = (state: OrdersState) => state.filter;
+export const getSorting = (state: OrdersState) => state.sorting;
+export const getPagination = (state: OrdersState) => state.pagination;
