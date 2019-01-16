@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { ValidationError } from '@common/models';
+import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@core/models';
 
 import { Order } from '../../models/order.model';
 
@@ -10,7 +11,10 @@ export enum OrdersActionTypes {
   CREATE_ORDER_FAIL = '[Orders] Create Order Fail',
   UPDATE_ORDER = '[Orders] Update Order',
   UPDATE_ORDER_SUCCESS = '[Orders] Update Order Success',
-  UPDATE_ORDER_FAIL = '[Orders] Update Order Fail'
+  UPDATE_ORDER_FAIL = '[Orders] Update Order Fail',
+  FILTER_CHANGE = '[Orders] Filter Change',
+  SORTING_CHANGE = '[Orders] Sorting Change',
+  PAGE_CHANGE = '[Orders] Page Change'
 }
 
 export class CreateOrder implements Action {
@@ -45,10 +49,31 @@ export class UpdateOrderFail implements Action {
   constructor(public payload: ValidationError) {}
 }
 
-export type OrdersAction =
+export class FilterChange implements Action {
+  readonly type = OrdersActionTypes.FILTER_CHANGE;
+
+  constructor(public payload: FilterChangeEvent) {}
+}
+
+export class SortingChange implements Action {
+  readonly type = OrdersActionTypes.SORTING_CHANGE;
+
+  constructor(public payload: SortingChangeEvent) {}
+}
+
+export class PageChange implements Action {
+  readonly type = OrdersActionTypes.PAGE_CHANGE;
+
+  constructor(public payload: PageChangeEvent) {}
+}
+
+export type OrdersActions =
   | CreateOrder
   | CreateOrderSuccess
   | CreateOrderFail
   | UpdateOrder
   | UpdateOrderSuccess
-  | UpdateOrderFail;
+  | UpdateOrderFail
+  | FilterChange
+  | SortingChange
+  | PageChange;

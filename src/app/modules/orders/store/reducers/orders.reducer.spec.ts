@@ -1,5 +1,17 @@
+import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@core/models';
+
 import { Order } from '../../models/order.model';
-import * as fromActions from '../actions/orders.actions';
+import {
+  CreateOrder,
+  CreateOrderFail,
+  CreateOrderSuccess,
+  FilterChange,
+  PageChange,
+  SortingChange,
+  UpdateOrder,
+  UpdateOrderFail,
+  UpdateOrderSuccess,
+} from '../actions/orders.actions';
 import * as fromOrders from './orders.reducer';
 
 describe('OrdersReducer', () => {
@@ -25,7 +37,7 @@ describe('OrdersReducer', () => {
         senderEmail: 'test@test.com',
         senderPhone: '1232123'
       };
-      const action = new fromActions.CreateOrder(payload);
+      const action = new CreateOrder(payload);
       const state = fromOrders.reducer(initialState, action);
 
       expect(state.loading).toEqual(true);
@@ -36,7 +48,7 @@ describe('OrdersReducer', () => {
   describe('CREATE_ORDER_SUCCESS Action', () => {
     it('should set loading to false', () => {
       const { initialState } = fromOrders;
-      const action = new fromActions.CreateOrderSuccess();
+      const action = new CreateOrderSuccess();
       const state = fromOrders.reducer(initialState, action);
 
       expect(state.loading).toEqual(false);
@@ -46,8 +58,8 @@ describe('OrdersReducer', () => {
   describe('CREATE_ORDER_FAIL Action', () => {
     it('should set error to payload value', () => {
       const { initialState } = fromOrders;
-      const payload = { message: 'Error message' };
-      const action = new fromActions.CreateOrderFail(payload);
+      const payload = { message: 'Error message' } as any;
+      const action = new CreateOrderFail(payload);
       const state = fromOrders.reducer(initialState, action);
       expect(state.loading).toEqual(false);
       expect(state.error).toEqual(payload);
@@ -67,7 +79,7 @@ describe('OrdersReducer', () => {
         senderEmail: 'test@test.com',
         senderPhone: '1232123'
       };
-      const action = new fromActions.UpdateOrder(payload);
+      const action = new UpdateOrder(payload);
       const state = fromOrders.reducer(initialState, action);
 
       expect(state.loading).toEqual(true);
@@ -78,7 +90,7 @@ describe('OrdersReducer', () => {
   describe('UPDATE_ORDER_SUCCESS Action', () => {
     it('should set loading to false', () => {
       const { initialState } = fromOrders;
-      const action = new fromActions.UpdateOrderSuccess();
+      const action = new UpdateOrderSuccess();
       const state = fromOrders.reducer(initialState, action);
 
       expect(state.loading).toEqual(false);
@@ -88,11 +100,47 @@ describe('OrdersReducer', () => {
   describe('UPDATE_ORDER_FAIL Action', () => {
     it('should set error to payload value', () => {
       const { initialState } = fromOrders;
-      const payload = { message: 'Error message' };
-      const action = new fromActions.UpdateOrderFail(payload);
+      const payload = { message: 'Error message' } as any;
+      const action = new UpdateOrderFail(payload);
       const state = fromOrders.reducer(initialState, action);
       expect(state.loading).toEqual(false);
       expect(state.error).toEqual(payload);
+    });
+  });
+
+  describe('FILTER_CHANGE action', () => {
+    it('should set filter value to payload', () => {
+      const { initialState } = fromOrders;
+      const payload: FilterChangeEvent = {
+        'filter[smth]': 'test'
+      };
+      const action = new FilterChange(payload);
+      const state = fromOrders.reducer(initialState, action);
+
+      expect(state.filter).toEqual(payload);
+    });
+  });
+
+  describe('SORTING_CHANGE Action', () => {
+    it('should set sorting value to payload', () => {
+      const { initialState } = fromOrders;
+      const payload: SortingChangeEvent = {
+        'order[smth]': 'desc'
+      };
+      const action = new SortingChange(payload);
+      const state = fromOrders.reducer(initialState, action);
+
+      expect(state.sorting).toEqual(payload);
+    });
+  });
+
+  describe('PAGE_CHANGE Action', () => {
+    it('should set paging value to payload', () => {
+      const { initialState } = fromOrders;
+      const payload: PageChangeEvent = { limit: 10, offset: 10 };
+      const action = new PageChange(payload);
+      const state = fromOrders.reducer(initialState, action);
+      expect(state.pagination).toEqual(payload);
     });
   });
 });

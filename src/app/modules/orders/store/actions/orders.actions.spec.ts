@@ -1,9 +1,14 @@
+import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@core/models';
+
 import { Order } from '../../models';
 import {
   CreateOrder,
   CreateOrderFail,
   CreateOrderSuccess,
+  FilterChange,
   OrdersActionTypes,
+  PageChange,
+  SortingChange,
   UpdateOrder,
   UpdateOrderFail,
   UpdateOrderSuccess,
@@ -86,6 +91,46 @@ describe('Orders Actions', () => {
       expect({ ...action }).toEqual({
         type: OrdersActionTypes.UPDATE_ORDER_FAIL,
         payload: payload
+      });
+    });
+  });
+
+  describe('FilterChange', () => {
+    it('should create an action', () => {
+      const payload: FilterChangeEvent = {
+        'filter[smth]': 'test'
+      };
+
+      const action = new FilterChange(payload);
+      expect({ ...action }).toEqual({
+        type: OrdersActionTypes.FILTER_CHANGE,
+        payload
+      });
+    });
+  });
+
+  describe('SortingChange', () => {
+    it('should create an action', () => {
+      const payload: SortingChangeEvent = {
+        'order[smth]': 'desc'
+      };
+
+      const action = new SortingChange(payload);
+      expect({ ...action }).toEqual({
+        type: OrdersActionTypes.SORTING_CHANGE,
+        payload
+      });
+    });
+  });
+
+  describe('PageChange', () => {
+    it('should create an action', () => {
+      const payload: PageChangeEvent = { limit: 10, offset: 0 };
+
+      const action = new PageChange(payload);
+      expect({ ...action }).toEqual({
+        type: OrdersActionTypes.PAGE_CHANGE,
+        payload
       });
     });
   });
