@@ -29,8 +29,8 @@ export function reducer(
   action: OrdersActions
 ): OrdersState {
   switch (action.type) {
-    case OrdersActionTypes.CREATE_ORDER:
-    case OrdersActionTypes.UPDATE_ORDER: {
+    case OrdersActionTypes.CREATE:
+    case OrdersActionTypes.UPDATE: {
       return {
         ...state,
         loading: true,
@@ -38,16 +38,16 @@ export function reducer(
       };
     }
 
-    case OrdersActionTypes.CREATE_ORDER_SUCCESS:
-    case OrdersActionTypes.UPDATE_ORDER_SUCCESS: {
+    case OrdersActionTypes.CREATE_SUCCESS:
+    case OrdersActionTypes.UPDATE_SUCCESS: {
       return {
         ...state,
         loading: false
       };
     }
 
-    case OrdersActionTypes.CREATE_ORDER_FAIL:
-    case OrdersActionTypes.UPDATE_ORDER_FAIL: {
+    case OrdersActionTypes.CREATE_FAIL:
+    case OrdersActionTypes.UPDATE_FAIL: {
       return {
         ...state,
         loading: false,

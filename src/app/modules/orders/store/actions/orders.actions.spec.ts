@@ -29,7 +29,7 @@ describe('Orders Actions', () => {
       };
       const action = new CreateOrder(payload);
       expect({ ...action }).toEqual({
-        type: OrdersActionTypes.CREATE_ORDER,
+        type: OrdersActionTypes.CREATE,
         payload: payload
       });
     });
@@ -39,7 +39,7 @@ describe('Orders Actions', () => {
     it('should create an action', () => {
       const action = new CreateOrderSuccess();
       expect({ ...action }).toEqual({
-        type: OrdersActionTypes.CREATE_ORDER_SUCCESS
+        type: OrdersActionTypes.CREATE_SUCCESS
       });
     });
   });
@@ -49,7 +49,7 @@ describe('Orders Actions', () => {
       const payload = { message: 'Error message' } as any;
       const action = new CreateOrderFail(payload);
       expect({ ...action }).toEqual({
-        type: OrdersActionTypes.CREATE_ORDER_FAIL,
+        type: OrdersActionTypes.CREATE_FAIL,
         payload: payload
       });
     });
@@ -69,7 +69,7 @@ describe('Orders Actions', () => {
       };
       const action = new UpdateOrder(payload);
       expect({ ...action }).toEqual({
-        type: OrdersActionTypes.UPDATE_ORDER,
+        type: OrdersActionTypes.UPDATE,
         payload: payload
       });
     });
@@ -79,7 +79,7 @@ describe('Orders Actions', () => {
     it('should create an action', () => {
       const action = new UpdateOrderSuccess();
       expect({ ...action }).toEqual({
-        type: OrdersActionTypes.UPDATE_ORDER_SUCCESS
+        type: OrdersActionTypes.UPDATE_SUCCESS
       });
     });
   });
@@ -89,7 +89,7 @@ describe('Orders Actions', () => {
       const payload = { message: 'Error message' } as any;
       const action = new UpdateOrderFail(payload);
       expect({ ...action }).toEqual({
-        type: OrdersActionTypes.UPDATE_ORDER_FAIL,
+        type: OrdersActionTypes.UPDATE_FAIL,
         payload: payload
       });
     });

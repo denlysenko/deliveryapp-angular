@@ -6,45 +6,45 @@ import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@core/mo
 import { Order } from '../../models/order.model';
 
 export enum OrdersActionTypes {
-  CREATE_ORDER = '[Orders] Create Order',
-  CREATE_ORDER_SUCCESS = '[Orders] Create Order Success',
-  CREATE_ORDER_FAIL = '[Orders] Create Order Fail',
-  UPDATE_ORDER = '[Orders] Update Order',
-  UPDATE_ORDER_SUCCESS = '[Orders] Update Order Success',
-  UPDATE_ORDER_FAIL = '[Orders] Update Order Fail',
+  CREATE = '[Orders] Create',
+  CREATE_SUCCESS = '[Orders] Create Success',
+  CREATE_FAIL = '[Orders] Create Fail',
+  UPDATE = '[Orders] Update',
+  UPDATE_SUCCESS = '[Orders] Update Success',
+  UPDATE_FAIL = '[Orders] Update Fail',
   FILTER_CHANGE = '[Orders] Filter Change',
   SORTING_CHANGE = '[Orders] Sorting Change',
   PAGE_CHANGE = '[Orders] Page Change'
 }
 
 export class CreateOrder implements Action {
-  readonly type = OrdersActionTypes.CREATE_ORDER;
+  readonly type = OrdersActionTypes.CREATE;
 
   constructor(public payload: Order) {}
 }
 
 export class CreateOrderSuccess implements Action {
-  readonly type = OrdersActionTypes.CREATE_ORDER_SUCCESS;
+  readonly type = OrdersActionTypes.CREATE_SUCCESS;
 }
 
 export class CreateOrderFail implements Action {
-  readonly type = OrdersActionTypes.CREATE_ORDER_FAIL;
+  readonly type = OrdersActionTypes.CREATE_FAIL;
 
   constructor(public payload: ValidationError) {}
 }
 
 export class UpdateOrder implements Action {
-  readonly type = OrdersActionTypes.UPDATE_ORDER;
+  readonly type = OrdersActionTypes.UPDATE;
 
   constructor(public payload: Order) {}
 }
 
 export class UpdateOrderSuccess implements Action {
-  readonly type = OrdersActionTypes.UPDATE_ORDER_SUCCESS;
+  readonly type = OrdersActionTypes.UPDATE_SUCCESS;
 }
 
 export class UpdateOrderFail implements Action {
-  readonly type = OrdersActionTypes.UPDATE_ORDER_FAIL;
+  readonly type = OrdersActionTypes.UPDATE_FAIL;
 
   constructor(public payload: ValidationError) {}
 }
