@@ -1,10 +1,12 @@
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { OrdersService } from './services/orders.service';
-import { reducer } from './store/reducers';
+import { effects, reducer } from './store';
 
 export const importDeclarations: any[] = [
-  StoreModule.forFeature('orders', reducer)
+  StoreModule.forFeature('orders', reducer),
+  EffectsModule.forFeature(effects)
 ];
 
 export const componentDeclarations: any[] = [];
