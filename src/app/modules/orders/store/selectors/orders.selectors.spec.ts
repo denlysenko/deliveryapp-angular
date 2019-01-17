@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@core/models';
+import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
 import * as fromRoot from '@core/store';
 
 import { Order } from '../../models/order.model';

@@ -1,4 +1,4 @@
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@core/models';
+import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
 
 import { Order } from '../../models/order.model';
 import {
