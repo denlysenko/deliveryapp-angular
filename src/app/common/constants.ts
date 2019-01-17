@@ -15,9 +15,11 @@ export const HTTP_STATUS = {
   BAD_GATEWAY: 502
 };
 
-export enum SERVER_ERRORS {
-  NO_CONNECTION = 'NO_CONNECTION_ERROR',
-  UNAUTHORIZED = 'AUTHORIZATION_ERROR',
-  FORBIDDEN = 'FORBIDDEN_ERROR',
-  INTERNAL_SERVER_ERROR = 'SYSTEM_ERROR'
-}
+export const ORDER_STATUSES = [
+  'New',
+  'Calculated',
+  'Delivering',
+  'Delivered to warehouse',
+  'Delivered to customer',
+  'Canceled'
+];

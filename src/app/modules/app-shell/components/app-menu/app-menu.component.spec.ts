@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { appMenu } from '@common/app-menu';
-import { Roles } from '@common/enums/roles.enum';
+import { Roles } from '@common/enums';
 
 import { AppMenuComponent } from './app-menu.component';
 

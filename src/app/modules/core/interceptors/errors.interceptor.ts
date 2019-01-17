@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, concatMap, delay, retryWhen } from 'rxjs/operators';
 
-import { HTTP_RETRY_COUNT, HTTP_RETRY_DELAY, HTTP_STATUS, SERVER_ERRORS } from '@common/constants';
+import { HTTP_RETRY_COUNT, HTTP_RETRY_DELAY, HTTP_STATUS } from '@common/constants';
+import { ServerErrors } from '@common/enums';
 
 import { FeedbackService } from '../services/feedback/feedback.service';
 
@@ -42,19 +43,19 @@ export class ErrorsInterceptor implements HttpInterceptor {
 
           switch (event.status) {
             case HTTP_STATUS.NO_CONNECTION:
-              msg = SERVER_ERRORS.NO_CONNECTION;
+              msg = ServerErrors.NO_CONNECTION;
               break;
             case HTTP_STATUS.UNAUTHORIZED:
             case HTTP_STATUS.METHOD_NOT_ALLOWED:
-              msg = SERVER_ERRORS.UNAUTHORIZED;
+              msg = ServerErrors.UNAUTHORIZED;
               break;
             case HTTP_STATUS.FORBIDDEN:
-              msg = SERVER_ERRORS.FORBIDDEN;
+              msg = ServerErrors.FORBIDDEN;
               break;
             case HTTP_STATUS.INTERNAL_SERVER_ERROR:
             case HTTP_STATUS.BAD_GATEWAY:
             case HTTP_STATUS.SERVICE_UNAVAILABLE:
-              msg = SERVER_ERRORS.INTERNAL_SERVER_ERROR;
+              msg = ServerErrors.INTERNAL_SERVER_ERROR;
               break;
           }
 

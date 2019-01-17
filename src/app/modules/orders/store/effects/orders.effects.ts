@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import { Roles } from '@common/enums/roles.enum';
+import { Roles } from '@common/enums';
 import { CoreState, getSelfRole, Go } from '@core/store';
 
 import { OrdersService } from '../../services/orders.service';
