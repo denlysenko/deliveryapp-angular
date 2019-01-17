@@ -6,6 +6,7 @@ import { TableModule } from 'primeng/table';
 
 import { OrdersRoutingModule } from './orders-routing.module';
 import { componentDeclarations, importDeclarations, providerDeclarations } from './orders.common';
+import { OrdersPageComponent } from './containers/orders-page/orders-page.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { componentDeclarations, importDeclarations, providerDeclarations } from 
     TableModule,
     PaginatorModule
   ],
-  declarations: [...componentDeclarations],
+  declarations: [...componentDeclarations, OrdersPageComponent],
   providers: [...providerDeclarations]
 })
 export class OrdersModule {}

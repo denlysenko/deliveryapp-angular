@@ -2,6 +2,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { components } from './components';
+import { containers } from './containers';
+import { OrdersResolver } from './resolvers/orders.resolver';
 import { OrdersService } from './services/orders.service';
 import { effects, reducer } from './store';
 
@@ -10,6 +12,6 @@ export const importDeclarations: any[] = [
   EffectsModule.forFeature(effects)
 ];
 
-export const componentDeclarations: any[] = [...components];
+export const componentDeclarations: any[] = [...containers, ...components];
 
-export const providerDeclarations: any[] = [OrdersService];
+export const providerDeclarations: any[] = [OrdersService, OrdersResolver];
