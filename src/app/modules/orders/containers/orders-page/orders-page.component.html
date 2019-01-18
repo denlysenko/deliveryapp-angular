@@ -1,3 +1,23 @@
-<p>
-  orders-page works!
-</p>
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card">
+      <div class="topbar ui-g">
+        <div class="button ui-md-4 ui-g-12">
+          <button pButton
+                  type="button"
+                  label="Create order"
+                  icon="fa fa-plus"
+                  iconPos="left"
+                  class="raised-btn"></button>
+        </div>
+      </div>
+      <div class="list">
+        <da-orders-list [orders]="orders"
+                        [sorting]="sorting$ | async"
+                        [pagination]="pagination$ | async"
+                        [count]="count"
+                        [role]="role$ | async"></da-orders-list>
+      </div>
+    </div>
+  </div>
+</div>
