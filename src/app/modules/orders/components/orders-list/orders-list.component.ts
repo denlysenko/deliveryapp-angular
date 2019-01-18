@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { ORDER_STATUSES } from '@common/constants';
 import { Roles } from '@common/enums';
 import { PageChangeEvent, SortingChangeEvent } from '@common/models';
+import { extractSortFieldAndOrder } from '@common/utils';
+import { SortEvent } from 'primeng/primeng';
 
 import { Order } from '../../models';
 
@@ -28,20 +30,14 @@ export class OrdersListComponent implements OnInit {
   @Output() paginationChanged = new EventEmitter<PageChangeEvent>();
 
   ngOnInit() {
-    const keys = Object.keys(this.sorting); // we know that store can contain only one key
-
-    if (keys.length) {
-      this.sortOrder = this.sorting[keys[0]] === 'asc' ? 1 : -1;
-      const index = keys[0].indexOf('[');
-      const lastIndex = keys[0].indexOf(']');
-      this.sortField = keys[0].slice(index + 1, lastIndex);
-    }
+    const { sortField, sortOrder } = extractSortFieldAndOrder(this.sorting);
+    this.sortField = sortField;
+    this.sortOrder = sortOrder;
   }
 
-  sort(event: any) {
-    const field = `order[${event.field}]`;
+  sort(event: SortEvent) {
     this.sortingChanged.emit({
-      [field]: event.order === 1 ? 'asc' : 'desc'
+      [`order[${event.field}]`]: event.order === 1 ? 'asc' : 'desc'
     });
   }
 

@@ -1,99 +1,55 @@
-<p-table [value]="orders"
+<p-table [lazy]="true"
+         [value]="orders"
          [sortField]="sortField"
          [sortOrder]="sortOrder"
+         [customSort]="true"
          (onSort)="sort($event)">
-  <p-headerColumnGroup>
-    <p-row>
-      <p-column header="#"
-                rowspan="2"
-                [sortable]="true"
-                field="id"></p-column>
-      <p-column header="Cargo Name"
-                rowspan="2"
-                [sortable]="true"
-                field="cargoName"></p-column>
-      <p-column header="Weight/Volume"
-                rowspan="2"></p-column>
-      <p-column header="Route"
-                colspan="2"></p-column>
-      <p-column header="Delivery Costs"
-                rowspan="2"></p-column>
-      <p-column header="Delivery Date"
-                rowspan="2"></p-column>
-      <p-column header="Status"
-                rowspan="2"></p-column>
-      <p-column header="Paid"
-                rowspan="2"></p-column>
-      <p-column *ngIf="role !== roles.CLIENT"
-                header="Client"
-                rowspan="2"></p-column>
-    </p-row>
-    <p-row>
-      <p-column header="From"
-                [sortable]="true"
-                field="cityFrom"></p-column>
-      <p-column header="To"
-                [sortable]="true"
-                field="cityTo"></p-column>
-    </p-row>
-  </p-headerColumnGroup>
-
-  <p-column field="id">
-    <ng-template let-col
-                 let-order="rowData"
-                 pTemplate="body">
-      <a [routerLink]="[order.id]">{{ order.id }}</a>
-    </ng-template>
-  </p-column>
-  <p-column field="cargoName"></p-column>
-  <p-column field="cargoWeight">
-    <ng-template let-col
-                 let-order="rowData"
-                 pTemplate="body">
-      <span>{{ order.cargoWeight }} kg / {{ order.cargoVolume || '-' }} m3</span>
-    </ng-template>
-  </p-column>
-  <p-column field="cityFrom"></p-column>
-  <p-column field="cityTo"></p-column>
-  <p-column field="deliveryCosts">
-    <ng-template let-col
-                 let-order="rowData"
-                 pTemplate="body">
-      <span>{{ order.deliveryCosts | currency: 'USD': 'symbol-narrow' }}</span>
-    </ng-template>
-  </p-column>
-  <p-column field="deliveryDate">
-    <ng-template let-col
-                 let-order="rowData"
-                 pTemplate="body">
-      <span>{{ order.deliveryDate | date: 'dd.MM.yyyy' }}</span>
-    </ng-template>
-  </p-column>
-  <p-column field="status">
-    <ng-template let-col
-                 let-order="rowData"
-                 pTemplate="body">
-      <span>{{ statuses[order.status] }}</span>
-    </ng-template>
-  </p-column>
-  <p-column field="paid">
-    <ng-template let-col
-                 let-order="rowData"
-                 pTemplate="body">
-      <span>{{ order.paid ? 'Yes' : 'No' }}</span>
-    </ng-template>
-  </p-column>
-  <p-column *ngIf="role !== roles.CLIENT"
-            field="client">
-    <ng-template let-col
-                 let-order="rowData"
-                 pTemplate="body">
-      <a *ngIf="order.client?.firstName || order.client?.lastName"
-         href="#">{{ order.client?.firstName }} {{ order.client?.lastName }}</a>
-      <a *ngIf="!order.client?.firstName && !order.client?.lastName"
-         href="#">{{ order.client?.email }}</a>
-    </ng-template>
-  </p-column>
+  <ng-template pTemplate="header">
+    <tr>
+      <th rowspan="2"
+          pSortableColumn="id">
+        Num.
+        <p-sortIcon field="id"></p-sortIcon>
+      </th>
+      <th rowspan="2"
+          pSortableColumn="cargoName">
+        Cargo Name
+        <p-sortIcon field="cargoName"></p-sortIcon>
+      </th>
+      <th rowspan="2">Weight/Volume</th>
+      <th colspan="2">Route</th>
+      <th rowspan="2">Delivery Costs</th>
+      <th rowspan="2">Delivery Date</th>
+      <th rowspan="2">Status</th>
+      <th rowspan="2">Paid</th>
+      <th *ngIf="role !== roles.CLIENT"
+          rowspan="2">Client</th>
+    </tr>
+    <tr>
+      <th>From</th>
+      <th>To</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body"
+               let-order>
+    <tr>
+      <td><a [routerLink]="[order.id]">{{ order.id }}</a></td>
+      <td>{{ order.cargoName }}</td>
+      <td>{{ order.cargoWeight }} kg / {{ order.cargoVolume || '-' }} m3</td>
+      <td>{{ order.cityFrom }}</td>
+      <td>{{ order.cityTo }}</td>
+      <td>{{ order.deliveryCosts | currency: 'USD': 'symbol-narrow' }}</td>
+      <td>{{ order.deliveryDate | date: 'dd.MM.yyyy' }}</td>
+      <td>{{ statuses[order.status] }}</td>
+      <td>{{ order.paid ? 'Yes' : 'No' }}</td>
+      <td>
+        <a *ngIf="order.client?.firstName || order.client?.lastName"
+           href="#">{{ order.client?.firstName }} {{ order.client?.lastName }}</a>
+        <a *ngIf="!order.client?.firstName && !order.client?.lastName"
+           href="#">{{ order.client?.email }}</a>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
 <p-paginator [rows]="pagination.limit"
              [totalRecords]="count"

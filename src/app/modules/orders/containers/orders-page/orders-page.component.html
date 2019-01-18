@@ -16,7 +16,9 @@
                         [sorting]="sorting$ | async"
                         [pagination]="pagination$ | async"
                         [count]="count"
-                        [role]="role$ | async"></da-orders-list>
+                        [role]="role$ | async"
+                        (sortingChanged)="sort($event)"
+                        (paginationChanged)="paginate($event)"></da-orders-list>
       </div>
     </div>
   </div>

@@ -4,9 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 import { BaseComponent } from '@base/BaseComponent';
+import { PageChangeEvent, SortingChangeEvent } from '@common/models';
 import { CoreFacade } from '@core/store';
-import { Order } from '@orders/models';
-import { OrdersFacade } from '@orders/store';
+
+import { Order } from '../../models';
+import { OrdersFacade } from '../../store';
 
 @Component({
   templateUrl: './orders-page.component.html',
@@ -32,5 +34,13 @@ export class OrdersPageComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.count = this.route.snapshot.data.orders.count;
     this.orders = this.route.snapshot.data.orders.rows;
+  }
+
+  sort(event: SortingChangeEvent) {
+    this.ordersFacade.sort(event);
+  }
+
+  paginate(event: PageChangeEvent) {
+    this.ordersFacade.paginate(event);
   }
 }
