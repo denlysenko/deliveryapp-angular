@@ -15,7 +15,7 @@ export class TopbarComponent {
     {
       label: 'Profile',
       icon: 'fa fa-user',
-      routerLink: ['profile']
+      routerLink: ['/profile']
     },
     {
       label: 'Messages',
