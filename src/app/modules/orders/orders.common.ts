@@ -5,7 +5,7 @@ import { components } from './components';
 import { containers } from './containers';
 import { OrdersResolver } from './resolvers/orders.resolver';
 import { OrdersService } from './services/orders.service';
-import { effects, reducer } from './store';
+import { effects, OrdersFacade, reducer } from './store';
 
 export const importDeclarations: any[] = [
   StoreModule.forFeature('orders', reducer),
@@ -14,4 +14,8 @@ export const importDeclarations: any[] = [
 
 export const componentDeclarations: any[] = [...containers, ...components];
 
-export const providerDeclarations: any[] = [OrdersService, OrdersResolver];
+export const providerDeclarations: any[] = [
+  OrdersService,
+  OrdersResolver,
+  OrdersFacade
+];

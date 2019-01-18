@@ -5,17 +5,18 @@ import { Store } from '@ngrx/store';
 import { RouterPayload } from '../models';
 import { LoadMessages, LoadSelf, Logout, MarkAsRead } from './actions';
 import { Back, Forward, Go } from './actions/router.actions';
-import * as fromCore from './reducers';
-import * as fromSelectors from './selectors';
+import { CoreState } from './reducers';
+import { getAllMessages, getLoggedIn, getSelf, getSelfRole, getUnreadMessages } from './selectors';
 
 @Injectable()
 export class CoreFacade {
-  loggedIn$ = this.store.select(fromSelectors.getLoggedIn);
-  self$ = this.store.select(fromSelectors.getSelf);
-  unreadMessages$ = this.store.select(fromSelectors.getUnreadMessages);
-  messages$ = this.store.select(fromSelectors.getAllMessages);
+  loggedIn$ = this.store.select(getLoggedIn);
+  self$ = this.store.select(getSelf);
+  role$ = this.store.select(getSelfRole);
+  unreadMessages$ = this.store.select(getUnreadMessages);
+  messages$ = this.store.select(getAllMessages);
 
-  constructor(private store: Store<fromCore.CoreState>) {}
+  constructor(private store: Store<CoreState>) {}
 
   loadSelf() {
     this.store.dispatch(new LoadSelf());

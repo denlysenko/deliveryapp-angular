@@ -9,15 +9,15 @@ import { LoadMessages, LoadMessagesSuccess, MarkAsRead } from './actions/message
 import { Back, Forward, Go } from './actions/router.actions';
 import { LoadSelf, LoadSelfSuccess, Logout } from './actions/self.actions';
 import { CoreFacade } from './core.facade';
-import * as fromReducers from './reducers';
+import { CoreState, reducers } from './reducers';
 
 describe('CoreFacade', () => {
-  let store: Store<fromReducers.CoreState>;
+  let store: Store<CoreState>;
   let facade: CoreFacade;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(fromReducers.reducers)],
+      imports: [StoreModule.forRoot(reducers)],
       providers: [CoreFacade]
     }).compileComponents();
   }));
