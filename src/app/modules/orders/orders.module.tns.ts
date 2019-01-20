@@ -4,11 +4,10 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
 
 import { OrdersRoutingModule } from './orders-routing.module';
 import { componentDeclarations, providerDeclarations } from './orders.common';
-import { OrdersPageComponent } from './containers/orders-page/orders-page.component';
 
 @NgModule({
   imports: [OrdersRoutingModule, NativeScriptCommonModule],
-  declarations: [...componentDeclarations, OrdersPageComponent],
+  declarations: [...componentDeclarations],
   providers: [...providerDeclarations],
   schemas: [NO_ERRORS_SCHEMA]
 })

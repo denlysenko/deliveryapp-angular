@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
-import { PageChangeEvent, SortingChangeEvent } from '@common/models';
+import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
 
-import { PageChange, SortingChange } from './actions';
+import { FilterChange, PageChange, SortingChange } from './actions';
 import { OrdersState } from './reducers';
-import { getError, getFilter, getLoading, getPagination, getSorting } from './selectors';
+import { getAllFilters, getError, getFilter, getLoading, getPagination, getSorting } from './selectors';
 
 @Injectable()
 export class OrdersFacade {
@@ -15,8 +15,13 @@ export class OrdersFacade {
   filter$ = this.store.select(getFilter);
   sorting$ = this.store.select(getSorting);
   pagination$ = this.store.select(getPagination);
+  allFilters$ = this.store.select(getAllFilters);
 
   constructor(private store: Store<OrdersState>) {}
+
+  doFiltering(filter: FilterChangeEvent) {
+    this.store.dispatch(new FilterChange(filter));
+  }
 
   sort(sorting: SortingChangeEvent) {
     this.store.dispatch(new SortingChange(sorting));

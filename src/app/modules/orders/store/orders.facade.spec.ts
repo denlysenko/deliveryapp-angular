@@ -120,6 +120,39 @@ describe('OrdersFacade', () => {
     });
   });
 
+  describe('allFilters$', () => {
+    it('should return current allFilters$', () => {
+      let result;
+      const payload: PageChangeEvent = {
+        limit: 10,
+        offset: 10
+      };
+
+      facade.allFilters$.subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new PageChange(payload));
+      expect(result).toEqual({
+        'order[id]': 'asc',
+        offset: 10,
+        limit: 10
+      });
+    });
+  });
+
+  describe('doFiltering()', () => {
+    it('should dispatch a FilterChange action', () => {
+      const payload: FilterChangeEvent = {
+        'filter[smth]': 'filter'
+      };
+      const action = new FilterChange(payload);
+
+      facade.doFiltering(payload);
+      expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
+  });
+
   describe('sort()', () => {
     it('should dispatch a SortingChange action', () => {
       const payload: SortingChangeEvent = {

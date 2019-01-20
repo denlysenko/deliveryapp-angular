@@ -2,6 +2,9 @@
   <div class="ui-g-12">
     <div class="card">
       <div class="topbar ui-g">
+        <da-orders-filter class="ui-md-8 ui-g-12"
+                          [filter]="filter$ | async"
+                          (filterChanged)="handleFilterChange($event)"></da-orders-filter>
         <div class="button ui-md-4 ui-g-12">
           <button pButton
                   type="button"
@@ -17,8 +20,8 @@
                         [pagination]="pagination$ | async"
                         [count]="count"
                         [role]="role$ | async"
-                        (sortingChanged)="sort($event)"
-                        (paginationChanged)="paginate($event)"></da-orders-list>
+                        (sortingChanged)="handleSortingChange($event)"
+                        (paginationChanged)="handlePageChange($event)"></da-orders-list>
       </div>
     </div>
   </div>

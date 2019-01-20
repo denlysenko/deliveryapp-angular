@@ -2,14 +2,30 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 import { Roles } from '@common/enums';
-import { PageChangeEvent, SortingChangeEvent } from '@common/models';
+import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
+import { LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
+import { Order } from '../../models';
+import { OrdersService } from '../../services/orders.service';
 import { OrdersFacade } from '../../store';
 import { OrdersPageComponent } from './orders-page.component';
+
+const allFilters = new Subject();
+const role = new Subject();
+const order: Order = {
+  cityFrom: 'test',
+  cityTo: 'test',
+  addressFrom: 'test',
+  addressTo: 'test',
+  cargoName: 'test',
+  cargoWeight: 1,
+  senderEmail: 'test@test.com',
+  senderPhone: '1232123'
+};
 
 const activatedRouteStub = {
   snapshot: {
@@ -30,12 +46,28 @@ const ordersFacadeStub = {
   filter$: of({}),
   sorting$: of({}),
   pagination$: of({}),
+  allFilters$: allFilters.asObservable(),
   sort: jasmine.createSpy('sort'),
-  paginate: jasmine.createSpy('jasmine')
+  paginate: jasmine.createSpy('paginate'),
+  doFiltering: jasmine.createSpy('doFiltering')
 };
 
 const coreFacadeStub = {
-  role$: of(Roles.CLIENT)
+  role$: role.asObservable()
+};
+
+const ordersServiceStub = {
+  getOrdersSelf: jasmine
+    .createSpy('getOrdersSelf')
+    .and.returnValue(of({ rows: [order], count: 1 })),
+  getOrders: jasmine
+    .createSpy('getOrders')
+    .and.returnValue(of({ rows: [order], count: 1 }))
+};
+
+const loaderServiceStub = {
+  start: jasmine.createSpy('start'),
+  stop: jasmine.createSpy('stop')
 };
 
 describe('OrdersPageComponent', () => {
@@ -58,6 +90,14 @@ describe('OrdersPageComponent', () => {
         {
           provide: CoreFacade,
           useValue: coreFacadeStub
+        },
+        {
+          provide: OrdersService,
+          useValue: ordersServiceStub
+        },
+        {
+          provide: LoaderService,
+          useValue: loaderServiceStub
         }
       ]
     }).compileComponents();
@@ -67,6 +107,8 @@ describe('OrdersPageComponent', () => {
     fixture = TestBed.createComponent(OrdersPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    allFilters.next({});
+    role.next(Roles.CLIENT);
   });
 
   it('should create', () => {
@@ -103,19 +145,31 @@ describe('OrdersPageComponent', () => {
     });
   });
 
-  describe('sort()', () => {
+  describe('handleFilterChange()', () => {
+    it('should call OrdersFacade.doFiltering()', () => {
+      const payload: FilterChangeEvent = {
+        'order[smth]': 'desc'
+      };
+      const ordersFacade: OrdersFacade = TestBed.get(OrdersFacade);
+
+      component.handleFilterChange(payload);
+      expect(ordersFacade.doFiltering).toHaveBeenCalledWith(payload);
+    });
+  });
+
+  describe('handleSortingChange()', () => {
     it('should call OrdersFacade.sort()', () => {
       const payload: SortingChangeEvent = {
         'order[smth]': 'desc'
       };
       const ordersFacade: OrdersFacade = TestBed.get(OrdersFacade);
 
-      component.sort(payload);
+      component.handleSortingChange(payload);
       expect(ordersFacade.sort).toHaveBeenCalledWith(payload);
     });
   });
 
-  describe('paginate()', () => {
+  describe('handlePageChange()', () => {
     it('should call OrdersFacade.paginate()', () => {
       const payload: PageChangeEvent = {
         limit: 10,
@@ -123,8 +177,59 @@ describe('OrdersPageComponent', () => {
       };
       const ordersFacade: OrdersFacade = TestBed.get(OrdersFacade);
 
-      component.paginate(payload);
+      component.handlePageChange(payload);
       expect(ordersFacade.paginate).toHaveBeenCalledWith(payload);
+    });
+  });
+
+  describe('all filters changes', () => {
+    const filter = {
+      limit: 10,
+      offset: 10
+    };
+
+    beforeEach(() => {
+      ordersServiceStub.getOrders.calls.reset();
+      ordersServiceStub.getOrdersSelf.calls.reset();
+    });
+
+    it('should start loader', () => {
+      const loaderService: LoaderService = TestBed.get(LoaderService);
+
+      allFilters.next({
+        limit: 10,
+        offset: 10
+      });
+      expect(loaderService.start).toHaveBeenCalled();
+    });
+
+    it('should call getOrdersSelf() for Roles.CLIENT', () => {
+      const ordersService: OrdersService = TestBed.get(OrdersService);
+
+      allFilters.next(filter);
+      expect(ordersService.getOrdersSelf).toHaveBeenCalledWith(filter);
+    });
+
+    it('should call getOrders() for !Roles.CLIENT', () => {
+      const ordersService: OrdersService = TestBed.get(OrdersService);
+
+      role.next(Roles.MANAGER);
+      allFilters.next(filter);
+      expect(ordersService.getOrders).toHaveBeenCalledWith(filter);
+    });
+
+    it('should stop loader', () => {
+      const loaderService: LoaderService = TestBed.get(LoaderService);
+
+      allFilters.next(filter);
+      expect(loaderService.stop).toHaveBeenCalled();
+    });
+
+    it('should save new orders and count', () => {
+      allFilters.next(filter);
+
+      expect(component.orders).toEqual([order]);
+      expect(component.count).toEqual(1);
     });
   });
 });

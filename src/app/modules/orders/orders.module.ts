@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ButtonModule, PaginatorModule } from 'primeng/primeng';
+import { ButtonModule, DropdownModule, InputTextModule, PaginatorModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 
-import { OrdersPageComponent } from './containers/orders-page/orders-page.component';
 import { OrdersRoutingModule } from './orders-routing.module';
 import { componentDeclarations, importDeclarations, providerDeclarations } from './orders.common';
 
@@ -15,9 +14,11 @@ import { componentDeclarations, importDeclarations, providerDeclarations } from 
     ...importDeclarations,
     TableModule,
     PaginatorModule,
-    ButtonModule
+    InputTextModule,
+    ButtonModule,
+    DropdownModule
   ],
-  declarations: [...componentDeclarations, OrdersPageComponent],
+  declarations: [...componentDeclarations],
   providers: [...providerDeclarations]
 })
 export class OrdersModule {}
