@@ -9,6 +9,7 @@ module.exports = {
     '@core/(.*)': '<rootDir>/src/app/modules/core/$1',
     '@app-shell/(.*)': '<rootDir>/src/app/modules/app-shell/$1',
     '@auth/(.*)': '<rootDir>/src/app/modules/auth/$1',
+    '@orders/(.*)': '<rootDir>/src/app/modules/orders/$1',
     '~/(.*)': '<rootDir>/src/$1'
   }
 };

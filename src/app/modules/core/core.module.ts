@@ -10,11 +10,11 @@ import { RouterExtensions } from './services/router-extensions/router-extensions
 
 @NgModule({
   imports: [
+    ...importDeclarations,
     StoreRouterConnectingModule,
     StoreDevtoolsModule.instrument({
       logOnly: environment.production
-    }),
-    ...importDeclarations
+    })
   ],
   providers: [...providerDeclarations, RouterExtensions]
 })
