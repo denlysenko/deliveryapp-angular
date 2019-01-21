@@ -3,22 +3,20 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
-import * as fromRoot from '@core/store';
 
 import { Order } from '../../models/order.model';
 import { CreateOrder, CreateOrderFail, CreateOrderSuccess, FilterChange, PageChange, SortingChange } from '../actions';
-import * as fromReducers from '../reducers';
-import * as fromSelectors from './orders.selectors';
+import { OrdersState, reducer } from '../reducers';
+import { getAllFilters, getError, getFilter, getLoading, getPagination, getSorting } from './orders.selectors';
 
 describe('Orders Selectors', () => {
-  let store: Store<fromReducers.OrdersState>;
+  let store: Store<OrdersState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          ...fromRoot.reducers,
-          orders: fromReducers.reducer
+          orders: reducer
         })
       ]
     });
@@ -42,7 +40,7 @@ describe('Orders Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getLoading).subscribe(value => {
+      store.select(getLoading).subscribe(value => {
         result = value;
       });
 
@@ -54,7 +52,7 @@ describe('Orders Selectors', () => {
     it('should return false when CreateOrderSuccess was dispatched', () => {
       let result;
 
-      store.select(fromSelectors.getLoading).subscribe(value => {
+      store.select(getLoading).subscribe(value => {
         result = value;
       });
 
@@ -71,7 +69,7 @@ describe('Orders Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getError).subscribe(value => {
+      store.select(getError).subscribe(value => {
         result = value;
       });
 
@@ -88,7 +86,7 @@ describe('Orders Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getFilter).subscribe(value => {
+      store.select(getFilter).subscribe(value => {
         result = value;
       });
 
@@ -105,7 +103,7 @@ describe('Orders Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getSorting).subscribe(value => {
+      store.select(getSorting).subscribe(value => {
         result = value;
       });
 
@@ -123,7 +121,7 @@ describe('Orders Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getPagination).subscribe(value => {
+      store.select(getPagination).subscribe(value => {
         result = value;
       });
 
@@ -140,7 +138,7 @@ describe('Orders Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getAllFilters).subscribe(value => {
+      store.select(getAllFilters).subscribe(value => {
         result = value;
       });
 

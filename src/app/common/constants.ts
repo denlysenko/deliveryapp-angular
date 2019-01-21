@@ -3,6 +3,7 @@ export const AUTHORIZATION_HEADER = 'Authorization';
 export const MESSAGE_SUBJECT = 'New Message';
 export const HTTP_RETRY_COUNT = 3;
 export const HTTP_RETRY_DELAY = 5000;
+export const DEFAULT_LIMIT = 10;
 
 export const HTTP_STATUS = {
   NO_CONNECTION: 0,

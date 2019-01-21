@@ -33,7 +33,9 @@
   <ng-template pTemplate="body"
                let-order>
     <tr>
-      <td><a [routerLink]="[order.id]">{{ order.id }}</a></td>
+      <td>
+        <a [routerLink]="[order.id]">{{ order.id }}</a>
+      </td>
       <td>{{ order.cargoName }}</td>
       <td>{{ order.cargoWeight }} kg / {{ order.cargoVolume || '-' }} m3</td>
       <td>{{ order.cityFrom }}</td>

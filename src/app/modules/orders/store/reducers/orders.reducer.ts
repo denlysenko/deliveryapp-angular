@@ -1,3 +1,4 @@
+import { DEFAULT_LIMIT } from '@common/constants';
 import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent, ValidationError } from '@common/models';
 
 import { OrdersActions, OrdersActionTypes } from '../actions';
@@ -19,7 +20,7 @@ export const initialState: OrdersState = {
   },
   pagination: {
     offset: 0,
-    limit: 10
+    limit: DEFAULT_LIMIT
   }
 };
 

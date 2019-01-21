@@ -24,7 +24,7 @@ describe('OrdersReducer', () => {
     });
   });
 
-  describe('CREATE_ORDER action', () => {
+  describe('CREATE action', () => {
     it('should set loading to true', () => {
       const { initialState } = fromOrders;
       const payload: Order = {
@@ -45,7 +45,7 @@ describe('OrdersReducer', () => {
     });
   });
 
-  describe('CREATE_ORDER_SUCCESS Action', () => {
+  describe('CREATE_SUCCESS Action', () => {
     it('should set loading to false', () => {
       const { initialState } = fromOrders;
       const action = new CreateOrderSuccess();
@@ -55,7 +55,7 @@ describe('OrdersReducer', () => {
     });
   });
 
-  describe('CREATE_ORDER_FAIL Action', () => {
+  describe('CREATE_FAIL Action', () => {
     it('should set error to payload value', () => {
       const { initialState } = fromOrders;
       const payload = { message: 'Error message' } as any;
@@ -66,7 +66,7 @@ describe('OrdersReducer', () => {
     });
   });
 
-  describe('UPDATE_ORDER action', () => {
+  describe('UPDATE action', () => {
     it('should set loading to true', () => {
       const { initialState } = fromOrders;
       const payload: Order = {
@@ -87,7 +87,7 @@ describe('OrdersReducer', () => {
     });
   });
 
-  describe('UPDATE_ORDER_SUCCESS Action', () => {
+  describe('UPDATE_SUCCESS Action', () => {
     it('should set loading to false', () => {
       const { initialState } = fromOrders;
       const action = new UpdateOrderSuccess();
@@ -97,7 +97,7 @@ describe('OrdersReducer', () => {
     });
   });
 
-  describe('UPDATE_ORDER_FAIL Action', () => {
+  describe('UPDATE_FAIL Action', () => {
     it('should set error to payload value', () => {
       const { initialState } = fromOrders;
       const payload = { message: 'Error message' } as any;
