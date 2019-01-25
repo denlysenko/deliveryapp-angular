@@ -46,7 +46,6 @@ describe('AuthFormComponent', () => {
   describe('isLoggingIn', () => {
     it('[`isLoggingIn = true`] should disable register fields', () => {
       component.isLoggingIn = true;
-      fixture.detectChanges();
       REGISTER_FIELDS.forEach(field => {
         expect(component.form.get(field).disabled).toBeTruthy();
       });
@@ -54,7 +53,6 @@ describe('AuthFormComponent', () => {
 
     it('[`isLoggingIn = false`] should enable register fields', () => {
       component.isLoggingIn = false;
-      fixture.detectChanges();
       REGISTER_FIELDS.forEach(field => {
         expect(component.form.get(field).disabled).toBeFalsy();
       });
@@ -114,7 +112,6 @@ describe('AuthFormComponent', () => {
 
       beforeEach(() => {
         component.isLoggingIn = false;
-        fixture.detectChanges();
         password = component.form.get('password');
         confirmPassword = component.form.get('confirmPassword');
       });
@@ -140,7 +137,6 @@ describe('AuthFormComponent', () => {
     beforeEach(() => {
       spyOn(component.formSubmitted, 'emit');
       component.isLoggingIn = true;
-      fixture.detectChanges();
       email = component.form.get('email');
       password = component.form.get('password');
     });
@@ -179,7 +175,6 @@ describe('AuthFormComponent', () => {
 
     beforeEach(() => {
       component.error = error;
-      fixture.detectChanges();
     });
 
     it('should set serverError', () => {

@@ -10,7 +10,7 @@ describe('Router Actions', () => {
       const action = new Go(payload);
       expect({ ...action }).toEqual({
         type: RouterActionTypes.GO,
-        payload: payload
+        payload
       });
     });
   });
