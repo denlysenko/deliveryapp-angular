@@ -1,10 +1,11 @@
 import { ActivatedRouteSnapshot, Params, RouterStateSnapshot } from '@angular/router';
 
-import * as fromRouter from '@ngrx/router-store';
+import { routerReducer, RouterReducerState, RouterStateSerializer } from '@ngrx/router-store';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
-import * as fromMessages from './messages.reducer';
-import * as fromSelf from './self.reducer';
+import { SelfActionTypes } from '../actions';
+import { messagesReducer, MessageState } from './messages.reducer';
+import { selfReducer, SelfState } from './self.reducer';
 
 export interface RouterStateUrl {
   url: string;
@@ -13,29 +14,26 @@ export interface RouterStateUrl {
 }
 
 export interface CoreState {
-  routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
-  self: fromSelf.SelfState;
-  messages: fromMessages.MessageState;
+  routerReducer: RouterReducerState<RouterStateUrl>;
+  self: SelfState;
+  messages: MessageState;
 }
 
 export const reducers: ActionReducerMap<CoreState> = {
-  routerReducer: fromRouter.routerReducer,
-  self: fromSelf.reducer,
-  messages: fromMessages.reducer
+  routerReducer: routerReducer,
+  self: selfReducer,
+  messages: messagesReducer
 };
 
 export const getRouterState = createFeatureSelector<
-  fromRouter.RouterReducerState<RouterStateUrl>
+  RouterReducerState<RouterStateUrl>
 >('routerReducer');
 
-export const getSelfState = createFeatureSelector<fromSelf.SelfState>('self');
+export const getSelfState = createFeatureSelector<SelfState>('self');
 
-export const getMessagesState = createFeatureSelector<
-  fromMessages.MessageState
->('messages');
+export const getMessagesState = createFeatureSelector<MessageState>('messages');
 
-export class CustomSerializer
-  implements fromRouter.RouterStateSerializer<RouterStateUrl> {
+export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
   serialize(routerState: RouterStateSnapshot): RouterStateUrl {
     const { url } = routerState;
     const { queryParams } = routerState.root;
@@ -53,4 +51,13 @@ export class CustomSerializer
       params
     };
   }
+}
+
+export function clearState(reducer) {
+  return function(state, action) {
+    if (action.type === SelfActionTypes.LOGOUT) {
+      state = undefined;
+    }
+    return reducer(state, action);
+  };
 }
