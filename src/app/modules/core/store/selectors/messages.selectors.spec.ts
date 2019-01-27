@@ -3,17 +3,23 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { LoadMessages, LoadMessagesFail, LoadMessagesSuccess } from '../actions/messages.actions';
-import * as fromReducers from '../reducers';
-import * as fromSelectors from './messages.selectors';
+import { CoreState, reducers } from '../reducers';
+import {
+  getAllMessages,
+  getMessageEntities,
+  getMessagesError,
+  getMessagesLoading,
+  getUnreadMessages,
+} from './messages.selectors';
 
 // import { Message } from '../../../lib/messages/Message';
 
 describe('Messages Selectors', () => {
-  let store: Store<fromReducers.CoreState>;
+  let store: Store<CoreState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(fromReducers.reducers)]
+      imports: [StoreModule.forRoot(reducers)]
     });
 
     store = TestBed.get(Store);
@@ -24,7 +30,7 @@ describe('Messages Selectors', () => {
     it('should return true', () => {
       let result;
 
-      store.select(fromSelectors.getMessagesLoading).subscribe(value => {
+      store.select(getMessagesLoading).subscribe(value => {
         result = value;
       });
 
@@ -47,7 +53,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getMessagesLoading).subscribe(value => {
+      store.select(getMessagesLoading).subscribe(value => {
         result = value;
       });
 
@@ -64,7 +70,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getMessagesError).subscribe(value => {
+      store.select(getMessagesError).subscribe(value => {
         result = value;
       });
 
@@ -92,7 +98,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getMessageEntities).subscribe(value => {
+      store.select(getMessageEntities).subscribe(value => {
         result = value;
       });
 
@@ -116,7 +122,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getUnreadMessages).subscribe(value => {
+      store.select(getUnreadMessages).subscribe(value => {
         result = value;
       });
 
@@ -140,7 +146,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getAllMessages).subscribe(value => {
+      store.select(getAllMessages).subscribe(value => {
         result = value;
       });
 

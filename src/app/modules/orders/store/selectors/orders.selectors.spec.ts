@@ -6,7 +6,7 @@ import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/
 
 import { Order } from '../../models/order.model';
 import { CreateOrder, CreateOrderFail, CreateOrderSuccess, FilterChange, PageChange, SortingChange } from '../actions';
-import { OrdersState, reducer } from '../reducers';
+import { ordersReducer, OrdersState } from '../reducers';
 import { getAllFilters, getError, getFilter, getLoading, getPagination, getSorting } from './orders.selectors';
 
 describe('Orders Selectors', () => {
@@ -16,7 +16,7 @@ describe('Orders Selectors', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          orders: reducer
+          orders: ordersReducer
         })
       ]
     });

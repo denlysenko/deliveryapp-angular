@@ -7,7 +7,6 @@ import {
   MarkAsReadFail,
   MarkAsReadSuccess,
   MessagesActionTypes,
-  ResetMessagesState,
 } from './messages.actions';
 
 // import { Message } from '../../../lib/messages/Message';
@@ -102,15 +101,6 @@ describe('Messages Actions', () => {
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.HANDLE_MESSAGE_RECEIVE,
         payload
-      });
-    });
-  });
-
-  describe('ResetMessagesState', () => {
-    it('should create an action', () => {
-      const action = new ResetMessagesState();
-      expect({ ...action }).toEqual({
-        type: MessagesActionTypes.RESET_MESSAGES_STATE
       });
     });
   });

@@ -1,13 +1,13 @@
 import { User } from '@auth/models';
 
 import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout } from '../actions/self.actions';
-import { initialState, reducer } from './self.reducer';
+import { initialState, selfReducer } from './self.reducer';
 
 describe('SelfReducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
       const action = {} as any;
-      const state = reducer(undefined, action);
+      const state = selfReducer(undefined, action);
       expect(state).toEqual(initialState);
     });
   });
@@ -15,7 +15,7 @@ describe('SelfReducer', () => {
   describe('LOAD_SELF action', () => {
     it('should set loading to true', () => {
       const action = new LoadSelf();
-      const { loading, error, user } = reducer(initialState, action);
+      const { loading, error, user } = selfReducer(initialState, action);
       expect(loading).toEqual(true);
       expect(error).toEqual(null);
       expect(user).toEqual(null);
@@ -34,7 +34,7 @@ describe('SelfReducer', () => {
         role: 1
       };
       const action = new LoadSelfSuccess(payload);
-      const { loading, user } = reducer(initialState, action);
+      const { loading, user } = selfReducer(initialState, action);
       expect(loading).toEqual(false);
       expect(user).toEqual(payload);
     });
@@ -44,7 +44,7 @@ describe('SelfReducer', () => {
     it('should set error to payload value', () => {
       const payload = { message: 'Error message' };
       const action = new LoadSelfFail(payload);
-      const { loading, error, user } = reducer(initialState, action);
+      const { loading, error, user } = selfReducer(initialState, action);
       expect(loading).toEqual(false);
       expect(error).toEqual(payload);
       expect(user).toEqual(null);
@@ -54,7 +54,7 @@ describe('SelfReducer', () => {
   describe('LOGOUT Action', () => {
     it('should set user to null', () => {
       const action = new Logout();
-      const { user } = reducer(initialState, action);
+      const { user } = selfReducer(initialState, action);
       expect(user).toEqual(null);
     });
   });

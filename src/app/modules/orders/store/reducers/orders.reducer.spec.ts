@@ -12,13 +12,13 @@ import {
   UpdateOrderFail,
   UpdateOrderSuccess,
 } from '../actions/orders.actions';
-import { initialState, reducer } from './orders.reducer';
+import { initialState, ordersReducer } from './orders.reducer';
 
 describe('OrdersReducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
       const action = {} as any;
-      const state = reducer(undefined, action);
+      const state = ordersReducer(undefined, action);
       expect(state).toEqual(initialState);
     });
   });
@@ -36,7 +36,7 @@ describe('OrdersReducer', () => {
         senderPhone: '1232123'
       };
       const action = new CreateOrder(payload);
-      const { loading, error } = reducer(initialState, action);
+      const { loading, error } = ordersReducer(initialState, action);
 
       expect(loading).toEqual(true);
       expect(error).toEqual(null);
@@ -46,7 +46,7 @@ describe('OrdersReducer', () => {
   describe('CREATE_SUCCESS Action', () => {
     it('should set loading to false', () => {
       const action = new CreateOrderSuccess();
-      const { loading } = reducer(initialState, action);
+      const { loading } = ordersReducer(initialState, action);
       expect(loading).toEqual(false);
     });
   });
@@ -55,7 +55,7 @@ describe('OrdersReducer', () => {
     it('should set error to payload value', () => {
       const payload = { message: 'Error message' } as any;
       const action = new CreateOrderFail(payload);
-      const { loading, error } = reducer(initialState, action);
+      const { loading, error } = ordersReducer(initialState, action);
       expect(loading).toEqual(false);
       expect(error).toEqual(payload);
     });
@@ -74,7 +74,7 @@ describe('OrdersReducer', () => {
         senderPhone: '1232123'
       };
       const action = new UpdateOrder(payload);
-      const { loading, error } = reducer(initialState, action);
+      const { loading, error } = ordersReducer(initialState, action);
 
       expect(loading).toEqual(true);
       expect(error).toEqual(null);
@@ -84,7 +84,7 @@ describe('OrdersReducer', () => {
   describe('UPDATE_SUCCESS Action', () => {
     it('should set loading to false', () => {
       const action = new UpdateOrderSuccess();
-      const { loading } = reducer(initialState, action);
+      const { loading } = ordersReducer(initialState, action);
       expect(loading).toEqual(false);
     });
   });
@@ -93,7 +93,7 @@ describe('OrdersReducer', () => {
     it('should set error to payload value', () => {
       const payload = { message: 'Error message' } as any;
       const action = new UpdateOrderFail(payload);
-      const { loading, error } = reducer(initialState, action);
+      const { loading, error } = ordersReducer(initialState, action);
       expect(loading).toEqual(false);
       expect(error).toEqual(payload);
     });
@@ -105,7 +105,7 @@ describe('OrdersReducer', () => {
         'filter[smth]': 'test'
       };
       const action = new FilterChange(payload);
-      const { filter } = reducer(initialState, action);
+      const { filter } = ordersReducer(initialState, action);
 
       expect(filter).toEqual(payload);
     });
@@ -117,7 +117,7 @@ describe('OrdersReducer', () => {
         'order[smth]': 'desc'
       };
       const action = new SortingChange(payload);
-      const { sorting } = reducer(initialState, action);
+      const { sorting } = ordersReducer(initialState, action);
 
       expect(sorting).toEqual(payload);
     });
@@ -127,7 +127,7 @@ describe('OrdersReducer', () => {
     it('should set paging value to payload', () => {
       const payload: PageChangeEvent = { limit: 10, offset: 10 };
       const action = new PageChange(payload);
-      const { pagination } = reducer(initialState, action);
+      const { pagination } = ordersReducer(initialState, action);
       expect(pagination).toEqual(payload);
     });
   });

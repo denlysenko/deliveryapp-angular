@@ -29,4 +29,4 @@ export class Logout implements Action {
   readonly type = SelfActionTypes.LOGOUT;
 }
 
-export type UserAction = LoadSelf | LoadSelfSuccess | LoadSelfFail | Logout;
+export type SelfActions = LoadSelf | LoadSelfSuccess | LoadSelfFail | Logout;

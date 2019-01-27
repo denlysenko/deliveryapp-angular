@@ -4,9 +4,8 @@ import {
   LoadMessagesFail,
   LoadMessagesSuccess,
   MarkAsReadSuccess,
-  ResetMessagesState,
 } from '../actions/messages.actions';
-import { initialState, reducer } from './messages.reducer';
+import { initialState, messagesReducer } from './messages.reducer';
 
 // import { Message } from '../../../lib/messages/Message';
 
@@ -14,7 +13,7 @@ describe('MessagesReducer', () => {
   describe('undefined action', () => {
     it('should return the default state', () => {
       const action = {} as any;
-      const state = reducer(undefined, action);
+      const state = messagesReducer(undefined, action);
       expect(state).toBe(initialState);
     });
   });
@@ -22,7 +21,7 @@ describe('MessagesReducer', () => {
   describe('LOAD_MESSAGES action', () => {
     it('should set loading to true', () => {
       const action = new LoadMessages();
-      const { loading } = reducer(initialState, action);
+      const { loading } = messagesReducer(initialState, action);
       expect(loading).toEqual(true);
     });
   });
@@ -61,7 +60,10 @@ describe('MessagesReducer', () => {
       };
 
       const action = new LoadMessagesSuccess(messages);
-      const { loading, entities, unread } = reducer(initialState, action);
+      const { loading, entities, unread } = messagesReducer(
+        initialState,
+        action
+      );
       expect(loading).toEqual(false);
       expect(entities).toEqual(messageEntities);
       expect(unread).toEqual(2);
@@ -72,7 +74,7 @@ describe('MessagesReducer', () => {
     it('should set error', () => {
       const payload = { message: 'Error message' };
       const action = new LoadMessagesFail(payload);
-      const { loading, error } = reducer(initialState, action);
+      const { loading, error } = messagesReducer(initialState, action);
       expect(loading).toEqual(false);
       expect(error).toEqual(error);
     });
@@ -90,7 +92,7 @@ describe('MessagesReducer', () => {
       };
 
       const action = new HandleMessageReceive(message);
-      const { entities, unread } = reducer(initialState, action);
+      const { entities, unread } = messagesReducer(initialState, action);
       expect(entities['1']).toEqual(message);
       expect(unread).toEqual(1);
     });
@@ -110,19 +112,11 @@ describe('MessagesReducer', () => {
       ];
 
       const loadAction = new LoadMessagesSuccess(messages);
-      const state = reducer(initialState, loadAction);
+      const state = messagesReducer(initialState, loadAction);
       const markAsReadAction = new MarkAsReadSuccess('1');
-      const { entities, unread } = reducer(state, markAsReadAction);
+      const { entities, unread } = messagesReducer(state, markAsReadAction);
       expect(entities['1'].read).toEqual(true);
       expect(unread).toEqual(0);
-    });
-  });
-
-  describe('RESET_MESSAGES_STATE action', () => {
-    it('should set state to initialState', () => {
-      const action = new ResetMessagesState();
-      const state = reducer(initialState, action);
-      expect(state).toEqual(initialState);
     });
   });
 });

@@ -17,7 +17,7 @@ export const initialState: MessageState = {
   unread: 0
 };
 
-export function reducer(
+export function messagesReducer(
   state = initialState,
   action: MessagesActions
 ): MessageState {
@@ -89,13 +89,6 @@ export function reducer(
           [messageId]: updatedMessage
         },
         unread: state.unread - 1
-      };
-    }
-
-    case MessagesActionTypes.RESET_MESSAGES_STATE: {
-      return {
-        ...state,
-        ...initialState
       };
     }
   }

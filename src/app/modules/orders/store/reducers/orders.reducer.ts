@@ -24,7 +24,7 @@ export const initialState: OrdersState = {
   }
 };
 
-export function reducer(
+export function ordersReducer(
   state = initialState,
   action: OrdersActions
 ): OrdersState {

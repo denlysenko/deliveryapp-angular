@@ -4,7 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import { AuthForm } from '../../models';
 import { AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
-import { AuthState, reducer } from '../reducers';
+import { authReducer, AuthState } from '../reducers';
 import { getAuthError, getAuthLoading } from './auth.selectors';
 
 describe('Auth Selectors', () => {
@@ -14,7 +14,7 @@ describe('Auth Selectors', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          auth: reducer
+          auth: authReducer
         })
       ]
     });
