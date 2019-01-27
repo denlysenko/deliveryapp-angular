@@ -5,15 +5,15 @@ import { Store, StoreModule } from '@ngrx/store';
 import { User } from '@auth/models';
 
 import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout } from '../actions/self.actions';
-import * as fromReducers from '../reducers';
-import * as fromSelectors from './self.selectors';
+import { CoreState, reducers } from '../reducers';
+import { getLoggedIn, getSelf, getSelfError, getSelfLoading, getSelfRole } from './self.selectors';
 
 describe('Self Selectors', () => {
-  let store: Store<fromReducers.CoreState>;
+  let store: Store<CoreState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(fromReducers.reducers)]
+      imports: [StoreModule.forRoot(reducers)]
     });
 
     store = TestBed.get(Store);
@@ -24,7 +24,7 @@ describe('Self Selectors', () => {
     it('should return true when LoadSelf was dispatched', () => {
       let result;
 
-      store.select(fromSelectors.getSelfLoading).subscribe(value => {
+      store.select(getSelfLoading).subscribe(value => {
         result = value;
       });
 
@@ -45,7 +45,7 @@ describe('Self Selectors', () => {
         role: 1
       };
 
-      store.select(fromSelectors.getSelfLoading).subscribe(value => {
+      store.select(getSelfLoading).subscribe(value => {
         result = value;
       });
 
@@ -62,7 +62,7 @@ describe('Self Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getSelfError).subscribe(value => {
+      store.select(getSelfError).subscribe(value => {
         result = value;
       });
 
@@ -84,7 +84,7 @@ describe('Self Selectors', () => {
         role: 1
       };
 
-      store.select(fromSelectors.getSelf).subscribe(value => {
+      store.select(getSelf).subscribe(value => {
         result = value;
       });
 
@@ -95,7 +95,7 @@ describe('Self Selectors', () => {
     it('should return null when logout was dispatched', () => {
       let result;
 
-      store.select(fromSelectors.getSelf).subscribe(value => {
+      store.select(getSelf).subscribe(value => {
         result = value;
       });
 
@@ -117,7 +117,7 @@ describe('Self Selectors', () => {
         role: 1
       };
 
-      store.select(fromSelectors.getLoggedIn).subscribe(value => {
+      store.select(getLoggedIn).subscribe(value => {
         result = value;
       });
 
@@ -128,7 +128,7 @@ describe('Self Selectors', () => {
     it('should return false when logout was dispatched', () => {
       let result;
 
-      store.select(fromSelectors.getLoggedIn).subscribe(value => {
+      store.select(getLoggedIn).subscribe(value => {
         result = value;
       });
 
@@ -151,7 +151,7 @@ describe('Self Selectors', () => {
       };
       store.dispatch(new LoadSelfSuccess(payload));
 
-      store.select(fromSelectors.getSelfRole).subscribe(value => {
+      store.select(getSelfRole).subscribe(value => {
         result = value;
       });
 

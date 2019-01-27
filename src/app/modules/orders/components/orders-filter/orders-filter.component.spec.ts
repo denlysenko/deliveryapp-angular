@@ -41,7 +41,6 @@ describe('OrdersFilterComponent', () => {
     component.filter = {
       'filter[cargoName]': 'test'
     };
-    fixture.detectChanges();
     component.ngOnInit();
     expect(component.form.get('search').value).toEqual('test');
     expect(component.form.get('selectedFilter').value).toEqual(

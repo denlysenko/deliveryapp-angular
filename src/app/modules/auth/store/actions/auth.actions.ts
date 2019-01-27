@@ -33,4 +33,4 @@ export class AuthFail implements Action {
   constructor(public payload: ValidationError | LoginError) {}
 }
 
-export type AuthAction = Register | Login | AuthSuccess | AuthFail;
+export type AuthActions = Register | Login | AuthSuccess | AuthFail;

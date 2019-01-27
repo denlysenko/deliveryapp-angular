@@ -8,12 +8,12 @@ import { components } from './components';
 import { containers } from './containers';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { AuthService } from './services/auth.service';
-import { AuthFacade, effects, reducer } from './store';
+import { AuthFacade, authReducer, effects } from './store';
 
 export const importDeclarations: any[] = [
   CommonModule,
   ReactiveFormsModule,
-  StoreModule.forFeature('auth', reducer),
+  StoreModule.forFeature('auth', authReducer),
   EffectsModule.forFeature(effects)
 ];
 

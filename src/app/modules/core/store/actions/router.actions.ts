@@ -22,4 +22,4 @@ export class Forward implements Action {
   readonly type = RouterActionTypes.FORWARD;
 }
 
-export type RouterAction = Go | Back | Forward;
+export type RouterActions = Go | Back | Forward;

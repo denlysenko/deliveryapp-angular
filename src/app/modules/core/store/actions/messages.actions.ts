@@ -9,8 +9,7 @@ export enum MessagesActionTypes {
   MARK_AS_READ = '[Core] Mark Message As Read',
   MARK_AS_READ_SUCCESS = '[Core] Mark Message As Read Success',
   MARK_AS_READ_FAIL = '[Core] Mark Message As Read Fail',
-  HANDLE_MESSAGE_RECEIVE = '[Core] Handle Message Receive',
-  RESET_MESSAGES_STATE = '[Core] Reset Messages State'
+  HANDLE_MESSAGE_RECEIVE = '[Core] Handle Message Receive'
 }
 
 export class LoadMessages implements Action {
@@ -55,10 +54,6 @@ export class HandleMessageReceive implements Action {
   constructor(public payload: any) {}
 }
 
-export class ResetMessagesState implements Action {
-  readonly type = MessagesActionTypes.RESET_MESSAGES_STATE;
-}
-
 export type MessagesActions =
   | LoadMessages
   | LoadMessagesSuccess
@@ -66,5 +61,4 @@ export type MessagesActions =
   | MarkAsRead
   | MarkAsReadSuccess
   | MarkAsReadFail
-  | HandleMessageReceive
-  | ResetMessagesState;
+  | HandleMessageReceive;

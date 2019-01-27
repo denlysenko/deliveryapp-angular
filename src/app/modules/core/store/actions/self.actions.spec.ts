@@ -26,7 +26,7 @@ describe('Self Actions', () => {
       const action = new LoadSelfSuccess(payload);
       expect({ ...action }).toEqual({
         type: SelfActionTypes.LOAD_SELF_SUCCESS,
-        payload: payload
+        payload
       });
     });
   });
@@ -37,7 +37,7 @@ describe('Self Actions', () => {
       const action = new LoadSelfFail(payload);
       expect({ ...action }).toEqual({
         type: SelfActionTypes.LOAD_SELF_FAIL,
-        payload: payload
+        payload
       });
     });
   });

@@ -7,11 +7,11 @@ import { components } from './components';
 import { containers } from './containers';
 import { OrdersResolver } from './resolvers/orders.resolver';
 import { OrdersService } from './services/orders.service';
-import { effects, OrdersFacade, reducer } from './store';
+import { effects, OrdersFacade, ordersReducer } from './store';
 
 export const importDeclarations: any[] = [
   ReactiveFormsModule,
-  StoreModule.forFeature('orders', reducer),
+  StoreModule.forFeature('orders', ordersReducer),
   EffectsModule.forFeature(effects)
 ];
 

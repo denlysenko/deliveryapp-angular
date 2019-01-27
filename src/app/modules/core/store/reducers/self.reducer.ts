@@ -1,6 +1,6 @@
 import { User } from '@auth/models';
 
-import { SelfActionTypes, UserAction } from '../actions/self.actions';
+import { SelfActions, SelfActionTypes } from '../actions/self.actions';
 
 // import * as fromProfile from '../../../pages/profile/store/actions';
 
@@ -16,9 +16,9 @@ export const initialState: SelfState = {
   user: null
 };
 
-export function reducer(
+export function selfReducer(
   state = initialState,
-  action: UserAction
+  action: SelfActions
   // | fromProfile.ProfileActions
 ): SelfState {
   switch (action.type) {

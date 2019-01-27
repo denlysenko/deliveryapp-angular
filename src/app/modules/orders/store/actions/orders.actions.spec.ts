@@ -30,7 +30,7 @@ describe('Orders Actions', () => {
       const action = new CreateOrder(payload);
       expect({ ...action }).toEqual({
         type: OrdersActionTypes.CREATE,
-        payload: payload
+        payload
       });
     });
   });
@@ -50,7 +50,7 @@ describe('Orders Actions', () => {
       const action = new CreateOrderFail(payload);
       expect({ ...action }).toEqual({
         type: OrdersActionTypes.CREATE_FAIL,
-        payload: payload
+        payload
       });
     });
   });
@@ -70,7 +70,7 @@ describe('Orders Actions', () => {
       const action = new UpdateOrder(payload);
       expect({ ...action }).toEqual({
         type: OrdersActionTypes.UPDATE,
-        payload: payload
+        payload
       });
     });
   });
@@ -90,7 +90,7 @@ describe('Orders Actions', () => {
       const action = new UpdateOrderFail(payload);
       expect({ ...action }).toEqual({
         type: OrdersActionTypes.UPDATE_FAIL,
-        payload: payload
+        payload
       });
     });
   });

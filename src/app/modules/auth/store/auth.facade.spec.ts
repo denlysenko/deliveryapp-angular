@@ -5,7 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AuthForm } from '../models';
 import { AuthFail, Login, Register } from './actions/auth.actions';
 import { AuthFacade } from './auth.facade';
-import { AuthState, reducer } from './reducers';
+import { authReducer, AuthState } from './reducers';
 
 describe('AuthFacade', () => {
   let store: Store<AuthState>;
@@ -15,7 +15,7 @@ describe('AuthFacade', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          auth: reducer
+          auth: authReducer
         })
       ],
       providers: [AuthFacade]

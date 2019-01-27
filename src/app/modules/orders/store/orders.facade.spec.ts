@@ -7,7 +7,7 @@ import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/
 import { Order } from '../models';
 import { CreateOrder, CreateOrderFail, FilterChange, PageChange, SortingChange } from './actions';
 import { OrdersFacade } from './orders.facade';
-import { OrdersState, reducer } from './reducers';
+import { ordersReducer, OrdersState } from './reducers';
 
 describe('OrdersFacade', () => {
   let store: Store<OrdersState>;
@@ -17,7 +17,7 @@ describe('OrdersFacade', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          orders: reducer
+          orders: ordersReducer
         })
       ],
       providers: [OrdersFacade]
