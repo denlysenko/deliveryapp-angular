@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { skip, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { empty } from 'rxjs';
+import { catchError, filter, skip, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
 
 import { BaseComponent } from '@base/BaseComponent';
 import { Roles } from '@common/enums';
@@ -59,11 +60,17 @@ export class OrdersPageComponent extends BaseComponent implements OnInit {
       .pipe(
         skip(1),
         withLatestFrom(this.role$),
-        switchMap(([filter, role]: [OrdersFilter, number]) => {
+        filter(([_, role]: [never, number]) => role !== null),
+        switchMap(([ordersFilter, role]: [OrdersFilter, number]) => {
           this.loaderService.start();
           return this.ordersService[
             role === Roles.CLIENT ? 'getOrdersSelf' : 'getOrders'
-          ](filter);
+          ](ordersFilter).pipe(
+            catchError(() => {
+              this.loaderService.stop();
+              return empty();
+            })
+          );
         }),
         takeUntil(this.destroy$)
       )
