@@ -3,10 +3,11 @@ import {
   LoadMessages,
   LoadMessagesFail,
   LoadMessagesSuccess,
-  MarkAsReadSuccess,
+  MarkAsReadSuccess
 } from '../actions/messages.actions';
 import { initialState, messagesReducer } from './messages.reducer';
 
+// tslint:disable-next-line:no-commented-code
 // import { Message } from '../../../lib/messages/Message';
 
 describe('MessagesReducer', () => {

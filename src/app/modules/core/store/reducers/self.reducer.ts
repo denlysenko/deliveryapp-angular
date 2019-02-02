@@ -2,6 +2,7 @@ import { User } from '@auth/models';
 
 import { SelfActions, SelfActionTypes } from '../actions/self.actions';
 
+// tslint:disable-next-line:no-commented-code
 // import * as fromProfile from '../../../pages/profile/store/actions';
 
 export interface SelfState {

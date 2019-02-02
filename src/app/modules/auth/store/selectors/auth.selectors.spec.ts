@@ -3,7 +3,12 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { AuthForm } from '../../models';
-import { AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
+import {
+  AuthFail,
+  AuthSuccess,
+  Login,
+  Register
+} from '../actions/auth.actions';
 import { authReducer, AuthState } from '../reducers';
 import { getAuthError, getAuthLoading } from './auth.selectors';
 

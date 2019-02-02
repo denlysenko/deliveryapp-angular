@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';

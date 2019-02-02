@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'jest-preset-angular',
   roots: ['src'],
-  setupTestFrameworkScriptFile: '<rootDir>/src/jest/setup-jest.ts',
+  setupFilesAfterEnv: ['<rootDir>/src/jest/setup-jest.ts'],
   moduleNameMapper: {
     '@base/(.*)': '<rootDir>/src/app/base/$1',
     '@ui/(.*)': '<rootDir>/src/app/ui/$1',

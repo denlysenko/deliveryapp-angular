@@ -4,9 +4,20 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import { User } from '@auth/models';
 
-import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout } from '../actions/self.actions';
+import {
+  LoadSelf,
+  LoadSelfFail,
+  LoadSelfSuccess,
+  Logout
+} from '../actions/self.actions';
 import { CoreState, reducers } from '../reducers';
-import { getLoggedIn, getSelf, getSelfError, getSelfLoading, getSelfRole } from './self.selectors';
+import {
+  getLoggedIn,
+  getSelf,
+  getSelfError,
+  getSelfLoading,
+  getSelfRole
+} from './self.selectors';
 
 describe('Self Selectors', () => {
   let store: Store<CoreState>;

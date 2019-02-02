@@ -1,5 +1,10 @@
 import { AuthForm } from '../../models';
-import { AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
+import {
+  AuthFail,
+  AuthSuccess,
+  Login,
+  Register
+} from '../actions/auth.actions';
 import { authReducer, initialState } from './auth.reducer';
 
 describe('AuthReducer', () => {

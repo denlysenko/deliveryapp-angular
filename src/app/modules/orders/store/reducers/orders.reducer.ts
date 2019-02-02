@@ -1,5 +1,10 @@
 import { DEFAULT_LIMIT } from '@common/constants';
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent, ValidationError } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent,
+  ValidationError
+} from '@common/models';
 
 import { OrdersActions, OrdersActionTypes } from '../actions';
 

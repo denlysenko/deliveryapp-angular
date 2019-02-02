@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
@@ -13,9 +13,10 @@ import {
   HandleMessageReceive,
   LoadMessagesFail,
   LoadMessagesSuccess,
-  MessagesActionTypes,
+  MessagesActionTypes
 } from '../actions/messages.actions';
 
+// tslint:disable-next-line:no-commented-code
 // import { MessagesService } from '../../../lib/messages/messages.service';
 
 @Injectable()
@@ -28,7 +29,8 @@ export class MessagesEffects {
   ) {}
 
   @Effect()
-  loadMessages$ = this.actions$.ofType(MessagesActionTypes.LOAD_MESSAGES).pipe(
+  loadMessages$ = this.actions$.pipe(
+    ofType(MessagesActionTypes.LOAD_MESSAGES),
     switchMap(() => {
       return this.userSelfService.loadMessages().pipe(
         map(messages => new LoadMessagesSuccess(messages)),
@@ -46,21 +48,20 @@ export class MessagesEffects {
   //   );
 
   @Effect({ dispatch: false })
-  handleMessageReceive$ = this.actions$
-    .ofType(MessagesActionTypes.HANDLE_MESSAGE_RECEIVE)
-    .pipe(
-      map((action: HandleMessageReceive) => action.payload),
-      tap(message => {
-        if (
-          'Notification' in window &&
-          Notification['permission'] === 'granted'
-        ) {
-          return new Notification(MESSAGE_SUBJECT, {
-            body: message.text
-          });
-        } else {
-          return this.feedbackService.info(message.text);
-        }
-      })
-    );
+  handleMessageReceive$ = this.actions$.pipe(
+    ofType(MessagesActionTypes.HANDLE_MESSAGE_RECEIVE),
+    map((action: HandleMessageReceive) => action.payload),
+    tap(message => {
+      if (
+        'Notification' in window &&
+        Notification['permission'] === 'granted'
+      ) {
+        return new Notification(MESSAGE_SUBJECT, {
+          body: message.text
+        });
+      } else {
+        return this.feedbackService.info(message.text);
+      }
+    })
+  );
 }

@@ -5,7 +5,11 @@ import { Store, StoreModule } from '@ngrx/store';
 import { User } from '@auth/models';
 
 import { RouterPayload } from '../models/router-payload.model';
-import { LoadMessages, LoadMessagesSuccess, MarkAsRead } from './actions/messages.actions';
+import {
+  LoadMessages,
+  LoadMessagesSuccess,
+  MarkAsRead
+} from './actions/messages.actions';
 import { Back, Forward, Go } from './actions/router.actions';
 import { LoadSelf, LoadSelfSuccess, Logout } from './actions/self.actions';
 import { CoreFacade } from './core.facade';

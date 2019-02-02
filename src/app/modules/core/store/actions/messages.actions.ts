@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 
+// tslint:disable-next-line:no-commented-code
 // import { Message } from '../../../lib/messages/Message';
 
 export enum MessagesActionTypes {

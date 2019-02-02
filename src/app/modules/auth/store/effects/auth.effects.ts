@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
@@ -10,7 +10,13 @@ import { StorageService } from '@core/services';
 import { Go } from '@core/store';
 
 import { AuthService } from '../../services/auth.service';
-import { AuthActionTypes, AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
+import {
+  AuthActionTypes,
+  AuthFail,
+  AuthSuccess,
+  Login,
+  Register
+} from '../actions/auth.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -21,7 +27,8 @@ export class AuthEffects {
   ) {}
 
   @Effect()
-  login$ = this.actions$.ofType(AuthActionTypes.LOGIN).pipe(
+  login$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LOGIN),
     map((action: Login) => action.payload),
     switchMap(payload => {
       return this.authService.login(payload).pipe(
@@ -35,7 +42,8 @@ export class AuthEffects {
   );
 
   @Effect()
-  register$ = this.actions$.ofType(AuthActionTypes.REGISTER).pipe(
+  register$ = this.actions$.pipe(
+    ofType(AuthActionTypes.REGISTER),
     map((action: Register) => action.payload),
     switchMap(payload => {
       return this.authService.register(payload).pipe(
@@ -49,7 +57,8 @@ export class AuthEffects {
   );
 
   @Effect()
-  authSuccess$ = this.actions$.ofType(AuthActionTypes.AUTH_SUCCESS).pipe(
+  authSuccess$ = this.actions$.pipe(
+    ofType(AuthActionTypes.AUTH_SUCCESS),
     map(
       () =>
         new Go({

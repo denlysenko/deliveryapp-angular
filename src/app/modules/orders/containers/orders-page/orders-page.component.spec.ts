@@ -5,7 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { of, Subject } from 'rxjs';
 
 import { Roles } from '@common/enums';
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent
+} from '@common/models';
 import { LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
 

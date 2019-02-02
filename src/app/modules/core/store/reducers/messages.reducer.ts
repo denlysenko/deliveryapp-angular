@@ -1,5 +1,9 @@
-import { MessagesActions, MessagesActionTypes } from '../actions/messages.actions';
+import {
+  MessagesActions,
+  MessagesActionTypes
+} from '../actions/messages.actions';
 
+// tslint:disable-next-line:no-commented-code
 // import { Message } from '../../../lib/messages/Message';
 
 export interface MessageState {
