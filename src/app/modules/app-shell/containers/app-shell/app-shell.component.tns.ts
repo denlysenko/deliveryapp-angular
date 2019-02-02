@@ -4,14 +4,25 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 
 import { CoreFacade } from '@core/store';
-import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
-import { DrawerTransitionBase, SlideAlongTransition } from 'nativescript-ui-sidedrawer';
-import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-ui-sidedrawer/angular';
+import {
+  ModalDialogOptions,
+  ModalDialogService
+} from 'nativescript-angular/modal-dialog';
+import {
+  DrawerTransitionBase,
+  SlideAlongTransition
+} from 'nativescript-ui-sidedrawer';
+import {
+  RadSideDrawerComponent,
+  SideDrawerType
+} from 'nativescript-ui-sidedrawer/angular';
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
 import { AppShellBase } from '../../base/AppShellBase';
-import { MessagesComponent } from '../../components/messages/messages.component';
+import {
+  MessagesComponent
+} from '../../components/messages/messages.component';
 
 @Component({
   moduleId: module.id,

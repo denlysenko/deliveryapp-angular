@@ -1,6 +1,7 @@
 import { Roles } from './enums/roles.enum';
+import { AppMenuItem } from './models';
 
-export const appMenu = [
+export const appMenu: AppMenuItem[] = [
   {
     link: '/orders',
     label: 'Orders',

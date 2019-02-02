@@ -1,10 +1,20 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, concatMap, delay, retryWhen } from 'rxjs/operators';
 
-import { HTTP_RETRY_COUNT, HTTP_RETRY_DELAY, HTTP_STATUS } from '@common/constants';
+import {
+  HTTP_RETRY_COUNT,
+  HTTP_RETRY_DELAY,
+  HTTP_STATUS
+} from '@common/constants';
 import { ServerErrors } from '@common/enums';
 
 import { FeedbackService } from '../services/feedback/feedback.service';

@@ -1,4 +1,8 @@
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent
+} from '@common/models';
 
 import { Order } from '../../models/order.model';
 import {
@@ -10,7 +14,7 @@ import {
   SortingChange,
   UpdateOrder,
   UpdateOrderFail,
-  UpdateOrderSuccess,
+  UpdateOrderSuccess
 } from '../actions/orders.actions';
 import { initialState, ordersReducer } from './orders.reducer';
 

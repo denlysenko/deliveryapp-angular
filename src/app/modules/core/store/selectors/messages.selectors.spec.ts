@@ -2,16 +2,21 @@ import { TestBed } from '@angular/core/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { LoadMessages, LoadMessagesFail, LoadMessagesSuccess } from '../actions/messages.actions';
+import {
+  LoadMessages,
+  LoadMessagesFail,
+  LoadMessagesSuccess
+} from '../actions/messages.actions';
 import { CoreState, reducers } from '../reducers';
 import {
   getAllMessages,
   getMessageEntities,
   getMessagesError,
   getMessagesLoading,
-  getUnreadMessages,
+  getUnreadMessages
 } from './messages.selectors';
 
+// tslint:disable-next-line:no-commented-code
 // import { Message } from '../../../lib/messages/Message';
 
 describe('Messages Selectors', () => {

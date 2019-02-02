@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ButtonModule, InputTextModule, MenuModule, SidebarModule, TooltipModule } from 'primeng/primeng';
+import {
+  ButtonModule,
+  InputTextModule,
+  MenuModule,
+  SidebarModule,
+  TooltipModule
+} from 'primeng/primeng';
 
 import { componentDeclarations, importDeclarations } from './app-shell.common';
 import { TopbarComponent } from './components/topbar/topbar.component';

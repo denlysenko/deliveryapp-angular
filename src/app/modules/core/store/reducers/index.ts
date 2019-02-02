@@ -1,6 +1,14 @@
-import { ActivatedRouteSnapshot, Params, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Params,
+  RouterStateSnapshot
+} from '@angular/router';
 
-import { routerReducer, RouterReducerState, RouterStateSerializer } from '@ngrx/router-store';
+import {
+  routerReducer,
+  RouterReducerState,
+  RouterStateSerializer
+} from '@ngrx/router-store';
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 
 import { SelfActionTypes } from '../actions';

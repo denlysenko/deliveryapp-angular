@@ -1,4 +1,8 @@
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent
+} from '@common/models';
 
 import { Order } from '../../models';
 import {
@@ -11,7 +15,7 @@ import {
   SortingChange,
   UpdateOrder,
   UpdateOrderFail,
-  UpdateOrderSuccess,
+  UpdateOrderSuccess
 } from './orders.actions';
 
 describe('Orders Actions', () => {

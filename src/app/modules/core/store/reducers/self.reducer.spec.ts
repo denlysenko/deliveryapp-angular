@@ -1,6 +1,11 @@
 import { User } from '@auth/models';
 
-import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout } from '../actions/self.actions';
+import {
+  LoadSelf,
+  LoadSelfFail,
+  LoadSelfSuccess,
+  Logout
+} from '../actions/self.actions';
 import { initialState, selfReducer } from './self.reducer';
 
 describe('SelfReducer', () => {

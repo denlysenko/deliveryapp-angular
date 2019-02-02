@@ -1,21 +1,32 @@
 import { Injectable } from '@angular/core';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent
+} from '@common/models';
 
 import { FilterChange, PageChange, SortingChange } from './actions';
 import { OrdersState } from './reducers';
-import { getAllFilters, getError, getFilter, getLoading, getPagination, getSorting } from './selectors';
+import {
+  getAllFilters,
+  getError,
+  getFilter,
+  getLoading,
+  getPagination,
+  getSorting
+} from './selectors';
 
 @Injectable()
 export class OrdersFacade {
-  loading$ = this.store.select(getLoading);
-  error$ = this.store.select(getError);
-  filter$ = this.store.select(getFilter);
-  sorting$ = this.store.select(getSorting);
-  pagination$ = this.store.select(getPagination);
-  allFilters$ = this.store.select(getAllFilters);
+  loading$ = this.store.pipe(select(getLoading));
+  error$ = this.store.pipe(select(getError));
+  filter$ = this.store.pipe(select(getFilter));
+  sorting$ = this.store.pipe(select(getSorting));
+  pagination$ = this.store.pipe(select(getPagination));
+  allFilters$ = this.store.pipe(select(getAllFilters));
 
   constructor(private store: Store<OrdersState>) {}
 

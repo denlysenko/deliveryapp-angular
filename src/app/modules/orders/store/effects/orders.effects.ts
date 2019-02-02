@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { of } from 'rxjs';
@@ -16,7 +16,7 @@ import {
   CreateOrderSuccess,
   OrdersActionTypes,
   UpdateOrder,
-  UpdateOrderSuccess,
+  UpdateOrderSuccess
 } from '../actions';
 
 const SUCCESS_REDIRECT_PATH = '/orders';
@@ -30,7 +30,8 @@ export class OrdersEffects {
   ) {}
 
   @Effect()
-  createOrder$ = this.actions$.ofType(OrdersActionTypes.CREATE).pipe(
+  createOrder$ = this.actions$.pipe(
+    ofType(OrdersActionTypes.CREATE),
     map((action: CreateOrder) => action.payload),
     withLatestFrom(this.store.select(getSelfRole)),
     switchMap(([order, role]) => {
@@ -44,7 +45,8 @@ export class OrdersEffects {
   );
 
   @Effect()
-  updateOrder$ = this.actions$.ofType(OrdersActionTypes.UPDATE).pipe(
+  updateOrder$ = this.actions$.pipe(
+    ofType(OrdersActionTypes.UPDATE),
     map((action: UpdateOrder) => action.payload),
     withLatestFrom(this.store.select(getSelfRole)),
     switchMap(([order, role]) => {
@@ -58,7 +60,8 @@ export class OrdersEffects {
   );
 
   @Effect()
-  handleOrderSuccess$ = this.actions$
-    .ofType(OrdersActionTypes.CREATE_SUCCESS, OrdersActionTypes.UPDATE_SUCCESS)
-    .pipe(map(() => new Go({ path: [SUCCESS_REDIRECT_PATH] })));
+  handleOrderSuccess$ = this.actions$.pipe(
+    ofType(OrdersActionTypes.CREATE_SUCCESS, OrdersActionTypes.UPDATE_SUCCESS),
+    map(() => new Go({ path: [SUCCESS_REDIRECT_PATH] }))
+  );
 }

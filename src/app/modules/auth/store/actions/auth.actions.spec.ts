@@ -1,5 +1,11 @@
 import { AuthForm } from '../../models';
-import { AuthActionTypes, AuthFail, AuthSuccess, Login, Register } from './auth.actions';
+import {
+  AuthActionTypes,
+  AuthFail,
+  AuthSuccess,
+  Login,
+  Register
+} from './auth.actions';
 
 describe('Auth Actions', () => {
   describe('Login', () => {

@@ -1,12 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { empty } from 'rxjs';
-import { catchError, filter, skip, switchMap, take, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import {
+  catchError,
+  filter,
+  skip,
+  switchMap,
+  take,
+  takeUntil,
+  withLatestFrom
+} from 'rxjs/operators';
 
 import { BaseComponent } from '@base/BaseComponent';
 import { Roles } from '@common/enums';
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent
+} from '@common/models';
 import { LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
@@ -68,7 +80,7 @@ export class OrdersPageComponent extends BaseComponent implements OnInit {
           ](ordersFilter).pipe(
             catchError(() => {
               this.loaderService.stop();
-              return empty();
+              return EMPTY;
             })
           );
         }),

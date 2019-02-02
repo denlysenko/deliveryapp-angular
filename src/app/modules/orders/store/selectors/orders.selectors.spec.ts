@@ -2,12 +2,30 @@ import { TestBed } from '@angular/core/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent
+} from '@common/models';
 
 import { Order } from '../../models/order.model';
-import { CreateOrder, CreateOrderFail, CreateOrderSuccess, FilterChange, PageChange, SortingChange } from '../actions';
+import {
+  CreateOrder,
+  CreateOrderFail,
+  CreateOrderSuccess,
+  FilterChange,
+  PageChange,
+  SortingChange
+} from '../actions';
 import { ordersReducer, OrdersState } from '../reducers';
-import { getAllFilters, getError, getFilter, getLoading, getPagination, getSorting } from './orders.selectors';
+import {
+  getAllFilters,
+  getError,
+  getFilter,
+  getLoading,
+  getPagination,
+  getSorting
+} from './orders.selectors';
 
 describe('Orders Selectors', () => {
   let store: Store<OrdersState>;

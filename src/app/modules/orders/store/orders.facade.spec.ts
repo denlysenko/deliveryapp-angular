@@ -2,10 +2,20 @@ import { async, TestBed } from '@angular/core/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent
+} from '@common/models';
 
 import { Order } from '../models';
-import { CreateOrder, CreateOrderFail, FilterChange, PageChange, SortingChange } from './actions';
+import {
+  CreateOrder,
+  CreateOrderFail,
+  FilterChange,
+  PageChange,
+  SortingChange
+} from './actions';
 import { OrdersFacade } from './orders.facade';
 import { ordersReducer, OrdersState } from './reducers';
 

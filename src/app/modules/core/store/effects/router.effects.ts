@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { map, tap } from 'rxjs/operators';
 
@@ -12,7 +12,8 @@ export class RouterEffects {
   constructor(private router: RouterExtensions, private actions$: Actions) {}
 
   @Effect({ dispatch: false })
-  navigate$ = this.actions$.ofType(RouterActionTypes.GO).pipe(
+  navigate$ = this.actions$.pipe(
+    ofType(RouterActionTypes.GO),
     map((action: Go) => action.payload),
     tap(({ path, query: queryParams, extras }) => {
       this.router.navigate(path, { queryParams, ...extras });
@@ -20,12 +21,14 @@ export class RouterEffects {
   );
 
   @Effect({ dispatch: false })
-  navigateBack$ = this.actions$
-    .ofType(RouterActionTypes.BACK)
-    .pipe(tap(() => this.router.back()));
+  navigateBack$ = this.actions$.pipe(
+    ofType(RouterActionTypes.BACK),
+    tap(() => this.router.back())
+  );
 
   @Effect({ dispatch: false })
-  navigateForward$ = this.actions$
-    .ofType(RouterActionTypes.FORWARD)
-    .pipe(tap(() => this.router.forward()));
+  navigateForward$ = this.actions$.pipe(
+    ofType(RouterActionTypes.FORWARD),
+    tap(() => this.router.forward())
+  );
 }

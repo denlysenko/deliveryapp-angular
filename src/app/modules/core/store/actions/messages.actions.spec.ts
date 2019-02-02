@@ -6,9 +6,10 @@ import {
   MarkAsRead,
   MarkAsReadFail,
   MarkAsReadSuccess,
-  MessagesActionTypes,
+  MessagesActionTypes
 } from './messages.actions';
 
+// tslint:disable-next-line:no-commented-code
 // import { Message } from '../../../lib/messages/Message';
 
 describe('Messages Actions', () => {

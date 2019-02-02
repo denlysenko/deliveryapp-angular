@@ -4,7 +4,11 @@ import { InputMaskModule } from '@ui/inputmask';
 import { ButtonModule, InputTextModule } from 'primeng/primeng';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { componentDeclarations, importDeclarations, providerDeclarations } from './auth.common';
+import {
+  componentDeclarations,
+  importDeclarations,
+  providerDeclarations
+} from './auth.common';
 
 @NgModule({
   imports: [

@@ -1,6 +1,11 @@
 import { Action } from '@ngrx/store';
 
-import { FilterChangeEvent, PageChangeEvent, SortingChangeEvent, ValidationError } from '@common/models';
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent,
+  ValidationError
+} from '@common/models';
 
 import { Order } from '../../models/order.model';
 
