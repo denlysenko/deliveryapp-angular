@@ -20,9 +20,7 @@ import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
 import { AppShellBase } from '../../base/AppShellBase';
-import {
-  MessagesComponent
-} from '../../components/messages/messages.component';
+import { MessagesComponent } from '../../components/messages/messages.component';
 
 @Component({
   moduleId: module.id,
@@ -87,10 +85,7 @@ export class AppShellComponent extends AppShellBase {
       viewContainerRef: this.viewContainerRef
     };
 
-    const response = await this.modalService.showModal(
-      MessagesComponent,
-      options
-    );
+    await this.modalService.showModal(MessagesComponent, options);
   }
 
   private updateRouteTitle() {

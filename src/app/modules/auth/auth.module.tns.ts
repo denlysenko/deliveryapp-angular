@@ -10,6 +10,9 @@ import {
   importDeclarations,
   providerDeclarations
 } from './auth.common';
+import { AuthPageComponent } from './containers/auth-page/auth-page.component.tns';
+
+const containers = [AuthPageComponent];
 
 registerElement(
   'PreviousNextView',
@@ -23,7 +26,7 @@ registerElement(
     AuthRoutingModule,
     ...importDeclarations
   ],
-  declarations: [...componentDeclarations],
+  declarations: [...componentDeclarations, ...containers],
   providers: [...providerDeclarations],
   schemas: [NO_ERRORS_SCHEMA]
 })

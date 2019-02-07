@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { InputMaskModule } from '@ui/inputmask';
+
 import { ButtonModule, InputTextModule } from 'primeng/primeng';
 
 import { AuthRoutingModule } from './auth-routing.module';
@@ -9,6 +10,9 @@ import {
   importDeclarations,
   providerDeclarations
 } from './auth.common';
+import { AuthPageComponent } from './containers/auth-page/auth-page.component';
+
+const containers = [AuthPageComponent];
 
 @NgModule({
   imports: [
@@ -18,7 +22,7 @@ import {
     ButtonModule,
     InputMaskModule
   ],
-  declarations: [...componentDeclarations],
+  declarations: [...componentDeclarations, ...containers],
   providers: [...providerDeclarations]
 })
 export class AuthModule {}

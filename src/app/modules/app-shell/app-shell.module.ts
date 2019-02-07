@@ -10,7 +10,12 @@ import {
 } from 'primeng/primeng';
 
 import { componentDeclarations, importDeclarations } from './app-shell.common';
+import { MessagesComponent } from './components/messages/messages.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { AppShellComponent } from './containers/app-shell/app-shell.component';
+
+const components = [MessagesComponent, TopbarComponent];
+const containers = [AppShellComponent];
 
 @NgModule({
   imports: [
@@ -22,6 +27,6 @@ import { TopbarComponent } from './components/topbar/topbar.component';
     ButtonModule,
     TooltipModule
   ],
-  declarations: [...componentDeclarations, TopbarComponent]
+  declarations: [...componentDeclarations, ...containers, ...components]
 })
 export class AppShellModule {}
