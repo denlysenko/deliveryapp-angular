@@ -20,10 +20,9 @@ import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
 import { AppShellBase } from '../../base/AppShellBase';
-import { MessagesComponent } from '../../components/messages/messages.component';
+import { MessagesComponent } from '../../components/messages/messages.component.tns';
 
 @Component({
-  moduleId: module.id,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss']
 })

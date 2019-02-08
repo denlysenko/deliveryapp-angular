@@ -1,10 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { routes } from './auth.routes';
+import { AuthPageComponent } from './containers/auth-page/auth-page.component';
+import { AuthenticatedGuard } from './guards/authenticated.guard';
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild([
+      {
+        path: 'auth',
+        component: AuthPageComponent,
+        canActivate: [AuthenticatedGuard]
+      }
+    ])
+  ],
   exports: [RouterModule]
 })
 export class AuthRoutingModule {}

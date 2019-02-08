@@ -2,10 +2,19 @@ import { NgModule } from '@angular/core';
 
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
-import { routes } from './auth.routes';
+import { AuthPageComponent } from './containers/auth-page/auth-page.component.tns';
+import { AuthenticatedGuard } from './guards/authenticated.guard';
 
 @NgModule({
-  imports: [NativeScriptRouterModule.forRoot(routes)],
+  imports: [
+    NativeScriptRouterModule.forRoot([
+      {
+        path: 'auth',
+        component: AuthPageComponent,
+        canActivate: [AuthenticatedGuard]
+      }
+    ])
+  ],
   exports: [NativeScriptRouterModule]
 })
 export class AuthRoutingModule {}

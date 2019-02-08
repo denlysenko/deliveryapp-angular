@@ -3,5 +3,6 @@
   "compilerOptions": {
     "module": "es2015",
     "moduleResolution": "node"
-  }
+  },
+  "exclude": ["**/*.spec.ts"]
 }

@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'da-user-menu',
   templateUrl: './user-menu.component.html',
   styleUrls: ['./user-menu.component.scss'],

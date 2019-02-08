@@ -3,10 +3,10 @@
   "nativescript": {
     "id": "org.nativescript.deliveryapp",
     "tns-ios": {
-      "version": "5.0.0"
+      "version": "5.1.1"
     },
     "tns-android": {
-      "version": "5.0.0"
+      "version": "5.1.0"
     }
   },
   "version": "1.0.0",

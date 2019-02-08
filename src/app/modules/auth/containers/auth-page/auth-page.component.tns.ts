@@ -6,7 +6,6 @@ import { AuthPageBase } from '../../base/AuthPageBase';
 import { AuthFacade } from '../../store/auth.facade';
 
 @Component({
-  moduleId: module.id,
   templateUrl: './auth-page.component.html',
   styleUrls: ['./auth-page.component.scss']
 })

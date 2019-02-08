@@ -23,7 +23,6 @@ export const REGISTER_FIELDS = [
 ];
 
 @Component({
-  moduleId: module.id,
   selector: 'da-auth-form',
   templateUrl: './auth-form.component.html',
   styleUrls: ['./auth-form.component.scss'],
