@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { InputMaskModule } from '@ui/inputmask';
+
 import {
   ButtonModule,
   DropdownModule,
+  InputTextareaModule,
   InputTextModule,
-  PaginatorModule
+  PaginatorModule,
+  SpinnerModule,
+  StepsModule
 } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 
@@ -24,8 +29,12 @@ import {
     TableModule,
     PaginatorModule,
     InputTextModule,
+    InputTextareaModule,
     ButtonModule,
-    DropdownModule
+    DropdownModule,
+    StepsModule,
+    SpinnerModule,
+    InputMaskModule
   ],
   declarations: [...componentDeclarations],
   providers: [...providerDeclarations]

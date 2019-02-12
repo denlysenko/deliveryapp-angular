@@ -17,6 +17,6 @@
     "no-identical-functions": false
   },
   "linterOptions": {
-    "exclude": ["**/polyfills.ts", "**/jest/**"]
+    "exclude": ["**/node_modules/**", "**/polyfills.ts", "**/jest/**"]
   }
 }
