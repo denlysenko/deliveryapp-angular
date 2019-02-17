@@ -9,7 +9,6 @@ import { FormGroup } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
 import { Roles } from '@common/enums';
-import { FeedbackService } from '@core/services';
 
 import { SelectItem } from 'primeng/primeng';
 
@@ -28,16 +27,11 @@ export class DestinationFormComponent extends BaseFormComponent {
 
   @Output() next = new EventEmitter<void>();
 
-  constructor(protected feedbackService: FeedbackService) {
-    super();
-  }
-
   nextStep() {
-    this.next.emit();
-    // if (this.form.valid) {
-    //   this.next.emit();
-    // } else {
-    //   this.validateAllFormFields(this.form);
-    // }
+    if (this.form.valid) {
+      this.next.emit();
+    } else {
+      this.validateAllFormFields(this.form);
+    }
   }
 }

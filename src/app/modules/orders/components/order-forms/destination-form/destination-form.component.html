@@ -1,5 +1,5 @@
 <div class="ui-g ui-fluid">
-  <form 
+  <form [formGroup]="form"
         (submit)="nextStep()"
         autocomplete="off"
         novalidate>
@@ -8,69 +8,64 @@
         <input type="text"
                autocomplete="off"
                pInputText
-               >
+               formControlName="cityFrom">
         <label>Departure City</label>
         <i class="fa fa-globe"
            aria-hidden="true"></i>
       </div>
-      <!-- <div *ngIf="form.get('cityFrom').invalid && form.get('cityFrom').touched"
-           class="ui-message ui-messages-error ui-corner-all">
+      <div *ngIf="form.get('cityFrom').invalid && form.get('cityFrom').touched"
+           class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
-        <span *ngIf="form.get('cityFrom').hasError('required')">Обязательное поле</span>
-        <span *ngIf="form.get('cityFrom').hasError('serverError')">{{ errors['cityFrom'] | lgServerErrors }}</span>
-      </div> -->
+        <span *ngIf="form.get('cityFrom').hasError('required')">Required field</span>
+      </div>
     </div>
     <div class="ui-g-12 ui-md-6">
       <div class="input-wrapper ui-float-label">
         <input type="text"
                autocomplete="off"
                pInputText
-               >
+               formControlName="cityTo">
         <label>Arrival City</label>
         <i class="fa fa-globe"
            aria-hidden="true"></i>
       </div>
-      <!-- <div *ngIf="form.get('cityTo').invalid && form.get('cityTo').touched"
-           class="ui-message ui-messages-error ui-corner-all">
+      <div *ngIf="form.get('cityTo').invalid && form.get('cityTo').touched"
+           class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
-        <span *ngIf="form.get('cityTo').hasError('required')">Обязательное поле</span>
-        <span *ngIf="form.get('cityTo').hasError('serverError')">{{ errors['cityTo'] | lgServerErrors }}</span>
-      </div> -->
+        <span *ngIf="form.get('cityTo').hasError('required')">Required field</span>
+      </div>
     </div>
     <div class="ui-g-12 ui-md-6">
       <div class="input-wrapper ui-float-label">
         <input type="text"
                autocomplete="off"
                pInputText
-               >
+               formControlName="addressFrom">
         <label>Departure Address</label>
         <i class="fa fa-building-o"
            aria-hidden="true"></i>
       </div>
-      <!-- <div *ngIf="form.get('addressFrom').invalid && form.get('addressFrom').touched"
-           class="ui-message ui-messages-error ui-corner-all">
+      <div *ngIf="form.get('addressFrom').invalid && form.get('addressFrom').touched"
+           class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
-        <span *ngIf="form.get('addressFrom').hasError('required')">Обязательное поле</span>
-        <span
-              *ngIf="form.get('addressFrom').hasError('serverError')">{{ errors['addressFrom'] | lgServerErrors }}</span>
-      </div> -->
+        <span *ngIf="form.get('addressFrom').hasError('required')">Required field</span>
+      </div>
     </div>
     <div class="ui-g-12 ui-md-6">
       <div class="input-wrapper ui-float-label">
         <input type="text"
                autocomplete="off"
                pInputText
-               >
+               formControlName="addressTo">
         <label>Arrival Address</label>
         <i class="fa fa-building-o"
            aria-hidden="true"></i>
       </div>
-      <!-- <div *ngIf="form.get('addressTo').invalid && form.get('addressTo').touched"
-           class="ui-message ui-messages-error ui-corner-all">
+      <div *ngIf="form.get('addressTo').invalid && form.get('addressTo').touched"
+           class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
-        <span *ngIf="form.get('addressTo').hasError('required')">Обязательное поле</span>
-        <span *ngIf="form.get('addressTo').hasError('serverError')">{{ errors['addressTo'] | lgServerErrors }}</span>
-      </div> -->
+        <span *ngIf="form.get('addressTo').hasError('required')">Required field</span>
+      </div>
     </div>
     <div *ngIf="role !== roles.CLIENT && clients"
          class="ui-g-12 ui-md-6 ui-md-offset-3">
@@ -84,15 +79,15 @@
       <label>Additional Info</label>
       <textarea pInputTextarea
                 [rows]="5"
-                ></textarea>
+                formControlName="additionalData"></textarea>
     </div>
     <div class="ui-g-12 button-container">
-      <button type="button"
+      <button type="submit"
               pButton
               label="Next"
               icon="fa fa-arrow-right"
               iconPos="right"
-              class="blue-btn raised-btn" (click)="nextStep()">
+              class="blue-btn raised-btn">
       </button>
     </div>
   </form>
