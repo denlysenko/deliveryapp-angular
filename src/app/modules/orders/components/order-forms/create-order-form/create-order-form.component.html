@@ -15,7 +15,10 @@
                        (next)="activeIndex = 2"
                        (prev)="activeIndex = 0"></da-cargo-form>
         <da-sender-form *ngIf="activeIndex === 2"
-                        (prev)="activeIndex = 1"></da-sender-form>
+                        [form]="form.get('senderForm')"
+                        [loading]="loading"
+                        (prev)="activeIndex = 1"
+                        (save)="submitForm()"></da-sender-form>
       </div>
     </div>
   </div>

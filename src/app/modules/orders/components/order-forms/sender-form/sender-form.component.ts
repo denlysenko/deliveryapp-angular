@@ -8,7 +8,6 @@ import {
 import { FormGroup } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
-import { FeedbackService } from '@core/services';
 
 @Component({
   selector: 'da-sender-form',
@@ -22,10 +21,6 @@ export class SenderFormComponent extends BaseFormComponent {
 
   @Output() prev = new EventEmitter<void>();
   @Output() save = new EventEmitter<void>();
-
-  constructor(protected feedbackService: FeedbackService) {
-    super();
-  }
 
   submitForm() {
     if (this.form.valid) {

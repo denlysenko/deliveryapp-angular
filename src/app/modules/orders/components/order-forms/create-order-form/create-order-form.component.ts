@@ -47,6 +47,10 @@ export class CreateOrderFormComponent implements OnInit {
     this.initForm();
   }
 
+  submitForm() {
+    console.log(this.form.value);
+  }
+
   private initForm() {
     this.form = new FormGroup({
       destinationForm: new FormGroup(

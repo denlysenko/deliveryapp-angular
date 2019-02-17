@@ -1,12 +1,14 @@
 <div class="ui-g ui-fluid">
-  <form (submit)="submitForm()"
+  <form [formGroup]="form"
+        (submit)="submitForm()"
         autocomplete="off"
         novalidate>
     <div class="ui-g-12 ui-md-6 ui-md-offset-3">
       <div class="input-wrapper ui-float-label">
         <input type="text"
                autocomplete="off"
-               pInputText>
+               pInputText
+               formControlName="senderCompany">
         <label>Company Name</label>
         <i class="fa fa-building-o"
            aria-hidden="true"></i>
@@ -16,7 +18,8 @@
       <div class="input-wrapper ui-float-label">
         <input type="text"
                autocomplete="off"
-               pInputText>
+               pInputText
+               formControlName="senderName">
         <label>Contact Person</label>
         <i class="fa fa-user-circle-o"
            aria-hidden="true"></i>
@@ -28,17 +31,17 @@
                autocomplete="off"
                pInputText
                daInputMask
-               [mask]="{ alias: 'email', showMaskOnHover: false }">
+               [mask]="{ alias: 'email', showMaskOnHover: false }"
+               formControlName="senderEmail">
         <label>Email</label>
         <i class="fa fa-envelope-o"
            aria-hidden="true"></i>
       </div>
-      <!-- <div *ngIf="form.get('senderEmail').invalid && form.get('senderEmail').touched"
-             class="ui-message ui-messages-error ui-corner-all">
-          <i class="fa fa-close"></i>
-          <span *ngIf="form.get('senderEmail').hasError('required')">Обязательное поле</span>
-          <span *ngIf="form.get('senderEmail').hasError('serverError')">{{ errors['senderEmail'] | lgServerErrors }}</span>
-        </div> -->
+      <div *ngIf="form.get('senderEmail').invalid && form.get('senderEmail').touched"
+           class="ui-message ui-message-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('senderEmail').hasError('required')">Required field</span>
+      </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-md-offset-3">
       <div class="input-wrapper ui-float-label">
@@ -46,17 +49,17 @@
                autocomplete="off"
                pInputText
                daInputMask
-               [mask]="{ alias: 'phone', showMaskOnHover: false }">
+               [mask]="{ alias: 'phone', showMaskOnHover: false }"
+               formControlName="senderPhone">
         <label>Phone</label>
         <i class="fa fa-phone"
            aria-hidden="true"></i>
       </div>
-      <!-- <div *ngIf="form.get('senderPhone').invalid && form.get('senderPhone').touched"
-             class="ui-message ui-messages-error ui-corner-all">
-          <i class="fa fa-close"></i>
-          <span *ngIf="form.get('senderPhone').hasError('required')">Обязательное поле</span>
-          <span *ngIf="form.get('senderPhone').hasError('serverError')">{{ errors['senderPhone'] | lgServerErrors }}</span>
-        </div> -->
+      <div *ngIf="form.get('senderPhone').invalid && form.get('senderPhone').touched"
+           class="ui-message ui-message-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('senderPhone').hasError('required')">Required field</span>
+      </div>
     </div>
     <div class="ui-g-12 button-container">
       <button type="button"
