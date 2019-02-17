@@ -11,6 +11,7 @@
                              [role]="role"
                              (next)="activeIndex = 1"></da-destination-form>
         <da-cargo-form *ngIf="activeIndex === 1"
+                       [form]="form.get('cargoForm')"
                        (next)="activeIndex = 2"
                        (prev)="activeIndex = 0"></da-cargo-form>
         <da-sender-form *ngIf="activeIndex === 2"

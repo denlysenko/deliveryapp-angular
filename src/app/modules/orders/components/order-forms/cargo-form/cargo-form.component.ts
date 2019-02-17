@@ -8,7 +8,6 @@ import {
 import { FormGroup } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
-import { FeedbackService } from '@core/services';
 
 @Component({
   selector: 'da-cargo-form',
@@ -22,17 +21,12 @@ export class CargoFormComponent extends BaseFormComponent {
   @Output() next = new EventEmitter<void>();
   @Output() prev = new EventEmitter<void>();
 
-  constructor(protected feedbackService: FeedbackService) {
-    super();
-  }
-
   nextStep() {
-    this.next.emit();
-    // if (this.form.valid) {
-    //   this.next.emit();
-    // } else {
-    //   this.validateAllFormFields(this.form);
-    // }
+    if (this.form.valid) {
+      this.next.emit();
+    } else {
+      this.validateAllFormFields(this.form);
+    }
   }
 
   prevStep() {
