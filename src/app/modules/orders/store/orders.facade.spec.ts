@@ -187,4 +187,24 @@ describe('OrdersFacade', () => {
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });
+
+  describe('create()', () => {
+    it('should dispatch a CreateOrder action', () => {
+      const payload: Order = {
+        cityFrom: 'test',
+        cityTo: 'test',
+        addressFrom: 'test',
+        addressTo: 'test',
+        cargoName: 'test',
+        cargoWeight: 1,
+        senderEmail: 'test@test.com',
+        senderPhone: '1232123'
+      };
+
+      const action = new CreateOrder(payload);
+
+      facade.create(payload);
+      expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
+  });
 });

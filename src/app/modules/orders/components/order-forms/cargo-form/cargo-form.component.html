@@ -1,0 +1,65 @@
+<div class="ui-g ui-fluid">
+  <form [formGroup]="form"
+        (submit)="nextStep()"
+        autocomplete="off"
+        novalidate>
+    <div class="ui-g-12 ui-md-6 ui-md-offset-3">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="cargoName">
+        <label>Cargo Name</label>
+        <i class="fa fa-info"
+           aria-hidden="true"></i>
+      </div>
+      <div *ngIf="form.get('cargoName').invalid && form.get('cargoName').touched"
+           class="ui-message ui-message-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('cargoName').hasError('required')">Required field</span>
+        <span *ngIf="form.get('cargoName').hasError('serverError')">{{ errors['cargoName'] }}</span>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-md-offset-3">
+      <div class="input-wrapper ui-float-label">
+        <p-spinner formControlName="cargoWeight"></p-spinner>
+        <label>Weight</label>
+      </div>
+      <div *ngIf="form.get('cargoWeight').invalid && form.get('cargoWeight').touched"
+           class="ui-message ui-message-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('cargoWeight').hasError('required')">Required field</span>
+        <span *ngIf="form.get('cargoWeight').hasError('serverError')">{{ errors['cargoWeight'] }}</span>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-md-offset-3">
+      <div class="input-wrapper ui-float-label">
+        <p-spinner formControlName="cargoVolume"></p-spinner>
+        <label>Volume</label>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-md-offset-3">
+      <label>Comments</label>
+      <textarea pInputTextarea
+                [rows]="5"
+                formControlName="comment"></textarea>
+    </div>
+    <div class="ui-g-12 button-container">
+      <button type="button"
+              pButton
+              label="Back"
+              icon="fa fa-arrow-left"
+              iconPos="left"
+              class="blue-btn raised-btn"
+              (click)="prevStep()">
+      </button>
+      <button type="submit"
+              pButton
+              label="Next"
+              icon="fa fa-arrow-right"
+              iconPos="right"
+              class="blue-btn raised-btn">
+      </button>
+    </div>
+  </form>
+</div>

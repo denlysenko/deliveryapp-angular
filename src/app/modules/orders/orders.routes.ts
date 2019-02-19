@@ -1,6 +1,10 @@
 import { Routes } from '@angular/router';
 
+import { AuthGuard } from '@core/guards';
+
+import { CreateOrderPageComponent } from './containers/create-order-page/create-order-page.component';
 import { OrdersPageComponent } from './containers/orders-page/orders-page.component';
+import { ClientsResolver } from './resolvers/clients.resolver';
 import { OrdersResolver } from './resolvers/orders.resolver';
 
 export const routes: Routes = [
@@ -9,6 +13,15 @@ export const routes: Routes = [
     component: OrdersPageComponent,
     resolve: {
       orders: OrdersResolver
-    }
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create',
+    component: CreateOrderPageComponent,
+    resolve: {
+      clients: ClientsResolver
+    },
+    canActivate: [AuthGuard]
   }
 ];

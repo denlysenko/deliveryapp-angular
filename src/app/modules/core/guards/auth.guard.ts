@@ -13,6 +13,8 @@ import { CoreFacade } from '../store';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
+  private loadRequested = false;
+
   constructor(
     private coreFacade: CoreFacade,
     private storageService: StorageService
@@ -66,8 +68,12 @@ export class AuthGuard implements CanActivate, CanLoad {
       return of(false);
     }
 
-    this.coreFacade.loadSelf();
-    this.coreFacade.loadMessages();
+    if (!this.loadRequested) {
+      this.coreFacade.loadSelf();
+      this.coreFacade.loadMessages();
+      this.loadRequested = true;
+    }
+
     return of(true);
   }
 }

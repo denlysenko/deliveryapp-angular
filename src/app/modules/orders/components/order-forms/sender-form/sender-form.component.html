@@ -1,0 +1,86 @@
+<div class="ui-g ui-fluid">
+  <form [formGroup]="form"
+        (submit)="submitForm()"
+        autocomplete="off"
+        novalidate>
+    <div class="ui-g-12 ui-md-6 ui-md-offset-3">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="senderCompany">
+        <label>Company Name</label>
+        <i class="fa fa-building-o"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-md-offset-3">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="senderName">
+        <label>Contact Person</label>
+        <i class="fa fa-user-circle-o"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-md-offset-3">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               daInputMask
+               [mask]="{ alias: 'email', showMaskOnHover: false }"
+               formControlName="senderEmail">
+        <label>Email</label>
+        <i class="fa fa-envelope-o"
+           aria-hidden="true"></i>
+      </div>
+      <div *ngIf="form.get('senderEmail').invalid && form.get('senderEmail').touched"
+           class="ui-message ui-message-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('senderEmail').hasError('required')">Required field</span>
+        <span *ngIf="form.get('senderEmail').hasError('serverError')">{{ errors['senderEmail'] }}</span>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-md-offset-3">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               daInputMask
+               [mask]="{ alias: 'phone', showMaskOnHover: false }"
+               formControlName="senderPhone">
+        <label>Phone</label>
+        <i class="fa fa-phone"
+           aria-hidden="true"></i>
+      </div>
+      <div *ngIf="form.get('senderPhone').invalid && form.get('senderPhone').touched"
+           class="ui-message ui-message-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('senderPhone').hasError('required')">Required field</span>
+        <span *ngIf="form.get('senderPhone').hasError('serverError')">{{ errors['senderPhone'] }}</span>
+      </div>
+    </div>
+    <div class="ui-g-12 button-container">
+      <button type="button"
+              pButton
+              label="Back"
+              icon="fa fa-arrow-left"
+              iconPos="left"
+              class="blue-btn raised-btn"
+              [disabled]="loading"
+              (click)="prevStep()">
+      </button>
+      <button type="submit"
+              pButton
+              label="Create"
+              icon="fa fa-check"
+              iconPos="right"
+              class="blue-btn raised-btn"
+              [disabled]="loading">
+      </button>
+    </div>
+  </form>
+</div>

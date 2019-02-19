@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { select, Store } from '@ngrx/store';
 
+import { filter } from 'rxjs/operators';
+
 import { RouterPayload } from '../models';
 import { LoadMessages, LoadSelf, Logout, MarkAsRead } from './actions';
 import { Back, Forward, Go } from './actions/router.actions';
@@ -17,7 +19,10 @@ import {
 @Injectable()
 export class CoreFacade {
   loggedIn$ = this.store.pipe(select(getLoggedIn));
-  self$ = this.store.pipe(select(getSelf));
+  self$ = this.store.pipe(
+    select(getSelf),
+    filter(user => !!user)
+  );
   role$ = this.store.pipe(select(getSelfRole));
   unreadMessages$ = this.store.pipe(select(getUnreadMessages));
   messages$ = this.store.pipe(select(getAllMessages));
