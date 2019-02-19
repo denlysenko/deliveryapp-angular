@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import { select, Store } from '@ngrx/store';
-
 import {
   FilterChangeEvent,
   PageChangeEvent,
   SortingChangeEvent
 } from '@common/models';
 
-import { FilterChange, PageChange, SortingChange } from './actions';
+import { select, Store } from '@ngrx/store';
+
+import { Order } from '../models';
+import {
+  CreateOrder,
+  FilterChange,
+  PageChange,
+  SortingChange
+} from './actions';
 import { OrdersState } from './reducers';
 import {
   getAllFilters,
@@ -40,5 +46,9 @@ export class OrdersFacade {
 
   paginate(pagination: PageChangeEvent) {
     this.store.dispatch(new PageChange(pagination));
+  }
+
+  create(order: Order) {
+    this.store.dispatch(new CreateOrder(order));
   }
 }

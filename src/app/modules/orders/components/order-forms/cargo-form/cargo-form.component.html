@@ -17,6 +17,7 @@
            class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
         <span *ngIf="form.get('cargoName').hasError('required')">Required field</span>
+        <span *ngIf="form.get('cargoName').hasError('serverError')">{{ errors['cargoName'] }}</span>
       </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-md-offset-3">
@@ -28,6 +29,7 @@
            class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
         <span *ngIf="form.get('cargoWeight').hasError('required')">Required field</span>
+        <span *ngIf="form.get('cargoWeight').hasError('serverError')">{{ errors['cargoWeight'] }}</span>
       </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-md-offset-3">

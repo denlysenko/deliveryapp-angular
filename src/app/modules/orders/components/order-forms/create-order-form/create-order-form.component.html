@@ -5,18 +5,24 @@
                [(activeIndex)]="activeIndex">
       </p-steps>
       <div class="ui-widget-content">
-        <da-destination-form *ngIf="activeIndex === 0"
-                             [form]="form.get('destinationForm')"
+        <da-destination-form class="step"
+                             [class.visible]="activeIndex === 0"
+                             [form]="form.get(formGroupKeys.destinationForm)"
                              [clients]="clients"
                              [role]="role"
+                             [errors]="errors"
                              (next)="activeIndex = 1"></da-destination-form>
-        <da-cargo-form *ngIf="activeIndex === 1"
-                       [form]="form.get('cargoForm')"
+        <da-cargo-form class="step"
+                       [class.visible]="activeIndex === 1"
+                       [form]="form.get(formGroupKeys.cargoForm)"
+                       [errors]="errors"
                        (next)="activeIndex = 2"
                        (prev)="activeIndex = 0"></da-cargo-form>
-        <da-sender-form *ngIf="activeIndex === 2"
-                        [form]="form.get('senderForm')"
+        <da-sender-form class="step"
+                        [class.visible]="activeIndex === 2"
+                        [form]="form.get(formGroupKeys.senderForm)"
                         [loading]="loading"
+                        [errors]="errors"
                         (prev)="activeIndex = 1"
                         (save)="submitForm()"></da-sender-form>
       </div>

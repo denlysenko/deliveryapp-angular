@@ -36,3 +36,11 @@
     margin: 0 auto;
   }
 }
+
+.step {
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+}

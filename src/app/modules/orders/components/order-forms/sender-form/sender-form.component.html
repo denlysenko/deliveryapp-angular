@@ -41,6 +41,7 @@
            class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
         <span *ngIf="form.get('senderEmail').hasError('required')">Required field</span>
+        <span *ngIf="form.get('senderEmail').hasError('serverError')">{{ errors['senderEmail'] }}</span>
       </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-md-offset-3">
@@ -59,6 +60,7 @@
            class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
         <span *ngIf="form.get('senderPhone').hasError('required')">Required field</span>
+        <span *ngIf="form.get('senderPhone').hasError('serverError')">{{ errors['senderPhone'] }}</span>
       </div>
     </div>
     <div class="ui-g-12 button-container">
@@ -68,6 +70,7 @@
               icon="fa fa-arrow-left"
               iconPos="left"
               class="blue-btn raised-btn"
+              [disabled]="loading"
               (click)="prevStep()">
       </button>
       <button type="submit"
@@ -75,7 +78,8 @@
               label="Create"
               icon="fa fa-check"
               iconPos="right"
-              class="blue-btn raised-btn">
+              class="blue-btn raised-btn"
+              [disabled]="loading">
       </button>
     </div>
   </form>

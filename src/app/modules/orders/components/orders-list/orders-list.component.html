@@ -44,7 +44,7 @@
       <td>{{ order.deliveryDate | date: 'dd.MM.yyyy' }}</td>
       <td>{{ statuses[order.status] }}</td>
       <td>{{ order.paid ? 'Yes' : 'No' }}</td>
-      <td>
+      <td *ngIf="role !== roles.CLIENT">
         <a *ngIf="order.client?.firstName || order.client?.lastName"
            href="#">{{ order.client?.firstName }} {{ order.client?.lastName }}</a>
         <a *ngIf="!order.client?.firstName && !order.client?.lastName"

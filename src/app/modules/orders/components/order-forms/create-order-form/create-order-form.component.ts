@@ -1,15 +1,28 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
-  OnInit
+  OnInit,
+  Output
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { BaseFormComponent } from '@base/BaseFormComponent';
 import { Roles } from '@common/enums';
+import { ValidationError } from '@common/models';
 import { FeedbackService } from '@core/services';
 
 import { MenuItem, SelectItem } from 'primeng/primeng';
+
+import { Order } from '../../../models';
+import {
+  cargoFormRequiredFields,
+  destinationFormRequiredFields,
+  ERROR_MESSAGE,
+  FormGroupKeys,
+  senderFormRequiredFields
+} from '../constants';
 
 @Component({
   selector: 'da-create-order-form',
@@ -17,8 +30,9 @@ import { MenuItem, SelectItem } from 'primeng/primeng';
   styleUrls: ['./create-order-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateOrderFormComponent implements OnInit {
-  items: MenuItem[] = [
+export class CreateOrderFormComponent extends BaseFormComponent
+  implements OnInit {
+  readonly items: MenuItem[] = [
     {
       label: 'Destination'
     },
@@ -29,6 +43,8 @@ export class CreateOrderFormComponent implements OnInit {
       label: 'Sender'
     }
   ];
+  readonly formGroupKeys = FormGroupKeys;
+
   activeIndex = 0;
   form: FormGroup;
 
@@ -37,71 +53,86 @@ export class CreateOrderFormComponent implements OnInit {
   @Input() role: number;
 
   @Input()
-  set error(error: any) {
-    this.handleError(error);
+  set error(error: ValidationError) {
+    if (error) {
+      this.activeIndex = 0;
+      this.handleError(error);
+    }
   }
 
-  constructor(private feedbackService: FeedbackService) {}
+  @Output() submitted = new EventEmitter<Order>();
+
+  constructor(protected feedbackService: FeedbackService) {
+    super();
+  }
 
   ngOnInit() {
     this.initForm();
   }
 
   submitForm() {
-    console.log(this.form.value);
+    this.submitted.emit({
+      ...this.form.value[this.formGroupKeys.destinationForm],
+      ...this.form.value[this.formGroupKeys.cargoForm],
+      ...this.form.value[this.formGroupKeys.senderForm]
+    });
   }
 
   private initForm() {
     this.form = new FormGroup({
-      destinationForm: new FormGroup(
-        {
-          cityFrom: new FormControl(null, Validators.required),
-          cityTo: new FormControl(null, Validators.required),
-          addressFrom: new FormControl(null, Validators.required),
-          addressTo: new FormControl(null, Validators.required),
-          additionalData: new FormControl(null)
-        },
-        { updateOn: 'submit' }
-      ),
-      cargoForm: new FormGroup(
-        {
-          cargoName: new FormControl(null, Validators.required),
-          cargoWeight: new FormControl(null, Validators.required),
-          cargoVolume: new FormControl(null),
-          comment: new FormControl(null)
-        },
-        { updateOn: 'submit' }
-      ),
-      senderForm: new FormGroup(
-        {
-          senderCompany: new FormControl(null),
-          senderName: new FormControl(null),
-          senderEmail: new FormControl(null, Validators.required),
-          senderPhone: new FormControl(null, Validators.required)
-        },
-        { updateOn: 'blur' } // not on submit because of mask
-      )
+      [this.formGroupKeys.destinationForm]: new FormGroup({
+        cityFrom: new FormControl(null, Validators.required),
+        cityTo: new FormControl(null, Validators.required),
+        addressFrom: new FormControl(null, Validators.required),
+        addressTo: new FormControl(null, Validators.required),
+        additionalData: new FormControl(null)
+      }),
+      [this.formGroupKeys.cargoForm]: new FormGroup({
+        cargoName: new FormControl(null, Validators.required),
+        cargoWeight: new FormControl(null, Validators.required),
+        cargoVolume: new FormControl(null),
+        comment: new FormControl(null)
+      }),
+      [this.formGroupKeys.senderForm]: new FormGroup({
+        senderCompany: new FormControl(null),
+        senderName: new FormControl(null),
+        senderEmail: new FormControl(null, Validators.required),
+        senderPhone: new FormControl(null, Validators.required)
+      })
     });
 
     if (this.clients && this.clients.length && this.role !== Roles.CLIENT) {
-      (this.form.get('destinationForm') as FormGroup).addControl(
+      (this.form.get(
+        this.formGroupKeys.destinationForm
+      ) as FormGroup).addControl(
         'clientId',
         new FormControl(this.clients[0].value, Validators.required)
       );
     }
   }
 
-  private handleError(error: any) {
-    const messages: string[] = [];
-
+  protected handleError(error: ValidationError) {
     if (error.errors && error.errors.length) {
       error.errors.forEach(field => {
-        messages.push(`${field.path}: ${field.message}`);
-      });
-    } else if (error.message) {
-      messages.push(error.message);
-    }
+        let path = field.path;
 
-    this.feedbackService.error(messages.join('\n'));
+        if (destinationFormRequiredFields.has(field.path)) {
+          path = `${this.formGroupKeys.destinationForm}.${field.path}`;
+        } else if (cargoFormRequiredFields.has(field.path)) {
+          path = `${this.formGroupKeys.cargoForm}.${field.path}`;
+        } else if (senderFormRequiredFields.has(field.path)) {
+          path = `${this.formGroupKeys.senderForm}.${field.path}`;
+        }
+
+        const control = this.form.get(path);
+        control.setErrors({ serverError: true });
+        control.markAsTouched({ onlySelf: true });
+        control.markAsDirty({ onlySelf: true });
+
+        this.errors[field.path] = field.message;
+      });
+
+      this.feedbackService.error(ERROR_MESSAGE);
+    }
   }
 }
