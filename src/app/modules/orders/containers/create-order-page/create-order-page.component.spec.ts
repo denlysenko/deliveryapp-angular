@@ -7,9 +7,9 @@ import { CoreFacade } from '@core/store';
 
 import { of } from 'rxjs';
 
+import { Order } from '../../models';
 import { OrdersFacade } from '../../store';
 import { CreateOrderPageComponent } from './create-order-page.component';
-import { Order } from '@orders/models';
 
 const activatedRouteStub = {
   data: of({

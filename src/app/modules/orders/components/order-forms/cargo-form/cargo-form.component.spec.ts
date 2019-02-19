@@ -27,15 +27,12 @@ describe('CargoFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CargoFormComponent);
     component = fixture.componentInstance;
-    component.form = new FormGroup(
-      {
-        cargoName: new FormControl(null, Validators.required),
-        cargoWeight: new FormControl(null, Validators.required),
-        cargoVolume: new FormControl(null),
-        comment: new FormControl(null)
-      },
-      { updateOn: 'submit' }
-    );
+    component.form = new FormGroup({
+      cargoName: new FormControl(null, Validators.required),
+      cargoWeight: new FormControl(null, Validators.required),
+      cargoVolume: new FormControl(null),
+      comment: new FormControl(null)
+    });
     fixture.detectChanges();
   });
 

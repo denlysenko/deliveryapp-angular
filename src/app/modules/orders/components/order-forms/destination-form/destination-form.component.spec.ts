@@ -27,16 +27,13 @@ describe('DestinationFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DestinationFormComponent);
     component = fixture.componentInstance;
-    component.form = new FormGroup(
-      {
-        cityFrom: new FormControl(null, Validators.required),
-        cityTo: new FormControl(null, Validators.required),
-        addressFrom: new FormControl(null, Validators.required),
-        addressTo: new FormControl(null, Validators.required),
-        additionalData: new FormControl(null)
-      },
-      { updateOn: 'submit' }
-    );
+    component.form = new FormGroup({
+      cityFrom: new FormControl(null, Validators.required),
+      cityTo: new FormControl(null, Validators.required),
+      addressFrom: new FormControl(null, Validators.required),
+      addressTo: new FormControl(null, Validators.required),
+      additionalData: new FormControl(null)
+    });
     fixture.detectChanges();
   });
 

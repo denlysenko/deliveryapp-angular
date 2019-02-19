@@ -27,15 +27,12 @@ describe('SenderFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SenderFormComponent);
     component = fixture.componentInstance;
-    component.form = new FormGroup(
-      {
-        senderCompany: new FormControl(null),
-        senderName: new FormControl(null),
-        senderEmail: new FormControl(null, Validators.required),
-        senderPhone: new FormControl(null, Validators.required)
-      },
-      { updateOn: 'blur' }
-    );
+    component.form = new FormGroup({
+      senderCompany: new FormControl(null),
+      senderName: new FormControl(null),
+      senderEmail: new FormControl(null, Validators.required),
+      senderPhone: new FormControl(null, Validators.required)
+    });
     fixture.detectChanges();
   });
 
