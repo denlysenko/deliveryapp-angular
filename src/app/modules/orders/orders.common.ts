@@ -8,6 +8,7 @@ import { UsersService } from '@users/services/users.service';
 import { components } from './components';
 import { containers } from './containers';
 import { ClientsResolver } from './resolvers/clients.resolver';
+import { OrderResolver } from './resolvers/order.resolver';
 import { OrdersResolver } from './resolvers/orders.resolver';
 import { OrdersService } from './services/orders.service';
 import { effects, OrdersFacade, ordersReducer } from './store';
@@ -25,5 +26,6 @@ export const providerDeclarations: any[] = [
   OrdersResolver,
   OrdersFacade,
   ClientsResolver,
-  UsersService
+  UsersService,
+  OrderResolver
 ];
