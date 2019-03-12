@@ -1,0 +1,337 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card no-margin-bottom">
+      <h2>Order Info</h2>
+    </div>
+  </div>
+  <form id="form"
+        class="ui-g-12"
+        [formGroup]="form"
+        (submit)="submitForm()">
+    <div class="ui-g-12 ui-lg-4">
+      <div class="card no-margin-bottom">
+        <h4>Main Info</h4>
+        <div class="ui-g">
+          <div class="ui-g-12 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="id"
+                     readonly>
+              <label>Order Number</label>
+            </div>
+          </div>
+          <div class="ui-g-12 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="cargoName">
+              <label>Cargo Name</label>
+            </div>
+            <div *ngIf="form.get('cargoName').invalid && form.get('cargoName').touched"
+                 class="ui-message ui-message-error ui-corner-all">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.get('cargoName').hasError('required')">This field is required</span>
+              <span *ngIf="form.get('cargoName').hasError('serverError')">{{ errors['cargoName'] }}</span>
+            </div>
+          </div>
+          <div class="ui-g-12 row">
+            <div class="input-wrapper ui-float-label">
+              <p-spinner formControlName="cargoWeight"></p-spinner>
+              <label>Weight</label>
+            </div>
+            <div *ngIf="form.get('cargoWeight').invalid && form.get('cargoWeight').touched"
+                 class="ui-message ui-message-error ui-corner-all">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.get('cargoWeight').hasError('required')">This field is required</span>
+              <span *ngIf="form.get('cargoWeight').hasError('serverError')">{{ errors['cargoWeight'] }}</span>
+            </div>
+          </div>
+          <div class="ui-g-12 row">
+            <div class="input-wrapper ui-float-label">
+              <p-spinner formControlName="cargoVolume"></p-spinner>
+              <label>Volume</label>
+            </div>
+          </div>
+          <div class="ui-g-12 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="cityFrom">
+              <label>From City</label>
+            </div>
+            <div *ngIf="form.get('cityFrom').invalid && form.get('cityFrom').touched"
+                 class="ui-message ui-message-error ui-corner-all">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.get('cityFrom').hasError('required')">This field is required</span>
+              <span *ngIf="form.get('cityFrom').hasError('serverError')">{{ errors['cityFrom'] }}</span>
+            </div>
+          </div>
+          <div class="ui-g-12 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="cityTo">
+              <label>To City</label>
+            </div>
+            <div *ngIf="form.get('cityTo').invalid && form.get('cityTo').touched"
+                 class="ui-message ui-message-error ui-corner-all">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.get('cityTo').hasError('required')">This field is required</span>
+              <span *ngIf="form.get('cityTo').hasError('serverError')">{{ errors['cityTo'] }}</span>
+            </div>
+          </div>
+          <div class="ui-g-12 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="addressFrom">
+              <label>From Address</label>
+            </div>
+            <div *ngIf="form.get('addressFrom').invalid && form.get('addressFrom').touched"
+                 class="ui-message ui-message-error ui-corner-all">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.get('addressFrom').hasError('required')">This field is required</span>
+              <span *ngIf="form.get('addressFrom').hasError('serverError')">{{ errors['addressFrom'] }}</span>
+            </div>
+          </div>
+          <div class="ui-g-12 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="addressTo">
+              <label>To Address</label>
+            </div>
+            <div *ngIf="form.get('addressTo').invalid && form.get('addressTo').touched"
+                 class="ui-message ui-message-error ui-corner-all">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.get('addressTo').hasError('required')">This field is required</span>
+              <span *ngIf="form.get('addressTo').hasError('serverError')">{{ errors['addressTo'] }}</span>
+            </div>
+          </div>
+          <div class="ui-g-12 row">
+            <label>Additional Data</label>
+            <textarea pInputTextarea
+                      formControlName="additionalData"
+                      [rows]="5"></textarea>
+          </div>
+          <div class="ui-g-12 row">
+            <label>Comment</label>
+            <textarea pInputTextarea
+                      formControlName="comment"
+                      [rows]="5"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-lg-8">
+      <div class="card">
+        <h4>Sender Info</h4>
+        <div class="ui-g">
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="senderCompany">
+              <label>Company</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="senderName">
+              <label>Name</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="senderEmail"
+                     daInputMask
+                     [mask]="{ alias: 'email', showMaskOnHover: false }">
+              <label>Email</label>
+            </div>
+            <div *ngIf="form.get('senderEmail').invalid && form.get('senderEmail').touched"
+                 class="ui-message ui-message-error ui-corner-all">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.get('senderEmail').hasError('required')">This field is required</span>
+              <span *ngIf="form.get('senderEmail').hasError('serverError')">{{ errors['senderEmail'] }}</span>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     daInputMask
+                     formControlName="senderPhone"
+                     [mask]="{ alias: 'phone', showMaskOnHover: false }">
+              <label>Phone</label>
+            </div>
+            <div *ngIf="form.get('senderPhone').invalid && form.get('senderPhone').touched"
+                 class="ui-message ui-message-error ui-corner-all">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.get('senderPhone').hasError('required')">This field is required</span>
+              <span *ngIf="form.get('senderPhone').hasError('serverError')">{{ errors['senderPhone'] }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h4>Payment Info</h4>
+        <div class="ui-g">
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <p-spinner formControlName="deliveryCosts"
+                         [step]="0.01"></p-spinner>
+              <label>Amount, $</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper">
+              <label class="float-label">Payment Status</label>
+              <p-dropdown [options]="paymentStatuses"
+                          [autoWidth]="false"
+                          formControlName="paid"></p-dropdown>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <p-calendar dateFormat="dd.mm.yy"
+                          showButtonBar="true"
+                          [showIcon]="true"
+                          formControlName="paymentDate"></p-calendar>
+              <label>Payment Date</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     formControlName="invoiceId">
+              <label>Invoice Number</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="role !== roles.CLIENT"
+           class="card">
+        <h4>Client Info</h4>
+        <div class="ui-g">
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     value="{{ order.client.firstName + ' ' + order.client.lastName}}"
+                     readonly>
+              <label>First Name / Last Name</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     [value]="order.client.company"
+                     readonly>
+              <label>Company</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     [value]="order.client.email"
+                     readonly>
+              <label>Email</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     [value]="order.client.phone"
+                     readonly>
+              <label>Phone</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card no-margin-bottom">
+        <h4>Additional Info</h4>
+        <div class="ui-g">
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper">
+              <label class="float-label">Order Status</label>
+              <p-dropdown [options]="orderStatuses"
+                          [autoWidth]="false"
+                          formControlName="status"></p-dropdown>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <p-calendar dateFormat="dd.mm.yy"
+                          showButtonBar="true"
+                          [showIcon]="true"
+                          formControlName="deliveryDate"></p-calendar>
+              <label>Delivery Date</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     [value]="order.createdAt | date: 'dd.MM.yyyy'"
+                     readonly>
+              <label>Created At</label>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-3 row">
+            <div class="input-wrapper ui-float-label">
+              <input type="text"
+                     autocomplete="off"
+                     pInputText
+                     [value]="order.updatedAt | date: 'dd.MM.yyyy'"
+                     readonly>
+              <label>Updated At</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="ui-g-12">
+    <div class="card no-margin-bottom center">
+      <button type="submit"
+              form="form"
+              pButton
+              label="Save"
+              class="blue-btn raised-btn"
+              [disabled]="loading">
+      </button>
+      <button type="button"
+              pButton
+              label="Back"
+              class="ui-button-secondary"
+              [disabled]="loading"
+              (click)="goBack()">
+      </button>
+    </div>
+  </div>
+</div>
