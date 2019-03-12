@@ -1,0 +1,57 @@
+form {
+  width: 100%;
+  padding: 0;
+}
+
+button {
+  width: 150px;
+  margin: 0 16px;
+}
+
+h2,
+h4 {
+  padding: 0.5em;
+}
+
+h4 {
+  margin-top: 0;
+}
+
+.card {
+  height: 100%;
+
+  &.no-margin-bottom {
+    margin-bottom: 0;
+  }
+
+  .ui-inputtext {
+    width: 100%;
+  }
+
+  .row {
+    padding: 10px 0.5em;
+  }
+
+  /deep/ .ui-dropdown,
+  /deep/ .ui-spinner,
+  /deep/ .ui-spinner-input,
+  /deep/ .ui-calendar {
+    width: 100%;
+  }
+
+  /deep/ .ui-calendar {
+    .ui-inputtext {
+      width: calc(100% - 2em);
+    }
+  }
+
+  /deep/ .ui-message {
+    display: block;
+  }
+}
+
+.ui-lg-4 {
+  @media (min-width: 1025px) {
+    height: 100%;
+  }
+}

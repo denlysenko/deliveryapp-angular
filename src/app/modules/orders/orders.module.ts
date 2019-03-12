@@ -5,6 +5,7 @@ import { InputMaskModule } from '@ui/inputmask';
 
 import {
   ButtonModule,
+  CalendarModule,
   DropdownModule,
   InputTextareaModule,
   InputTextModule,
@@ -33,6 +34,7 @@ import {
     ButtonModule,
     DropdownModule,
     StepsModule,
+    CalendarModule,
     SpinnerModule,
     InputMaskModule
   ],
