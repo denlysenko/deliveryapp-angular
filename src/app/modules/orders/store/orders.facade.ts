@@ -13,7 +13,8 @@ import {
   CreateOrder,
   FilterChange,
   PageChange,
-  SortingChange
+  SortingChange,
+  UpdateOrder
 } from './actions';
 import { OrdersState } from './reducers';
 import {
@@ -50,5 +51,9 @@ export class OrdersFacade {
 
   create(order: Order) {
     this.store.dispatch(new CreateOrder(order));
+  }
+
+  update(order: Order) {
+    this.store.dispatch(new UpdateOrder(order));
   }
 }

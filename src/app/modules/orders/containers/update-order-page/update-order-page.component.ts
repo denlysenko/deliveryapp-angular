@@ -31,6 +31,6 @@ export class UpdateOrderPageComponent {
   }
 
   save(order: Order) {
-    console.log(order);
+    this.ordersFacade.update(order);
   }
 }
