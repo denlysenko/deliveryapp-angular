@@ -14,11 +14,13 @@ import {
   CreateOrderFail,
   FilterChange,
   PageChange,
-  SortingChange
+  SortingChange,
+  UpdateOrder
 } from './actions';
 import { OrdersFacade } from './orders.facade';
 import { ordersReducer, OrdersState } from './reducers';
 
+// tslint:disable-next-line:no-big-function
 describe('OrdersFacade', () => {
   let store: Store<OrdersState>;
   let facade: OrdersFacade;
@@ -204,6 +206,26 @@ describe('OrdersFacade', () => {
       const action = new CreateOrder(payload);
 
       facade.create(payload);
+      expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
+  });
+
+  describe('update()', () => {
+    it('should dispatch a UpdateOrder action', () => {
+      const payload: Order = {
+        cityFrom: 'test',
+        cityTo: 'test',
+        addressFrom: 'test',
+        addressTo: 'test',
+        cargoName: 'test',
+        cargoWeight: 1,
+        senderEmail: 'test@test.com',
+        senderPhone: '1232123'
+      };
+
+      const action = new UpdateOrder(payload);
+
+      facade.update(payload);
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });
