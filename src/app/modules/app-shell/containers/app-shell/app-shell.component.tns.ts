@@ -1,9 +1,15 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ViewContainerRef,
+  AfterViewInit
+} from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { takeUntil } from 'rxjs/operators';
 
 import { CoreFacade } from '@core/store';
+
 import {
   ModalDialogOptions,
   ModalDialogService
@@ -26,7 +32,7 @@ import { MessagesComponent } from '../../components/messages/messages.component.
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss']
 })
-export class AppShellComponent extends AppShellBase {
+export class AppShellComponent extends AppShellBase implements AfterViewInit {
   selectedPageTitle: string;
 
   @ViewChild('drawer')
@@ -67,6 +73,16 @@ export class AppShellComponent extends AppShellBase {
         this.updateRouteTitle();
       }
     });
+  }
+
+  ngAfterViewInit() {
+    if (this.drawer.ios) {
+      const sideDrawer = this.drawer.ios.defaultSideDrawer;
+      sideDrawer.style.shadowMode = 1;
+      sideDrawer.style.shadowOpacity = 0.75;
+      sideDrawer.style.shadowRadius = 5;
+      sideDrawer.transitionDuration = 0.25;
+    }
   }
 
   get sideDrawerTransition(): DrawerTransitionBase {

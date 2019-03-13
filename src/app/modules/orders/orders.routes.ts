@@ -16,7 +16,10 @@ export const routes: Routes = [
     resolve: {
       orders: OrdersResolver
     },
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      title: 'Orders'
+    }
   },
   {
     path: 'create',

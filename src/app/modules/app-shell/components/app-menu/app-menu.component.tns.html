@@ -2,7 +2,7 @@
   <GridLayout *ngIf="canSee(item.allowedRoles)"
               columns="auto, *"
               class="sidedrawer-list-item"
-              [nsRouterLink]="'/' + item.link"
+              [nsRouterLink]="item.link"
               nsRouterLinkActive="selected"
               pageTransition="fade">
     <Label col="0"

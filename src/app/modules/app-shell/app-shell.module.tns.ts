@@ -1,10 +1,11 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 
-import { componentDeclarations, importDeclarations } from './app-shell.common';
+import { componentDeclarations } from './app-shell.common';
 import { MessagesComponent } from './components/messages/messages.component.tns';
 import { UserMenuComponent } from './components/user-menu/user-menu.component.tns';
 import { AppShellComponent } from './containers/app-shell/app-shell.component.tns';
@@ -17,7 +18,7 @@ const containers = [AppShellComponent];
     NativeScriptCommonModule,
     TNSFontIconModule,
     NativeScriptUISideDrawerModule,
-    ...importDeclarations
+    NativeScriptRouterModule
   ],
   declarations: [...componentDeclarations, ...containers, ...components],
   entryComponents: [MessagesComponent],

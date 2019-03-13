@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import {
   ButtonModule,
@@ -9,7 +10,7 @@ import {
   TooltipModule
 } from 'primeng/primeng';
 
-import { componentDeclarations, importDeclarations } from './app-shell.common';
+import { componentDeclarations } from './app-shell.common';
 import { MessagesComponent } from './components/messages/messages.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { AppShellComponent } from './containers/app-shell/app-shell.component';
@@ -20,7 +21,7 @@ const containers = [AppShellComponent];
 @NgModule({
   imports: [
     CommonModule,
-    ...importDeclarations,
+    RouterModule,
     SidebarModule,
     InputTextModule,
     MenuModule,
