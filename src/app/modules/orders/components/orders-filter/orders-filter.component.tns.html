@@ -1,1 +1,82 @@
-<Button text="orders-filter works!" class="btn btn-primary"></Button>
+<GridLayout class="page-content">
+  <ScrollView>
+    <StackLayout orientation="vertical"
+                 verticalAlignment="top">
+      <StackLayout class="card m-5 p-y-15">
+        <Label class="h2 p-x-15"
+               text="Sort by"></Label>
+        <GridLayout rows="auto"
+                    columns="*, *">
+          <Button col="0"
+                  class="btn btn-rounded-sm"
+                  [ngClass]="{'btn-outline': sortField !== 'id', 'btn-primary': sortField === 'id'}"
+                  (tap)="sort('id')">
+            <FormattedString>
+              <Span fontSize="16"
+                    text="Num "></Span>
+              <Span class="fa"
+                    text="{{ sortField === 'id' ? ('fa-angle-' + (sortOrder === -1 ? 'down' : 'up') | fonticon) : '' }}"></Span>
+            </FormattedString>
+          </Button>
+          <Button col="1"
+                  class="btn btn-rounded-sm"
+                  [ngClass]="{'btn-outline': sortField !== 'cargoName', 'btn-primary': sortField === 'cargoName'}"
+                  (tap)="sort('cargoName')">
+            <FormattedString>
+              <Span fontSize="16"
+                    text="Cargo Name "></Span>
+              <Span class="fa"
+                    text="{{ sortField === 'cargoName' ? ('fa-angle-' + (sortOrder === -1 ? 'down' : 'up') | fonticon) : '' }}"></Span>
+            </FormattedString>
+          </Button>
+        </GridLayout>
+        <GridLayout rows="auto"
+                    columns="*, *">
+          <Button col="0"
+                  class="btn btn-rounded-sm"
+                  [ngClass]="{'btn-outline': sortField !== 'cityFrom', 'btn-primary': sortField === 'cityFrom'}"
+                  (tap)="sort('cityFrom')">
+            <FormattedString>
+              <Span fontSize="16"
+                    text="From City "></Span>
+              <Span class="fa"
+                    text="{{ sortField === 'cityFrom' ? ('fa-angle-' + (sortOrder === -1 ? 'down' : 'up') | fonticon) : '' }}"></Span>
+            </FormattedString>
+          </Button>
+          <Button col="1"
+                  class="btn btn-rounded-sm"
+                  [ngClass]="{'btn-outline': sortField !== 'cityTo', 'btn-primary': sortField === 'cityTo'}"
+                  (tap)="sort('cityTo')">
+            <FormattedString>
+              <Span fontSize="16"
+                    text="To City "></Span>
+              <Span class="fa"
+                    text="{{ sortField === 'cityTo' ? ('fa-angle-' + (sortOrder === -1 ? 'down' : 'up') | fonticon) : '' }}"></Span>
+            </FormattedString>
+          </Button>
+        </GridLayout>
+      </StackLayout>
+      <StackLayout class="card m-5 p-y-15">
+        <Label class="h2 p-x-15"
+               text="Search by"></Label>
+        <ListPicker [items]="items"
+                    [selectedIndex]="selectedFilter"
+                    (selectedIndexChange)="selectedIndexChanged($event)"></ListPicker>
+        <SearchBar (loaded)="onSearchLoaded($event)"
+                   textFieldBackgroundColor="#f2f8fa"
+                   [text]="searchString"
+                   hint="Search..."
+                   (textChange)="onTextChanged($event)"
+                   (submit)="onSubmit($event)"></SearchBar>
+      </StackLayout>
+      <StackLayout class="card m-5 p-y-15">
+        <Button class="btn btn-primary btn-rounded-sm btn-active"
+                text="Apply Filters"
+                (tap)="onApplyTap()"></Button>
+        <Button class="btn btn-outline btn-rounded-sm btn-active"
+                text="Close"
+                (tap)="onCloseTap()"></Button>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+</GridLayout>

@@ -11,6 +11,7 @@ import {
   importDeclarations,
   providerDeclarations
 } from './orders.common';
+import { OrdersFilterComponent } from './components/orders-filter/orders-filter.component.tns';
 
 @NgModule({
   imports: [
@@ -20,8 +21,13 @@ import {
     TNSFontIconModule,
     ...importDeclarations
   ],
-  declarations: [...componentDeclarations, OrdersListComponent],
+  declarations: [
+    ...componentDeclarations,
+    OrdersListComponent,
+    OrdersFilterComponent
+  ],
   providers: [...providerDeclarations],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
+  entryComponents: [OrdersFilterComponent]
 })
 export class OrdersModule {}

@@ -5,7 +5,8 @@ import {
   Input,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
+  ViewContainerRef
 } from '@angular/core';
 
 import { DEFAULT_LIMIT, ORDER_STATUSES } from '@common/constants';
@@ -24,6 +25,11 @@ import { Color } from 'tns-core-modules/color/color';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
 
 import { Order } from '../../models';
+import {
+  ModalDialogService,
+  ModalDialogOptions
+} from 'nativescript-angular/modal-dialog';
+import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.tns';
 
 @Component({
   selector: 'da-orders-list',
@@ -31,12 +37,10 @@ import { Order } from '../../models';
   styleUrls: ['./orders-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrdersListComponent implements OnInit {
+export class OrdersListComponent {
   readonly statuses = ORDER_STATUSES;
   readonly roles = Roles;
 
-  sortField: string;
-  sortOrder: number;
   data: ObservableArray<Order>;
 
   @ViewChild('listView')
@@ -70,11 +74,10 @@ export class OrdersListComponent implements OnInit {
   @Output() sortingChanged = new EventEmitter<SortingChangeEvent>();
   @Output() paginationChanged = new EventEmitter<PageChangeEvent>();
 
-  ngOnInit() {
-    const { sortField, sortOrder } = extractSortFieldAndOrder(this.sorting);
-    this.sortField = sortField;
-    this.sortOrder = sortOrder;
-  }
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private modalService: ModalDialogService
+  ) {}
 
   onItemLoading(args: ListViewEventData) {
     if (args.index % 2 !== 0) {
@@ -96,6 +99,16 @@ export class OrdersListComponent implements OnInit {
       limit: this.pagination.limit,
       offset: this.pagination.offset + DEFAULT_LIMIT
     });
+  }
+
+  async onFilterButtonTap() {
+    const options: ModalDialogOptions = {
+      context: { sorting: this.sorting },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
+    };
+
+    await this.modalService.showModal(OrdersFilterComponent, options);
   }
 
   // sort(event: SortEvent) {

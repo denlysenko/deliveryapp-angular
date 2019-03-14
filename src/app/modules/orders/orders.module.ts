@@ -22,6 +22,7 @@ import {
   importDeclarations,
   providerDeclarations
 } from './orders.common';
+import { OrdersFilterComponent } from './components/orders-filter/orders-filter.component';
 
 @NgModule({
   imports: [
@@ -39,7 +40,11 @@ import {
     SpinnerModule,
     InputMaskModule
   ],
-  declarations: [...componentDeclarations, OrdersListComponent],
+  declarations: [
+    ...componentDeclarations,
+    OrdersListComponent,
+    OrdersFilterComponent
+  ],
   providers: [...providerDeclarations]
 })
 export class OrdersModule {}
