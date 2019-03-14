@@ -1,1 +1,7 @@
-<Button text="orders-page works!" class="btn btn-primary"></Button>
+<!-- This removes extra space before RadListView -->
+<StackLayout></StackLayout>
+<da-orders-list [orders]="orders"
+                [sorting]="sorting$ | async"
+                [pagination]="pagination$ | async"
+                [count]="count"
+                [role]="role$ | async"></da-orders-list>

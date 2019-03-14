@@ -22,8 +22,9 @@ import { Order } from '../../models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrdersListComponent implements OnInit {
-  statuses = ORDER_STATUSES;
-  roles = Roles;
+  readonly statuses = ORDER_STATUSES;
+  readonly roles = Roles;
+
   sortField: string;
   sortOrder: number;
 

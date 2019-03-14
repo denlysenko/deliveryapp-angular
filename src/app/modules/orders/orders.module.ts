@@ -15,6 +15,7 @@ import {
 } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 
+import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { OrdersRoutingModule } from './orders-routing.module';
 import {
   componentDeclarations,
@@ -38,7 +39,7 @@ import {
     SpinnerModule,
     InputMaskModule
   ],
-  declarations: [...componentDeclarations],
+  declarations: [...componentDeclarations, OrdersListComponent],
   providers: [...providerDeclarations]
 })
 export class OrdersModule {}
