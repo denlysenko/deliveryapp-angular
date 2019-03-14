@@ -4,4 +4,5 @@
                 [sorting]="sorting$ | async"
                 [pagination]="pagination$ | async"
                 [count]="count"
-                [role]="role$ | async"></da-orders-list>
+                [role]="role$ | async"
+                (paginationChanged)="handlePageChange($event)"></da-orders-list>
