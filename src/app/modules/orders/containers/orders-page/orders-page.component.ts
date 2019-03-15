@@ -34,8 +34,8 @@ export class OrdersPageComponent extends BaseComponent implements OnInit {
   orders: Order[];
   count: number;
 
-  filter$ = this.ordersFacade.filter$.pipe(take(1));
-  sorting$ = this.ordersFacade.sorting$.pipe(take(1));
+  filter$ = this.ordersFacade.filter$;
+  sorting$ = this.ordersFacade.sorting$;
   pagination$ = this.ordersFacade.pagination$.pipe(take(1));
   role$ = this.coreFacade.role$;
 

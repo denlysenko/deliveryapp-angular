@@ -23,6 +23,8 @@ declare var UISearchBarStyle: any;
 export class OrdersFilterComponent extends BaseComponent implements OnInit {
   sortOrder: number;
   sortField: string;
+  search: string;
+  selectedFilter = 0;
 
   options: SelectItem[] = [
     {
@@ -44,22 +46,31 @@ export class OrdersFilterComponent extends BaseComponent implements OnInit {
   ];
 
   items: string[] = this.options.map(item => item.label);
-  filter: any = this.params.context;
 
   constructor(private params: ModalDialogParams) {
     super();
   }
 
   ngOnInit() {
-    const { sortField, sortOrder } = extractSortFieldAndOrder(
-      this.filter.sorting
-    );
+    const { sorting, filter } = this.params.context;
+    const { sortField, sortOrder } = extractSortFieldAndOrder(sorting);
+
     this.sortField = sortField;
     this.sortOrder = sortOrder;
+
+    if (filter) {
+      const keys = Object.keys(filter); // we know that filter in store contains only one key
+
+      this.selectedFilter = this.options.findIndex(
+        option => option.value === keys[0]
+      );
+      this.search = filter[keys[0]];
+    }
   }
 
   onSearchLoaded(args) {
     const sb = <SearchBar>args.object;
+
     if (application.ios) {
       sb.ios.searchBarStyle = UISearchBarStyle.UISearchBarStyleMinimal;
     } else {
@@ -68,23 +79,38 @@ export class OrdersFilterComponent extends BaseComponent implements OnInit {
   }
 
   sort(field: string) {
-    this.sortOrder = this.sortField === field ? this.sortOrder * -1 : 1;
-    this.sortField = field;
+    const sortOrder = this.sortField === field ? this.sortOrder * -1 : 1;
+    const request = {
+      [`order[${field}]`]: sortOrder === 1 ? 'asc' : 'desc',
+      isSorting: true
+    };
+
+    this.params.closeCallback(request);
   }
 
   selectedIndexChanged(args) {
     const picker = <ListPicker>args.object;
-    // this.selectedFilter = picker.selectedIndex;
+    this.selectedFilter = picker.selectedIndex;
   }
 
   onTextChanged(args) {
     const searchBar = <SearchBar>args.object;
-    // this.searchString = searchBar.text;
+    this.search = searchBar.text;
   }
 
   onSubmit(args) {
     const searchBar = <SearchBar>args.object;
-    // this.searchString = searchBar.text;
+    this.search = searchBar.text;
+    this.onApplyTap();
+  }
+
+  onApplyTap() {
+    const request = {
+      [this.options[this.selectedFilter].value]: this.search,
+      isFiltering: true
+    };
+
+    this.params.closeCallback(request);
   }
 
   onCloseTap() {

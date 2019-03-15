@@ -3,7 +3,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild,
   ViewContainerRef
@@ -11,8 +10,11 @@ import {
 
 import { DEFAULT_LIMIT, ORDER_STATUSES } from '@common/constants';
 import { Roles } from '@common/enums';
-import { PageChangeEvent, SortingChangeEvent } from '@common/models';
-import { extractSortFieldAndOrder } from '@common/utils';
+import {
+  PageChangeEvent,
+  SortingChangeEvent,
+  FilterChangeEvent
+} from '@common/models';
 
 import {
   ListViewEventData,
@@ -70,9 +72,11 @@ export class OrdersListComponent {
   @Input() count: number;
   @Input() sorting: SortingChangeEvent;
   @Input() pagination: PageChangeEvent;
+  @Input() filter: FilterChangeEvent;
 
   @Output() sortingChanged = new EventEmitter<SortingChangeEvent>();
   @Output() paginationChanged = new EventEmitter<PageChangeEvent>();
+  @Output() filterChanged = new EventEmitter<FilterChangeEvent>();
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -103,17 +107,30 @@ export class OrdersListComponent {
 
   async onFilterButtonTap() {
     const options: ModalDialogOptions = {
-      context: { sorting: this.sorting },
+      context: { sorting: this.sorting, filter: this.filter },
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     };
 
-    await this.modalService.showModal(OrdersFilterComponent, options);
-  }
+    const result = await this.modalService.showModal(
+      OrdersFilterComponent,
+      options
+    );
 
-  // sort(event: SortEvent) {
-  //   this.sortingChanged.emit({
-  //     [`order[${event.field}]`]: event.order === 1 ? 'asc' : 'desc'
-  //   });
-  // }
+    if (!result) {
+      return;
+    }
+
+    const { isSorting, isFiltering, ...event } = result;
+
+    if (isSorting) {
+      this.data = null;
+      this.sortingChanged.emit(event);
+    }
+
+    if (isFiltering) {
+      this.data = null;
+      this.filterChanged.emit(event);
+    }
+  }
 }

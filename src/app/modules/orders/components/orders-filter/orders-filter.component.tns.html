@@ -64,14 +64,14 @@
                     (selectedIndexChange)="selectedIndexChanged($event)"></ListPicker>
         <SearchBar (loaded)="onSearchLoaded($event)"
                    textFieldBackgroundColor="#f2f8fa"
-                   [text]="searchString"
+                   [text]="search"
                    hint="Search..."
                    (textChange)="onTextChanged($event)"
                    (submit)="onSubmit($event)"></SearchBar>
       </StackLayout>
       <StackLayout class="card m-5 p-y-15">
         <Button class="btn btn-primary btn-rounded-sm btn-active"
-                text="Apply Filters"
+                text="Apply"
                 (tap)="onApplyTap()"></Button>
         <Button class="btn btn-outline btn-rounded-sm btn-active"
                 text="Close"
