@@ -4,6 +4,7 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
 
+import { OrdersFilterComponent } from './components/orders-filter/orders-filter.component.tns';
 import { OrdersListComponent } from './components/orders-list/orders-list.component.tns';
 import { OrdersRoutingModule } from './orders-routing.module';
 import {
@@ -11,7 +12,6 @@ import {
   importDeclarations,
   providerDeclarations
 } from './orders.common';
-import { OrdersFilterComponent } from './components/orders-filter/orders-filter.component.tns';
 
 @NgModule({
   imports: [

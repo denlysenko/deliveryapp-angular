@@ -15,6 +15,7 @@ import {
 } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 
+import { OrdersFilterComponent } from './components/orders-filter/orders-filter.component';
 import { OrdersListComponent } from './components/orders-list/orders-list.component';
 import { OrdersRoutingModule } from './orders-routing.module';
 import {
@@ -22,7 +23,6 @@ import {
   importDeclarations,
   providerDeclarations
 } from './orders.common';
-import { OrdersFilterComponent } from './components/orders-filter/orders-filter.component';
 
 @NgModule({
   imports: [

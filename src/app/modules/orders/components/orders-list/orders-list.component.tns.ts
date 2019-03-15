@@ -11,11 +11,15 @@ import {
 import { DEFAULT_LIMIT, ORDER_STATUSES } from '@common/constants';
 import { Roles } from '@common/enums';
 import {
+  FilterChangeEvent,
   PageChangeEvent,
-  SortingChangeEvent,
-  FilterChangeEvent
+  SortingChangeEvent
 } from '@common/models';
 
+import {
+  ModalDialogOptions,
+  ModalDialogService
+} from 'nativescript-angular/modal-dialog';
 import {
   ListViewEventData,
   ListViewLoadOnDemandMode,
@@ -27,10 +31,6 @@ import { Color } from 'tns-core-modules/color/color';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
 
 import { Order } from '../../models';
-import {
-  ModalDialogService,
-  ModalDialogOptions
-} from 'nativescript-angular/modal-dialog';
 import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.tns';
 
 @Component({
