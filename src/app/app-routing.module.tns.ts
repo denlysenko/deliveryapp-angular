@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { NativeScriptRouterModule } from 'nativescript-angular/router';
-
 import { AppShellComponent } from '@app-shell/containers/app-shell/app-shell.component.tns';
+
+import { AuthGuard } from '@core/guards';
+
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
 import { routes } from './app.routes';
 
@@ -13,6 +15,18 @@ import { routes } from './app.routes';
         path: '',
         component: AppShellComponent,
         children: [...routes]
+      },
+      {
+        path: 'orders/create',
+        loadChildren:
+          './modules/orders/create-order/create-order.module#CreateOrderModule',
+        canLoad: [AuthGuard]
+      },
+      {
+        path: 'orders/:id',
+        loadChildren:
+          './modules/orders/update-order/update-order.module#UpdateOrderModule',
+        canLoad: [AuthGuard]
       }
     ])
   ],
