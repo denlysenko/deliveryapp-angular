@@ -5,7 +5,6 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
 import {
   componentDeclarations,
-  importDeclarations,
   providerDeclarations,
   routes
 } from './create-order.common';
@@ -15,10 +14,9 @@ import { OrdersFacade } from '../store';
   declarations: [...componentDeclarations],
   imports: [
     NativeScriptCommonModule,
-    NativeScriptRouterModule.forChild(routes),
-    ...importDeclarations
+    NativeScriptRouterModule.forChild(routes)
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [...providerDeclarations, OrdersFacade]
+  providers: [...providerDeclarations]
 })
 export class CreateOrderModule {}

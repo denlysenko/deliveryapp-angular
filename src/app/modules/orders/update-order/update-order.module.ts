@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { InputMaskModule } from '@ui/inputmask';
@@ -16,7 +17,6 @@ import {
 import { UpdateOrderFormComponent } from './components/update-order-form/update-order-form.component';
 import {
   componentDeclarations,
-  importDeclarations,
   providerDeclarations,
   routes
 } from './update-order.common';
@@ -26,7 +26,7 @@ import {
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    ...importDeclarations,
+    ReactiveFormsModule,
     SpinnerModule,
     DropdownModule,
     CalendarModule,

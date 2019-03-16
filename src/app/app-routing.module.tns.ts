@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 
-import { NativeScriptRouterModule } from 'nativescript-angular/router';
-
 import { AppShellComponent } from '@app-shell/containers/app-shell/app-shell.component.tns';
 
-import { routes } from './app.routes';
 import { AuthGuard } from '@core/guards';
+
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
+
+import { routes } from './app.routes';
 
 @NgModule({
   imports: [

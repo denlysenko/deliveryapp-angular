@@ -1,11 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { OrdersRoutingModule } from './orders-routing.module';
-import { importDeclarations, providerDeclarations } from './orders.common';
+import { providerDeclarations, importDeclarations } from './orders.common';
 
 @NgModule({
-  imports: [CommonModule, OrdersRoutingModule, ...importDeclarations],
+  imports: [
+    CommonModule,
+    OrdersRoutingModule,
+    ReactiveFormsModule,
+    ...importDeclarations
+  ],
   providers: [...providerDeclarations]
 })
 export class OrdersModule {}
