@@ -4,4 +4,127 @@
   <Label class="action-bar-title"
          text="New Order"></Label>
 </ActionBar>
-<RadDataForm [source]="order"></RadDataForm>
+<RadDataForm [source]="order">
+  <TKPropertyGroup tkDataFormGroups
+                   collapsible="true"
+                   name="Destination">
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cityFrom"
+                      displayName="Departure City">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="addressFrom"
+                      displayName="Departure Address">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cityTo"
+                      displayName="Arrival City">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="addressTo"
+                      displayName="Arrival Address">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty *ngIf="role !== roles.CLIENT && clients"
+                      tkPropertyGroupProperties
+                      name="clientId"
+                      displayName="Client"
+                      [valuesProvider]="clientsProvider">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Picker"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="additionalData"
+                      displayName="Additional Info">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="MultilineText"></TKPropertyEditor>
+    </TKEntityProperty>
+  </TKPropertyGroup>
+  <TKPropertyGroup tkDataFormGroups
+                   collapsible="true"
+                   name="Cargo"
+                   collapsed="true">
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cargoName"
+                      displayName="Cargo Name">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cargoWeight"
+                      displayName="Weight">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Number"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cargoVolume"
+                      displayName="Volume">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Number"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="comment"
+                      displayName="Comments">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="MultilineText"></TKPropertyEditor>
+    </TKEntityProperty>
+  </TKPropertyGroup>
+  <TKPropertyGroup tkDataFormGroups
+                   collapsible="true"
+                   name="Sender"
+                   collapsed="true">
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="senderCompany"
+                      displayName="Company Name">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="senderName"
+                      displayName="Contact Person">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text"></TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="senderEmail"
+                      displayName="Email">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Email"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+      <TKEmailValidator tkEntityPropertyValidators
+                        errorMessage="Incorrect email"></TKEmailValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="senderPhone"
+                      displayName="Phone">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Phone"></TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+      <TKPhoneValidator tkEntityPropertyValidators
+                        errorMessage="Incorrect phone"></TKPhoneValidator>
+    </TKEntityProperty>
+  </TKPropertyGroup>
+</RadDataForm>
