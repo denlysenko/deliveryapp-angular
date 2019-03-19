@@ -4,6 +4,7 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
 import { OrdersService } from '../services/orders.service';
+import { UpdateOrderFormComponent } from './components/update-order-form/update-order-form.component.tns';
 import {
   componentDeclarations,
   providerDeclarations,
@@ -11,7 +12,7 @@ import {
 } from './update-order.common';
 
 @NgModule({
-  declarations: [...componentDeclarations],
+  declarations: [...componentDeclarations, UpdateOrderFormComponent],
   imports: [
     NativeScriptCommonModule,
     NativeScriptRouterModule.forChild(routes)

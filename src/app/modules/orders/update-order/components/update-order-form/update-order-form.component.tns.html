@@ -1,1 +1,14 @@
-<Button text="update-order-form works!" class="btn btn-primary"></Button>
+<ActionBar class="action-bar"
+           flat="true">
+  <NavigationButton text="Orders"></NavigationButton>
+  <Label class="action-bar-title"
+         [text]="'Order # ' + order.id"></Label>
+  <ActionItem ios.systemIcon="3"
+              ios.position="right"
+              android.position="actionBar"
+              android.systemIcon="ic_menu_save"
+              (tap)="submit()"></ActionItem>
+</ActionBar>
+<RadDataForm #dataForm
+             [source]="order">
+</RadDataForm>
