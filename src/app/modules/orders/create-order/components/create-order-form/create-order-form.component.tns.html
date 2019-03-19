@@ -1,1 +1,235 @@
-<Button text="create-order-form works!" class="btn btn-primary"></Button>
+<ActionBar class="action-bar"
+           flat="true">
+  <NavigationButton text="Orders"></NavigationButton>
+  <Label class="action-bar-title"
+         text="New Order"></Label>
+  <ActionItem ios.systemIcon="3"
+              ios.position="right"
+              android.position="actionBar"
+              android.systemIcon="ic_menu_save"
+              (tap)="submit()"></ActionItem>
+</ActionBar>
+<RadDataForm #dataForm
+             [source]="order">
+  <TKPropertyGroup tkDataFormGroups
+                   name="Destination">
+    <TKGroupTitleStyle tkPropertyGroupTitleStyle
+                       fillColor="#f6f9fb"
+                       labelTextSize="16"
+                       labelFontStyle="Bold"
+                       labelTextColor="#3984b8"
+                       separatorColor="#c7cdd1"></TKGroupTitleStyle>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cityFrom"
+                      displayName="Departure City"
+                      color="#cccccc">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="addressFrom"
+                      displayName="Departure Address">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cityTo"
+                      displayName="Arrival City">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="addressTo"
+                      displayName="Arrival Address">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty *ngIf="role !== roles.CLIENT && clients"
+                      tkPropertyGroupProperties
+                      name="clientId"
+                      displayName="Client"
+                      [valuesProvider]="clientsProvider">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Picker">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="additionalData"
+                      displayName="Additional Info">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="MultilineText">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+  </TKPropertyGroup>
+  <TKPropertyGroup tkDataFormGroups
+                   name="Cargo">
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cargoName"
+                      displayName="Cargo Name">
+      <TKGroupTitleStyle tkPropertyGroupTitleStyle
+                         fillColor="#f6f9fb"
+                         labelTextSize="16"
+                         labelFontStyle="Bold"
+                         labelTextColor="#3984b8"
+                         separatorColor="#c7cdd1"></TKGroupTitleStyle>
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cargoWeight"
+                      displayName="Weight">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Number">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKRangeValidator tkEntityPropertyValidators
+                        errorMessage="Weight must be greater than 1"
+                        minimum="1"></TKRangeValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="cargoVolume"
+                      displayName="Volume">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Number">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="comment"
+                      displayName="Comments">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="MultilineText">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+  </TKPropertyGroup>
+  <TKPropertyGroup tkDataFormGroups
+                   name="Sender">
+    <TKGroupTitleStyle tkPropertyGroupTitleStyle
+                       fillColor="#f6f9fb"
+                       labelTextSize="16"
+                       labelFontStyle="Bold"
+                       labelTextColor="#3984b8"
+                       separatorColor="#c7cdd1"></TKGroupTitleStyle>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="senderCompany"
+                      displayName="Company Name">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="senderName"
+                      displayName="Contact Person">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="senderEmail"
+                      displayName="Email">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Email">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+      <TKEmailValidator tkEntityPropertyValidators
+                        errorMessage="Incorrect email"></TKEmailValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="senderPhone"
+                      displayName="Phone">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Phone">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+      <TKPhoneValidator tkEntityPropertyValidators
+                        errorMessage="Incorrect phone"></TKPhoneValidator>
+    </TKEntityProperty>
+  </TKPropertyGroup>
+</RadDataForm>

@@ -1,8 +1,5 @@
-<ActionBar class="action-bar"
-           flat="true">
-  <NavigationButton text="Orders"></NavigationButton>
-  <Label class="action-bar-title"
-         text="New Order"></Label>
-</ActionBar>
-<Button text="create-order-page works!"
-        class="btn btn-primary"></Button>
+<da-create-order-form [loading]="loading$ | async"
+                      [error]="error$ | async"
+                      [clients]="clients$ | async"
+                      [role]="role$ | async"
+                      (submitted)="create($event)"></da-create-order-form>
