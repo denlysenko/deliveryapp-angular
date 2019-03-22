@@ -1,13 +1,32 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
+
+import { User } from '@auth/models';
 
 import { ORDER_STATUSES } from '@common/constants';
 
 import { FeedbackService, LoaderService } from '@core/services';
 
-import { SelectItem } from 'primeng/primeng';
+import { PropertyConverter } from 'nativescript-ui-dataform';
 
 import { TNSOrderFormBase } from '../../../base/TNSOrderFormBase';
 import { Order } from '../../../models';
+
+class ClientConverter implements PropertyConverter {
+  constructor(private client: User) {}
+
+  convertTo() {
+    return this.client.email;
+  }
+
+  convertFrom() {
+    return this.client.email;
+  }
+}
 
 @Component({
   selector: 'da-update-order-form',
@@ -15,24 +34,16 @@ import { Order } from '../../../models';
   styleUrls: ['./update-order-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UpdateOrderFormComponent extends TNSOrderFormBase {
-  // readonly paymentStatuses: SelectItem[] = [
-  //   {
-  //     label: 'Paid',
-  //     value: true
-  //   },
-  //   {
-  //     label: 'Not Paid',
-  //     value: false
-  //   }
-  // ];
-
-  orderStatuses: SelectItem[] = ORDER_STATUSES.map((status, index) => {
+export class UpdateOrderFormComponent extends TNSOrderFormBase
+  implements OnInit {
+  readonly orderStatusesProvider = ORDER_STATUSES.map((status, index) => {
     return {
       label: status,
-      value: index
+      key: index
     };
   });
+
+  clientConverter: ClientConverter;
 
   @Input() order: Order;
 
@@ -41,5 +52,9 @@ export class UpdateOrderFormComponent extends TNSOrderFormBase {
     protected loaderService: LoaderService
   ) {
     super();
+  }
+
+  ngOnInit() {
+    this.clientConverter = new ClientConverter(this.order.client);
   }
 }
