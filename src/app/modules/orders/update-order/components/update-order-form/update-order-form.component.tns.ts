@@ -20,7 +20,7 @@ class ClientConverter implements PropertyConverter {
   constructor(private client: User) {}
 
   convertTo() {
-    return this.client.email;
+    return this.client;
   }
 
   convertFrom() {
@@ -45,7 +45,25 @@ export class UpdateOrderFormComponent extends TNSOrderFormBase
 
   clientConverter: ClientConverter;
 
-  @Input() order: Order;
+  @Input()
+  set order(order: Order) {
+    delete order.creatorId;
+    delete order.creator;
+    delete order.payment;
+    delete order.deletedAt;
+
+    if (this.role === this.roles.CLIENT) {
+      delete order.clientId;
+      delete order.client;
+    }
+
+    this._order = order;
+  }
+  get order(): Order {
+    return this._order;
+  }
+
+  private _order: Order;
 
   constructor(
     protected feedbackService: FeedbackService,
@@ -56,5 +74,18 @@ export class UpdateOrderFormComponent extends TNSOrderFormBase
 
   ngOnInit() {
     this.clientConverter = new ClientConverter(this.order.client);
+  }
+
+  async submit() {
+    if (this.loading) {
+      return;
+    }
+
+    const isValid = await this.dataform.validateAll();
+
+    if (isValid) {
+      const { client, clientId, createdAt, updatedAt, ...order } = this.order;
+      this.submitted.emit(order);
+    }
   }
 }

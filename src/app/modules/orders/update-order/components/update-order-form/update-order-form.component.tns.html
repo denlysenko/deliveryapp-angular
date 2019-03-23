@@ -21,9 +21,10 @@
                        separatorColor="#c7cdd1"></TKGroupTitleStyle>
     <TKEntityProperty tkPropertyGroupProperties
                       name="id"
-                      displayName="Order Number">
+                      displayName="Order Number"
+                      readOnly="true">
       <TKPropertyEditor tkEntityPropertyEditor
-                        type="Label">
+                        type="Number">
         <TKPropertyEditorStyle tkPropertyEditorStyle
                                labelTextSize="14"
                                labelFontStyle="BoldItalic"
@@ -238,8 +239,10 @@
                                labelPosition="Top"
                                labelTextColor="#757575"></TKPropertyEditorStyle>
       </TKPropertyEditor>
-      <TKRangeValidator tkEntityPropertyValidators
-                        errorMessage="Weight must be greater than 0"
+      <!-- Android still validates even if property is readonly -->
+      <TKRangeValidator *ngIf="role !== roles.CLIENT"
+                        tkEntityPropertyValidators
+                        errorMessage="Payment sum must be greater than 0"
                         minimum="0,01"></TKRangeValidator>
     </TKEntityProperty>
     <TKEntityProperty tkPropertyGroupProperties
@@ -282,7 +285,8 @@
       </TKPropertyEditor>
     </TKEntityProperty>
   </TKPropertyGroup>
-  <TKPropertyGroup tkDataFormGroups 
+  <TKPropertyGroup *ngIf="role !== roles.CLIENT"
+                   tkDataFormGroups
                    name="Client Info">
     <TKGroupTitleStyle tkPropertyGroupTitleStyle
                        fillColor="#f6f9fb"
@@ -292,9 +296,10 @@
                        separatorColor="#c7cdd1"></TKGroupTitleStyle>
     <TKEntityProperty tkPropertyGroupProperties
                       name="clientId"
-                      displayName="ID">
+                      displayName="ID"
+                      readOnly="true">
       <TKPropertyEditor tkEntityPropertyEditor
-                        type="Label">
+                        type="Number">
         <TKPropertyEditorStyle tkPropertyEditorStyle
                                labelTextSize="14"
                                labelFontStyle="BoldItalic"
@@ -304,9 +309,11 @@
     </TKEntityProperty>
     <TKEntityProperty tkPropertyGroupProperties
                       name="client"
-                      displayName="Email" [converter]="clientConverter">
+                      displayName="Email"
+                      [converter]="clientConverter"
+                      readOnly="true">
       <TKPropertyEditor tkEntityPropertyEditor
-                        type="Label">
+                        type="Text">
         <TKPropertyEditorStyle tkPropertyEditorStyle
                                labelTextSize="14"
                                labelFontStyle="BoldItalic"
@@ -377,20 +384,4 @@
       </TKPropertyEditor>
     </TKEntityProperty>
   </TKPropertyGroup>
-  <TKEntityProperty tkDataFormProperty
-                    name="creator"
-                    [hidden]="true">
-  </TKEntityProperty>
-  <TKEntityProperty tkDataFormProperty
-                    name="creatorId"
-                    [hidden]="true">
-  </TKEntityProperty>
-  <TKEntityProperty tkDataFormProperty
-                    name="deletedAt"
-                    [hidden]="true">
-  </TKEntityProperty>
-  <TKEntityProperty tkDataFormProperty
-                    name="payment"
-                    [hidden]="true">
-  </TKEntityProperty>
 </RadDataForm>

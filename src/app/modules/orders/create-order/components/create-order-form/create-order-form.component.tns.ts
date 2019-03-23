@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { User } from '@auth/models';
 
 import { FeedbackService, LoaderService } from '@core/services';
 
@@ -30,10 +32,32 @@ export class CreateOrderFormComponent extends TNSOrderFormBase {
 
   clientsProvider: { key: number; label: string }[];
 
+  @Input()
+  set clients(clients: User[]) {
+    if (clients) {
+      this.clientsProvider = clients.map(client => ({
+        key: client.id,
+        label: client.email
+      }));
+    }
+  }
+
   constructor(
     protected feedbackService: FeedbackService,
     protected loaderService: LoaderService
   ) {
     super();
+  }
+
+  async submit() {
+    if (this.loading) {
+      return;
+    }
+
+    const isValid = await this.dataform.validateAll();
+
+    if (isValid) {
+      this.submitted.emit(this.order);
+    }
   }
 }

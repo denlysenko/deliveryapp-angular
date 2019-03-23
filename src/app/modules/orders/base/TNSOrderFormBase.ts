@@ -48,18 +48,6 @@ export abstract class TNSOrderFormBase {
     return this.dataForm.dataForm;
   }
 
-  async submit() {
-    if (this.loading) {
-      return;
-    }
-
-    const isValid = await this.dataform.validateAll();
-
-    if (isValid) {
-      this.submitted.emit(this.order);
-    }
-  }
-
   private handleError(err: ValidationError) {
     if (err.errors) {
       err.errors.forEach(({ path, message }) => {
