@@ -1,0 +1,19 @@
+@import 'src/app-variables';
+
+.first {
+  border-top-width: 1;
+  border-top-color: #c7cdd1;
+}
+
+.list-item {
+  margin: 0 5;
+  padding: 10 5 10 10;
+  border-bottom-width: 1;
+  border-bottom-color: #c7cdd1;
+  color: $grey-darker;
+  font-size: 14;
+
+  .angle {
+    font-size: 22;
+  }
+}

@@ -1,0 +1,29 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card">
+      <div class="topbar ui-g">
+        <da-orders-filter class="ui-md-8 ui-g-12"
+                          [filter]="filter$ | async"
+                          (filterChanged)="handleFilterChange($event)"></da-orders-filter>
+        <div class="button ui-md-4 ui-g-12">
+          <button pButton
+                  type="button"
+                  label="Create order"
+                  icon="fa fa-plus"
+                  iconPos="left"
+                  class="raised-btn"
+                  [routerLink]="['create']"></button>
+        </div>
+      </div>
+      <div class="list">
+        <da-orders-list [orders]="orders"
+                        [sorting]="sorting$ | async"
+                        [pagination]="pagination$ | async"
+                        [count]="count"
+                        [role]="role$ | async"
+                        (sortingChanged)="handleSortingChange($event)"
+                        (paginationChanged)="handlePageChange($event)"></da-orders-list>
+      </div>
+    </div>
+  </div>
+</div>

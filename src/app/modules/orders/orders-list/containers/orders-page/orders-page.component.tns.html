@@ -1,0 +1,11 @@
+<!-- This removes extra space before RadListView -->
+<StackLayout></StackLayout>
+<da-orders-list [orders]="orders"
+                [sorting]="sorting$ | async"
+                [pagination]="pagination$ | async"
+                [filter]="filter$ | async"
+                [count]="count"
+                [role]="role$ | async"
+                (paginationChanged)="handlePageChange($event)"
+                (sortingChanged)="handleSortingChange($event)"
+                (filterChanged)="handleFilterChange($event)"></da-orders-list>

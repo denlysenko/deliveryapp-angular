@@ -7,11 +7,11 @@ import { AuthModule } from '@auth/auth.module';
 
 import { ErrorsInterceptor } from './interceptors/errors.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { CoreFacade, reducers } from './store';
+import { clearState, CoreFacade, reducers } from './store';
 import { effects } from './store/effects';
 
 export const importDeclarations: any[] = [
-  StoreModule.forRoot(reducers),
+  StoreModule.forRoot(reducers, { metaReducers: [clearState] }),
   EffectsModule.forRoot(effects),
   AuthModule
 ];

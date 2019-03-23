@@ -1,21 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { components } from './components';
-import { containers } from './containers';
+import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { AuthService } from './services/auth.service';
-import { AuthFacade, reducer } from './store';
+import { AuthFacade, authReducer, effects } from './store';
 
 export const importDeclarations: any[] = [
   CommonModule,
   ReactiveFormsModule,
-  StoreModule.forFeature('auth', reducer)
+  StoreModule.forFeature('auth', authReducer),
+  EffectsModule.forFeature(effects)
 ];
 
-export const componentDeclarations: any[] = [...containers, ...components];
+export const componentDeclarations: any[] = [AuthFormComponent];
 
 export const providerDeclarations: any[] = [
   AuthService,

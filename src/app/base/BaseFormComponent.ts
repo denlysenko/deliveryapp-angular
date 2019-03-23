@@ -6,7 +6,7 @@ export abstract class BaseFormComponent {
   form: FormGroup;
   errors: { [key: string]: string } = {};
 
-  protected abstract feedbackService: FeedbackService;
+  protected feedbackService?: FeedbackService;
 
   protected handleError(error: any) {
     if (error.errors && error.errors.length) {

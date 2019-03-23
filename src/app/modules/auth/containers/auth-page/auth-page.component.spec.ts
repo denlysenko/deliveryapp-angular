@@ -60,7 +60,7 @@ describe('AuthPageComponent', () => {
     });
 
     it('[`isLoggingIn = true`] should call AuthFacade.login', () => {
-      const authFacade = TestBed.get(AuthFacade);
+      const authFacade: AuthFacade = TestBed.get(AuthFacade);
       const formValue: AuthForm = {
         email: 'test@test.com',
         password: 'password'
@@ -72,7 +72,7 @@ describe('AuthPageComponent', () => {
     });
 
     it('[`isLoggingIn = false`] should call AuthFacade.register', () => {
-      const authFacade = TestBed.get(AuthFacade);
+      const authFacade: AuthFacade = TestBed.get(AuthFacade);
       const formValue: AuthForm = {
         email: 'test@test.com',
         password: 'password'

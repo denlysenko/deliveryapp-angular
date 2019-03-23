@@ -3,6 +3,7 @@ export const AUTHORIZATION_HEADER = 'Authorization';
 export const MESSAGE_SUBJECT = 'New Message';
 export const HTTP_RETRY_COUNT = 3;
 export const HTTP_RETRY_DELAY = 5000;
+export const DEFAULT_LIMIT = 10;
 
 export const HTTP_STATUS = {
   NO_CONNECTION: 0,
@@ -15,9 +16,11 @@ export const HTTP_STATUS = {
   BAD_GATEWAY: 502
 };
 
-export enum SERVER_ERRORS {
-  NO_CONNECTION = 'NO_CONNECTION_ERROR',
-  UNAUTHORIZED = 'AUTHORIZATION_ERROR',
-  FORBIDDEN = 'FORBIDDEN_ERROR',
-  INTERNAL_SERVER_ERROR = 'SYSTEM_ERROR'
-}
+export const ORDER_STATUSES = [
+  'New',
+  'Calculated',
+  'Delivering',
+  'Delivered to warehouse',
+  'Delivered to customer',
+  'Canceled'
+];

@@ -1,14 +1,18 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { EffectsModule } from '@ngrx/effects';
-
 import { registerElement } from 'nativescript-angular/element-registry';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 import { AuthRoutingModule } from './auth-routing.module';
-import { componentDeclarations, importDeclarations, providerDeclarations } from './auth.common';
-import { effects } from './store';
+import {
+  componentDeclarations,
+  importDeclarations,
+  providerDeclarations
+} from './auth.common';
+import { AuthPageComponent } from './containers/auth-page/auth-page.component.tns';
+
+const containers = [AuthPageComponent];
 
 registerElement(
   'PreviousNextView',
@@ -20,10 +24,9 @@ registerElement(
     NativeScriptFormsModule,
     TNSFontIconModule,
     AuthRoutingModule,
-    ...importDeclarations,
-    EffectsModule.forFeature(effects)
+    ...importDeclarations
   ],
-  declarations: [...componentDeclarations],
+  declarations: [...componentDeclarations, ...containers],
   providers: [...providerDeclarations],
   schemas: [NO_ERRORS_SCHEMA]
 })

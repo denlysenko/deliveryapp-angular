@@ -1,0 +1,169 @@
+<ActionBarExtension>
+  <ActionItem ios:visibility="collapsed"
+              icon="res://filter"
+              (tap)="onFilterButtonTap()">
+  </ActionItem>
+  <ActionItem android:visibility="collapsed"
+              icon="res://navigation/filter"
+              (tap)="onFilterButtonTap()"
+              ios.position="right">
+  </ActionItem>
+  <ActionItem ios.systemIcon="4"
+              ios.position="right"
+              android.systemIcon="ic_menu_add"
+              android.position="actionBar"
+              [nsRouterLink]="['create']"></ActionItem>
+</ActionBarExtension>
+<GridLayout>
+  <RadListView #listView
+               [items]="data"
+               (itemLoading)="onItemLoading($event)"
+               (loadMoreDataRequested)="onLoadMoreItemsRequested($event)">
+    <ng-template tkListItemTemplate
+                 let-order="item"
+                 let-i="index">
+      <GridLayout class="list-item"
+                  [class.first]="i === 0"
+                  columns="*, auto"
+                  [nsRouterLink]="[order.id]">
+        <StackLayout col="0">
+          <GridLayout rows="*, *, *, *, *, *, *, *, *, *">
+            <GridLayout row="0"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="Num: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       class="text-right"
+                       textWrap="true"
+                       [text]="order.id"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout row="1"
+                        col="0">
+              <GridLayout columns="*, *">
+                <Label col="0"
+                       text="Cargo Name: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       class="text-right"
+                       textWrap="true"
+                       [text]="order.cargoName"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout row="2"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="Weight/Volume: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       textWrap="true"
+                       class="text-right"
+                       text="{{ order.cargoWeight }} kg / {{ order.cargoVolume || '-' }} m3"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout row="3"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="From City: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       textWrap="true"
+                       class="text-right"
+                       [text]="order.cityFrom"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout row="4"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="To City: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       textWrap="true"
+                       class="text-right"
+                       [text]="order.cityTo"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout row="5"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="Delivery Costs: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       textWrap="true"
+                       class="text-right"
+                       [text]="order.deliveryCosts ? (order.deliveryCosts | currency) : '-'"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout row="6"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="Delivery Date: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       textWrap="true"
+                       class="text-right"
+                       [text]="order.deliveryDate ? (order.deliveryDate | date: 'dd.MM.yyyy') : '-'"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout row="7"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="Status: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       textWrap="true"
+                       class="text-right"
+                       [text]="statuses[order.status]"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout row="8"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="Paid: "
+                       class="font-weight-bold"></Label>
+                <Label col="1"
+                       textWrap="true"
+                       class="text-right"
+                       [text]="order.paid ? 'Yes' : 'No'"></Label>
+              </GridLayout>
+            </GridLayout>
+            <GridLayout *ngIf="role !== roles.CLIENT"
+                        row="9"
+                        col="0">
+              <GridLayout columns="*, auto">
+                <Label col="0"
+                       text="Client: "
+                       class="font-weight-bold"></Label>
+                <Label *ngIf="order.client?.firstName || order.client?.lastName"
+                       col="1"
+                       textWrap="true"
+                       class="text-right"
+                       text="{{ order.client?.firstName }} {{ order.client?.lastName }}"></Label>
+                <Label *ngIf="!order.client?.firstName && !order.client?.lastName"
+                       col="1"
+                       textWrap="true"
+                       class="text-right"
+                       [text]="order.client?.email"></Label>
+              </GridLayout>
+            </GridLayout>
+          </GridLayout>
+        </StackLayout>
+        <StackLayout col="1"
+                     verticalAlignment="center"
+                     class="m-l-10">
+          <Label class="fa angle"
+                 [text]="'fa-angle-right' | fonticon"></Label>
+        </StackLayout>
+      </GridLayout>
+    </ng-template>
+  </RadListView>
+</GridLayout>

@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 
-import { Page } from 'ui/page';
+import { Page } from 'tns-core-modules/ui/page';
 
 import { AuthPageBase } from '../../base/AuthPageBase';
 import { AuthFacade } from '../../store/auth.facade';
 
 @Component({
-  moduleId: module.id,
   templateUrl: './auth-page.component.html',
   styleUrls: ['./auth-page.component.scss']
 })

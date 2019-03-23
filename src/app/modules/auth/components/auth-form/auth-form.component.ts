@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
@@ -17,7 +23,6 @@ export const REGISTER_FIELDS = [
 ];
 
 @Component({
-  moduleId: module.id,
   selector: 'da-auth-form',
   templateUrl: './auth-form.component.html',
   styleUrls: ['./auth-form.component.scss'],

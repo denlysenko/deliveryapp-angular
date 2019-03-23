@@ -1,32 +1,33 @@
 import { Roles } from './enums/roles.enum';
+import { AppMenuItem } from './models';
 
-export const appMenu = [
+export const appMenu: AppMenuItem[] = [
   {
-    link: 'orders',
+    link: '/orders',
     label: 'Orders',
     icon: 'fa-file-text',
     allowedRoles: [Roles.ADMIN, Roles.CLIENT, Roles.MANAGER]
   },
   {
-    link: 'payments',
+    link: '/payments',
     label: 'Payments',
     icon: 'fa-money',
     allowedRoles: [Roles.ADMIN, Roles.CLIENT, Roles.MANAGER]
   },
   {
-    link: 'users',
+    link: '/users',
     label: 'Users',
     icon: 'fa-users',
     allowedRoles: [Roles.ADMIN]
   },
   {
-    link: 'settings',
+    link: '/settings',
     label: 'Settings',
     icon: 'fa-cog',
     allowedRoles: [Roles.ADMIN]
   },
   {
-    link: 'logs',
+    link: '/logs',
     label: 'Logs',
     icon: 'fa-database',
     allowedRoles: [Roles.ADMIN]

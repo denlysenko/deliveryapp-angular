@@ -1,0 +1,6 @@
+<da-update-order-form [order]="order$ | async"
+                      [role]="role$ | async"
+                      [loading]="loading$ | async"
+                      [error]="error$ | async"
+                      (back)="back()"
+                      (submitted)="save($event)"></da-update-order-form>

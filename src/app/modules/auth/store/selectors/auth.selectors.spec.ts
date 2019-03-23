@@ -3,18 +3,23 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { AuthForm } from '../../models';
-import { AuthFail, AuthSuccess, Login, Register } from '../actions/auth.actions';
-import * as fromReducers from '../reducers';
-import * as fromSelectors from './auth.selectors';
+import {
+  AuthFail,
+  AuthSuccess,
+  Login,
+  Register
+} from '../actions/auth.actions';
+import { authReducer, AuthState } from '../reducers';
+import { getAuthError, getAuthLoading } from './auth.selectors';
 
 describe('Auth Selectors', () => {
-  let store: Store<fromReducers.AuthState>;
+  let store: Store<AuthState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          auth: fromReducers.reducer
+          auth: authReducer
         })
       ]
     });
@@ -32,7 +37,7 @@ describe('Auth Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getAuthLoading).subscribe(value => {
+      store.select(getAuthLoading).subscribe(value => {
         result = value;
       });
 
@@ -49,7 +54,7 @@ describe('Auth Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getAuthLoading).subscribe(value => {
+      store.select(getAuthLoading).subscribe(value => {
         result = value;
       });
 
@@ -61,7 +66,7 @@ describe('Auth Selectors', () => {
     it('should return false when AuthSuccess was dispatched', () => {
       let result;
 
-      store.select(fromSelectors.getAuthLoading).subscribe(value => {
+      store.select(getAuthLoading).subscribe(value => {
         result = value;
       });
 
@@ -78,7 +83,7 @@ describe('Auth Selectors', () => {
 
       let result;
 
-      store.select(fromSelectors.getAuthError).subscribe(value => {
+      store.select(getAuthError).subscribe(value => {
         result = value;
       });
 

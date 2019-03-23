@@ -1,24 +1,38 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ViewContainerRef,
+  AfterViewInit
+} from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 import { takeUntil } from 'rxjs/operators';
 
 import { CoreFacade } from '@core/store';
-import { ModalDialogOptions, ModalDialogService } from 'nativescript-angular/modal-dialog';
-import { DrawerTransitionBase, SlideAlongTransition } from 'nativescript-ui-sidedrawer';
-import { RadSideDrawerComponent, SideDrawerType } from 'nativescript-ui-sidedrawer/angular';
+
+import {
+  ModalDialogOptions,
+  ModalDialogService
+} from 'nativescript-angular/modal-dialog';
+import {
+  DrawerTransitionBase,
+  SlideAlongTransition
+} from 'nativescript-ui-sidedrawer';
+import {
+  RadSideDrawerComponent,
+  SideDrawerType
+} from 'nativescript-ui-sidedrawer/angular';
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
 import { AppShellBase } from '../../base/AppShellBase';
-import { MessagesComponent } from '../../components/messages/messages.component';
+import { MessagesComponent } from '../../components/messages/messages.component.tns';
 
 @Component({
-  moduleId: module.id,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss']
 })
-export class AppShellComponent extends AppShellBase {
+export class AppShellComponent extends AppShellBase implements AfterViewInit {
   selectedPageTitle: string;
 
   @ViewChild('drawer')
@@ -61,6 +75,16 @@ export class AppShellComponent extends AppShellBase {
     });
   }
 
+  ngAfterViewInit() {
+    if (this.drawer.ios) {
+      const sideDrawer = this.drawer.ios.defaultSideDrawer;
+      sideDrawer.style.shadowMode = 1;
+      sideDrawer.style.shadowOpacity = 0.75;
+      sideDrawer.style.shadowRadius = 5;
+      sideDrawer.transitionDuration = 0.25;
+    }
+  }
+
   get sideDrawerTransition(): DrawerTransitionBase {
     return this._sideDrawerTransition;
   }
@@ -76,10 +100,7 @@ export class AppShellComponent extends AppShellBase {
       viewContainerRef: this.viewContainerRef
     };
 
-    const response = await this.modalService.showModal(
-      MessagesComponent,
-      options
-    );
+    await this.modalService.showModal(MessagesComponent, options);
   }
 
   private updateRouteTitle() {

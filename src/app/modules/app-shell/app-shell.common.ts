@@ -1,8 +1,3 @@
-import { RouterModule } from '@angular/router';
+import { AppMenuComponent } from './components/app-menu/app-menu.component';
 
-import { components } from './components';
-import { containers } from './containers';
-
-export const componentDeclarations: any[] = [...containers, ...components];
-
-export const importDeclarations: any[] = [RouterModule];
+export const componentDeclarations: any[] = [AppMenuComponent];

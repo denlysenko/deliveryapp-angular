@@ -1,5 +1,9 @@
-import { MessagesActions, MessagesActionTypes } from '../actions/messages.actions';
+import {
+  MessagesActions,
+  MessagesActionTypes
+} from '../actions/messages.actions';
 
+// tslint:disable-next-line:no-commented-code
 // import { Message } from '../../../lib/messages/Message';
 
 export interface MessageState {
@@ -17,7 +21,7 @@ export const initialState: MessageState = {
   unread: 0
 };
 
-export function reducer(
+export function messagesReducer(
   state = initialState,
   action: MessagesActions
 ): MessageState {
@@ -89,13 +93,6 @@ export function reducer(
           [messageId]: updatedMessage
         },
         unread: state.unread - 1
-      };
-    }
-
-    case MessagesActionTypes.RESET_MESSAGES_STATE: {
-      return {
-        ...state,
-        ...initialState
       };
     }
   }

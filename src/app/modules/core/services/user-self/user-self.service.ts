@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { User } from '@auth/models';
 import { ApiService } from '@core/services/api.service';
 
+// tslint:disable-next-line:no-commented-code
 // import { Message } from '../../lib/messages/Message';
 
 @Injectable({

@@ -1,5 +1,11 @@
 import { AuthForm } from '../../models';
-import { AuthActionTypes, AuthFail, AuthSuccess, Login, Register } from './auth.actions';
+import {
+  AuthActionTypes,
+  AuthFail,
+  AuthSuccess,
+  Login,
+  Register
+} from './auth.actions';
 
 describe('Auth Actions', () => {
   describe('Login', () => {
@@ -11,7 +17,7 @@ describe('Auth Actions', () => {
       const action = new Login(payload);
       expect({ ...action }).toEqual({
         type: AuthActionTypes.LOGIN,
-        payload: payload
+        payload
       });
     });
   });
@@ -25,7 +31,7 @@ describe('Auth Actions', () => {
       const action = new Register(payload);
       expect({ ...action }).toEqual({
         type: AuthActionTypes.REGISTER,
-        payload: payload
+        payload
       });
     });
   });
@@ -45,7 +51,7 @@ describe('Auth Actions', () => {
       const action = new AuthFail(payload);
       expect({ ...action }).toEqual({
         type: AuthActionTypes.AUTH_FAIL,
-        payload: payload
+        payload
       });
     });
   });

@@ -1,7 +1,7 @@
 import { ValidationError } from '@common/models';
 
 import { LoginError } from '../../models';
-import { AuthAction, AuthActionTypes } from '../actions';
+import { AuthActions, AuthActionTypes } from '../actions';
 
 export interface AuthState {
   loading: boolean;
@@ -13,7 +13,10 @@ export const initialState: AuthState = {
   error: null
 };
 
-export function reducer(state = initialState, action: AuthAction): AuthState {
+export function authReducer(
+  state = initialState,
+  action: AuthActions
+): AuthState {
   switch (action.type) {
     case AuthActionTypes.LOGIN:
     case AuthActionTypes.REGISTER: {

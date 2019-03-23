@@ -6,10 +6,10 @@ import {
   MarkAsRead,
   MarkAsReadFail,
   MarkAsReadSuccess,
-  MessagesActionTypes,
-  ResetMessagesState,
+  MessagesActionTypes
 } from './messages.actions';
 
+// tslint:disable-next-line:no-commented-code
 // import { Message } from '../../../lib/messages/Message';
 
 describe('Messages Actions', () => {
@@ -38,7 +38,7 @@ describe('Messages Actions', () => {
       const action = new LoadMessagesSuccess(payload);
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.LOAD_MESSAGES_SUCCESS,
-        payload: payload
+        payload
       });
     });
   });
@@ -49,7 +49,7 @@ describe('Messages Actions', () => {
       const action = new LoadMessagesFail(payload);
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.LOAD_MESSAGES_FAIL,
-        payload: payload
+        payload
       });
     });
   });
@@ -60,7 +60,7 @@ describe('Messages Actions', () => {
       const action = new MarkAsRead(payload);
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.MARK_AS_READ,
-        payload: payload
+        payload
       });
     });
   });
@@ -71,7 +71,7 @@ describe('Messages Actions', () => {
       const action = new MarkAsReadSuccess(payload);
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.MARK_AS_READ_SUCCESS,
-        payload: payload
+        payload
       });
     });
   });
@@ -82,7 +82,7 @@ describe('Messages Actions', () => {
       const action = new MarkAsReadFail(payload);
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.MARK_AS_READ_FAIL,
-        payload: payload
+        payload
       });
     });
   });
@@ -101,16 +101,7 @@ describe('Messages Actions', () => {
       const action = new HandleMessageReceive(payload);
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.HANDLE_MESSAGE_RECEIVE,
-        payload: payload
-      });
-    });
-  });
-
-  describe('ResetMessagesState', () => {
-    it('should create an action', () => {
-      const action = new ResetMessagesState();
-      expect({ ...action }).toEqual({
-        type: MessagesActionTypes.RESET_MESSAGES_STATE
+        payload
       });
     });
   });

@@ -16,6 +16,7 @@ export class InputMaskDirective implements OnInit {
 
   ngOnInit() {
     const inputMask = new Inputmask(this.mask);
+    // tslint:disable-next-line:no-commented-code
     /*
     inputMask.opts.onKeyValidation = () => {
       console.log(this.elem.nativeElement.inputmask.getmetadata());

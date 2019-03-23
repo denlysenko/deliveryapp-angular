@@ -1,21 +1,33 @@
 import { Injectable } from '@angular/core';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+
+import { filter } from 'rxjs/operators';
 
 import { RouterPayload } from '../models';
 import { LoadMessages, LoadSelf, Logout, MarkAsRead } from './actions';
 import { Back, Forward, Go } from './actions/router.actions';
-import * as fromCore from './reducers';
-import * as fromSelectors from './selectors';
+import { CoreState } from './reducers';
+import {
+  getAllMessages,
+  getLoggedIn,
+  getSelf,
+  getSelfRole,
+  getUnreadMessages
+} from './selectors';
 
 @Injectable()
 export class CoreFacade {
-  loggedIn$ = this.store.select(fromSelectors.getLoggedIn);
-  self$ = this.store.select(fromSelectors.getSelf);
-  unreadMessages$ = this.store.select(fromSelectors.getUnreadMessages);
-  messages$ = this.store.select(fromSelectors.getAllMessages);
+  loggedIn$ = this.store.pipe(select(getLoggedIn));
+  self$ = this.store.pipe(
+    select(getSelf),
+    filter(user => !!user)
+  );
+  role$ = this.store.pipe(select(getSelfRole));
+  unreadMessages$ = this.store.pipe(select(getUnreadMessages));
+  messages$ = this.store.pipe(select(getAllMessages));
 
-  constructor(private store: Store<fromCore.CoreState>) {}
+  constructor(private store: Store<CoreState>) {}
 
   loadSelf() {
     this.store.dispatch(new LoadSelf());

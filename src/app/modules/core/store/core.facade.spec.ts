@@ -5,19 +5,23 @@ import { Store, StoreModule } from '@ngrx/store';
 import { User } from '@auth/models';
 
 import { RouterPayload } from '../models/router-payload.model';
-import { LoadMessages, LoadMessagesSuccess, MarkAsRead } from './actions/messages.actions';
+import {
+  LoadMessages,
+  LoadMessagesSuccess,
+  MarkAsRead
+} from './actions/messages.actions';
 import { Back, Forward, Go } from './actions/router.actions';
 import { LoadSelf, LoadSelfSuccess, Logout } from './actions/self.actions';
 import { CoreFacade } from './core.facade';
-import * as fromReducers from './reducers';
+import { CoreState, reducers } from './reducers';
 
 describe('CoreFacade', () => {
-  let store: Store<fromReducers.CoreState>;
+  let store: Store<CoreState>;
   let facade: CoreFacade;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(fromReducers.reducers)],
+      imports: [StoreModule.forRoot(reducers)],
       providers: [CoreFacade]
     }).compileComponents();
   }));

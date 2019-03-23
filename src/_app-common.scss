@@ -15,11 +15,6 @@
   background-color: $grey-lighter;
 }
 
-ActionBar {
-  background-color: #f2f8fa;
-  color: $accent;
-}
-
 .card {
   background-color: $white;
   border-width: 1;
@@ -28,10 +23,4 @@ ActionBar {
 
 .text-success {
   color: $green;
-}
-
-.segmented-bar {
-  selected-background-color: $accent;
-  color: $accent;
-  background-color: $white;
 }

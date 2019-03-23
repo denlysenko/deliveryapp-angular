@@ -17,6 +17,8 @@
       "@core/*": ["src/app/modules/core/*"],
       "@app-shell/*": ["src/app/modules/app-shell/*"],
       "@auth/*": ["src/app/modules/auth/*"],
+      "@orders/*": ["src/app/modules/orders/*"],
+      "@users/*": ["src/app/modules/users/*"],
       "~/*": ["src/*"],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
     }

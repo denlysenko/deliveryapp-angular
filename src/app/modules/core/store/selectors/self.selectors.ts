@@ -1,10 +1,10 @@
 import { createSelector } from '@ngrx/store';
 
-import * as fromFeature from '../reducers';
+import { getSelfState } from '../reducers';
 import * as fromSelf from '../reducers/self.reducer';
 
 export const getSelf = createSelector(
-  fromFeature.getSelfState,
+  getSelfState,
   fromSelf.getSelf
 );
 
@@ -19,11 +19,11 @@ export const getSelfRole = createSelector(
 );
 
 export const getSelfLoading = createSelector(
-  fromFeature.getSelfState,
+  getSelfState,
   fromSelf.getSelfLoading
 );
 
 export const getSelfError = createSelector(
-  fromFeature.getSelfState,
+  getSelfState,
   fromSelf.getSelfError
 );

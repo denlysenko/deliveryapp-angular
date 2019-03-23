@@ -1,5 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  Output
+} from '@angular/core';
 
 import { User } from '@auth/models';
 import { MenuItem } from 'primeng/primeng';
@@ -15,7 +22,7 @@ export class TopbarComponent {
     {
       label: 'Profile',
       icon: 'fa fa-user',
-      routerLink: ['profile']
+      routerLink: ['/profile']
     },
     {
       label: 'Messages',

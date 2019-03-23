@@ -1,0 +1,60 @@
+<p-table [lazy]="true"
+         [value]="orders"
+         [sortField]="sortField"
+         [sortOrder]="sortOrder"
+         [customSort]="true"
+         (onSort)="sort($event)">
+  <ng-template pTemplate="header">
+    <tr>
+      <th rowspan="2"
+          pSortableColumn="id">
+        Num.
+        <p-sortIcon field="id"></p-sortIcon>
+      </th>
+      <th rowspan="2"
+          pSortableColumn="cargoName">
+        Cargo Name
+        <p-sortIcon field="cargoName"></p-sortIcon>
+      </th>
+      <th rowspan="2">Weight/Volume</th>
+      <th colspan="2">Route</th>
+      <th rowspan="2">Delivery Costs</th>
+      <th rowspan="2">Delivery Date</th>
+      <th rowspan="2">Status</th>
+      <th rowspan="2">Paid</th>
+      <th *ngIf="role !== roles.CLIENT"
+          rowspan="2">Client</th>
+    </tr>
+    <tr>
+      <th>From</th>
+      <th>To</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body"
+               let-order>
+    <tr>
+      <td>
+        <a [routerLink]="[order.id]">{{ order.id }}</a>
+      </td>
+      <td>{{ order.cargoName }}</td>
+      <td>{{ order.cargoWeight }} kg / {{ order.cargoVolume || '-' }} m3</td>
+      <td>{{ order.cityFrom }}</td>
+      <td>{{ order.cityTo }}</td>
+      <td>{{ order.deliveryCosts | currency: 'USD': 'symbol-narrow' }}</td>
+      <td>{{ order.deliveryDate | date: 'dd.MM.yyyy' }}</td>
+      <td>{{ statuses[order.status] }}</td>
+      <td>{{ order.paid ? 'Yes' : 'No' }}</td>
+      <td *ngIf="role !== roles.CLIENT">
+        <a *ngIf="order.client?.firstName || order.client?.lastName"
+           href="#">{{ order.client?.firstName }} {{ order.client?.lastName }}</a>
+        <a *ngIf="!order.client?.firstName && !order.client?.lastName"
+           href="#">{{ order.client?.email }}</a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator [rows]="pagination.limit"
+             [totalRecords]="count"
+             [first]="pagination.offset"
+             pageLinkSize="3"
+             (onPageChange)="paginate($event)"></p-paginator>

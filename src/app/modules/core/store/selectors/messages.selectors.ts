@@ -1,25 +1,25 @@
 import { createSelector } from '@ngrx/store';
 
-import * as fromFeature from '../reducers';
+import { getMessagesState } from '../reducers';
 import * as fromMessages from '../reducers/messages.reducer';
 
 export const getMessagesLoading = createSelector(
-  fromFeature.getMessagesState,
+  getMessagesState,
   fromMessages.getMessagesLoading
 );
 
 export const getMessagesError = createSelector(
-  fromFeature.getMessagesState,
+  getMessagesState,
   fromMessages.getMessagesError
 );
 
 export const getMessageEntities = createSelector(
-  fromFeature.getMessagesState,
+  getMessagesState,
   fromMessages.getMessageEntities
 );
 
 export const getUnreadMessages = createSelector(
-  fromFeature.getMessagesState,
+  getMessagesState,
   fromMessages.getUnreadMessages
 );
 

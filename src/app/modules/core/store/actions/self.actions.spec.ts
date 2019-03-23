@@ -1,6 +1,12 @@
 import { User } from '@auth/models';
 
-import { LoadSelf, LoadSelfFail, LoadSelfSuccess, Logout, SelfActionTypes } from './self.actions';
+import {
+  LoadSelf,
+  LoadSelfFail,
+  LoadSelfSuccess,
+  Logout,
+  SelfActionTypes
+} from './self.actions';
 
 describe('Self Actions', () => {
   describe('LoadSelf', () => {
@@ -26,7 +32,7 @@ describe('Self Actions', () => {
       const action = new LoadSelfSuccess(payload);
       expect({ ...action }).toEqual({
         type: SelfActionTypes.LOAD_SELF_SUCCESS,
-        payload: payload
+        payload
       });
     });
   });
@@ -37,7 +43,7 @@ describe('Self Actions', () => {
       const action = new LoadSelfFail(payload);
       expect({ ...action }).toEqual({
         type: SelfActionTypes.LOAD_SELF_FAIL,
-        payload: payload
+        payload
       });
     });
   });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
@@ -9,15 +9,15 @@ import { ACCESS_TOKEN } from '@common/constants';
 
 import { StorageService } from '../../services/storage/storage.service';
 import { UserSelfService } from '../../services/user-self/user-self.service';
-import { ResetMessagesState } from '../actions/messages.actions';
 import { Go } from '../actions/router.actions';
-import { LoadSelfFail, LoadSelfSuccess, Logout, SelfActionTypes } from '../actions/self.actions';
+import {
+  LoadSelfFail,
+  LoadSelfSuccess,
+  Logout,
+  SelfActionTypes
+} from '../actions/self.actions';
 
-// import * as orderFilterActions from '../../../pages/orders/store/actions/filter.actions';
-// import * as paymentFilterActions from '../../../pages/payments/store/actions/filter.actions';
-// import * as paymentActions from '../../../pages/payments/store/actions/payments.actions';
-// import * as usersActions from '../../../pages/users/store/actions/users.actions';
-
+// tslint:disable-next-line:no-commented-code
 // import { MessagesService } from '../../../lib/messages/messages.service';
 
 @Injectable()
@@ -29,7 +29,8 @@ export class SelfEffects {
   ) {}
 
   @Effect()
-  loadSelf$ = this.actions$.ofType(SelfActionTypes.LOAD_SELF).pipe(
+  loadSelf$ = this.actions$.pipe(
+    ofType(SelfActionTypes.LOAD_SELF),
     switchMap(() => {
       return this.userSelfService.loadSelf().pipe(
         map(response => new LoadSelfSuccess(response)),
@@ -39,23 +40,26 @@ export class SelfEffects {
   );
 
   @Effect({ dispatch: false })
-  loadSelfSuccess$ = this.actions$
-    .ofType(SelfActionTypes.LOAD_SELF_SUCCESS)
-    .pipe(
-      map((action: LoadSelfSuccess) => action.payload),
-      tap(user => {
-        // this.messagesService.join(this.storageService.getItem('lg_access_token'));
-      })
-    );
+  loadSelfSuccess$ = this.actions$.pipe(
+    ofType(SelfActionTypes.LOAD_SELF_SUCCESS),
+    map((action: LoadSelfSuccess) => action.payload),
+    tap(user => {
+      // tslint:disable-next-line:no-commented-code
+      // this.messagesService.join(this.storageService.getItem('lg_access_token'));
+    })
+  );
 
   @Effect()
-  loadSelfFail$ = this.actions$
-    .ofType(SelfActionTypes.LOAD_SELF_FAIL)
-    .pipe(map(() => new Logout()));
+  loadSelfFail$ = this.actions$.pipe(
+    ofType(SelfActionTypes.LOAD_SELF_FAIL),
+    map(() => new Logout())
+  );
 
   @Effect()
-  logout$ = this.actions$.ofType(SelfActionTypes.LOGOUT).pipe(
+  logout$ = this.actions$.pipe(
+    ofType(SelfActionTypes.LOGOUT),
     tap(() => {
+      // tslint:disable-next-line:no-commented-code
       // this.messagesService.leave(this.storageService.getItem('lg_access_token'));
       this.storageService.removeItem(ACCESS_TOKEN);
     }),
@@ -70,12 +74,7 @@ export class SelfEffects {
             curve: 'linear'
           }
         }
-      }),
-      new ResetMessagesState()
-      // new orderFilterActions.ResetOrderFilter(),
-      // new paymentFilterActions.ResetPaymentFilter(),
-      // new paymentActions.ResetPaymentState(),
-      // new usersActions.ResetUsersState() // emits before navigation ended and ngOnDestroy fired, could be some errors in console
+      })
     ])
   );
 }
