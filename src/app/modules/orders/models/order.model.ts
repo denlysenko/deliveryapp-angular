@@ -20,8 +20,14 @@ export interface Order {
   deliveryDate?: Date;
   paid?: boolean;
   paymentDate?: Date;
-  client?: User;
   invoiceId?: number;
-  createdAt?: string;
-  updatedAt?: string;
+  // TODO Payment interface
+  payment?: any;
+  clientId?: number;
+  client?: User;
+  creatorId?: number;
+  creator?: User;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
 }

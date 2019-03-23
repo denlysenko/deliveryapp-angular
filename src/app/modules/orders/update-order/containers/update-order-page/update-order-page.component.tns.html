@@ -1,8 +1,5 @@
-<ActionBar class="action-bar"
-           flat="true">
-  <NavigationButton text="Orders"></NavigationButton>
-  <Label class="action-bar-title"
-         [text]="'Order #'"></Label>
-</ActionBar>
-
-<Button text="update-order-page works!" class="btn btn-primary"></Button>
+<da-update-order-form [order]="order$ | async"
+                      [role]="role$ | async"
+                      [loading]="loading$ | async"
+                      [error]="error$ | async"
+                      (submitted)="save($event)"></da-update-order-form>
