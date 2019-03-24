@@ -1,0 +1,11 @@
+@import '../../scss/form.component';
+
+#profileForm {
+  @media screen and (min-width: 64.063em) {
+    display: flex;
+  }
+}
+
+button {
+  width: 150px;
+}

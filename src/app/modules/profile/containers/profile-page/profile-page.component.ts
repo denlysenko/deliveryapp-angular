@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'da-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit {
-  constructor() {}
+export class ProfilePageComponent {
+  user$ = this.route.data.pipe(map(data => data.profile));
 
-  ngOnInit() {}
+  constructor(private route: ActivatedRoute) {}
 }
