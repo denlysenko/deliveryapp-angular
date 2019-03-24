@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { FeedbackService } from '@core/services';
+import { LoadSelfSuccess } from '@core/store';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -53,10 +54,14 @@ export class ProfileEffects {
     )
   );
 
-  @Effect({ dispatch: false })
+  @Effect()
   updateProfileSuccess$ = this.actions$.pipe(
     ofType(ProfileActionTypes.UPDATE_PROFILE_SUCCESS),
-    tap(() => this.feedbackService.success(PROFILE_UPDATED_MESSAGE))
+    map((action: UpdateProfileSuccess) => action.payload),
+    tap(() => {
+      this.feedbackService.success(PROFILE_UPDATED_MESSAGE);
+    }),
+    map(user => new LoadSelfSuccess(user))
   );
 
   @Effect({ dispatch: false })
