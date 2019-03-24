@@ -8,13 +8,15 @@ import { PasswordFormComponent } from './components/password-form/password-form.
 import { ProfileRoutingModule } from './profile-routing.module';
 import { componentDeclarations, providerDeclarations } from './profile.common';
 import { AddressFormComponent } from './components/address-form/address-form.component';
+import { BankDetailsFormComponent } from './components/bank-details-form/bank-details-form.component';
 
 @NgModule({
   declarations: [
     ...componentDeclarations,
     ContactsFormComponent,
     PasswordFormComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    BankDetailsFormComponent
   ],
   imports: [
     CommonModule,
