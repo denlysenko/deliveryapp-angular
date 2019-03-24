@@ -7,12 +7,14 @@ import { ContactsFormComponent } from './components/contacts-form/contacts-form.
 import { PasswordFormComponent } from './components/password-form/password-form.component';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { componentDeclarations, providerDeclarations } from './profile.common';
+import { AddressFormComponent } from './components/address-form/address-form.component';
 
 @NgModule({
   declarations: [
     ...componentDeclarations,
     ContactsFormComponent,
-    PasswordFormComponent
+    PasswordFormComponent,
+    AddressFormComponent
   ],
   imports: [
     CommonModule,
