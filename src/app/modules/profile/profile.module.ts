@@ -9,6 +9,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { componentDeclarations, providerDeclarations } from './profile.common';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { BankDetailsFormComponent } from './components/bank-details-form/bank-details-form.component';
+import { ProfileFormComponent } from './components/profile-form/profile-form.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { BankDetailsFormComponent } from './components/bank-details-form/bank-de
     ContactsFormComponent,
     PasswordFormComponent,
     AddressFormComponent,
-    BankDetailsFormComponent
+    BankDetailsFormComponent,
+    ProfileFormComponent
   ],
   imports: [
     CommonModule,
