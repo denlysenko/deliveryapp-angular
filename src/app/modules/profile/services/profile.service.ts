@@ -13,10 +13,10 @@ export class ProfileService {
   constructor(private apiService: ApiService) {}
 
   updateProfile(profile: User): Observable<User> {
-    return this.apiService.post('/users/self', profile);
+    return this.apiService.patch('/users/self', profile);
   }
 
   updatePassword(passwordPayload: PasswordPayload): Observable<void> {
-    return this.apiService.post('/users/self/password', passwordPayload);
+    return this.apiService.patch('/users/self/password', passwordPayload);
   }
 }

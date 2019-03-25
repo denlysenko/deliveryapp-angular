@@ -2,7 +2,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
+
 import { ValidationError } from '@common/models';
+
+import { FeedbackService } from '@core/services';
 
 @Component({
   selector: 'da-contacts-form',
@@ -18,5 +21,9 @@ export class ContactsFormComponent extends BaseFormComponent {
     if (error) {
       this.handleError(error);
     }
+  }
+
+  constructor(protected feedbackService: FeedbackService) {
+    super();
   }
 }

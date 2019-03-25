@@ -11,6 +11,8 @@ import { BaseFormComponent } from '@base/BaseFormComponent';
 
 import { ValidationError } from '@common/models';
 
+import { FeedbackService } from '@core/services';
+
 import { PasswordPayload } from '../../models';
 
 @Component({
@@ -31,6 +33,10 @@ export class PasswordFormComponent extends BaseFormComponent {
   }
 
   @Output() passwordChanged = new EventEmitter<PasswordPayload>();
+
+  constructor(protected feedbackService: FeedbackService) {
+    super();
+  }
 
   save() {
     if (this.form.valid) {

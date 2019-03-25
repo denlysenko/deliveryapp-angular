@@ -49,7 +49,7 @@
            aria-hidden="true"></i>
       </div>
       <div *ngIf="form.get('email').invalid && form.get('email').touched"
-           class="ui-message ui-messages-error ui-corner-all">
+           class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
         <span *ngIf="form.get('email').hasError('required')">Required field</span>
         <span *ngIf="form.get('email').hasError('email')">Incorrect email</span>

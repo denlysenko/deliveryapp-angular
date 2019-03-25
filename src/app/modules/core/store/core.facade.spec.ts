@@ -144,6 +144,24 @@ describe('CoreFacade', () => {
     });
   });
 
+  describe('updateSelf()', () => {
+    it('should dispatch a LoadSelfSuccess action', () => {
+      const payload: User = {
+        id: 1,
+        email: 'test@test.com',
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        company: 'Company',
+        phone: '1(111) 111-11-11',
+        role: 1
+      };
+      const action = new LoadSelfSuccess(payload);
+
+      facade.updateSelf(payload);
+      expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
+  });
+
   describe('loadMessages()', () => {
     it('should dispatch a LoadMessages action', () => {
       const action = new LoadMessages();

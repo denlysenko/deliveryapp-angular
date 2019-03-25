@@ -34,7 +34,7 @@ describe('ProfileService', () => {
         });
 
         const req = http.expectOne(`${environment.apiUrl}/users/self`);
-        expect(req.request.method).toBe('POST');
+        expect(req.request.method).toBe('PATCH');
         expect(req.request.body).toEqual(payload);
         req.flush(payload);
 
@@ -64,7 +64,7 @@ describe('ProfileService', () => {
           );
 
         const req = http.expectOne(`${environment.apiUrl}/users/self`);
-        expect(req.request.method).toBe('POST');
+        expect(req.request.method).toBe('PATCH');
         req.error(new HttpErrorResponse({ error: error, status: 422 }));
 
         tick();
@@ -87,7 +87,7 @@ describe('ProfileService', () => {
         });
 
         const req = http.expectOne(`${environment.apiUrl}/users/self/password`);
-        expect(req.request.method).toBe('POST');
+        expect(req.request.method).toBe('PATCH');
         expect(req.request.body).toEqual(payload);
         req.flush(payload);
 
@@ -117,7 +117,7 @@ describe('ProfileService', () => {
           );
 
         const req = http.expectOne(`${environment.apiUrl}/users/self/password`);
-        expect(req.request.method).toBe('POST');
+        expect(req.request.method).toBe('PATCH');
         req.error(new HttpErrorResponse({ error: error, status: 400 }));
 
         tick();

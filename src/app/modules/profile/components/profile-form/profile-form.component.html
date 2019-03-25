@@ -11,10 +11,10 @@
     <div class="ui-g-12 ui-lg-4">
       <div class="card">
         <da-contacts-form [form]="profileForm.get('contacts')"
-                          [error]="error"></da-contacts-form>
+                          [error]="profileError"></da-contacts-form>
         <da-password-form [form]="passwordForm"
                           [loading]="loading"
-                          [error]="error"
+                          [error]="passwordError"
                           (passwordChanged)="submitPasswordForm($event)"></da-password-form>
       </div>
     </div>

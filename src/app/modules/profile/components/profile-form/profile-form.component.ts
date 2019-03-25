@@ -32,7 +32,8 @@ export class ProfileFormComponent extends BaseFormComponent implements OnInit {
 
   @Input() user: User;
   @Input() loading: boolean;
-  @Input() error: ValidationError;
+  @Input() profileError: ValidationError;
+  @Input() passwordError: ValidationError;
 
   @Output() profileUpdated = new EventEmitter<User>();
   @Output() passwordUpdated = new EventEmitter<PasswordPayload>();
@@ -44,7 +45,9 @@ export class ProfileFormComponent extends BaseFormComponent implements OnInit {
 
   submitProfileForm() {
     if (this.profileForm.valid) {
-      this.profileUpdated.emit(this.profileForm.value);
+      const { address, bankDetails, contacts } = this.profileForm.value;
+
+      this.profileUpdated.emit({ address, bankDetails, ...contacts });
     } else {
       this.validateAllFormFields(this.profileForm);
     }
