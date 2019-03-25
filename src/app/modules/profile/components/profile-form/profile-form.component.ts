@@ -53,8 +53,9 @@ export class ProfileFormComponent extends BaseFormComponent implements OnInit {
     }
   }
 
-  submitPasswordForm(event: PasswordPayload) {
-    this.passwordUpdated.emit(event);
+  submitPasswordForm() {
+    const { oldPassword, newPassword } = this.passwordForm.value;
+    this.passwordUpdated.emit({ oldPassword, newPassword });
   }
 
   // tslint:disable-next-line:cognitive-complexity

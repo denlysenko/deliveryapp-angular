@@ -23,7 +23,7 @@ const PASSWORD_UPDATED_MESSAGE = 'Password updated';
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent {
-  user$ = this.route.data.pipe(map(data => data.profile));
+  profile$ = this.route.data.pipe(map(data => data.profile));
   loading$ = new BehaviorSubject<boolean>(false);
   profileError$ = new BehaviorSubject<ValidationError | null>(null);
   passwordError$ = new BehaviorSubject<ValidationError | null>(null);

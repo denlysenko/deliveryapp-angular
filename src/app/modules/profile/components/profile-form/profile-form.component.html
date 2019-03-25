@@ -15,7 +15,7 @@
         <da-password-form [form]="passwordForm"
                           [loading]="loading"
                           [error]="passwordError"
-                          (passwordChanged)="submitPasswordForm($event)"></da-password-form>
+                          (passwordChanged)="submitPasswordForm()"></da-password-form>
       </div>
     </div>
     <div *ngIf="user.role === roles.CLIENT"

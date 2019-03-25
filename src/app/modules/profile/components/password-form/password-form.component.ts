@@ -13,8 +13,6 @@ import { ValidationError } from '@common/models';
 
 import { FeedbackService } from '@core/services';
 
-import { PasswordPayload } from '../../models';
-
 @Component({
   selector: 'da-password-form',
   templateUrl: './password-form.component.html',
@@ -32,7 +30,7 @@ export class PasswordFormComponent extends BaseFormComponent {
     }
   }
 
-  @Output() passwordChanged = new EventEmitter<PasswordPayload>();
+  @Output() passwordChanged = new EventEmitter<void>();
 
   constructor(protected feedbackService: FeedbackService) {
     super();
@@ -40,8 +38,7 @@ export class PasswordFormComponent extends BaseFormComponent {
 
   save() {
     if (this.form.valid) {
-      const { oldPassword, newPassword } = this.form.value;
-      this.passwordChanged.emit({ oldPassword, newPassword });
+      this.passwordChanged.emit();
     } else {
       this.validateAllFormFields();
     }

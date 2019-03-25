@@ -15,6 +15,7 @@ import { LoadSelf, LoadSelfSuccess, Logout } from './actions/self.actions';
 import { CoreFacade } from './core.facade';
 import { CoreState, reducers } from './reducers';
 
+// tslint:disable-next-line:no-big-function
 describe('CoreFacade', () => {
   let store: Store<CoreState>;
   let facade: CoreFacade;
