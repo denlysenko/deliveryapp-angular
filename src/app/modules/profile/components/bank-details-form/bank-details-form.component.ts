@@ -6,8 +6,7 @@ import { BaseFormComponent } from '@base/BaseFormComponent';
 @Component({
   selector: 'da-bank-details-form',
   templateUrl: './bank-details-form.component.html',
-  styleUrls: ['./bank-details-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./bank-details-form.component.scss']
 })
 export class BankDetailsFormComponent extends BaseFormComponent {
   @Input() form: FormGroup;

@@ -10,8 +10,7 @@ import { FeedbackService } from '@core/services';
 @Component({
   selector: 'da-contacts-form',
   templateUrl: './contacts-form.component.html',
-  styleUrls: ['./contacts-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./contacts-form.component.scss']
 })
 export class ContactsFormComponent extends BaseFormComponent {
   @Input() form: FormGroup;
