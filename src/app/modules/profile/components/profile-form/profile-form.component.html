@@ -1,0 +1,47 @@
+<div class="ui-g">
+  <div class="ui-g-12"
+       [class.ui-lg-4]="user.role !== roles.CLIENT">
+    <div class="card no-margin-bottom">
+      <h2>Profile</h2>
+    </div>
+  </div>
+  <form id="profileForm"
+        [formGroup]="profileForm"
+        (submit)="submitProfileForm()">
+    <div class="ui-g-12 ui-lg-4">
+      <div class="card">
+        <da-contacts-form [form]="profileForm.get('contacts')"
+                          [error]="profileError"></da-contacts-form>
+        <da-password-form [form]="passwordForm"
+                          [loading]="loading"
+                          [error]="passwordError"
+                          (passwordChanged)="submitPasswordForm()"></da-password-form>
+      </div>
+    </div>
+    <div *ngIf="user.role === roles.CLIENT"
+         class="ui-g-12 ui-lg-4">
+      <div class="card">
+        <da-address-form [form]="profileForm.get('address')"></da-address-form>
+      </div>
+    </div>
+    <div *ngIf="user.role === roles.CLIENT"
+         class="ui-g-12 ui-lg-4">
+      <div class="card">
+        <da-bank-details-form [form]="profileForm.get('bankDetails')"></da-bank-details-form>
+      </div>
+    </div>
+
+  </form>
+  <div class="ui-g-12"
+       [class.ui-lg-4]="user.role !== roles.CLIENT">
+    <div class="card no-margin-bottom center">
+      <button type="submit"
+              form="profileForm"
+              pButton
+              label="Save"
+              class="blue-btn raised-btn"
+              [disabled]="loading">
+      </button>
+    </div>
+  </div>
+</div>

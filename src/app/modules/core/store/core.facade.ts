@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 
+import { User } from '@auth/models';
+
 import { select, Store } from '@ngrx/store';
 
 import { filter } from 'rxjs/operators';
 
 import { RouterPayload } from '../models';
-import { LoadMessages, LoadSelf, Logout, MarkAsRead } from './actions';
+import {
+  LoadMessages,
+  LoadSelf,
+  LoadSelfSuccess,
+  Logout,
+  MarkAsRead
+} from './actions';
 import { Back, Forward, Go } from './actions/router.actions';
 import { CoreState } from './reducers';
 import {
@@ -31,6 +39,10 @@ export class CoreFacade {
 
   loadSelf() {
     this.store.dispatch(new LoadSelf());
+  }
+
+  updateSelf(user: User) {
+    this.store.dispatch(new LoadSelfSuccess(user));
   }
 
   loadMessages() {
