@@ -5,7 +5,7 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { routes } from './profile.routes';
 
 @NgModule({
-  imports: [NativeScriptRouterModule.forRoot(routes)],
+  imports: [NativeScriptRouterModule.forChild(routes)],
   exports: [NativeScriptRouterModule]
 })
-export class AuthRoutingModule {}
+export class ProfileRoutingModule {}
