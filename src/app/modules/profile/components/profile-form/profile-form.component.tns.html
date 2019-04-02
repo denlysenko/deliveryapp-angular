@@ -1,1 +1,18 @@
-<Button text="profile-form works!" class="btn btn-primary"></Button>
+<ActionBar class="action-bar"
+           flat="true">
+  <NavigationButton ios:visibility="collapsed"
+                    icon="res://menu"
+                    (tap)="onDrawerButtonTap()"></NavigationButton>
+  <ActionItem icon="res://navigation/menu"
+              android:visibility="collapsed"
+              (tap)="onDrawerButtonTap()"
+              ios.position="left">
+  </ActionItem>
+  <Label class="action-bar-title"
+         text="Profile"></Label>
+  <ActionItem ios.systemIcon="3"
+              ios.position="right"
+              android.position="actionBar"
+              android.systemIcon="ic_menu_save"
+              (tap)="submitProfileForm()"></ActionItem>
+</ActionBar>
