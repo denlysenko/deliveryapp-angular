@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { InputMaskModule } from '@ui/inputmask';
 
@@ -15,18 +14,18 @@ import {
 } from 'primeng/primeng';
 
 import { UpdateOrderFormComponent } from './components/update-order-form/update-order-form.component';
+import { UpdateOrderRoutingModule } from './update-order-routing.module';
 import {
   componentDeclarations,
-  providerDeclarations,
-  routes
+  providerDeclarations
 } from './update-order.common';
 
 @NgModule({
   declarations: [...componentDeclarations, UpdateOrderFormComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
     ReactiveFormsModule,
+    UpdateOrderRoutingModule,
     SpinnerModule,
     DropdownModule,
     CalendarModule,

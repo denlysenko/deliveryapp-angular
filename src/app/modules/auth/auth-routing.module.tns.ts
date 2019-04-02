@@ -7,7 +7,7 @@ import { AuthenticatedGuard } from './guards/authenticated.guard';
 
 @NgModule({
   imports: [
-    NativeScriptRouterModule.forRoot([
+    NativeScriptRouterModule.forChild([
       {
         path: 'auth',
         component: AuthPageComponent,

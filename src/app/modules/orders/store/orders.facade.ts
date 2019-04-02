@@ -26,7 +26,7 @@ import {
   getSorting
 } from './selectors';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class OrdersFacade {
   loading$ = this.store.pipe(select(getLoading));
   error$ = this.store.pipe(select(getError));

@@ -1,12 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   ViewChild,
-  ViewContainerRef,
-  AfterViewInit
+  ViewContainerRef
 } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-
-import { takeUntil } from 'rxjs/operators';
+import { NavigationEnd, Router } from '@angular/router';
 
 import { CoreFacade } from '@core/store';
 
@@ -22,6 +20,9 @@ import {
   RadSideDrawerComponent,
   SideDrawerType
 } from 'nativescript-ui-sidedrawer/angular';
+
+import { takeUntil } from 'rxjs/operators';
+
 import * as application from 'tns-core-modules/application';
 import { isIOS } from 'tns-core-modules/platform';
 
@@ -29,12 +30,11 @@ import { AppShellBase } from '../../base/AppShellBase';
 import { MessagesComponent } from '../../components/messages/messages.component.tns';
 
 @Component({
+  selector: 'da-app-shell',
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss']
 })
 export class AppShellComponent extends AppShellBase implements AfterViewInit {
-  selectedPageTitle: string;
-
   @ViewChild('drawer')
   drawerComponent: RadSideDrawerComponent;
 
@@ -47,7 +47,6 @@ export class AppShellComponent extends AppShellBase implements AfterViewInit {
   constructor(
     coreFacade: CoreFacade,
     private router: Router,
-    private route: ActivatedRoute,
     private viewContainerRef: ViewContainerRef,
     private modalService: ModalDialogService
   ) {
@@ -70,7 +69,6 @@ export class AppShellComponent extends AppShellBase implements AfterViewInit {
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe(e => {
       if (e instanceof NavigationEnd && this.drawer) {
         this.drawer.closeDrawer();
-        this.updateRouteTitle();
       }
     });
   }
@@ -89,10 +87,6 @@ export class AppShellComponent extends AppShellBase implements AfterViewInit {
     return this._sideDrawerTransition;
   }
 
-  onDrawerButtonTap() {
-    this.drawer.toggleDrawerState();
-  }
-
   async showMessages() {
     const options: ModalDialogOptions = {
       context: { messages$: this.messages$ },
@@ -101,23 +95,5 @@ export class AppShellComponent extends AppShellBase implements AfterViewInit {
     };
 
     await this.modalService.showModal(MessagesComponent, options);
-  }
-
-  private updateRouteTitle() {
-    let route = this.route.firstChild;
-    let child = route;
-
-    while (child) {
-      if (child.firstChild) {
-        child = child.firstChild;
-        route = child;
-      } else {
-        child = null;
-      }
-    }
-
-    const { title } = route.snapshot.data;
-
-    this.selectedPageTitle = title || '';
   }
 }
