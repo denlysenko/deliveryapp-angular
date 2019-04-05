@@ -1,1 +1,76 @@
-<Button text="contacts-form works!" class="btn btn-primary"></Button>
+<RadDataForm #dataForm
+             [source]="form">
+  <TKPropertyGroup tkDataFormGroups
+                   name="Contacts">
+    <TKGroupTitleStyle tkPropertyGroupTitleStyle
+                       fillColor="#f6f9fb"
+                       labelTextSize="16"
+                       labelFontStyle="Bold"
+                       labelTextColor="#3984b8"
+                       separatorColor="#c7cdd1"></TKGroupTitleStyle>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="firstName"
+                      displayName="First Name">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="lastName"
+                      displayName="Last Name">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="company"
+                      displayName="Company">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="email"
+                      displayName="Email">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Email">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+      <TKNonEmptyValidator tkEntityPropertyValidators
+                           errorMessage="Required field"></TKNonEmptyValidator>
+      <TKEmailValidator tkEntityPropertyValidators
+                        errorMessage="Incorrect email"></TKEmailValidator>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="phone"
+                      displayName="Phone">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Phone">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+  </TKPropertyGroup>
+</RadDataForm>

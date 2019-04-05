@@ -16,3 +16,15 @@
               android.systemIcon="ic_menu_save"
               (tap)="submitProfileForm()"></ActionItem>
 </ActionBar>
+<ScrollView>
+  <StackLayout class="p-b-10">
+    <da-contacts-form [form]="profileForm.contacts"
+                      [error]="profileError"></da-contacts-form>
+    <StackLayout *ngIf="user.role === roles.CLIENT">
+      <da-address-form [form]="profileForm.address"></da-address-form>
+      <da-bank-details-form [form]="profileForm.bankDetails"></da-bank-details-form>
+    </StackLayout>
+    <da-password-form [form]="passwordForm"
+                      [error]="passwordError"></da-password-form>
+  </StackLayout>
+</ScrollView>
