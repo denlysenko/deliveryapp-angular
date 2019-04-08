@@ -26,9 +26,12 @@ import {
   RadListView
 } from 'nativescript-ui-listview';
 import { RadListViewComponent } from 'nativescript-ui-listview/angular';
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 
+import * as app from 'tns-core-modules/application';
 import { Color } from 'tns-core-modules/color/color';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
+import { getViewById } from 'tns-core-modules/ui/page/page';
 
 import { Order } from '../../../models';
 import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.tns';
@@ -82,6 +85,11 @@ export class OrdersListComponent {
     private viewContainerRef: ViewContainerRef,
     private modalService: ModalDialogService
   ) {}
+
+  onDrawerButtonTap() {
+    const sideDrawer = <RadSideDrawer>getViewById(app.getRootView(), 'drawer');
+    sideDrawer.toggleDrawerState();
+  }
 
   onItemLoading(args: ListViewEventData) {
     if (args.index % 2 !== 0) {

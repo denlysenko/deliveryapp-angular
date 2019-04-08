@@ -1,26 +1,20 @@
-import { EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { EventEmitter, Input, Output } from '@angular/core';
+
+import { TNSBaseFormComponent } from '@base/TNSBaseFormComponent';
 
 import { Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
 
 import { FeedbackService, LoaderService } from '@core/services';
 
-import { RadDataForm } from 'nativescript-ui-dataform';
-import { RadDataFormComponent } from 'nativescript-ui-dataform/angular';
-
 import { Order } from '../models';
 
-export const ERROR_MESSAGE = 'Saving failed';
-
-export abstract class TNSOrderFormBase {
+export abstract class TNSOrderFormBase extends TNSBaseFormComponent {
   abstract order: Order;
 
   protected abstract loaderService: LoaderService;
-  protected abstract feedbackService: FeedbackService;
 
   readonly roles = Roles;
-
-  @ViewChild('dataForm') dataForm: RadDataFormComponent;
 
   @Input() role: number;
 
@@ -43,22 +37,4 @@ export abstract class TNSOrderFormBase {
   @Output() submitted = new EventEmitter<Order>();
 
   private _loading = false;
-
-  get dataform(): RadDataForm {
-    return this.dataForm.dataForm;
-  }
-
-  private handleError(err: ValidationError) {
-    if (err.errors) {
-      err.errors.forEach(({ path, message }) => {
-        const formControl = this.dataform.getPropertyByName(path);
-        if (formControl) {
-          formControl.errorMessage = message;
-          this.dataform.notifyValidated(path, false);
-        }
-      });
-    }
-
-    this.feedbackService.error(ERROR_MESSAGE);
-  }
 }

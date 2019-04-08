@@ -21,6 +21,7 @@ const containers = [AppShellComponent];
     NativeScriptRouterModule
   ],
   declarations: [...componentDeclarations, ...containers, ...components],
+  exports: [AppShellComponent],
   entryComponents: [MessagesComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

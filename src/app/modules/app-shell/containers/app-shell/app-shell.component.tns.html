@@ -1,17 +1,5 @@
-<ActionBar class="action-bar"
-           flat="true">
-  <NavigationButton ios:visibility="collapsed"
-                    icon="res://menu"
-                    (tap)="onDrawerButtonTap()"></NavigationButton>
-  <ActionItem icon="res://navigation/menu"
-              android:visibility="collapsed"
-              (tap)="onDrawerButtonTap()"
-              ios.position="left">
-  </ActionItem>
-  <Label class="action-bar-title"
-         [text]="selectedPageTitle"></Label>
-</ActionBar>
 <RadSideDrawer #drawer
+               id="drawer"
                class="drawer"
                showOverNavigation="true"
                [drawerTransition]="sideDrawerTransition">
@@ -45,8 +33,5 @@
       </GridLayout>
     </ng-container>
   </StackLayout>
-  <StackLayout class="page-content"
-               tkMainContent>
-    <router-outlet></router-outlet>
-  </StackLayout>
+  <page-router-outlet tkMainContent></page-router-outlet>
 </RadSideDrawer>

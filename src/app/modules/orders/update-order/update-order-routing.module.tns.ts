@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
-import { routes } from './app.routes';
+import { routes } from './update-order.routes';
 
 @NgModule({
-  imports: [NativeScriptRouterModule.forRoot(routes)],
+  imports: [NativeScriptRouterModule.forChild(routes)],
   exports: [NativeScriptRouterModule]
 })
-export class AppRoutingModule {}
+export class UpdateOrderRoutingModule {}

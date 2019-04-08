@@ -4,7 +4,8 @@
               class="sidedrawer-list-item"
               [nsRouterLink]="item.link"
               nsRouterLinkActive="selected"
-              pageTransition="fade">
+              pageTransition="fade"
+              clearHistory="true">
     <Label col="0"
            [text]="item.icon | fonticon"
            class="fa"></Label>

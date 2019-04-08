@@ -12,9 +12,6 @@ export const routes: Routes = [
     resolve: {
       profile: ProfileResolver
     },
-    canActivate: [AuthGuard],
-    data: {
-      title: 'Profile'
-    }
+    canActivate: [AuthGuard]
   }
 ];
