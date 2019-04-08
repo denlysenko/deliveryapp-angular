@@ -15,6 +15,10 @@ import { FeedbackService } from '@core/services';
 
 import { RadDataFormComponent } from 'nativescript-ui-dataform/angular';
 
+const confirmationKey = 'confirmPassword';
+const passwordKey = 'newPassword';
+const confirmError = 'Passwords do not match';
+
 @Component({
   selector: 'da-password-form',
   templateUrl: './password-form.component.html',
@@ -43,8 +47,23 @@ export class PasswordFormComponent extends TNSBaseFormComponent {
   async save() {
     const isValid = await this.dataform.validateAll();
 
-    if (isValid) {
+    if (isValid && this.validatePasswordMatch()) {
       this.passwordChanged.emit();
     }
+  }
+
+  private validatePasswordMatch(): boolean {
+    let isValid = true;
+
+    const confirm = this.dataForm.dataForm.getPropertyByName(confirmationKey);
+    const password = this.dataForm.dataForm.getPropertyByName(passwordKey);
+
+    if (password.valueCandidate !== confirm.valueCandidate) {
+      confirm.errorMessage = confirmError;
+      this.dataForm.dataForm.notifyValidated(confirmationKey, false);
+      isValid = false;
+    }
+
+    return isValid;
   }
 }

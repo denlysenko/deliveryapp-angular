@@ -1,5 +1,4 @@
-<ActionBar class="action-bar"
-           flat="true">
+<ActionBar class="action-bar">
   <NavigationButton ios:visibility="collapsed"
                     icon="res://menu"
                     (tap)="onDrawerButtonTap()"></NavigationButton>
@@ -20,11 +19,13 @@
   <StackLayout class="p-b-10">
     <da-contacts-form [form]="profileForm.contacts"
                       [error]="profileError"></da-contacts-form>
-    <StackLayout *ngIf="user.role === roles.CLIENT">
+    <ng-container *ngIf="user.role === roles.CLIENT">
       <da-address-form [form]="profileForm.address"></da-address-form>
       <da-bank-details-form [form]="profileForm.bankDetails"></da-bank-details-form>
-    </StackLayout>
+    </ng-container>
     <da-password-form [form]="passwordForm"
-                      [error]="passwordError"></da-password-form>
+                      [loading]="loading"
+                      [error]="passwordError"
+                      (passwordChanged)="submitPasswordForm()"></da-password-form>
   </StackLayout>
 </ScrollView>

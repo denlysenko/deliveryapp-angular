@@ -23,9 +23,6 @@ import {
 
 import { takeUntil } from 'rxjs/operators';
 
-import * as application from 'tns-core-modules/application';
-import { isIOS } from 'tns-core-modules/platform';
-
 import { AppShellBase } from '../../base/AppShellBase';
 import { MessagesComponent } from '../../components/messages/messages.component.tns';
 
@@ -51,18 +48,6 @@ export class AppShellComponent extends AppShellBase implements AfterViewInit {
     private modalService: ModalDialogService
   ) {
     super(coreFacade);
-    // iPhone X fix height
-    if (
-      isIOS &&
-      application.ios.window.safeAreaInsets &&
-      application.ios.window.safeAreaInsets.bottom > 0
-    ) {
-      application.addCss(`
-        .drawer { margin-bottom: -${
-          application.ios.window.safeAreaInsets.bottom
-        } }
-      `);
-    }
 
     this._sideDrawerTransition = new SlideAlongTransition();
 

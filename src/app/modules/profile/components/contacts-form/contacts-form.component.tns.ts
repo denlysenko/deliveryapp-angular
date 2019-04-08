@@ -29,7 +29,7 @@ export class ContactsFormComponent extends TNSBaseFormComponent {
     super();
   }
 
-  async validate() {
-    return await this.dataform.validateAll();
+  validate() {
+    return this.dataform.validateAll();
   }
 }

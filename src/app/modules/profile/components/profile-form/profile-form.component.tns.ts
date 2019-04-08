@@ -4,7 +4,8 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
+  ViewChild
 } from '@angular/core';
 
 import { User } from '@auth/models';
@@ -12,10 +13,15 @@ import { User } from '@auth/models';
 import { Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
 
-import { PasswordPayload } from '../../models';
-import { getViewById } from 'tns-core-modules/ui/page/page';
+import { LoaderService } from '@core/services';
+
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+
 import * as app from 'tns-core-modules/application';
+import { getViewById } from 'tns-core-modules/ui/page/page';
+
+import { PasswordPayload } from '../../models';
+import { ContactsFormComponent } from '../contacts-form/contacts-form.component.tns';
 
 @Component({
   selector: 'da-profile-form',
@@ -30,12 +36,26 @@ export class ProfileFormComponent implements OnInit {
   passwordForm: any;
 
   @Input() user: User;
-  @Input() loading: boolean;
   @Input() profileError: ValidationError;
   @Input() passwordError: ValidationError;
 
+  @Input()
+  set loading(isLoading: boolean) {
+    this._loading = isLoading;
+    this.loaderService[isLoading ? 'start' : 'stop']();
+  }
+  get loading(): boolean {
+    return this._loading;
+  }
+
   @Output() profileUpdated = new EventEmitter<User>();
   @Output() passwordUpdated = new EventEmitter<PasswordPayload>();
+
+  @ViewChild(ContactsFormComponent) private contactsForm: ContactsFormComponent;
+
+  private _loading = false;
+
+  constructor(private loaderService: LoaderService) {}
 
   ngOnInit() {
     this.initProfileForm();
@@ -47,18 +67,16 @@ export class ProfileFormComponent implements OnInit {
     sideDrawer.toggleDrawerState();
   }
 
-  submitProfileForm() {
-    // if (this.profileForm.valid) {
-    //   const { address, bankDetails, contacts } = this.profileForm.value;
-    //   this.profileUpdated.emit({ address, bankDetails, ...contacts });
-    // } else {
-    //   this.validateAllFormFields(this.profileForm);
-    // }
+  async submitProfileForm() {
+    if (await this.contactsForm.validate()) {
+      const { address, bankDetails, contacts } = this.profileForm;
+      this.profileUpdated.emit({ address, bankDetails, ...contacts });
+    }
   }
 
   submitPasswordForm() {
-    // const { oldPassword, newPassword } = this.passwordForm.value;
-    // this.passwordUpdated.emit({ oldPassword, newPassword });
+    const { oldPassword, newPassword } = this.passwordForm;
+    this.passwordUpdated.emit({ oldPassword, newPassword });
   }
 
   // tslint:disable-next-line:cognitive-complexity
@@ -68,7 +86,7 @@ export class ProfileFormComponent implements OnInit {
         firstName: this.user.firstName || null,
         lastName: this.user.lastName || null,
         company: this.user.company || null,
-        email: this.user.email || null,
+        email: this.user.email || '',
         phone: this.user.phone || null
       }
     };
@@ -97,9 +115,9 @@ export class ProfileFormComponent implements OnInit {
 
   private initPasswordForm() {
     this.passwordForm = {
-      oldPassword: null,
-      newPassword: null,
-      confirmPassword: null
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: ''
     };
   }
 }
