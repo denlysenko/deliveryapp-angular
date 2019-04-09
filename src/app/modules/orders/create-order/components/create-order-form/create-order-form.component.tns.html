@@ -74,22 +74,23 @@
       <TKNonEmptyValidator tkEntityPropertyValidators
                            errorMessage="Required field"></TKNonEmptyValidator>
     </TKEntityProperty>
-    <TKEntityProperty *ngIf="role !== roles.CLIENT && clients"
-                      tkPropertyGroupProperties
-                      name="clientId"
-                      displayName="Client"
-                      [valuesProvider]="clientsProvider">
-      <TKPropertyEditor tkEntityPropertyEditor
-                        type="Picker">
-        <TKPropertyEditorStyle tkPropertyEditorStyle
-                               labelTextSize="14"
-                               labelFontStyle="BoldItalic"
-                               labelPosition="Top"
-                               labelTextColor="#757575"></TKPropertyEditorStyle>
-      </TKPropertyEditor>
-      <TKNonEmptyValidator tkEntityPropertyValidators
-                           errorMessage="Required field"></TKNonEmptyValidator>
-    </TKEntityProperty>
+    <ng-container *ngIf="role !== roles.CLIENT && clientsProvider">
+      <TKEntityProperty tkPropertyGroupProperties
+                        name="clientId"
+                        displayName="Client"
+                        [valuesProvider]="clientsProvider">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="Picker">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+        <TKNonEmptyValidator tkEntityPropertyValidators
+                             errorMessage="Required field"></TKNonEmptyValidator>
+      </TKEntityProperty>
+    </ng-container>
     <TKEntityProperty tkPropertyGroupProperties
                       name="additionalData"
                       displayName="Additional Info">

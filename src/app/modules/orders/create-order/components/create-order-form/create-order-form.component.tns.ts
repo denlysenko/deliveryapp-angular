@@ -37,8 +37,12 @@ export class CreateOrderFormComponent extends TNSOrderFormBase {
     if (clients) {
       this.clientsProvider = clients.map(client => ({
         key: client.id,
-        label: client.email
+        label:
+          client.firstName && client.lastName
+            ? `${client.firstName} ${client.lastName}`
+            : client.email
       }));
+      this.order.clientId = this.clientsProvider[0].key;
     }
   }
 
