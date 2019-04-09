@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { AuthGuard } from '@core/guards';
 
 export const routes: Routes = [
@@ -10,6 +11,11 @@ export const routes: Routes = [
   {
     path: 'orders',
     loadChildren: './modules/orders/orders.module#OrdersModule',
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    loadChildren: './modules/profile/profile.module#ProfileModule',
     canLoad: [AuthGuard]
   }
 ];

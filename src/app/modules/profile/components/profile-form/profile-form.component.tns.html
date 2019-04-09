@@ -1,0 +1,31 @@
+<ActionBar class="action-bar">
+  <NavigationButton ios:visibility="collapsed"
+                    icon="res://menu"
+                    (tap)="onDrawerButtonTap()"></NavigationButton>
+  <ActionItem icon="res://navigation/menu"
+              android:visibility="collapsed"
+              ios.position="left"
+              (tap)="onDrawerButtonTap()">
+  </ActionItem>
+  <Label class="action-bar-title"
+         text="Profile"></Label>
+  <ActionItem ios.systemIcon="3"
+              ios.position="right"
+              android.position="actionBar"
+              android.systemIcon="ic_menu_save"
+              (tap)="submitProfileForm()"></ActionItem>
+</ActionBar>
+<ScrollView>
+  <StackLayout class="p-b-10">
+    <da-contacts-form [form]="profileForm.contacts"
+                      [error]="profileError"></da-contacts-form>
+    <ng-container *ngIf="user.role === roles.CLIENT">
+      <da-address-form [form]="profileForm.address"></da-address-form>
+      <da-bank-details-form [form]="profileForm.bankDetails"></da-bank-details-form>
+    </ng-container>
+    <da-password-form [form]="passwordForm"
+                      [loading]="loading"
+                      [error]="passwordError"
+                      (passwordChanged)="submitPasswordForm()"></da-password-form>
+  </StackLayout>
+</ScrollView>

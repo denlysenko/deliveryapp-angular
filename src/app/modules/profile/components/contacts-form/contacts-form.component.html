@@ -1,0 +1,73 @@
+<h3>Contacts</h3>
+<div class="ui-g ui-fluid">
+  <form [formGroup]="form"
+        autocomplete="off"
+        novalidate>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="firstName">
+        <label>First Name</label>
+        <i class="fa fa-user-circle-o"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="lastName">
+        <label>Last Name</label>
+        <i class="fa fa-user-circle-o"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="company">
+        <label>Company</label>
+        <i class="fa fa-building-o"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               daInputMask
+               [mask]="{ alias: 'email', showMaskOnHover: false }"
+               formControlName="email">
+        <label for="email">Email</label>
+        <i class="fa fa-envelope-o"
+           aria-hidden="true"></i>
+      </div>
+      <div *ngIf="form.get('email').invalid && form.get('email').touched"
+           class="ui-message ui-message-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('email').hasError('required')">Required field</span>
+        <span *ngIf="form.get('email').hasError('email')">Incorrect email</span>
+        <span *ngIf="form.get('email').hasError('serverError')">{{ errors['email'] }}</span>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               daInputMask
+               [mask]="{ alias: 'phone', showMaskOnHover: false }"
+               formControlName="phone">
+        <label>Phone</label>
+        <i class="fa fa-phone"
+           aria-hidden="true"></i>
+      </div>
+    </div>
+  </form>
+</div>

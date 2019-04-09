@@ -1,0 +1,6 @@
+<da-profile-form [user]="profile$ | async"
+                 [loading]="loading$ | async"
+                 [profileError]="profileError$ | async"
+                 [passwordError]="passwordError$ | async"
+                 (profileUpdated)="updateProfile($event)"
+                 (passwordUpdated)="updatePassword($event)"></da-profile-form>

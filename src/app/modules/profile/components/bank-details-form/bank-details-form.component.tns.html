@@ -1,0 +1,60 @@
+<RadDataForm #dataForm
+             [source]="form">
+  <TKPropertyGroup tkDataFormGroups
+                   name="Bank Details">
+    <TKGroupTitleStyle tkPropertyGroupTitleStyle
+                       fillColor="#f6f9fb"
+                       labelTextSize="16"
+                       labelFontStyle="Bold"
+                       labelTextColor="#3984b8"
+                       separatorColor="#c7cdd1"></TKGroupTitleStyle>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="name"
+                      displayName="Name">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="accountNumber"
+                      displayName="Account">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="bin"
+                      displayName="BIN">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+    <TKEntityProperty tkPropertyGroupProperties
+                      name="swift"
+                      displayName="SWIFT">
+      <TKPropertyEditor tkEntityPropertyEditor
+                        type="Text">
+        <TKPropertyEditorStyle tkPropertyEditorStyle
+                               labelTextSize="14"
+                               labelFontStyle="BoldItalic"
+                               labelPosition="Top"
+                               labelTextColor="#757575"></TKPropertyEditorStyle>
+      </TKPropertyEditor>
+    </TKEntityProperty>
+  </TKPropertyGroup>
+</RadDataForm>

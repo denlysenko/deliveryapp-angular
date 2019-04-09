@@ -12,9 +12,16 @@ export const routes: Routes = [
     resolve: {
       orders: OrdersResolver
     },
-    canActivate: [AuthGuard],
-    data: {
-      title: 'Orders'
-    }
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create',
+    loadChildren: './create-order/create-order.module#CreateOrderModule',
+    canLoad: [AuthGuard]
+  },
+  {
+    path: ':id',
+    loadChildren: './update-order/update-order.module#UpdateOrderModule',
+    canLoad: [AuthGuard]
   }
 ];

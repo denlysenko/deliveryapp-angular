@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanLoad } from '@angular/router';
 
+import { ACCESS_TOKEN, USER_LOADED_KEY } from '@common/constants';
+
+import { AppStorageService, StorageService } from '@core/services';
+
 import { Observable, of } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 
-import { ACCESS_TOKEN } from '@common/constants';
-
-import { StorageService } from '../services/storage/storage.service';
 import { CoreFacade } from '../store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  private loadRequested = false;
-
   constructor(
     private coreFacade: CoreFacade,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private appStorageService: AppStorageService
   ) {}
 
   canActivate(): Observable<boolean> {
@@ -68,10 +68,10 @@ export class AuthGuard implements CanActivate, CanLoad {
       return of(false);
     }
 
-    if (!this.loadRequested) {
+    if (!this.appStorageService.getItem(USER_LOADED_KEY)) {
       this.coreFacade.loadSelf();
       this.coreFacade.loadMessages();
-      this.loadRequested = true;
+      this.appStorageService.setItem(USER_LOADED_KEY, true);
     }
 
     return of(true);
