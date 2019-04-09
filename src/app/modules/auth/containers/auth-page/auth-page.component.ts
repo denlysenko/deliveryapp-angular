@@ -1,14 +1,21 @@
 import { Component } from '@angular/core';
 
+import { StorageService } from '@core/services';
+import { CoreFacade } from '@core/store';
+
 import { AuthPageBase } from '../../base/AuthPageBase';
-import { AuthFacade } from '../../store/auth.facade';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   templateUrl: './auth-page.component.html',
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent extends AuthPageBase {
-  constructor(authFacade: AuthFacade) {
-    super(authFacade);
+  constructor(
+    authService: AuthService,
+    storageService: StorageService,
+    coreFacade: CoreFacade
+  ) {
+    super(authService, storageService, coreFacade);
   }
 }

@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 
+import { ACCESS_TOKEN, USER_LOADED_KEY } from '@common/constants';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
-import { ACCESS_TOKEN } from '@common/constants';
-
-import { StorageService } from '../../services/storage/storage.service';
-import { UserSelfService } from '../../services/user-self/user-self.service';
+import {
+  AppStorageService,
+  StorageService,
+  UserSelfService
+} from '../../services';
 import { Go } from '../actions/router.actions';
 import {
   LoadSelfFail,
@@ -25,7 +28,8 @@ export class SelfEffects {
   constructor(
     private actions$: Actions,
     private userSelfService: UserSelfService,
-    private storageService: StorageService // private messagesService: MessagesService
+    private storageService: StorageService,
+    private appStorageService: AppStorageService // private messagesService: MessagesService
   ) {}
 
   @Effect()
@@ -62,6 +66,7 @@ export class SelfEffects {
       // tslint:disable-next-line:no-commented-code
       // this.messagesService.leave(this.storageService.getItem('lg_access_token'));
       this.storageService.removeItem(ACCESS_TOKEN);
+      this.appStorageService.removeItem(USER_LOADED_KEY);
     }),
     mergeMap(() => [
       new Go({
