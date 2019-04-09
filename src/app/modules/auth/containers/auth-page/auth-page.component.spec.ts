@@ -1,30 +1,41 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { of } from 'rxjs';
+import { CoreFacade } from '@core/store';
+
+import { of, throwError } from 'rxjs';
 
 import { AuthForm } from '../../models';
-import { AuthFacade } from '../../store/auth.facade';
+import { AuthService } from '../../services/auth.service';
 import { AuthPageComponent } from './auth-page.component';
 
-const authFacadeStub = {
-  loading$: of(false),
-  error$: of(null),
-  login: jasmine.createSpy('login'),
-  register: jasmine.createSpy('register')
+const token = 'token';
+
+const authServiceStub = {
+  login: jest.fn().mockReturnValue(of({ token })),
+  register: jest.fn().mockReturnValue(of({ token }))
+};
+
+const coreFacadeStub = {
+  navigate: jest.fn()
 };
 
 describe('AuthPageComponent', () => {
   let component: AuthPageComponent;
   let fixture: ComponentFixture<AuthPageComponent>;
+  let authService: AuthService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AuthPageComponent],
       providers: [
         {
-          provide: AuthFacade,
-          useValue: authFacadeStub
+          provide: AuthService,
+          useValue: authServiceStub
+        },
+        {
+          provide: CoreFacade,
+          useValue: coreFacadeStub
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -35,18 +46,11 @@ describe('AuthPageComponent', () => {
     fixture = TestBed.createComponent(AuthPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    authService = TestBed.get(AuthService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should have `loading$` defined', () => {
-    expect(component.loading$).toBeDefined();
-  });
-
-  it('should have `error$` defined', () => {
-    expect(component.error$).toBeDefined();
   });
 
   it('should have `isLoggingIn = true` by default', () => {
@@ -54,34 +58,40 @@ describe('AuthPageComponent', () => {
   });
 
   describe('doAuth()', () => {
+    let formValue: AuthForm;
+
     beforeEach(() => {
-      authFacadeStub.login.calls.reset();
-      authFacadeStub.register.calls.reset();
-    });
-
-    it('[`isLoggingIn = true`] should call AuthFacade.login', () => {
-      const authFacade: AuthFacade = TestBed.get(AuthFacade);
-      const formValue: AuthForm = {
+      formValue = {
         email: 'test@test.com',
         password: 'password'
       };
+    });
 
+    it('[`isLoggingIn = true`] should call AuthService.login', () => {
       component.doAuth(formValue);
-
-      expect(authFacade.login).toBeCalledWith(formValue);
+      expect(authService.login).toHaveBeenCalledWith(formValue);
     });
 
-    it('[`isLoggingIn = false`] should call AuthFacade.register', () => {
-      const authFacade: AuthFacade = TestBed.get(AuthFacade);
-      const formValue: AuthForm = {
-        email: 'test@test.com',
-        password: 'password'
-      };
-
+    it('[`isLoggingIn = false`] should call AuthService.register', () => {
       component.isLoggingIn = false;
       component.doAuth(formValue);
+      expect(authService.register).toHaveBeenCalledWith(formValue);
+    });
 
-      expect(authFacade.register).toBeCalledWith(formValue);
+    it('should navigate if success', () => {
+      const coreFacade: CoreFacade = TestBed.get(CoreFacade);
+
+      component.doAuth(formValue);
+      expect(coreFacade.navigate).toHaveBeenCalled();
+    });
+
+    it('should send error to error$', () => {
+      authService.login = jest
+        .fn()
+        .mockReturnValue(throwError({ error: 'error' }));
+
+      component.doAuth(formValue);
+      expect(component.error$.getValue()).toEqual({ error: 'error' });
     });
   });
 });
