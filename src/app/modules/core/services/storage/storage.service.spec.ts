@@ -38,6 +38,7 @@ describe('StorageService', () => {
       }
     ));
   });
+
   describe('removeItem()', () => {
     it('should remove item from localStorage', inject(
       [StorageService],
