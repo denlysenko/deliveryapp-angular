@@ -63,7 +63,11 @@ export function ordersReducer(
     case OrdersActionTypes.FILTER_CHANGE: {
       return {
         ...state,
-        filter: action.payload
+        filter: action.payload,
+        pagination: {
+          ...state.pagination,
+          offset: 0
+        }
       };
     }
 

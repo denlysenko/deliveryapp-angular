@@ -8,9 +8,13 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { User } from '@auth/models';
+
 import { BaseFormComponent } from '@base/BaseFormComponent';
+
 import { Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
+
 import { FeedbackService } from '@core/services';
 
 import { MenuItem, SelectItem } from 'primeng/primeng';
@@ -45,12 +49,25 @@ export class CreateOrderFormComponent extends BaseFormComponent
   ];
   readonly formGroupKeys = FormGroupKeys;
 
+  clientsProvider: SelectItem[];
   activeIndex = 0;
   form: FormGroup;
 
-  @Input() clients: SelectItem[];
   @Input() loading: boolean;
   @Input() role: number;
+
+  @Input()
+  set clients(clients: User[]) {
+    if (clients) {
+      this.clientsProvider = clients.map(client => ({
+        value: client.id,
+        label:
+          client.firstName && client.lastName
+            ? `${client.firstName} ${client.lastName}`
+            : client.email
+      }));
+    }
+  }
 
   @Input()
   set error(error: ValidationError) {
@@ -101,12 +118,16 @@ export class CreateOrderFormComponent extends BaseFormComponent
       })
     });
 
-    if (this.clients && this.clients.length && this.role !== Roles.CLIENT) {
+    if (
+      this.clientsProvider &&
+      this.clientsProvider.length &&
+      this.role !== Roles.CLIENT
+    ) {
       (this.form.get(
         this.formGroupKeys.destinationForm
       ) as FormGroup).addControl(
         'clientId',
-        new FormControl(this.clients[0].value, Validators.required)
+        new FormControl(this.clientsProvider[0].value, Validators.required)
       );
     }
   }

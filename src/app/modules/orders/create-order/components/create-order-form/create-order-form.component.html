@@ -8,7 +8,7 @@
         <da-destination-form class="step"
                              [class.visible]="activeIndex === 0"
                              [form]="form.get(formGroupKeys.destinationForm)"
-                             [clients]="clients"
+                             [clients]="clientsProvider"
                              [role]="role"
                              [errors]="errors"
                              (next)="activeIndex = 1"></da-destination-form>

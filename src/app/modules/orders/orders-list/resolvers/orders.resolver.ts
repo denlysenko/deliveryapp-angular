@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 
 import { User } from '@auth/models';
+
 import { Roles } from '@common/enums';
 import { ListResponse } from '@common/models';
+
 import { CoreFacade } from '@core/store';
 
 import { Observable } from 'rxjs';
