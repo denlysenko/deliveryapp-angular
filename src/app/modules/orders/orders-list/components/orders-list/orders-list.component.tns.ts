@@ -31,7 +31,7 @@ import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as app from 'tns-core-modules/application';
 import { Color } from 'tns-core-modules/color/color';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
-import { getViewById } from 'tns-core-modules/ui/page/page';
+import { getViewById, Page } from 'tns-core-modules/ui/page';
 
 import { Order } from '../../../models';
 import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.tns';
@@ -55,13 +55,16 @@ export class OrdersListComponent {
     return this.listViewComponent.listView;
   }
 
+  @Input() role: number;
+  @Input() count: number;
+
   @Input()
   set orders(orders: Order[]) {
     if (!this.data) {
       this.data = new ObservableArray(orders);
       this.listViewComponent.listView.loadOnDemandMode =
         ListViewLoadOnDemandMode[
-          this.data.length < DEFAULT_LIMIT
+          this.data.length >= this.count
             ? ListViewLoadOnDemandMode.None
             : ListViewLoadOnDemandMode.Auto
         ];
@@ -71,8 +74,6 @@ export class OrdersListComponent {
     }
   }
 
-  @Input() role: number;
-  @Input() count: number;
   @Input() sorting: SortingChangeEvent;
   @Input() pagination: PageChangeEvent;
   @Input() filter: FilterChangeEvent;
@@ -83,8 +84,21 @@ export class OrdersListComponent {
 
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private modalService: ModalDialogService
-  ) {}
+    private modalService: ModalDialogService,
+    page: Page
+  ) {
+    page.on('unloaded', () => {
+      // wait until parent is destroyed(to remove subscription)
+      setTimeout(() => {
+        const { offset, limit } = this.pagination;
+
+        this.paginationChanged.emit({
+          limit: offset + limit,
+          offset: 0
+        });
+      });
+    });
+  }
 
   onDrawerButtonTap() {
     const sideDrawer = <RadSideDrawer>getViewById(app.getRootView(), 'drawer');
