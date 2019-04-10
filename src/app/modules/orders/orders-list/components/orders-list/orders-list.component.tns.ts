@@ -46,7 +46,7 @@ export class OrdersListComponent {
   readonly statuses = ORDER_STATUSES;
   readonly roles = Roles;
 
-  data: ObservableArray<Order>;
+  data: ObservableArray<Order> | null = null;
 
   @ViewChild('listView')
   listViewComponent: RadListViewComponent;
@@ -70,8 +70,9 @@ export class OrdersListComponent {
         ];
     } else {
       this.data.push(orders);
-      this.listView.notifyLoadOnDemandFinished();
     }
+
+    this.listView.notifyLoadOnDemandFinished();
   }
 
   @Input() sorting: SortingChangeEvent;
@@ -112,9 +113,13 @@ export class OrdersListComponent {
   }
 
   onLoadMoreItemsRequested(args: ListViewEventData) {
+    if (!this.data) {
+      return;
+    }
+
     const listView: RadListView = args.object;
 
-    if (this.data.length === this.count) {
+    if (this.data.length >= this.count) {
       listView.loadOnDemandMode =
         ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.None];
       listView.notifyLoadOnDemandFinished();
@@ -146,13 +151,13 @@ export class OrdersListComponent {
     const { isSorting, isFiltering, ...event } = result;
 
     if (isSorting) {
-      this.data = null;
       this.sortingChanged.emit(event);
     }
 
     if (isFiltering) {
-      this.data = null;
       this.filterChanged.emit(event);
     }
+
+    this.data = null;
   }
 }
