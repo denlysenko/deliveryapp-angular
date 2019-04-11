@@ -19,6 +19,7 @@
       "@auth/*": ["src/app/modules/auth/*"],
       "@orders/*": ["src/app/modules/orders/*"],
       "@users/*": ["src/app/modules/users/*"],
+      "@payments/*": ["src/app/modules/payments/*"],
       "~/*": ["src/*"],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
     }
