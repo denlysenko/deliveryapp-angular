@@ -1,6 +1,7 @@
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
+import { PaymentsResolver } from './resolvers/payments.resolver';
 import { PaymentsService } from './services/payments.service';
 import { effects, PaymentsFacade, paymentsReducer } from './store';
 
@@ -11,4 +12,8 @@ export const importDeclarations: any[] = [
 
 export const componentDeclarations: any[] = [];
 
-export const providerDeclarations: any[] = [PaymentsService, PaymentsFacade];
+export const providerDeclarations: any[] = [
+  PaymentsService,
+  PaymentsFacade,
+  PaymentsResolver
+];
