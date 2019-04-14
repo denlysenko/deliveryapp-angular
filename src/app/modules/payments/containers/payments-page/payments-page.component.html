@@ -1,3 +1,30 @@
-<p>
-  payments-page works!
-</p>
+<div class="ui-g">
+  <div class="ui-lg-3 ui-md-4">
+    <div class="card">
+      payment form
+    </div>
+  </div>
+  <div class="ui-lg-9 ui-md-8">
+    <div class="card">
+      <div class="topbar ui-g">
+        payment filter
+        <div *ngIf="(role$ | async) !== roles.CLIENT"
+             class="button ui-md-4 ui-g-12">
+          <button pButton
+                  type="button"
+                  label="Create payment"
+                  icon="fa fa-plus"
+                  iconPos="left"
+                  class="raised-btn"
+                  ></button>
+        </div>
+      </div>
+      <div class="list">
+        <da-payments-list [payments]="payments"
+                          [pagination]="pagination$ | async"
+                          [sorting]="sorting$ | async"
+                          [role]="role$ | async"></da-payments-list>
+      </div>
+    </div>
+  </div>
+</div>

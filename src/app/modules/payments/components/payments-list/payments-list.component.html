@@ -1,0 +1,48 @@
+<p-table [lazy]="true"
+         [value]="payments"
+         [sortField]="sortField"
+         [sortOrder]="sortOrder"
+         [customSort]="true"
+         (onSort)="sort($event)">
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="id">
+        Num.
+        <p-sortIcon field="id"></p-sortIcon>
+      </th>
+      <th pSortableColumn="total">
+        Total
+        <p-sortIcon field="total"></p-sortIcon>
+      </th>
+      <th>Payment Method</th>
+      <th>Payment Status</th>
+      <th>Due Date</th>
+      <th>Created At</th>
+      <th *ngIf="role !== roles.CLIENT">Client</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body"
+               let-payment>
+    <tr>
+      <td>
+        <a [routerLink]="[payment.id]">{{ payment.id }}</a>
+      </td>
+      <td>{{ payment.total }}</td>
+      <td>{{ payment.method }}</td>
+      <td>{{ payment.status }}</td>
+      <td>{{ payment.dueDate | date: 'dd.MM.yyyy' }}</td>
+      <td>{{ payment.createdAt | date: 'dd.MM.yyyy' }}</td>
+      <td *ngIf="role !== roles.CLIENT">
+        <a *ngIf="payment.client?.firstName || payment.client?.lastName"
+           href="#">{{ payment.client?.firstName }} {{ payment.client?.lastName }}</a>
+        <a *ngIf="!payment.client?.firstName && !payment.client?.lastName"
+           href="#">{{ payment.client?.email }}</a>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator [rows]="pagination.limit"
+             [totalRecords]="count"
+             [first]="pagination.offset"
+             pageLinkSize="3"
+             (onPageChange)="paginate($event)"></p-paginator>
