@@ -38,7 +38,7 @@ import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.
 
 @Component({
   selector: 'da-orders-list',
-  templateUrl: './orders-list.component.html',
+  templateUrl: './orders-list.component.tns.html',
   styleUrls: ['./orders-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
