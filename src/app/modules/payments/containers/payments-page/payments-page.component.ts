@@ -32,4 +32,8 @@ export class PaymentsPageComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  onFilterChange(e) {
+    console.log(e);
+  }
 }

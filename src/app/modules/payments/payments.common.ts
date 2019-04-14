@@ -1,3 +1,5 @@
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
@@ -7,7 +9,8 @@ import { effects, PaymentsFacade, paymentsReducer } from './store';
 
 export const importDeclarations: any[] = [
   StoreModule.forFeature('payments', paymentsReducer),
-  EffectsModule.forFeature(effects)
+  EffectsModule.forFeature(effects),
+  ReactiveFormsModule
 ];
 
 export const componentDeclarations: any[] = [];

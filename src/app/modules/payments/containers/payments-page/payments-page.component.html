@@ -7,7 +7,9 @@
   <div class="ui-lg-9 ui-md-8">
     <div class="card">
       <div class="topbar ui-g">
-        payment filter
+        <da-payments-filter class="ui-md-8 ui-g-12"
+                            [filter]="filter$ | async"
+                            (filterChanged)="onFilterChange($event)"></da-payments-filter>
         <div *ngIf="(role$ | async) !== roles.CLIENT"
              class="button ui-md-4 ui-g-12">
           <button pButton
@@ -15,8 +17,7 @@
                   label="Create payment"
                   icon="fa fa-plus"
                   iconPos="left"
-                  class="raised-btn"
-                  ></button>
+                  class="raised-btn"></button>
         </div>
       </div>
       <div class="list">
