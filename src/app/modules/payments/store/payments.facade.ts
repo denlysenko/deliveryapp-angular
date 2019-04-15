@@ -19,6 +19,7 @@ import {
 import { PaymentsState } from './reducers';
 import {
   getAllFilters,
+  getCurrent,
   getError,
   getFilter,
   getLoading,
@@ -30,6 +31,7 @@ import {
 export class PaymentsFacade {
   loading$ = this.store.pipe(select(getLoading));
   error$ = this.store.pipe(select(getError));
+  current$ = this.store.pipe(select(getCurrent));
   filter$ = this.store.pipe(select(getFilter));
   sorting$ = this.store.pipe(select(getSorting));
   pagination$ = this.store.pipe(select(getPagination));

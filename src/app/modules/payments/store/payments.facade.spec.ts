@@ -14,6 +14,7 @@ import {
   CreatePaymentFail,
   FilterChange,
   PageChange,
+  SelectPayment,
   SortingChange,
   UpdatePayment
 } from './actions';
@@ -74,6 +75,24 @@ describe('PaymentsFacade', () => {
 
       expect(result).toEqual(null);
       store.dispatch(new CreatePaymentFail(payload));
+      expect(result).toEqual(payload);
+    });
+  });
+
+  describe('current$', () => {
+    it('should return current$', () => {
+      let result;
+      const payload: Payment = {
+        total: 5000,
+        status: false,
+        dueDate: new Date()
+      };
+
+      facade.current$.subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new SelectPayment(payload));
       expect(result).toEqual(payload);
     });
   });
