@@ -59,14 +59,14 @@
     <div class="ui-g-12 row">
       <div class="input-wrapper">
         <label class="float-label">Payment method</label>
-        <p-dropdown [options]="paymentMethods"
+        <p-dropdown [options]="methods"
                     formControlName="method"></p-dropdown>
       </div>
     </div>
     <div class="ui-g-12 row">
       <div class="input-wrapper">
         <label class="float-label">Payment Status</label>
-        <p-dropdown [options]="paymentStatuses"
+        <p-dropdown [options]="statuses"
                     formControlName="status"></p-dropdown>
       </div>
     </div>
@@ -75,7 +75,7 @@
         <p-autoComplete formControlName="orders"
                         emptyMessage="Not found"
                         [multiple]="true"
-                        [suggestions]="results"
+                        [suggestions]="orders$ | async"
                         [forceSelection]="true"
                         [autoHighlight]="true"
                         [required]="true"
@@ -91,13 +91,14 @@
     </div>
     <div class="ui-g-12 row">
       <div class="input-wrapper ui-float-label">
-        <p-autoComplete formControlName="clientId"
-                        emptyMessage="Not found"
-                        [suggestions]="results2"
+        <p-autoComplete emptyMessage="Not found"
+                        field="email"
+                        [suggestions]="clients$ | async"
                         [forceSelection]="true"
                         [autoHighlight]="true"
                         [required]="true"
-                        (completeMethod)="searchClient($event)"></p-autoComplete>
+                        (completeMethod)="searchClient($event)"
+                        (onSelect)="selectClient($event)"></p-autoComplete>
         <label>Client</label>
       </div>
       <div *ngIf="form.get('clientId').invalid && form.get('clientId').touched"

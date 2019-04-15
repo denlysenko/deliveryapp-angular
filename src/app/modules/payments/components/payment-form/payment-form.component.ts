@@ -1,14 +1,30 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
-  OnInit
+  OnInit,
+  Output
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { PaymentMethods, paymentMethods, Roles } from '@common/enums';
+import { User } from '@auth/models';
+
+import { BaseFormComponent } from '@base/BaseFormComponent';
+
+import { PaymentMethod, paymentMethods, Roles } from '@common/enums';
+import { ValidationError } from '@common/models';
+
+import { OrdersService } from '@orders/services/orders.service';
+
+import { UsersService } from '@users/services/users.service';
 
 import { SelectItem } from 'primeng/primeng';
+
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { Payment } from '../../models';
 
 @Component({
   selector: 'da-payment-form',
@@ -16,10 +32,10 @@ import { SelectItem } from 'primeng/primeng';
   styleUrls: ['./payment-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaymentFormComponent implements OnInit {
+export class PaymentFormComponent extends BaseFormComponent implements OnInit {
   readonly roles = Roles;
 
-  readonly paymentStatuses: SelectItem[] = [
+  readonly statuses: SelectItem[] = [
     {
       label: 'Paid',
       value: true
@@ -30,25 +46,97 @@ export class PaymentFormComponent implements OnInit {
     }
   ];
 
-  readonly paymentMethods: SelectItem[] = [
+  readonly methods: SelectItem[] = [
     {
-      label: paymentMethods[PaymentMethods.CASHLESS],
-      value: PaymentMethods.CASHLESS
+      label: paymentMethods[PaymentMethod.CASHLESS],
+      value: PaymentMethod.CASHLESS
     },
     {
-      label: paymentMethods[PaymentMethods.CASH],
-      value: PaymentMethods.CASH
+      label: paymentMethods[PaymentMethod.CASH],
+      value: PaymentMethod.CASH
     }
   ];
 
   form: FormGroup;
 
   @Input() role: number;
+  @Input() loading: boolean;
 
-  constructor() {}
+  @Input()
+  set payment(payment: Payment) {
+    this._payment = payment;
+
+    if (payment) {
+      this.form.patchValue(payment);
+    } else {
+      this.initForm();
+    }
+  }
+  get payment(): Payment {
+    return this._payment;
+  }
+
+  @Input()
+  set error(error: ValidationError) {
+    if (error) {
+      this.handleError(error);
+    }
+  }
+
+  @Output() submitted = new EventEmitter<Partial<Payment>>();
+
+  private _payment: Payment;
+  private orders = new BehaviorSubject<number[] | null>(null);
+  private clients = new BehaviorSubject<User[] | null>(null);
+
+  constructor(
+    private ordersService: OrdersService,
+    private usersService: UsersService
+  ) {
+    super();
+  }
+
+  get orders$(): Observable<number[] | null> {
+    return this.orders.asObservable();
+  }
+
+  get clients$(): Observable<User[] | null> {
+    return this.clients.asObservable();
+  }
 
   ngOnInit() {
     this.initForm();
+  }
+
+  submitForm() {
+    const { valid, value } = this.form;
+
+    if (valid) {
+      this.submitted.emit(value);
+    } else {
+      this.validateAllFormFields();
+    }
+  }
+
+  searchOrder({ query }) {
+    this.ordersService
+      .getOrders({ 'filter[id]': query })
+      .pipe(
+        map(response => response.rows),
+        map(orders => orders.map(order => order.id))
+      )
+      .subscribe(orders => this.orders.next(orders));
+  }
+
+  searchClient({ query }) {
+    this.usersService
+      .getUsers({ 'filter[role]': Roles.CLIENT, 'filter[email]': query })
+      .pipe(map(response => response.rows))
+      .subscribe(users => this.clients.next(users));
+  }
+
+  selectClient({ id }) {
+    this.form.patchValue({ clientId: id });
   }
 
   private initForm() {
@@ -67,11 +155,11 @@ export class PaymentFormComponent implements OnInit {
           disabled: this.role === this.roles.CLIENT
         }),
         status: new FormControl({
-          value: this.paymentStatuses[1].value,
+          value: this.statuses[1].value,
           disabled: this.role === this.roles.CLIENT
         }),
         method: new FormControl({
-          value: this.paymentMethods[1].value,
+          value: this.methods[1].value,
           disabled: this.role === this.roles.CLIENT
         }),
         dueDate: new FormControl(

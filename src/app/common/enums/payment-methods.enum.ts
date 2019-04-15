@@ -1,9 +1,9 @@
-export enum PaymentMethods {
+export enum PaymentMethod {
   CASH = 1,
   CASHLESS
 }
 
 export const paymentMethods = {
-  [PaymentMethods.CASH]: 'Cash',
-  [PaymentMethods.CASHLESS]: 'Cashless'
+  [PaymentMethod.CASH]: 'Cash',
+  [PaymentMethod.CASHLESS]: 'Cashless'
 };
