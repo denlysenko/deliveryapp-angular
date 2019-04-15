@@ -12,6 +12,7 @@ import {
   FilterChange,
   PageChange,
   PaymentsActionTypes,
+  SelectPayment,
   SortingChange,
   UpdatePayment,
   UpdatePaymentFail,
@@ -86,6 +87,22 @@ describe('Payments Actions', () => {
       const action = new UpdatePaymentFail(payload);
       expect({ ...action }).toEqual({
         type: PaymentsActionTypes.UPDATE_FAIL,
+        payload
+      });
+    });
+  });
+
+  describe('SelectPayment', () => {
+    it('should create an action', () => {
+      const payload: Payment = {
+        total: 5000,
+        status: false,
+        dueDate: new Date()
+      };
+
+      const action = new SelectPayment(payload);
+      expect({ ...action }).toEqual({
+        type: PaymentsActionTypes.SELECT,
         payload
       });
     });

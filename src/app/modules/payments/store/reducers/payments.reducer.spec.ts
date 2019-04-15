@@ -11,6 +11,7 @@ import {
   CreatePaymentSuccess,
   FilterChange,
   PageChange,
+  SelectPayment,
   SortingChange,
   UpdatePayment,
   UpdatePaymentFail,
@@ -90,6 +91,20 @@ describe('PaymentsReducer', () => {
       const { loading, error } = paymentsReducer(initialState, action);
       expect(loading).toEqual(false);
       expect(error).toEqual(payload);
+    });
+  });
+
+  describe('SELECT action', () => {
+    it('should set payment', () => {
+      const payload: Payment = {
+        total: 5000,
+        status: false,
+        dueDate: new Date()
+      };
+      const action = new SelectPayment(payload);
+      const { current } = paymentsReducer(initialState, action);
+
+      expect(current).toEqual(payload);
     });
   });
 

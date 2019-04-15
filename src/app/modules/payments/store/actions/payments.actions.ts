@@ -16,6 +16,7 @@ export enum PaymentsActionTypes {
   UPDATE = '[Payments] Update',
   UPDATE_SUCCESS = '[Payments] Update Success',
   UPDATE_FAIL = '[Payments] Update Fail',
+  SELECT = '[Payments] Select',
   FILTER_CHANGE = '[Payments] Filter Change',
   SORTING_CHANGE = '[Payments] Sorting Change',
   PAGE_CHANGE = '[Payments] Page Change'
@@ -53,6 +54,12 @@ export class UpdatePaymentFail implements Action {
   constructor(public payload: ValidationError) {}
 }
 
+export class SelectPayment implements Action {
+  readonly type = PaymentsActionTypes.SELECT;
+
+  constructor(public payload: Payment | null) {}
+}
+
 export class FilterChange implements Action {
   readonly type = PaymentsActionTypes.FILTER_CHANGE;
 
@@ -78,6 +85,7 @@ export type PaymentsActions =
   | UpdatePayment
   | UpdatePaymentSuccess
   | UpdatePaymentFail
+  | SelectPayment
   | FilterChange
   | SortingChange
   | PageChange;

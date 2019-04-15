@@ -13,6 +13,11 @@ export const getError = createSelector(
   fromPayments.getError
 );
 
+export const getCurrent = createSelector(
+  fromFeature.getPaymentsState,
+  fromPayments.getCurrent
+);
+
 export const getFilter = createSelector(
   fromFeature.getPaymentsState,
   fromPayments.getFilter

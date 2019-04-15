@@ -15,11 +15,13 @@ import {
   CreatePaymentSuccess,
   FilterChange,
   PageChange,
+  SelectPayment,
   SortingChange
 } from '../actions';
 import { paymentsReducer, PaymentsState } from '../reducers';
 import {
   getAllFilters,
+  getCurrent,
   getError,
   getFilter,
   getLoading,
@@ -88,6 +90,25 @@ describe('Payments Selectors', () => {
 
       store.dispatch(new CreatePaymentFail(orderError));
       expect(result).toEqual(orderError);
+    });
+  });
+
+  describe('getCurrent', () => {
+    it('should return current payment', () => {
+      const payload: Payment = {
+        total: 5000,
+        status: false,
+        dueDate: new Date()
+      };
+
+      let result;
+
+      store.select(getCurrent).subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new SelectPayment(payload));
+      expect(result).toEqual(payload);
     });
   });
 

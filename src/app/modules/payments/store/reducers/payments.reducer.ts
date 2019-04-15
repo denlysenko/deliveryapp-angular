@@ -6,11 +6,13 @@ import {
   ValidationError
 } from '@common/models';
 
+import { Payment } from '../../models';
 import { PaymentsActions, PaymentsActionTypes } from '../actions';
 
 export interface PaymentsState {
   loading: boolean;
   error: ValidationError | null;
+  current: Payment | null;
   filter: FilterChangeEvent;
   sorting: SortingChangeEvent;
   pagination: PageChangeEvent;
@@ -19,6 +21,7 @@ export interface PaymentsState {
 export const initialState: PaymentsState = {
   loading: false,
   error: null,
+  current: null,
   filter: {},
   sorting: {
     'order[id]': 'asc'
@@ -60,6 +63,13 @@ export function paymentsReducer(
       };
     }
 
+    case PaymentsActionTypes.SELECT: {
+      return {
+        ...state,
+        current: action.payload
+      };
+    }
+
     case PaymentsActionTypes.FILTER_CHANGE: {
       return {
         ...state,
@@ -94,6 +104,7 @@ export function paymentsReducer(
 
 export const getLoading = (state: PaymentsState) => state.loading;
 export const getError = (state: PaymentsState) => state.error;
+export const getCurrent = (state: PaymentsState) => state.current;
 export const getFilter = (state: PaymentsState) => state.filter;
 export const getSorting = (state: PaymentsState) => state.sorting;
 export const getPagination = (state: PaymentsState) => state.pagination;
