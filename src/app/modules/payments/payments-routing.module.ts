@@ -13,7 +13,7 @@ import { PaymentsResolver } from './resolvers/payments.resolver';
         path: '',
         component: PaymentsPageComponent,
         resolve: {
-          orders: PaymentsResolver
+          payments: PaymentsResolver
         },
         canActivate: [AuthGuard]
       }
