@@ -6,16 +6,10 @@ import {
 
 import { Payment } from '../../models';
 import {
-  CreatePayment,
-  CreatePaymentFail,
-  CreatePaymentSuccess,
   FilterChange,
   PageChange,
   SelectPayment,
-  SortingChange,
-  UpdatePayment,
-  UpdatePaymentFail,
-  UpdatePaymentSuccess
+  SortingChange
 } from '../actions';
 import { initialState, paymentsReducer } from './payments.reducer';
 
@@ -25,72 +19,6 @@ describe('PaymentsReducer', () => {
       const action = {} as any;
       const state = paymentsReducer(undefined, action);
       expect(state).toEqual(initialState);
-    });
-  });
-
-  describe('CREATE action', () => {
-    it('should set loading to true', () => {
-      const payload: Payment = {
-        total: 5000,
-        status: false,
-        dueDate: new Date()
-      };
-      const action = new CreatePayment(payload);
-      const { loading, error } = paymentsReducer(initialState, action);
-
-      expect(loading).toEqual(true);
-      expect(error).toEqual(null);
-    });
-  });
-
-  describe('CREATE_SUCCESS Action', () => {
-    it('should set loading to false', () => {
-      const action = new CreatePaymentSuccess();
-      const { loading } = paymentsReducer(initialState, action);
-      expect(loading).toEqual(false);
-    });
-  });
-
-  describe('CREATE_FAIL Action', () => {
-    it('should set error to payload value', () => {
-      const payload = { message: 'Error message' } as any;
-      const action = new CreatePaymentFail(payload);
-      const { loading, error } = paymentsReducer(initialState, action);
-      expect(loading).toEqual(false);
-      expect(error).toEqual(payload);
-    });
-  });
-
-  describe('UPDATE action', () => {
-    it('should set loading to true', () => {
-      const payload: Payment = {
-        total: 5000,
-        status: false,
-        dueDate: new Date()
-      };
-      const action = new UpdatePayment(payload);
-      const { loading, error } = paymentsReducer(initialState, action);
-
-      expect(loading).toEqual(true);
-      expect(error).toEqual(null);
-    });
-  });
-
-  describe('UPDATE_SUCCESS Action', () => {
-    it('should set loading to false', () => {
-      const action = new UpdatePaymentSuccess();
-      const { loading } = paymentsReducer(initialState, action);
-      expect(loading).toEqual(false);
-    });
-  });
-
-  describe('UPDATE_FAIL Action', () => {
-    it('should set error to payload value', () => {
-      const payload = { message: 'Error message' } as any;
-      const action = new UpdatePaymentFail(payload);
-      const { loading, error } = paymentsReducer(initialState, action);
-      expect(loading).toEqual(false);
-      expect(error).toEqual(payload);
     });
   });
 

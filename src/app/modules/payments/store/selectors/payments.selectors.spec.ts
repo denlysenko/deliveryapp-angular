@@ -10,9 +10,6 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import { Payment } from '../../models';
 import {
-  CreatePayment,
-  CreatePaymentFail,
-  CreatePaymentSuccess,
   FilterChange,
   PageChange,
   SelectPayment,
@@ -22,9 +19,7 @@ import { paymentsReducer, PaymentsState } from '../reducers';
 import {
   getAllFilters,
   getCurrent,
-  getError,
   getFilter,
-  getLoading,
   getPagination,
   getSorting
 } from './payments.selectors';
@@ -43,54 +38,6 @@ describe('Payments Selectors', () => {
 
     store = TestBed.get(Store);
     spyOn(store, 'dispatch').and.callThrough();
-  });
-
-  describe('getLoading', () => {
-    it('should return true when CreatePayment was dispatched', () => {
-      const payload: Payment = {
-        total: 5000,
-        status: false,
-        dueDate: new Date()
-      };
-
-      let result;
-
-      store.select(getLoading).subscribe(value => {
-        result = value;
-      });
-
-      expect(result).toEqual(false);
-      store.dispatch(new CreatePayment(payload));
-      expect(result).toEqual(true);
-    });
-
-    it('should return false when CreatePaymentSuccess was dispatched', () => {
-      let result;
-
-      store.select(getLoading).subscribe(value => {
-        result = value;
-      });
-
-      store.dispatch(new CreatePaymentSuccess());
-      expect(result).toEqual(false);
-    });
-  });
-
-  describe('getError', () => {
-    it('should return error', () => {
-      const orderError = {
-        message: 'Error'
-      } as any;
-
-      let result;
-
-      store.select(getError).subscribe(value => {
-        result = value;
-      });
-
-      store.dispatch(new CreatePaymentFail(orderError));
-      expect(result).toEqual(orderError);
-    });
   });
 
   describe('getCurrent', () => {

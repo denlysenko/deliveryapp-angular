@@ -2,16 +2,13 @@ import { DEFAULT_LIMIT } from '@common/constants';
 import {
   FilterChangeEvent,
   PageChangeEvent,
-  SortingChangeEvent,
-  ValidationError
+  SortingChangeEvent
 } from '@common/models';
 
 import { Payment } from '../../models';
 import { PaymentsActions, PaymentsActionTypes } from '../actions';
 
 export interface PaymentsState {
-  loading: boolean;
-  error: ValidationError | null;
   current: Payment | null;
   filter: FilterChangeEvent;
   sorting: SortingChangeEvent;
@@ -19,8 +16,6 @@ export interface PaymentsState {
 }
 
 export const initialState: PaymentsState = {
-  loading: false,
-  error: null,
   current: null,
   filter: {},
   sorting: {
@@ -37,32 +32,6 @@ export function paymentsReducer(
   action: PaymentsActions
 ): PaymentsState {
   switch (action.type) {
-    case PaymentsActionTypes.CREATE:
-    case PaymentsActionTypes.UPDATE: {
-      return {
-        ...state,
-        loading: true,
-        error: null
-      };
-    }
-
-    case PaymentsActionTypes.CREATE_SUCCESS:
-    case PaymentsActionTypes.UPDATE_SUCCESS: {
-      return {
-        ...state,
-        loading: false
-      };
-    }
-
-    case PaymentsActionTypes.CREATE_FAIL:
-    case PaymentsActionTypes.UPDATE_FAIL: {
-      return {
-        ...state,
-        loading: false,
-        error: action.payload
-      };
-    }
-
     case PaymentsActionTypes.SELECT: {
       return {
         ...state,
@@ -102,8 +71,6 @@ export function paymentsReducer(
   return state;
 }
 
-export const getLoading = (state: PaymentsState) => state.loading;
-export const getError = (state: PaymentsState) => state.error;
 export const getCurrent = (state: PaymentsState) => state.current;
 export const getFilter = (state: PaymentsState) => state.filter;
 export const getSorting = (state: PaymentsState) => state.sorting;
