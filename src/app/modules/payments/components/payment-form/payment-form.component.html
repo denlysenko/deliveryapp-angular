@@ -15,7 +15,8 @@
     </div>
     <div class="ui-g-12 row">
       <div class="input-wrapper ui-float-label">
-        <p-spinner formControlName="total"></p-spinner>
+        <p-spinner formControlName="total"
+                   [readonly]="isClient"></p-spinner>
         <label>Total, $</label>
       </div>
       <div *ngIf="form.get('total').invalid && form.get('total').touched"
@@ -27,11 +28,17 @@
     </div>
     <div class="ui-g-12 row">
       <div class="input-wrapper ui-float-label">
-        <p-calendar dateFormat="dd.mm.yy"
+        <p-calendar *ngIf="!isClient"
+                    dateFormat="dd.mm.yy"
                     dateFormat="dd.mm.yy"
                     showButtonBar="true"
                     [showIcon]="true"
                     formControlName="dueDate"></p-calendar>
+        <input *ngIf="isClient"
+               type="text"
+               pInputText
+               [value]="(payment && payment.dueDate | date: 'dd.MM.yyyy') || null"
+               readonly>
         <label>Due Date</label>
       </div>
       <div *ngIf="form.get('dueDate').invalid && form.get('dueDate').touched"
@@ -43,16 +50,23 @@
     </div>
     <div class="ui-g-12 row">
       <div class="input-wrapper ui-float-label">
-        <p-spinner formControlName="paymentAmount"></p-spinner>
+        <p-spinner formControlName="paymentAmount"
+                   [readonly]="isClient"></p-spinner>
         <label>Payment Amount, $</label>
       </div>
     </div>
     <div class="ui-g-12 row">
       <div class="input-wrapper ui-float-label">
-        <p-calendar dateFormat="dd.mm.yy"
+        <p-calendar *ngIf="!isClient"
+                    dateFormat="dd.mm.yy"
                     showButtonBar="true"
                     [showIcon]="true"
                     formControlName="paymentDate"></p-calendar>
+        <input *ngIf="isClient"
+               type="text"
+               pInputText
+               [value]="(payment && payment.paymentDate | date: 'dd.MM.yyyy') || null"
+               readonly>
         <label>Payment Date</label>
       </div>
     </div>
@@ -60,14 +74,16 @@
       <div class="input-wrapper">
         <label class="float-label">Payment method</label>
         <p-dropdown [options]="methods"
-                    formControlName="method"></p-dropdown>
+                    formControlName="method"
+                    [readonly]="isClient"></p-dropdown>
       </div>
     </div>
     <div class="ui-g-12 row">
       <div class="input-wrapper">
         <label class="float-label">Payment Status</label>
         <p-dropdown [options]="statuses"
-                    formControlName="status"></p-dropdown>
+                    formControlName="status"
+                    [readonly]="isClient"></p-dropdown>
       </div>
     </div>
     <div class="ui-g-12 row">
@@ -79,6 +95,7 @@
                         [forceSelection]="true"
                         [autoHighlight]="true"
                         [required]="true"
+                        [readonly]="isClient"
                         (completeMethod)="searchOrder($event)"></p-autoComplete>
         <label>Orders</label>
       </div>
@@ -91,12 +108,14 @@
     </div>
     <div class="ui-g-12 row">
       <div class="input-wrapper ui-float-label">
-        <p-autoComplete emptyMessage="Not found"
+        <p-autoComplete [formControl]="client"
+                        emptyMessage="Not found"
                         field="email"
                         [suggestions]="clients$ | async"
                         [forceSelection]="true"
                         [autoHighlight]="true"
                         [required]="true"
+                        [readonly]="isClient"
                         (completeMethod)="searchClient($event)"
                         (onSelect)="selectClient($event)"></p-autoComplete>
         <label>Client</label>
@@ -112,13 +131,15 @@
       <label>Description</label>
       <textarea pInputTextarea
                 formControlName="description"
-                [rows]="5"></textarea>
+                [rows]="5"
+                [readOnly]="isClient"></textarea>
     </div>
     <div class="ui-g-12">
       <label>Comments</label>
       <textarea pInputTextarea
                 formControlName="notes"
-                [rows]="5"></textarea>
+                [rows]="5"
+                [readOnly]="isClient"></textarea>
     </div>
     <div *ngIf="role !== roles.CLIENT"
          class="ui-g-12">

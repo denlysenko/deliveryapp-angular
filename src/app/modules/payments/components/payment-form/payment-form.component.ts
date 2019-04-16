@@ -3,8 +3,8 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
-  Output
+  Output,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -32,7 +32,7 @@ import { Payment } from '../../models';
   styleUrls: ['./payment-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaymentFormComponent extends BaseFormComponent implements OnInit {
+export class PaymentFormComponent extends BaseFormComponent {
   readonly roles = Roles;
 
   readonly statuses: SelectItem[] = [
@@ -58,6 +58,7 @@ export class PaymentFormComponent extends BaseFormComponent implements OnInit {
   ];
 
   form: FormGroup;
+  client = new FormControl(null);
 
   @Input() role: number;
   @Input() loading: boolean;
@@ -65,12 +66,8 @@ export class PaymentFormComponent extends BaseFormComponent implements OnInit {
   @Input()
   set payment(payment: Payment) {
     this._payment = payment;
-
-    if (payment) {
-      this.form.patchValue(payment);
-    } else {
-      this.initForm();
-    }
+    this.initForm();
+    this.client.patchValue((payment && payment.client) || null);
   }
   get payment(): Payment {
     return this._payment;
@@ -91,9 +88,14 @@ export class PaymentFormComponent extends BaseFormComponent implements OnInit {
 
   constructor(
     private ordersService: OrdersService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private cdr: ChangeDetectorRef
   ) {
     super();
+  }
+
+  get isClient(): boolean {
+    return this.role === this.roles.CLIENT;
   }
 
   get orders$(): Observable<number[] | null> {
@@ -102,10 +104,6 @@ export class PaymentFormComponent extends BaseFormComponent implements OnInit {
 
   get clients$(): Observable<User[] | null> {
     return this.clients.asObservable();
-  }
-
-  ngOnInit() {
-    this.initForm();
   }
 
   submitForm() {
@@ -139,64 +137,60 @@ export class PaymentFormComponent extends BaseFormComponent implements OnInit {
     this.form.patchValue({ clientId: id });
   }
 
+  // tslint:disable-next-line:cognitive-complexity
   private initForm() {
     this.form = new FormGroup(
       {
-        id: new FormControl(null),
+        id: new FormControl((this.payment && this.payment.id) || null),
         total: new FormControl(
-          {
-            value: null,
-            disabled: this.role === this.roles.CLIENT
-          },
+          (this.payment && this.payment.total) || null,
           Validators.required
         ),
-        paymentAmount: new FormControl({
-          value: null,
-          disabled: this.role === this.roles.CLIENT
-        }),
-        status: new FormControl({
-          value: this.statuses[1].value,
-          disabled: this.role === this.roles.CLIENT
-        }),
-        method: new FormControl({
-          value: this.methods[1].value,
-          disabled: this.role === this.roles.CLIENT
-        }),
+        paymentAmount: new FormControl(
+          (this.payment && this.payment.paymentAmount) || null
+        ),
+        status: new FormControl(
+          (this.payment && this.payment.status) || this.statuses[1].value
+        ),
+        method: new FormControl(
+          (this.payment && this.payment.method) || this.methods[1].value
+        ),
         dueDate: new FormControl(
-          {
-            value: null,
-            disabled: this.role === this.roles.CLIENT
-          },
+          (this.payment &&
+            this.payment.dueDate &&
+            new Date(this.payment.dueDate)) ||
+            null,
           Validators.required
         ),
-        paymentDate: new FormControl({
-          value: null,
-          disabled: this.role === this.roles.CLIENT
-        }),
-        notes: new FormControl({
-          value: null,
-          disabled: this.role === this.roles.CLIENT
-        }),
-        description: new FormControl({
-          value: null,
-          disabled: this.role === this.roles.CLIENT
-        }),
+        paymentDate: new FormControl(
+          (this.payment &&
+            this.payment.paymentDate &&
+            new Date(this.payment.paymentDate)) ||
+            null
+        ),
+        notes: new FormControl((this.payment && this.payment.notes) || null),
+        description: new FormControl(
+          (this.payment && this.payment.description) || null
+        ),
         clientId: new FormControl(
-          {
-            value: null,
-            disabled: this.role === this.roles.CLIENT
-          },
+          (this.payment && this.payment.clientId) || null,
           Validators.required
         ),
         orders: new FormControl(
-          {
-            value: null,
-            disabled: this.role === this.roles.CLIENT
-          },
+          (this.payment &&
+            this.payment.orders &&
+            this.payment.orders.length &&
+            this.payment.orders.map(order => order.id)) ||
+            null,
           Validators.required
         )
       },
       { updateOn: 'submit' }
     );
+
+    // to fix float label overlapping on inputs with native value property
+    setTimeout(() => {
+      this.cdr.markForCheck();
+    });
   }
 }
