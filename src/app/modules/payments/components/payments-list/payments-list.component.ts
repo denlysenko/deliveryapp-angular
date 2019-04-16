@@ -1,8 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 import { BaseListComponent } from '@base/BaseListComponent';
 
-import { Roles } from '@common/enums';
+import { paymentMethods, Roles } from '@common/enums';
 
 import { Payment } from '../../models';
 
@@ -14,7 +20,10 @@ import { Payment } from '../../models';
 })
 export class PaymentsListComponent extends BaseListComponent {
   readonly roles = Roles;
+  readonly methods = paymentMethods;
 
   @Input() payments: Payment[];
   @Input() role: number;
+
+  @Output() paymentSelected = new EventEmitter<Payment>();
 }

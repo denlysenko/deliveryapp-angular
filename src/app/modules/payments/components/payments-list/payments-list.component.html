@@ -25,18 +25,16 @@
                let-payment>
     <tr>
       <td>
-        <a [routerLink]="[payment.id]">{{ payment.id }}</a>
+        <a href="javascript:void(0)"
+           (click)="paymentSelected.emit(payment)">{{ payment.id }}</a>
       </td>
-      <td>{{ payment.total }}</td>
-      <td>{{ payment.method }}</td>
-      <td>{{ payment.status }}</td>
+      <td>{{ payment.total | currency }}</td>
+      <td>{{ methods[payment.method] }}</td>
+      <td>{{ payment.status ? 'Paid' : 'Not Paid' }}</td>
       <td>{{ payment.dueDate | date: 'dd.MM.yyyy' }}</td>
       <td>{{ payment.createdAt | date: 'dd.MM.yyyy' }}</td>
       <td *ngIf="role !== roles.CLIENT">
-        <a *ngIf="payment.client?.firstName || payment.client?.lastName"
-           href="#">{{ payment.client?.firstName }} {{ payment.client?.lastName }}</a>
-        <a *ngIf="!payment.client?.firstName && !payment.client?.lastName"
-           href="#">{{ payment.client?.email }}</a>
+        <a href="#">{{ payment.client?.email }}</a>
       </td>
     </tr>
   </ng-template>
