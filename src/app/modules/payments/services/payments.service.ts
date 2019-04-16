@@ -24,7 +24,8 @@ export class PaymentsService {
     return this.apiService.post('/payments', payment);
   }
 
-  updatePayment(id: number, payment: Payment): Observable<Payment> {
+  updatePayment(payment: Payment): Observable<Payment> {
+    const { id } = payment;
     return this.apiService.patch(`/payments/${id}`, payment);
   }
 }

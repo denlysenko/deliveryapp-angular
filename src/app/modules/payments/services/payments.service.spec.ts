@@ -215,12 +215,13 @@ describe('PaymentsService', () => {
     it('should send PATCH request', fakeAsync(() => {
       const http = TestBed.get(HttpTestingController);
       const payload: Payment = {
+        id: 1,
         total: 5000,
         status: false,
         dueDate: new Date()
       };
 
-      service.updatePayment(1, payload).subscribe(res => {
+      service.updatePayment(payload).subscribe(res => {
         expect(res).toEqual(payload);
       });
 
@@ -240,12 +241,13 @@ describe('PaymentsService', () => {
         message: 'ERR'
       };
       const payload: Payment = {
+        id: 1,
         total: 5000,
         status: false,
         dueDate: new Date()
       };
 
-      service.updatePayment(1, payload).subscribe(
+      service.updatePayment(payload).subscribe(
         () => {},
         err => {
           expect(err.status).toEqual(422);
