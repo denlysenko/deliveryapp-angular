@@ -8,7 +8,7 @@ import {
 
 import { BaseListComponent } from '@base/BaseListComponent';
 
-import { paymentMethods, Roles } from '@common/enums';
+import { paymentMethodNames, Roles } from '@common/enums';
 
 import { Payment } from '../../models';
 
@@ -20,7 +20,7 @@ import { Payment } from '../../models';
 })
 export class PaymentsListComponent extends BaseListComponent {
   readonly roles = Roles;
-  readonly methods = paymentMethods;
+  readonly methods = paymentMethodNames;
 
   @Input() payments: Payment[];
   @Input() role: number;

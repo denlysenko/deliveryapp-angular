@@ -12,7 +12,7 @@ import { User } from '@auth/models';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
 
-import { PaymentMethod, paymentMethods, Roles } from '@common/enums';
+import { PaymentMethod, paymentMethodNames, Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
 
 import { OrdersService } from '@orders/services/orders.service';
@@ -48,11 +48,11 @@ export class PaymentFormComponent extends BaseFormComponent {
 
   readonly methods: SelectItem[] = [
     {
-      label: paymentMethods[PaymentMethod.CASHLESS],
+      label: paymentMethodNames[PaymentMethod.CASHLESS],
       value: PaymentMethod.CASHLESS
     },
     {
-      label: paymentMethods[PaymentMethod.CASH],
+      label: paymentMethodNames[PaymentMethod.CASH],
       value: PaymentMethod.CASH
     }
   ];

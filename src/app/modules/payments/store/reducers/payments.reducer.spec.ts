@@ -23,7 +23,7 @@ describe('PaymentsReducer', () => {
   });
 
   describe('SELECT action', () => {
-    it('should set payment', () => {
+    it('should set current payment', () => {
       const payload: Payment = {
         total: 5000,
         status: false,

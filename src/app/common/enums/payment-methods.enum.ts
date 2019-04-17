@@ -3,7 +3,7 @@ export enum PaymentMethod {
   CASHLESS
 }
 
-export const paymentMethods = {
+export const paymentMethodNames = {
   [PaymentMethod.CASH]: 'Cash',
   [PaymentMethod.CASHLESS]: 'Cashless'
 };

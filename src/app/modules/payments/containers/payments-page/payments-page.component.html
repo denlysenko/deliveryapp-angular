@@ -1,39 +1,41 @@
 <div class="ui-g">
-  <div class="ui-lg-3 ui-md-4">
-    <div class="card">
-      <da-payment-form [payment]="current$ | async"
-                       [role]="role$ | async"
-                       [loading]="loading$ | async"
-                       [error]="error$ | async"
-                       (submitted)="save($event)"></da-payment-form>
+  <ng-container *ngIf="(role$ | async) as role">
+    <div class="ui-lg-3 ui-md-4">
+      <div class="card">
+        <da-payment-form [payment]="current$ | async"
+                         [role]="role"
+                         [loading]="loading$ | async"
+                         [error]="error$ | async"
+                         (submitted)="save($event)"></da-payment-form>
+      </div>
     </div>
-  </div>
-  <div class="ui-lg-9 ui-md-8">
-    <div class="card">
-      <div class="topbar ui-g">
-        <da-payments-filter class="ui-md-8 ui-g-12"
-                            [filter]="filter$ | async"
-                            (filterChanged)="handleFilterChange($event)"></da-payments-filter>
-        <div *ngIf="(role$ | async) !== roles.CLIENT"
-             class="button ui-md-4 ui-g-12">
-          <button pButton
-                  type="button"
-                  label="Create payment"
-                  icon="fa fa-plus"
-                  iconPos="left"
-                  class="raised-btn"
-                  (click)="selectPayment(null)"></button>
+    <div class="ui-lg-9 ui-md-8">
+      <div class="card">
+        <div class="topbar ui-g">
+          <da-payments-filter class="ui-md-8 ui-g-12"
+                              [filter]="filter$ | async"
+                              (filterChanged)="handleFilterChange($event)"></da-payments-filter>
+          <div *ngIf="role !== roles.CLIENT"
+               class="button ui-md-4 ui-g-12">
+            <button pButton
+                    type="button"
+                    label="Create payment"
+                    icon="fa fa-plus"
+                    iconPos="left"
+                    class="raised-btn"
+                    (click)="selectPayment(null)"></button>
+          </div>
+        </div>
+        <div class="list">
+          <da-payments-list [payments]="payments"
+                            [pagination]="pagination$ | async"
+                            [sorting]="sorting$ | async"
+                            [role]="role"
+                            (sortingChanged)="handleSortingChange($event)"
+                            (paginationChanged)="handlePageChange($event)"
+                            (paymentSelected)="selectPayment($event)"></da-payments-list>
         </div>
       </div>
-      <div class="list">
-        <da-payments-list [payments]="payments"
-                          [pagination]="pagination$ | async"
-                          [sorting]="sorting$ | async"
-                          [role]="role$ | async"
-                          (sortingChanged)="handleSortingChange($event)"
-                          (paginationChanged)="handlePageChange($event)"
-                          (paymentSelected)="selectPayment($event)"></da-payments-list>
-      </div>
     </div>
-  </div>
+  </ng-container>
 </div>

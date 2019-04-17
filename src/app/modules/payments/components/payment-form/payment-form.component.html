@@ -37,7 +37,7 @@
         <input *ngIf="isClient"
                type="text"
                pInputText
-               [value]="(payment && payment.dueDate | date: 'dd.MM.yyyy') || null"
+               [value]="(payment && payment.dueDate | date: 'dd.MM.yyyy') || ''"
                readonly>
         <label>Due Date</label>
       </div>
@@ -65,7 +65,7 @@
         <input *ngIf="isClient"
                type="text"
                pInputText
-               [value]="(payment && payment.paymentDate | date: 'dd.MM.yyyy') || null"
+               [value]="(payment && payment.paymentDate | date: 'dd.MM.yyyy') || ''"
                readonly>
         <label>Payment Date</label>
       </div>
