@@ -21,6 +21,9 @@
       "@users/*": ["src/app/modules/users/*"],
       "@payments/*": ["src/app/modules/payments/*"],
       "~/*": ["src/*"],
+      "core-js/es7/reflect": [
+        "./node_modules/core-js/proposals/reflect-metadata"
+      ],
       "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
     }
   }
