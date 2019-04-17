@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { of, Subject } from 'rxjs';
+import { of, Subject, BehaviorSubject } from 'rxjs';
 
 import { Roles } from '@common/enums';
 import {
@@ -18,8 +18,9 @@ import { OrdersService } from '../../../services/orders.service';
 import { OrdersFacade } from '../../../store';
 import { OrdersPageComponent } from './orders-page.component';
 
-const allFilters = new Subject();
-const role = new Subject();
+const allFilters = new BehaviorSubject(null);
+const role = new BehaviorSubject(null);
+
 const order: Order = {
   cityFrom: 'test',
   cityTo: 'test',
@@ -136,6 +137,10 @@ describe('OrdersPageComponent', () => {
   });
 
   describe('OnInit()', () => {
+    beforeEach(() => {
+      component.ngOnInit();
+    });
+
     it('should have orders from activatedRoute', () => {
       expect(component.orders).toEqual(
         activatedRouteStub.snapshot.data.orders.rows
