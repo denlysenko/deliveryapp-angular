@@ -1,11 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
 import { Roles } from '@common/enums';
@@ -18,7 +12,7 @@ import {
 import { FeedbackService, LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
-import { of, Subject, throwError, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of, throwError } from 'rxjs';
 
 import { Payment } from '../../models';
 import { PaymentsService } from '../../services/payments.service';

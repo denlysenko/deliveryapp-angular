@@ -2,7 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { of, Subject, BehaviorSubject } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 
 import { Roles } from '@common/enums';
 import {
