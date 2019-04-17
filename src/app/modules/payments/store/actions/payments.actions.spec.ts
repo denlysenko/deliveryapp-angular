@@ -6,20 +6,15 @@ import {
 
 import { Payment } from '../../models';
 import {
-  CreatePayment,
-  CreatePaymentFail,
-  CreatePaymentSuccess,
   FilterChange,
   PageChange,
   PaymentsActionTypes,
-  SortingChange,
-  UpdatePayment,
-  UpdatePaymentFail,
-  UpdatePaymentSuccess
+  SelectPayment,
+  SortingChange
 } from './payments.actions';
 
 describe('Payments Actions', () => {
-  describe('CreatePayment', () => {
+  describe('SelectPayment', () => {
     it('should create an action', () => {
       const payload: Payment = {
         total: 5000,
@@ -27,65 +22,9 @@ describe('Payments Actions', () => {
         dueDate: new Date()
       };
 
-      const action = new CreatePayment(payload);
+      const action = new SelectPayment(payload);
       expect({ ...action }).toEqual({
-        type: PaymentsActionTypes.CREATE,
-        payload
-      });
-    });
-  });
-
-  describe('CreatePaymentSuccess', () => {
-    it('should create an action', () => {
-      const action = new CreatePaymentSuccess();
-      expect({ ...action }).toEqual({
-        type: PaymentsActionTypes.CREATE_SUCCESS
-      });
-    });
-  });
-
-  describe('CreatePaymentFail', () => {
-    it('should create an action', () => {
-      const payload = { message: 'Error message' } as any;
-      const action = new CreatePaymentFail(payload);
-      expect({ ...action }).toEqual({
-        type: PaymentsActionTypes.CREATE_FAIL,
-        payload
-      });
-    });
-  });
-
-  describe('UpdatePayment', () => {
-    it('should create an action', () => {
-      const payload: Payment = {
-        total: 5000,
-        status: false,
-        dueDate: new Date()
-      };
-
-      const action = new UpdatePayment(payload);
-      expect({ ...action }).toEqual({
-        type: PaymentsActionTypes.UPDATE,
-        payload
-      });
-    });
-  });
-
-  describe('UpdatePaymentSuccess', () => {
-    it('should create an action', () => {
-      const action = new UpdatePaymentSuccess();
-      expect({ ...action }).toEqual({
-        type: PaymentsActionTypes.UPDATE_SUCCESS
-      });
-    });
-  });
-
-  describe('UpdatePaymentFail', () => {
-    it('should create an action', () => {
-      const payload = { message: 'Error message' } as any;
-      const action = new UpdatePaymentFail(payload);
-      expect({ ...action }).toEqual({
-        type: PaymentsActionTypes.UPDATE_FAIL,
+        type: PaymentsActionTypes.SELECT,
         payload
       });
     });

@@ -152,13 +152,7 @@
               <Label col="0"
                      text="Client: "
                      class="font-weight-bold"></Label>
-              <Label *ngIf="order.client?.firstName || order.client?.lastName"
-                     col="1"
-                     textWrap="true"
-                     class="text-right"
-                     text="{{ order.client?.firstName }} {{ order.client?.lastName }}"></Label>
-              <Label *ngIf="!order.client?.firstName && !order.client?.lastName"
-                     col="1"
+              <Label col="1"
                      textWrap="true"
                      class="text-right"
                      [text]="order.client?.email"></Label>

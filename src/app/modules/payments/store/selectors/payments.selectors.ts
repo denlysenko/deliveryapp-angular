@@ -3,14 +3,9 @@ import { createSelector } from '@ngrx/store';
 import * as fromFeature from '../reducers';
 import * as fromPayments from '../reducers/payments.reducer';
 
-export const getLoading = createSelector(
+export const getCurrent = createSelector(
   fromFeature.getPaymentsState,
-  fromPayments.getLoading
-);
-
-export const getError = createSelector(
-  fromFeature.getPaymentsState,
-  fromPayments.getError
+  fromPayments.getCurrent
 );
 
 export const getFilter = createSelector(

@@ -16,7 +16,7 @@ declare var UISearchBarStyle: any;
 
 @Component({
   selector: 'da-orders-filter',
-  templateUrl: './orders-filter.component.html',
+  templateUrl: './orders-filter.component.tns.html',
   styleUrls: ['./orders-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

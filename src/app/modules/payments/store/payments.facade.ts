@@ -10,26 +10,23 @@ import { select, Store } from '@ngrx/store';
 
 import { Payment } from '../models';
 import {
-  CreatePayment,
   FilterChange,
   PageChange,
-  SortingChange,
-  UpdatePayment
+  SelectPayment,
+  SortingChange
 } from './actions';
 import { PaymentsState } from './reducers';
 import {
   getAllFilters,
-  getError,
+  getCurrent,
   getFilter,
-  getLoading,
   getPagination,
   getSorting
 } from './selectors';
 
 @Injectable()
 export class PaymentsFacade {
-  loading$ = this.store.pipe(select(getLoading));
-  error$ = this.store.pipe(select(getError));
+  current$ = this.store.pipe(select(getCurrent));
   filter$ = this.store.pipe(select(getFilter));
   sorting$ = this.store.pipe(select(getSorting));
   pagination$ = this.store.pipe(select(getPagination));
@@ -49,11 +46,7 @@ export class PaymentsFacade {
     this.store.dispatch(new PageChange(pagination));
   }
 
-  create(payment: Payment) {
-    this.store.dispatch(new CreatePayment(payment));
-  }
-
-  update(payment: Payment) {
-    this.store.dispatch(new UpdatePayment(payment));
+  select(payment: Payment) {
+    this.store.dispatch(new SelectPayment(payment));
   }
 }

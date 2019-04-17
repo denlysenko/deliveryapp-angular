@@ -10,12 +10,10 @@ import { Store, StoreModule } from '@ngrx/store';
 
 import { Payment } from '../models';
 import {
-  CreatePayment,
-  CreatePaymentFail,
   FilterChange,
   PageChange,
-  SortingChange,
-  UpdatePayment
+  SelectPayment,
+  SortingChange
 } from './actions';
 import { PaymentsFacade } from './payments.facade';
 import { paymentsReducer, PaymentsState } from './reducers';
@@ -42,8 +40,8 @@ describe('PaymentsFacade', () => {
     spyOn(store, 'dispatch').and.callThrough();
   });
 
-  describe('loading$', () => {
-    it('should return current loading$', () => {
+  describe('current$', () => {
+    it('should return current$', () => {
       let result;
       const payload: Payment = {
         total: 5000,
@@ -51,29 +49,11 @@ describe('PaymentsFacade', () => {
         dueDate: new Date()
       };
 
-      facade.loading$.subscribe(value => {
+      facade.current$.subscribe(value => {
         result = value;
       });
 
-      expect(result).toEqual(false);
-      store.dispatch(new CreatePayment(payload));
-      expect(result).toEqual(true);
-    });
-  });
-
-  describe('error$', () => {
-    it('should return current error$', () => {
-      let result;
-      const payload: any = {
-        message: 'error'
-      };
-
-      facade.error$.subscribe(value => {
-        result = value;
-      });
-
-      expect(result).toEqual(null);
-      store.dispatch(new CreatePaymentFail(payload));
+      store.dispatch(new SelectPayment(payload));
       expect(result).toEqual(payload);
     });
   });
@@ -185,32 +165,17 @@ describe('PaymentsFacade', () => {
     });
   });
 
-  describe('create()', () => {
-    it('should dispatch a CreatePayment action', () => {
+  describe('select()', () => {
+    it('should dispatch a SelectPayment action', () => {
       const payload: Payment = {
         total: 5000,
         status: false,
         dueDate: new Date()
       };
 
-      const action = new CreatePayment(payload);
+      const action = new SelectPayment(payload);
 
-      facade.create(payload);
-      expect(store.dispatch).toHaveBeenCalledWith(action);
-    });
-  });
-
-  describe('update()', () => {
-    it('should dispatch a UpdatePayment action', () => {
-      const payload: Payment = {
-        total: 5000,
-        status: false,
-        dueDate: new Date()
-      };
-
-      const action = new UpdatePayment(payload);
-
-      facade.update(payload);
+      facade.select(payload);
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });
