@@ -1,1 +1,9 @@
-<Button text="payments-page works!" class="btn btn-primary"></Button>
+<da-payments-list [payments]="payments"
+                  [sorting]="sorting$ | async"
+                  [pagination]="pagination$ | async"
+                  [filter]="filter$ | async"
+                  [count]="count"
+                  [role]="role$ | async"
+                  (paginationChanged)="handlePageChange($event)"
+                  (sortingChanged)="handleSortingChange($event)"
+                  (filterChanged)="handleFilterChange($event)"></da-payments-list>
