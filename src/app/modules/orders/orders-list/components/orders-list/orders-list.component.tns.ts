@@ -1,37 +1,23 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  Output,
-  ViewChild,
   ViewContainerRef
 } from '@angular/core';
 
-import { DEFAULT_LIMIT, ORDER_STATUSES } from '@common/constants';
+import { TNSBaseListComponent } from '@base/TNSBaseListComponent';
+
+import { ORDER_STATUSES } from '@common/constants';
 import { Roles } from '@common/enums';
-import {
-  FilterChangeEvent,
-  PageChangeEvent,
-  SortingChangeEvent
-} from '@common/models';
 
 import {
   ModalDialogOptions,
   ModalDialogService
 } from 'nativescript-angular/modal-dialog';
-import {
-  ListViewEventData,
-  ListViewLoadOnDemandMode,
-  RadListView
-} from 'nativescript-ui-listview';
-import { RadListViewComponent } from 'nativescript-ui-listview/angular';
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
 
-import * as app from 'tns-core-modules/application';
-import { Color } from 'tns-core-modules/color/color';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
-import { getViewById, Page } from 'tns-core-modules/ui/page';
+import { Page } from 'tns-core-modules/ui/page';
 
 import { Order } from '../../../models';
 import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.tns';
@@ -42,21 +28,11 @@ import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.
   styleUrls: ['./orders-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrdersListComponent {
+export class OrdersListComponent extends TNSBaseListComponent<Order> {
   readonly statuses = ORDER_STATUSES;
   readonly roles = Roles;
 
-  data: ObservableArray<Order> | null = null;
-
-  @ViewChild('listView')
-  listViewComponent: RadListViewComponent;
-
-  get listView(): RadListView {
-    return this.listViewComponent.listView;
-  }
-
   @Input() role: number;
-  @Input() count: number;
 
   @Input()
   set orders(orders: Order[]) {
@@ -75,61 +51,12 @@ export class OrdersListComponent {
     this.listView.notifyLoadOnDemandFinished();
   }
 
-  @Input() sorting: SortingChangeEvent;
-  @Input() pagination: PageChangeEvent;
-  @Input() filter: FilterChangeEvent;
-
-  @Output() sortingChanged = new EventEmitter<SortingChangeEvent>();
-  @Output() paginationChanged = new EventEmitter<PageChangeEvent>();
-  @Output() filterChanged = new EventEmitter<FilterChangeEvent>();
-
   constructor(
     private viewContainerRef: ViewContainerRef,
     private modalService: ModalDialogService,
     page: Page
   ) {
-    page.on('unloaded', () => {
-      // wait until parent is destroyed(to remove subscription)
-      setTimeout(() => {
-        const { offset, limit } = this.pagination;
-
-        this.paginationChanged.emit({
-          limit: offset + limit,
-          offset: 0
-        });
-      });
-    });
-  }
-
-  onDrawerButtonTap() {
-    const sideDrawer = <RadSideDrawer>getViewById(app.getRootView(), 'drawer');
-    sideDrawer.toggleDrawerState();
-  }
-
-  onItemLoading(args: ListViewEventData) {
-    if (args.index % 2 !== 0) {
-      args.view.backgroundColor = new Color('#f6f8f9');
-    }
-  }
-
-  onLoadMoreItemsRequested(args: ListViewEventData) {
-    if (!this.data) {
-      return;
-    }
-
-    const listView: RadListView = args.object;
-
-    if (this.data.length >= this.count) {
-      listView.loadOnDemandMode =
-        ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.None];
-      listView.notifyLoadOnDemandFinished();
-      return;
-    }
-
-    this.paginationChanged.emit({
-      limit: this.pagination.limit,
-      offset: this.pagination.offset + DEFAULT_LIMIT
-    });
+    super(page);
   }
 
   async onFilterButtonTap() {
