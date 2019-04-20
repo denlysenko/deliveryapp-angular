@@ -1,1 +1,129 @@
-<Button text="payment-form works!" class="btn btn-primary"></Button>
+<ActionBar class="action-bar">
+  <NavigationButton text="Payments"></NavigationButton>
+  <Label class="action-bar-title"
+         [text]="payment ? 'Payment # ' + payment.id : 'New Order'"></Label>
+  <ActionItem ios.systemIcon="3"
+              ios.position="right"
+              android.position="actionBar"
+              android.systemIcon="ic_menu_save"
+              (tap)="submitForm()"></ActionItem>
+</ActionBar>
+<RadDataForm #dataForm
+             [source]="form">
+  <TKEntityProperty tkDataFormProperty
+                    name="id"
+                    displayName="Num. "
+                    index="0"
+                    readOnly="true">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="Number">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+  </TKEntityProperty>
+  <TKEntityProperty tkDataFormProperty
+                    name="total"
+                    displayName="Total, $" index="1">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="Number">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+    <TKNonEmptyValidator tkEntityPropertyValidators
+                         errorMessage="Required field"></TKNonEmptyValidator>
+  </TKEntityProperty>
+  <TKEntityProperty tkDataFormProperty
+                    name="dueDate"
+                    displayName="Due Date" index="2">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="DatePicker">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+    <TKNonEmptyValidator tkEntityPropertyValidators
+                         errorMessage="Required field"></TKNonEmptyValidator>
+  </TKEntityProperty>
+  <TKEntityProperty tkDataFormProperty
+                    name="paymentAmount"
+                    displayName="Payment Amount" index="3">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="Number">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+  </TKEntityProperty>
+  <TKEntityProperty tkDataFormProperty
+                    name="paymentDate"
+                    displayName="Payment Date" index="4">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="DatePicker">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+  </TKEntityProperty>
+  <TKEntityProperty tkDataFormProperty
+                    name="method"
+                    displayName="Payment Method"
+                    index="5"
+                    [valuesProvider]="methods">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="Picker">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+  </TKEntityProperty>
+  <TKEntityProperty tkDataFormProperty
+                    name="status"
+                    displayName="Paid" index="6">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="Switch">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+  </TKEntityProperty>
+  <TKEntityProperty tkDataFormProperty
+                    name="description"
+                    displayName="Description" index="7">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="MultilineText">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+  </TKEntityProperty>
+  <TKEntityProperty tkDataFormProperty
+                    name="notes"
+                    displayName="Notes" index="8">
+    <TKPropertyEditor tkEntityPropertyEditor
+                      type="MultilineText">
+      <TKPropertyEditorStyle tkPropertyEditorStyle
+                             labelTextSize="14"
+                             labelFontStyle="BoldItalic"
+                             labelPosition="Top"
+                             labelTextColor="#757575"></TKPropertyEditorStyle>
+    </TKPropertyEditor>
+  </TKEntityProperty>
+</RadDataForm>
