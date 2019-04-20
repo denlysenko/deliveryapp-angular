@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
-import { TNSBaseFilterComponent } from '@base/TNSBaseFilterComponent';
+import { TNSBaseFilterComponent } from '@base/TNSBaseFilterComponent.tns';
 
 import { extractSortFieldAndOrder } from '@common/utils';
 

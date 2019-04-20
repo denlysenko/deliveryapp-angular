@@ -5,7 +5,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { TNSBaseListComponent } from '@base/TNSBaseListComponent';
+import { TNSBaseListComponent } from '@base/TNSBaseListComponent.tns';
 
 import { ORDER_STATUSES } from '@common/constants';
 import { Roles } from '@common/enums';

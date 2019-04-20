@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 
-import { TNSBaseFormComponent } from '@base/TNSBaseFormComponent';
+import { TNSBaseFormComponent } from '@base/TNSBaseFormComponent.tns';
 
 import { ValidationError } from '@common/models';
 
