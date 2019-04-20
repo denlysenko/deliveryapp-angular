@@ -9,13 +9,17 @@ import { TNSBaseListComponent } from '@base/TNSBaseListComponent';
 
 import { paymentMethodNames, Roles } from '@common/enums';
 
-import { ModalDialogService } from 'nativescript-angular/modal-dialog';
+import {
+  ModalDialogService,
+  ModalDialogOptions
+} from 'nativescript-angular/modal-dialog';
 import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
 
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
 import { Page } from 'tns-core-modules/ui/page';
 
 import { Payment } from '../../models';
+import { PaymentsFilterComponent } from '../payments-filter/payments-filter.component.tns';
 
 @Component({
   selector: 'da-payments-list',
@@ -55,25 +59,31 @@ export class PaymentsListComponent extends TNSBaseListComponent<Payment> {
   }
 
   async onFilterButtonTap() {
-    // const options: ModalDialogOptions = {
-    //   context: { sorting: this.sorting, filter: this.filter },
-    //   fullscreen: true,
-    //   viewContainerRef: this.viewContainerRef
-    // };
-    // const result = await this.modalService.showModal(
-    //   OrdersFilterComponent,
-    //   options
-    // );
-    // if (!result) {
-    //   return;
-    // }
-    // const { isSorting, isFiltering, ...event } = result;
-    // if (isSorting) {
-    //   this.sortingChanged.emit(event);
-    // }
-    // if (isFiltering) {
-    //   this.filterChanged.emit(event);
-    // }
-    // this.data = null;
+    const options: ModalDialogOptions = {
+      context: { sorting: this.sorting, filter: this.filter },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
+    };
+
+    const result = await this.modalService.showModal(
+      PaymentsFilterComponent,
+      options
+    );
+
+    if (!result) {
+      return;
+    }
+
+    const { isSorting, isFiltering, ...event } = result;
+
+    if (isSorting) {
+      this.sortingChanged.emit(event);
+    }
+
+    if (isFiltering) {
+      this.filterChanged.emit(event);
+    }
+
+    this.data = null;
   }
 }
