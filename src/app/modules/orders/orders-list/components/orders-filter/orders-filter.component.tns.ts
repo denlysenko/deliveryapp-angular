@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
-import { BaseComponent } from '@base/BaseComponent';
+import { TNSBaseFilterComponent } from '@base/TNSBaseFilterComponent';
 
 import { extractSortFieldAndOrder } from '@common/utils';
 
@@ -8,11 +8,7 @@ import { ModalDialogParams } from 'nativescript-angular/modal-dialog';
 
 import { SelectItem } from 'primeng/primeng';
 
-import * as application from 'tns-core-modules/application';
 import { ListPicker } from 'tns-core-modules/ui/list-picker';
-import { SearchBar } from 'tns-core-modules/ui/search-bar';
-
-declare var UISearchBarStyle: any;
 
 @Component({
   selector: 'da-orders-filter',
@@ -20,10 +16,8 @@ declare var UISearchBarStyle: any;
   styleUrls: ['./orders-filter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrdersFilterComponent extends BaseComponent implements OnInit {
-  sortOrder: number;
-  sortField: string;
-  search: string;
+export class OrdersFilterComponent extends TNSBaseFilterComponent
+  implements OnInit {
   selectedFilter = 0;
 
   options: SelectItem[] = [
@@ -47,7 +41,7 @@ export class OrdersFilterComponent extends BaseComponent implements OnInit {
 
   items: string[] = this.options.map(item => item.label);
 
-  constructor(private params: ModalDialogParams) {
+  constructor(protected params: ModalDialogParams) {
     super();
   }
 
@@ -68,40 +62,9 @@ export class OrdersFilterComponent extends BaseComponent implements OnInit {
     }
   }
 
-  onSearchLoaded(args) {
-    const sb = <SearchBar>args.object;
-
-    if (application.ios) {
-      sb.ios.searchBarStyle = UISearchBarStyle.UISearchBarStyleMinimal;
-    } else {
-      sb.android.clearFocus();
-    }
-  }
-
-  sort(field: string) {
-    const sortOrder = this.sortField === field ? this.sortOrder * -1 : 1;
-    const request = {
-      [`order[${field}]`]: sortOrder === 1 ? 'asc' : 'desc',
-      isSorting: true
-    };
-
-    this.params.closeCallback(request);
-  }
-
   selectedIndexChanged(args) {
     const picker = <ListPicker>args.object;
     this.selectedFilter = picker.selectedIndex;
-  }
-
-  onTextChanged(args) {
-    const searchBar = <SearchBar>args.object;
-    this.search = searchBar.text;
-  }
-
-  onSubmit(args) {
-    const searchBar = <SearchBar>args.object;
-    this.search = searchBar.text;
-    this.onApplyTap();
   }
 
   onApplyTap() {
@@ -111,9 +74,5 @@ export class OrdersFilterComponent extends BaseComponent implements OnInit {
     };
 
     this.params.closeCallback(request);
-  }
-
-  onCloseTap() {
-    this.params.closeCallback(null);
   }
 }
