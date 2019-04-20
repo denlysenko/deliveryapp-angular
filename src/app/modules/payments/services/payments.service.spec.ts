@@ -159,6 +159,31 @@ describe('PaymentsService', () => {
     }));
   });
 
+  describe('getPayment()', () => {
+    it('should send GET request', fakeAsync(() => {
+      const http = TestBed.get(HttpTestingController);
+      const id = 1;
+      const payload: Payment = {
+        id,
+        total: 5000,
+        status: false,
+        dueDate: new Date()
+      };
+
+      service.getPayment(id).subscribe(res => {
+        expect(res).toEqual(payload);
+      });
+
+      const req = http.expectOne(`${environment.apiUrl}/payments/${id}`);
+
+      expect(req.request.method).toBe('GET');
+
+      req.flush(payload);
+
+      tick();
+    }));
+  });
+
   describe('createPayment()', () => {
     it('should send POST request', fakeAsync(() => {
       const http = TestBed.get(HttpTestingController);
