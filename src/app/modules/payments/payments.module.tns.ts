@@ -3,6 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
+import { NativeScriptUIAutoCompleteTextViewModule } from 'nativescript-ui-autocomplete/angular';
 import { NativeScriptUIDataFormModule } from 'nativescript-ui-dataform/angular';
 import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
 
@@ -28,6 +29,7 @@ import { PaymentResolver } from './resolvers/payment.resolver';
     NativeScriptRouterModule,
     NativeScriptUIListViewModule,
     NativeScriptUIDataFormModule,
+    NativeScriptUIAutoCompleteTextViewModule,
     TNSFontIconModule,
     PaymentsRoutingModule,
     ...importDeclarations

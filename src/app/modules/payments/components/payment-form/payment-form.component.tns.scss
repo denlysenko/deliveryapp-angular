@@ -1,1 +1,19 @@
-/* Add mobile styles for the component here.  */
+.autocomplete {
+  font-size: 14;
+  margin-top: 10;
+  margin-left: 10;
+  border-bottom-width: 0.8;
+  border-bottom-color: #c7cdd1;
+
+  .label {
+    font-weight: bold;
+    font-style: italic;
+    color: #757575;
+  }
+
+  .item {
+    margin: 0;
+    background-color: #dee4e9;
+    padding: 18 8;
+  }
+}

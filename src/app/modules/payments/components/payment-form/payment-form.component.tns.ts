@@ -1,12 +1,12 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
-  Output
+  Output,
+  ViewChild
 } from '@angular/core';
-
-import { User } from '@auth/models';
 
 import { TNSBaseFormComponent } from '@base/TNSBaseFormComponent.tns';
 
@@ -19,7 +19,9 @@ import { OrdersService } from '@orders/services/orders.service';
 
 import { UsersService } from '@users/services/users.service';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { TokenModel } from 'nativescript-ui-autocomplete';
+import { RadAutoCompleteTextViewComponent } from 'nativescript-ui-autocomplete/angular';
+
 import { map } from 'rxjs/operators';
 
 import { Payment } from '../../models';
@@ -30,7 +32,8 @@ import { Payment } from '../../models';
   styleUrls: ['./payment-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaymentFormComponent extends TNSBaseFormComponent {
+export class PaymentFormComponent extends TNSBaseFormComponent
+  implements AfterViewInit {
   readonly roles = Roles;
 
   readonly methods = [
@@ -45,7 +48,12 @@ export class PaymentFormComponent extends TNSBaseFormComponent {
   ];
 
   form: any;
-  client: User;
+
+  @ViewChild('ordersAutocomplete')
+  ordersAutocomplete: RadAutoCompleteTextViewComponent;
+
+  @ViewChild('clientAutocomplete')
+  clientAutocomplete: RadAutoCompleteTextViewComponent;
 
   @Input() role: number;
   @Input() loading: boolean;
@@ -69,8 +77,6 @@ export class PaymentFormComponent extends TNSBaseFormComponent {
   @Output() submitted = new EventEmitter<Partial<Payment>>();
 
   private _payment: Payment = null;
-  private orders = new BehaviorSubject<number[] | null>(null);
-  private clients = new BehaviorSubject<User[] | null>(null);
 
   constructor(
     private ordersService: OrdersService,
@@ -84,12 +90,52 @@ export class PaymentFormComponent extends TNSBaseFormComponent {
     return this.role === this.roles.CLIENT;
   }
 
-  get orders$(): Observable<number[] | null> {
-    return this.orders.asObservable();
+  ngAfterViewInit() {
+    this.ordersAutocomplete.autoCompleteTextView.loadSuggestionsAsync = query => {
+      return new Promise(resolve => {
+        this.ordersService
+          .getOrders({ 'filter[id]': query })
+          .pipe(
+            map(response => response.rows),
+            map(orders =>
+              orders.map(order => new TokenModel(order.id.toString(), null))
+            )
+          )
+          .subscribe(orders => resolve(orders));
+      });
+    };
+
+    this.clientAutocomplete.autoCompleteTextView.loadSuggestionsAsync = query => {
+      return new Promise(resolve => {
+        this.usersService
+          .getUsers({ 'filter[role]': Roles.CLIENT, 'filter[email]': query })
+          .pipe(
+            map(response => response.rows),
+            map(clients =>
+              clients.map(client => new TokenModel(client.email, null))
+            )
+          )
+          .subscribe(clients => resolve(clients));
+      });
+    };
   }
 
-  get clients$(): Observable<User[] | null> {
-    return this.clients.asObservable();
+  populateOrders() {
+    if (this.payment && this.payment.orders && this.payment.orders.length) {
+      this.payment.orders.forEach(order =>
+        this.ordersAutocomplete.autoCompleteTextView.addToken(
+          new TokenModel(order.id.toString(), null)
+        )
+      );
+    }
+  }
+
+  populateClient() {
+    if (this.payment && this.payment.client) {
+      this.clientAutocomplete.autoCompleteTextView.addToken(
+        new TokenModel(this.payment.client.email, null)
+      );
+    }
   }
 
   async submitForm() {
@@ -104,25 +150,8 @@ export class PaymentFormComponent extends TNSBaseFormComponent {
     }
   }
 
-  searchOrder({ query }) {
-    this.ordersService
-      .getOrders({ 'filter[id]': query })
-      .pipe(
-        map(response => response.rows),
-        map(orders => orders.map(order => order.id))
-      )
-      .subscribe(orders => this.orders.next(orders));
-  }
-
-  searchClient({ query }) {
-    this.usersService
-      .getUsers({ 'filter[role]': Roles.CLIENT, 'filter[email]': query })
-      .pipe(map(response => response.rows))
-      .subscribe(users => this.clients.next(users));
-  }
-
   selectClient({ id }) {
-    this.form.patchValue({ clientId: id });
+    // this.form.patchValue({ clientId: id });
   }
 
   // tslint:disable-next-line:cognitive-complexity
@@ -144,14 +173,8 @@ export class PaymentFormComponent extends TNSBaseFormComponent {
           new Date(this.payment.paymentDate)) ||
         null,
       notes: (this.payment && this.payment.notes) || null,
-      description: (this.payment && this.payment.description) || null
-      // clientId: (this.payment && this.payment.clientId) || null,
-      // orders:
-      //   (this.payment &&
-      //     this.payment.orders &&
-      //     this.payment.orders.length &&
-      //     this.payment.orders.map(order => order.id)) ||
-      //   null
+      description: (this.payment && this.payment.description) || null,
+      clientId: (this.payment && this.payment.clientId) || null
     };
   }
 }
