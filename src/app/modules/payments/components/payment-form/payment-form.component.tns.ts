@@ -8,6 +8,8 @@ import {
   ViewChild
 } from '@angular/core';
 
+import { User } from '@auth/models';
+
 import { TNSBaseFormComponent } from '@base/TNSBaseFormComponent.tns';
 
 import { PaymentMethod, paymentMethodNames, Roles } from '@common/enums';
@@ -22,7 +24,7 @@ import { UsersService } from '@users/services/users.service';
 import { TokenModel } from 'nativescript-ui-autocomplete';
 import { RadAutoCompleteTextViewComponent } from 'nativescript-ui-autocomplete/angular';
 
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { Payment } from '../../models';
 
@@ -48,6 +50,8 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   ];
 
   form: any;
+  ordersValid = true;
+  clientValid = true;
 
   @ViewChild('ordersAutocomplete')
   ordersAutocomplete: RadAutoCompleteTextViewComponent;
@@ -77,6 +81,7 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   @Output() submitted = new EventEmitter<Partial<Payment>>();
 
   private _payment: Payment = null;
+  private clients: User[] = [];
 
   constructor(
     private ordersService: OrdersService,
@@ -111,6 +116,9 @@ export class PaymentFormComponent extends TNSBaseFormComponent
           .getUsers({ 'filter[role]': Roles.CLIENT, 'filter[email]': query })
           .pipe(
             map(response => response.rows),
+            tap(clients => {
+              this.clients = clients;
+            }),
             map(clients =>
               clients.map(client => new TokenModel(client.email, null))
             )
@@ -130,6 +138,21 @@ export class PaymentFormComponent extends TNSBaseFormComponent
     }
   }
 
+  addOrder(args) {
+    const id = args.token ? args.token.text : args.text;
+
+    this.form.orders.push(parseInt(id, 10));
+    this.form.orders = [...new Set(this.form.orders)];
+  }
+
+  removeOrder(args) {
+    const id = args.token ? args.token.text : args.text;
+
+    this.form.orders = this.form.orders.filter(
+      item => item !== parseInt(id, 10)
+    );
+  }
+
   populateClient() {
     if (this.payment && this.payment.client) {
       this.clientAutocomplete.autoCompleteTextView.addToken(
@@ -138,20 +161,34 @@ export class PaymentFormComponent extends TNSBaseFormComponent
     }
   }
 
+  selectClient(args) {
+    console.log(args.text);
+    const client = this.clients.find(item => item.email === args.text);
+
+    if (client) {
+      this.form.clientId = client.id;
+    }
+  }
+
+  onClientTextChange(args) {
+    this.clientValid = true;
+
+    if (args.text === '') {
+      this.form.clientId = null;
+    }
+  }
+
   async submitForm() {
     if (this.loading) {
       return;
     }
 
-    const isValid = await this.dataform.validateAll();
+    const isFormValid = await this.dataform.validateAll();
+    const isOrdersAndClientValid = this.validateOrdersAndClient();
 
-    if (isValid) {
+    if (isFormValid && isOrdersAndClientValid) {
       this.submitted.emit(this.form);
     }
-  }
-
-  selectClient({ id }) {
-    // this.form.patchValue({ clientId: id });
   }
 
   // tslint:disable-next-line:cognitive-complexity
@@ -174,7 +211,24 @@ export class PaymentFormComponent extends TNSBaseFormComponent
         null,
       notes: (this.payment && this.payment.notes) || null,
       description: (this.payment && this.payment.description) || null,
-      clientId: (this.payment && this.payment.clientId) || null
+      clientId: (this.payment && this.payment.clientId) || null,
+      orders:
+        (this.payment &&
+          this.payment.orders &&
+          this.payment.orders.map(order => order.id)) ||
+        []
     };
+  }
+
+  private validateOrdersAndClient(): boolean {
+    if (!this.form.clientId) {
+      this.clientValid = false;
+    }
+
+    if (!this.form.orders.length) {
+      this.ordersValid = false;
+    }
+
+    return this.clientValid && this.ordersValid;
   }
 }

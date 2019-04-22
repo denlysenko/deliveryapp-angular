@@ -139,6 +139,10 @@
                         name="clientId"
                         [hidden]="true">
       </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="orders"
+                        [hidden]="true">
+      </TKEntityProperty>
     </RadDataForm>
     <StackLayout class="autocomplete">
       <Label class="label"
@@ -147,7 +151,10 @@
                                noResultsText="Not found!"
                                suggestMode="Suggest"
                                displayMode="Tokens"
-                               (loaded)="populateOrders()">
+                               (loaded)="populateOrders()"
+                               (textChanged)="ordersValid = true"
+                               (didAutoComplete)="addOrder($event)"
+                               (tokenRemoved)="removeOrder($event)">
         <SuggestionView tkAutoCompleteSuggestionView
                         suggestionViewHeight="110">
           <ng-template tkSuggestionItemTemplate
@@ -158,6 +165,9 @@
           </ng-template>
         </SuggestionView>
       </RadAutoCompleteTextView>
+      <Label *ngIf="!ordersValid"
+             class="error-message"
+             text="Required field"></Label>
     </StackLayout>
     <StackLayout class="autocomplete">
       <Label class="label"
@@ -166,7 +176,9 @@
                                noResultsText="Not found!"
                                suggestMode="Suggest"
                                displayMode="Plain"
-                               (loaded)="populateClient()">
+                               (loaded)="populateClient()"
+                               (textChanged)="onClientTextChange($event)"
+                               (didAutoComplete)="selectClient($event)">
         <SuggestionView tkAutoCompleteSuggestionView
                         suggestionViewHeight="110">
           <ng-template tkSuggestionItemTemplate
@@ -177,6 +189,9 @@
           </ng-template>
         </SuggestionView>
       </RadAutoCompleteTextView>
+      <Label *ngIf="!clientValid"
+             class="error-message"
+             text="Required field"></Label>
     </StackLayout>
   </StackLayout>
 </ScrollView>
