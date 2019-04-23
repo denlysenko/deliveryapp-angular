@@ -1,5 +1,5 @@
-import { Roles } from './enums/roles.enum';
-import { AppMenuItem } from './models';
+import { Roles } from '@common/enums';
+import { AppMenuItem } from '@common/models';
 
 export const appMenu: AppMenuItem[] = [
   {

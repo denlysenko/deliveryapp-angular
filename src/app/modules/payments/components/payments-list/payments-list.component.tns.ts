@@ -7,37 +7,36 @@ import {
 
 import { TNSBaseListComponent } from '@base/TNSBaseListComponent.tns';
 
-import { ORDER_STATUSES } from '@common/constants';
-import { Roles } from '@common/enums';
+import { paymentMethodNames, Roles } from '@common/enums';
 
 import {
-  ModalDialogOptions,
-  ModalDialogService
+  ModalDialogService,
+  ModalDialogOptions
 } from 'nativescript-angular/modal-dialog';
 import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
 
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
 import { Page } from 'tns-core-modules/ui/page';
 
-import { Order } from '../../../models';
-import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.tns';
+import { Payment } from '../../models';
+import { PaymentsFilterComponent } from '../payments-filter/payments-filter.component.tns';
 
 @Component({
-  selector: 'da-orders-list',
-  templateUrl: './orders-list.component.tns.html',
-  styleUrls: ['./orders-list.component.scss'],
+  selector: 'da-payments-list',
+  templateUrl: './payments-list.component.tns.html',
+  styleUrls: ['./payments-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrdersListComponent extends TNSBaseListComponent<Order> {
-  readonly statuses = ORDER_STATUSES;
+export class PaymentsListComponent extends TNSBaseListComponent<Payment> {
   readonly roles = Roles;
+  readonly methods = paymentMethodNames;
 
   @Input() role: number;
 
   @Input()
-  set orders(orders: Order[]) {
+  set payments(payments: Payment[]) {
     if (!this.data) {
-      this.data = new ObservableArray(orders);
+      this.data = new ObservableArray(payments);
       this.listViewComponent.listView.loadOnDemandMode =
         ListViewLoadOnDemandMode[
           this.data.length >= this.count
@@ -45,7 +44,7 @@ export class OrdersListComponent extends TNSBaseListComponent<Order> {
             : ListViewLoadOnDemandMode.Auto
         ];
     } else {
-      this.data.push(orders);
+      this.data.push(payments);
     }
 
     this.listView.notifyLoadOnDemandFinished();
@@ -67,7 +66,7 @@ export class OrdersListComponent extends TNSBaseListComponent<Order> {
     };
 
     const result = await this.modalService.showModal(
-      OrdersFilterComponent,
+      PaymentsFilterComponent,
       options
     );
 

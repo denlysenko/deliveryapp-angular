@@ -5,7 +5,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { appMenu } from '@common/app-menu';
+import { appMenu } from '../../app-menu';
 
 @Component({
   selector: 'da-app-menu',

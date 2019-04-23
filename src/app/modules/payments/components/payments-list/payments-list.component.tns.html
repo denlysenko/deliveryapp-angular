@@ -1,1 +1,138 @@
-<Button text="payments-list works!" class="btn btn-primary"></Button>
+<ActionBar class="action-bar">
+  <NavigationButton ios:visibility="collapsed"
+                    icon="res://menu"
+                    (tap)="onDrawerButtonTap()"></NavigationButton>
+  <ActionItem icon="res://navigation/menu"
+              android:visibility="collapsed"
+              ios.position="left"
+              (tap)="onDrawerButtonTap()">
+  </ActionItem>
+  <Label class="action-bar-title"
+         text="Payments"></Label>
+  <ActionItem ios:visibility="collapsed"
+              icon="res://filter"
+              (tap)="onFilterButtonTap()">
+  </ActionItem>
+  <ActionItem android:visibility="collapsed"
+              icon="res://navigation/filter"
+              ios.position="right"
+              (tap)="onFilterButtonTap()">
+  </ActionItem>
+  <ActionItem *ngIf="role !== roles.CLIENT"
+              ios.systemIcon="4"
+              ios.position="right"
+              android.systemIcon="ic_menu_add"
+              android.position="actionBar"
+              [nsRouterLink]="['/payments/create']"></ActionItem>
+</ActionBar>
+<RadListView #listView
+             [items]="data"
+             (itemLoading)="onItemLoading($event)"
+             (loadMoreDataRequested)="onLoadMoreItemsRequested($event)">
+  <ng-template tkListItemTemplate
+               let-payment="item"
+               let-i="index">
+    <GridLayout class="list-item"
+                [class.first]="i === 0"
+                columns="*, auto"
+                [nsRouterLink]="['/payments', payment.id]">
+      <StackLayout col="0">
+        <GridLayout rows="*, *, *, *, *, *, *">
+          <GridLayout row="0"
+                      col="0">
+            <GridLayout columns="*, auto">
+              <Label col="0"
+                     text="Num: "
+                     class="font-weight-bold"></Label>
+              <Label col="1"
+                     class="text-right"
+                     textWrap="true"
+                     [text]="payment.id"></Label>
+            </GridLayout>
+          </GridLayout>
+          <GridLayout row="1"
+                      col="0">
+            <GridLayout columns="*, *">
+              <Label col="0"
+                     text="Total: "
+                     class="font-weight-bold"></Label>
+              <Label col="1"
+                     class="text-right"
+                     textWrap="true"
+                     [text]="payment.total | currency"></Label>
+            </GridLayout>
+          </GridLayout>
+          <GridLayout row="2"
+                      col="0">
+            <GridLayout columns="*, auto">
+              <Label col="0"
+                     text="Payment Status: "
+                     class="font-weight-bold"></Label>
+              <Label col="1"
+                     textWrap="true"
+                     [class.text-danger]="!payment.status"
+                     [class.text-success]="payment.status"
+                     class="text-right"
+                     [text]="payment.status ? 'Paid' : 'Not Paid'"></Label>
+            </GridLayout>
+          </GridLayout>
+          <GridLayout row="3"
+                      col="0">
+            <GridLayout columns="*, auto">
+              <Label col="0"
+                     text="Payment Method: "
+                     class="font-weight-bold"></Label>
+              <Label col="1"
+                     textWrap="true"
+                     class="text-right"
+                     [text]="methods[payment.method]"></Label>
+            </GridLayout>
+          </GridLayout>
+          <GridLayout row="4"
+                      col="0">
+            <GridLayout columns="*, auto">
+              <Label col="0"
+                     text="Due Date: "
+                     class="font-weight-bold"></Label>
+              <Label col="1"
+                     textWrap="true"
+                     class="text-right"
+                     [text]="payment.dueDate | date: 'dd.MM.yyyy'"></Label>
+            </GridLayout>
+          </GridLayout>
+          <GridLayout row="5"
+                      col="0">
+            <GridLayout columns="*, auto">
+              <Label col="0"
+                     text="CreatedAt: "
+                     class="font-weight-bold"></Label>
+              <Label col="1"
+                     textWrap="true"
+                     class="text-right"
+                     [text]="payment.createdAt | date: 'dd.MM.yyyy'"></Label>
+            </GridLayout>
+          </GridLayout>
+          <GridLayout *ngIf="role !== roles.CLIENT"
+                      row="6"
+                      col="0">
+            <GridLayout columns="*, auto">
+              <Label col="0"
+                     text="Client: "
+                     class="font-weight-bold"></Label>
+              <Label col="1"
+                     textWrap="true"
+                     class="text-right"
+                     [text]="payment.client?.email"></Label>
+            </GridLayout>
+          </GridLayout>
+        </GridLayout>
+      </StackLayout>
+      <StackLayout col="1"
+                   verticalAlignment="center"
+                   class="m-l-10">
+        <Label class="fa angle"
+               [text]="'fa-angle-right' | fonticon"></Label>
+      </StackLayout>
+    </GridLayout>
+  </ng-template>
+</RadListView>

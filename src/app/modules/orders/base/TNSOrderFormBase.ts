@@ -1,6 +1,6 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 
-import { TNSBaseFormComponent } from '@base/TNSBaseFormComponent';
+import { TNSBaseFormComponent } from '@base/TNSBaseFormComponent.tns';
 
 import { Roles } from '@common/enums';
 import { ValidationError } from '@common/models';

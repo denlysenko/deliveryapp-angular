@@ -20,6 +20,10 @@ export class PaymentsService {
     return this.apiService.get('/payments', query);
   }
 
+  getPayment(id: number): Observable<Payment> {
+    return this.apiService.get(`/payments/${id}`);
+  }
+
   createPayment(payment: Payment): Observable<Payment> {
     return this.apiService.post('/payments', payment);
   }
