@@ -18,7 +18,8 @@
               ios.position="right"
               (tap)="onFilterButtonTap()">
   </ActionItem>
-  <ActionItem ios.systemIcon="4"
+  <ActionItem *ngIf="role !== roles.CLIENT"
+              ios.systemIcon="4"
               ios.position="right"
               android.systemIcon="ic_menu_add"
               android.position="actionBar"

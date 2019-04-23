@@ -1,1 +1,5 @@
-<da-payment-form [payment]="payment$ | async"></da-payment-form>
+<da-payment-form [payment]="payment$ | async"
+                 [role]="role$ | async"
+                 [loading]="loading$ | async"
+                 [error]="error$ | async"
+                 (submitted)="save($event)"></da-payment-form>

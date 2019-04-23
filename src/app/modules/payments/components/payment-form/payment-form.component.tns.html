@@ -2,7 +2,8 @@
   <NavigationButton text="Payments"></NavigationButton>
   <Label class="action-bar-title"
          [text]="payment ? 'Payment # ' + payment.id : 'New Order'"></Label>
-  <ActionItem ios.systemIcon="3"
+  <ActionItem *ngIf="!isClient"
+              ios.systemIcon="3"
               ios.position="right"
               android.position="actionBar"
               android.systemIcon="ic_menu_save"
@@ -29,7 +30,8 @@
       <TKEntityProperty tkDataFormProperty
                         name="total"
                         displayName="Total, $"
-                        index="1">
+                        index="1"
+                        [readOnly]="isClient">
         <TKPropertyEditor tkEntityPropertyEditor
                           type="Number">
           <TKPropertyEditorStyle tkPropertyEditorStyle
@@ -44,7 +46,8 @@
       <TKEntityProperty tkDataFormProperty
                         name="dueDate"
                         displayName="Due Date"
-                        index="2">
+                        index="2"
+                        [readOnly]="isClient">
         <TKPropertyEditor tkEntityPropertyEditor
                           type="DatePicker">
           <TKPropertyEditorStyle tkPropertyEditorStyle
@@ -59,7 +62,8 @@
       <TKEntityProperty tkDataFormProperty
                         name="paymentAmount"
                         displayName="Payment Amount"
-                        index="3">
+                        index="3"
+                        [readOnly]="isClient">
         <TKPropertyEditor tkEntityPropertyEditor
                           type="Number">
           <TKPropertyEditorStyle tkPropertyEditorStyle
@@ -72,7 +76,8 @@
       <TKEntityProperty tkDataFormProperty
                         name="paymentDate"
                         displayName="Payment Date"
-                        index="4">
+                        index="4"
+                        [readOnly]="isClient">
         <TKPropertyEditor tkEntityPropertyEditor
                           type="DatePicker">
           <TKPropertyEditorStyle tkPropertyEditorStyle
@@ -86,7 +91,8 @@
                         name="method"
                         displayName="Payment Method"
                         index="5"
-                        [valuesProvider]="methods">
+                        [valuesProvider]="methods"
+                        [readOnly]="isClient">
         <TKPropertyEditor tkEntityPropertyEditor
                           type="Picker">
           <TKPropertyEditorStyle tkPropertyEditorStyle
@@ -99,7 +105,8 @@
       <TKEntityProperty tkDataFormProperty
                         name="status"
                         displayName="Paid"
-                        index="6">
+                        index="6"
+                        [readOnly]="isClient">
         <TKPropertyEditor tkEntityPropertyEditor
                           type="Switch">
           <TKPropertyEditorStyle tkPropertyEditorStyle
@@ -112,7 +119,8 @@
       <TKEntityProperty tkDataFormProperty
                         name="description"
                         displayName="Description"
-                        index="7">
+                        index="7"
+                        [readOnly]="isClient">
         <TKPropertyEditor tkEntityPropertyEditor
                           type="MultilineText">
           <TKPropertyEditorStyle tkPropertyEditorStyle
@@ -125,7 +133,8 @@
       <TKEntityProperty tkDataFormProperty
                         name="notes"
                         displayName="Notes"
-                        index="8">
+                        index="8"
+                        [readOnly]="isClient">
         <TKPropertyEditor tkEntityPropertyEditor
                           type="MultilineText">
           <TKPropertyEditorStyle tkPropertyEditorStyle
@@ -151,8 +160,9 @@
                                noResultsText="Not found!"
                                suggestMode="Suggest"
                                displayMode="Tokens"
+                               [readOnly]="isClient"
                                (loaded)="populateOrders()"
-                               (textChanged)="ordersValid = true"
+                               (textChanged)="ordersFieldValid = true"
                                (didAutoComplete)="addOrder($event)"
                                (tokenRemoved)="removeOrder($event)">
         <SuggestionView tkAutoCompleteSuggestionView
@@ -165,7 +175,7 @@
           </ng-template>
         </SuggestionView>
       </RadAutoCompleteTextView>
-      <Label *ngIf="!ordersValid"
+      <Label *ngIf="!ordersFieldValid"
              class="error-message"
              text="Required field"></Label>
     </StackLayout>
@@ -176,6 +186,7 @@
                                noResultsText="Not found!"
                                suggestMode="Suggest"
                                displayMode="Plain"
+                               [readOnly]="isClient"
                                (loaded)="populateClient()"
                                (textChanged)="onClientTextChange($event)"
                                (didAutoComplete)="selectClient($event)">
@@ -189,7 +200,7 @@
           </ng-template>
         </SuggestionView>
       </RadAutoCompleteTextView>
-      <Label *ngIf="!clientValid"
+      <Label *ngIf="!clientFieldValid"
              class="error-message"
              text="Required field"></Label>
     </StackLayout>

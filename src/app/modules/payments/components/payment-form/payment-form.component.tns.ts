@@ -50,8 +50,8 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   ];
 
   form: any;
-  ordersValid = true;
-  clientValid = true;
+  ordersFieldValid = true;
+  clientFieldValid = true;
 
   @ViewChild('ordersAutocomplete')
   ordersAutocomplete: RadAutoCompleteTextViewComponent;
@@ -140,14 +140,12 @@ export class PaymentFormComponent extends TNSBaseFormComponent
 
   addOrder(args) {
     const id = args.token ? args.token.text : args.text;
-
     this.form.orders.push(parseInt(id, 10));
     this.form.orders = [...new Set(this.form.orders)];
   }
 
   removeOrder(args) {
     const id = args.token ? args.token.text : args.text;
-
     this.form.orders = this.form.orders.filter(
       item => item !== parseInt(id, 10)
     );
@@ -162,7 +160,6 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   }
 
   selectClient(args) {
-    console.log(args.text);
     const client = this.clients.find(item => item.email === args.text);
 
     if (client) {
@@ -171,7 +168,7 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   }
 
   onClientTextChange(args) {
-    this.clientValid = true;
+    this.clientFieldValid = true;
 
     if (args.text === '') {
       this.form.clientId = null;
@@ -222,13 +219,13 @@ export class PaymentFormComponent extends TNSBaseFormComponent
 
   private validateOrdersAndClient(): boolean {
     if (!this.form.clientId) {
-      this.clientValid = false;
+      this.clientFieldValid = false;
     }
 
     if (!this.form.orders.length) {
-      this.ordersValid = false;
+      this.ordersFieldValid = false;
     }
 
-    return this.clientValid && this.ordersValid;
+    return this.clientFieldValid && this.ordersFieldValid;
   }
 }
