@@ -84,7 +84,7 @@
                         (onSelect)="selectClient($event)"></p-autoComplete>
         <label>Client</label>
       </div>
-      <div *ngIf="form.get('clientId').invalid && form.get('clientId').touched"
+      <div *ngIf="form.get('clientId') && form.get('clientId').invalid && form.get('clientId').touched"
            class="ui-message ui-message-error ui-corner-all">
         <i class="fa fa-close"></i>
         <span *ngIf="form.get('clientId').hasError('required')">Required field</span>

@@ -77,10 +77,6 @@ describe('CreateOrderPageComponent', () => {
     expect(component.error$).toBeDefined();
   });
 
-  it('should have `clients$` defined', () => {
-    expect(component.clients$).toBeDefined();
-  });
-
   it('should have `role$` defined', () => {
     expect(component.role$).toBeDefined();
   });
