@@ -10,6 +10,7 @@ import { switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { User, UsersFilter } from '../models';
 import { UsersService } from '../services/users.service';
+import { UsersFacade } from '../store';
 
 @Injectable()
 export class UsersResolver implements Resolve<ListResponse<User>> {

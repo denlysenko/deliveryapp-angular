@@ -7,6 +7,6 @@ export interface UsersFilter {
   'order[id]'?: 'asc' | 'desc';
   'order[firstName]'?: 'asc' | 'desc';
   'order[lastName]'?: 'asc' | 'desc';
-  limit?: number;
-  offset?: number;
+  limit: number;
+  offset: number;
 }

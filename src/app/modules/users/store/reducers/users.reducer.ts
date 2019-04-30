@@ -1,4 +1,5 @@
 import { DEFAULT_LIMIT } from '@common/constants';
+import { Roles } from '@common/enums';
 import {
   FilterChangeEvent,
   PageChangeEvent,
@@ -17,7 +18,10 @@ export interface UsersState {
 
 export const initialState: UsersState = {
   current: null,
-  filter: {},
+  filter: {
+    'filter[role][0]': Roles.MANAGER.toString(),
+    'filter[role][1]': Roles.ADMIN.toString()
+  },
   sorting: {
     'order[id]': 'asc'
   },
