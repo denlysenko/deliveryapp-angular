@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class UsersService {
   constructor(private apiService: ApiService) {}
 
-  getUsers(query?: UsersFilter): Observable<ListResponse<User>> {
+  getUsers(query?: Partial<UsersFilter>): Observable<ListResponse<User>> {
     return this.apiService.get('/users', query);
   }
 
