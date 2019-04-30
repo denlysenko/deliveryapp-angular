@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 
+import { ButtonModule, DropdownModule, InputTextModule } from 'primeng/primeng';
+
 import { components } from './components';
 import { containers } from './containers';
 import { UsersResolver } from './resolvers/users.resolver';
@@ -17,7 +19,10 @@ import { UsersRoutingModule } from './users-routing.module';
     CommonModule,
     StoreModule.forFeature('users', usersReducer),
     ReactiveFormsModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    ButtonModule,
+    DropdownModule,
+    InputTextModule
   ],
   providers: [UsersService, UsersResolver, UsersFacade]
 })

@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
+import { Roles } from '@common/enums';
 import {
   FilterChangeEvent,
   PageChangeEvent,
@@ -70,7 +71,11 @@ describe('Users Selectors', () => {
       });
 
       store.dispatch(new FilterChange(payload));
-      expect(result).toEqual(payload);
+      expect(result).toEqual({
+        'filter[role][0]': Roles.MANAGER.toString(),
+        'filter[role][1]': Roles.ADMIN.toString(),
+        ...payload
+      });
     });
   });
 
@@ -123,6 +128,8 @@ describe('Users Selectors', () => {
 
       store.dispatch(new FilterChange(payload));
       expect(result).toEqual({
+        'filter[role][0]': Roles.MANAGER.toString(),
+        'filter[role][1]': Roles.ADMIN.toString(),
         'filter[smth]': 'test',
         'order[id]': 'asc',
         offset: 0,

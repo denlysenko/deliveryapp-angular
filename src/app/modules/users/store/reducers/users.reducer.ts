@@ -46,7 +46,10 @@ export function usersReducer(
     case UsersActionTypes.FILTER_CHANGE: {
       return {
         ...state,
-        filter: action.payload,
+        filter: {
+          ...state.filter,
+          ...action.payload
+        },
         pagination: {
           ...state.pagination,
           offset: 0

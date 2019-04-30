@@ -64,7 +64,11 @@ describe('UsersFacade', () => {
       });
 
       store.dispatch(new FilterChange(payload));
-      expect(result).toEqual(payload);
+      expect(result).toEqual({
+        'filter[role][0]': Roles.MANAGER.toString(),
+        'filter[role][1]': Roles.ADMIN.toString(),
+        ...payload
+      });
     });
   });
 

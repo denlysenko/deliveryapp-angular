@@ -1,3 +1,27 @@
-<p>
-  users-page works!
-</p>
+<div class="ui-g">
+  <div class="ui-lg-3 ui-md-4">
+    <div class="card">
+      <da-user-form></da-user-form>
+    </div>
+  </div>
+  <div class="ui-lg-9 ui-md-8">
+    <div class="card">
+      <div class="topbar ui-g">
+        <da-users-filter class="ui-md-8 ui-g-12"
+                         [filter]="filter$ | async"
+                         (filterChanged)="handleFilterChange($event)"></da-users-filter>
+        <div class="button ui-md-4 ui-g-12">
+          <button pButton
+                  type="button"
+                  label="Create user"
+                  icon="fa fa-plus"
+                  iconPos="left"
+                  class="raised-btn"></button>
+        </div>
+      </div>
+      <div class="list">
+        <da-users-list></da-users-list>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { Roles } from '@common/enums';
 import {
   FilterChangeEvent,
   PageChangeEvent,
@@ -42,7 +43,11 @@ describe('UsersReducer', () => {
       const action = new FilterChange(payload);
       const { filter } = usersReducer(initialState, action);
 
-      expect(filter).toEqual(payload);
+      expect(filter).toEqual({
+        'filter[role][0]': Roles.MANAGER.toString(),
+        'filter[role][1]': Roles.ADMIN.toString(),
+        ...payload
+      });
     });
   });
 
