@@ -7,15 +7,12 @@ import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
 
 import { OrdersFilterComponent } from './components/orders-filter/orders-filter.component.tns';
 import { OrdersListComponent } from './components/orders-list/orders-list.component.tns';
-import {
-  componentDeclarations,
-  importDeclarations,
-  providerDeclarations
-} from './orders-list.common';
+import { OrdersPageComponent } from './containers/orders-page/orders-page.component.tns';
+import { importDeclarations, providerDeclarations } from './orders-list.common';
 
 @NgModule({
   declarations: [
-    ...componentDeclarations,
+    OrdersPageComponent,
     OrdersListComponent,
     OrdersFilterComponent
   ],

@@ -71,13 +71,25 @@
         <span *ngIf="form.get('addressTo').hasError('serverError')">{{ errors['addressTo'] }}</span>
       </div>
     </div>
-    <div *ngIf="role !== roles.CLIENT && clients"
+    <div *ngIf="role !== roles.CLIENT"
          class="ui-g-12 ui-md-6 ui-md-offset-3">
-      <label>Client</label>
-      <p-dropdown [options]="clients"
-                  formControlName="clientId"
-                  [required]="true"
-                  [autoWidth]="false"></p-dropdown>
+      <div class="input-wrapper ui-float-label">
+        <p-autoComplete emptyMessage="Not found"
+                        field="email"
+                        [suggestions]="clients$ | async"
+                        [forceSelection]="true"
+                        [autoHighlight]="true"
+                        [required]="true"
+                        (completeMethod)="searchClient($event)"
+                        (onSelect)="selectClient($event)"></p-autoComplete>
+        <label>Client</label>
+      </div>
+      <div *ngIf="form.get('clientId') && form.get('clientId').invalid && form.get('clientId').touched"
+           class="ui-message ui-message-error ui-corner-all">
+        <i class="fa fa-close"></i>
+        <span *ngIf="form.get('clientId').hasError('required')">Required field</span>
+        <span *ngIf="form.get('clientId').hasError('serverError')">{{ errors['clientId'] }}</span>
+      </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-md-offset-3">
       <label>Additional Info</label>

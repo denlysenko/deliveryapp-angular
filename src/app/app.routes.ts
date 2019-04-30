@@ -17,5 +17,10 @@ export const routes: Routes = [
     path: 'profile',
     loadChildren: './modules/profile/profile.module#ProfileModule',
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'payments',
+    loadChildren: './modules/payments/payments.module#PaymentsModule',
+    canLoad: [AuthGuard]
   }
 ];

@@ -1,59 +1,38 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   Input,
-  Output,
-  ViewChild,
   ViewContainerRef
 } from '@angular/core';
 
-import { DEFAULT_LIMIT, ORDER_STATUSES } from '@common/constants';
+import { TNSBaseListComponent } from '@base/TNSBaseListComponent.tns';
+
+import { ORDER_STATUSES } from '@common/constants';
 import { Roles } from '@common/enums';
-import {
-  FilterChangeEvent,
-  PageChangeEvent,
-  SortingChangeEvent
-} from '@common/models';
 
 import {
   ModalDialogOptions,
   ModalDialogService
 } from 'nativescript-angular/modal-dialog';
-import {
-  ListViewEventData,
-  ListViewLoadOnDemandMode,
-  RadListView
-} from 'nativescript-ui-listview';
-import { RadListViewComponent } from 'nativescript-ui-listview/angular';
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
 
-import * as app from 'tns-core-modules/application';
-import { Color } from 'tns-core-modules/color/color';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
-import { getViewById } from 'tns-core-modules/ui/page/page';
+import { Page } from 'tns-core-modules/ui/page';
 
 import { Order } from '../../../models';
 import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.tns';
 
 @Component({
   selector: 'da-orders-list',
-  templateUrl: './orders-list.component.html',
+  templateUrl: './orders-list.component.tns.html',
   styleUrls: ['./orders-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OrdersListComponent {
+export class OrdersListComponent extends TNSBaseListComponent<Order> {
   readonly statuses = ORDER_STATUSES;
   readonly roles = Roles;
 
-  data: ObservableArray<Order>;
-
-  @ViewChild('listView')
-  listViewComponent: RadListViewComponent;
-
-  get listView(): RadListView {
-    return this.listViewComponent.listView;
-  }
+  @Input() role: number;
 
   @Input()
   set orders(orders: Order[]) {
@@ -61,56 +40,23 @@ export class OrdersListComponent {
       this.data = new ObservableArray(orders);
       this.listViewComponent.listView.loadOnDemandMode =
         ListViewLoadOnDemandMode[
-          this.data.length < DEFAULT_LIMIT
+          this.data.length >= this.count
             ? ListViewLoadOnDemandMode.None
             : ListViewLoadOnDemandMode.Auto
         ];
     } else {
       this.data.push(orders);
-      this.listView.notifyLoadOnDemandFinished();
     }
+
+    this.listView.notifyLoadOnDemandFinished();
   }
-
-  @Input() role: number;
-  @Input() count: number;
-  @Input() sorting: SortingChangeEvent;
-  @Input() pagination: PageChangeEvent;
-  @Input() filter: FilterChangeEvent;
-
-  @Output() sortingChanged = new EventEmitter<SortingChangeEvent>();
-  @Output() paginationChanged = new EventEmitter<PageChangeEvent>();
-  @Output() filterChanged = new EventEmitter<FilterChangeEvent>();
 
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private modalService: ModalDialogService
-  ) {}
-
-  onDrawerButtonTap() {
-    const sideDrawer = <RadSideDrawer>getViewById(app.getRootView(), 'drawer');
-    sideDrawer.toggleDrawerState();
-  }
-
-  onItemLoading(args: ListViewEventData) {
-    if (args.index % 2 !== 0) {
-      args.view.backgroundColor = new Color('#f6f8f9');
-    }
-  }
-
-  onLoadMoreItemsRequested(args: ListViewEventData) {
-    const listView: RadListView = args.object;
-
-    if (this.data.length === this.count) {
-      listView.loadOnDemandMode =
-        ListViewLoadOnDemandMode[ListViewLoadOnDemandMode.None];
-      listView.notifyLoadOnDemandFinished();
-      return;
-    }
-
-    this.paginationChanged.emit({
-      limit: this.pagination.limit,
-      offset: this.pagination.offset + DEFAULT_LIMIT
-    });
+    private modalService: ModalDialogService,
+    page: Page
+  ) {
+    super(page);
   }
 
   async onFilterButtonTap() {
@@ -132,13 +78,13 @@ export class OrdersListComponent {
     const { isSorting, isFiltering, ...event } = result;
 
     if (isSorting) {
-      this.data = null;
       this.sortingChanged.emit(event);
     }
 
     if (isFiltering) {
-      this.data = null;
       this.filterChanged.emit(event);
     }
+
+    this.data = null;
   }
 }

@@ -8,7 +8,13 @@ import {
   Validators
 } from '@angular/forms';
 
+import { Roles } from '@common/enums';
+
+import { UsersService } from '@users/services/users.service';
+
 import { DropdownModule } from 'primeng/primeng';
+
+import { of } from 'rxjs';
 
 import { DestinationFormComponent } from './destination-form.component';
 
@@ -20,7 +26,15 @@ describe('DestinationFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, DropdownModule],
       declarations: [DestinationFormComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        {
+          provide: UsersService,
+          useValue: {
+            getUsers: jest.fn().mockReturnValue(of({}))
+          }
+        }
+      ]
     }).compileComponents();
   }));
 
@@ -116,6 +130,25 @@ describe('DestinationFormComponent', () => {
         addressToField.setValue('test');
         expect(addressToField.hasError('required')).toBeFalsy();
       });
+    });
+  });
+
+  describe('searchClient()', () => {
+    it('should call usersService.getUsers()', () => {
+      const usersService: UsersService = TestBed.get(UsersService);
+      component.searchClient({ query: 'test' });
+      expect(usersService.getUsers).toHaveBeenCalledWith({
+        'filter[role]': Roles.CLIENT,
+        'filter[email]': 'test'
+      });
+    });
+  });
+
+  describe('selectClient()', () => {
+    it('should patch form', () => {
+      component.form.addControl('clientId', new FormControl(null));
+      component.selectClient({ id: 3 });
+      expect(component.form.get('clientId').value).toEqual(3);
     });
   });
 

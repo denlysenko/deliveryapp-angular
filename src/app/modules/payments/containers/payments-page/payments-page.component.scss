@@ -1,0 +1,40 @@
+.button {
+  margin-bottom: 16px;
+  padding-right: 0;
+  text-align: right;
+
+  .ui-corner-all {
+    border-radius: 0;
+  }
+
+  @media (max-width: 640px) {
+    text-align-last: left;
+  }
+}
+
+.list {
+  clear: both;
+}
+
+.topbar {
+  margin-bottom: 16px;
+}
+
+.card {
+  margin-bottom: 0;
+  height: 100%;
+}
+
+@media (max-width: 640px) {
+  .ui-g {
+    display: block;
+  }
+
+  .ui-g-12 {
+    padding-left: 0;
+  }
+
+  .ui-lg-9 {
+    margin-top: 8px;
+  }
+}

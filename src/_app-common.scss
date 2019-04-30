@@ -24,3 +24,46 @@
 .text-success {
   color: $green;
 }
+
+.list-item {
+  margin: 0 5;
+  padding: 10 5 10 10;
+  border-bottom-width: 1;
+  border-bottom-color: #c7cdd1;
+  color: $grey-darker;
+  font-size: 14;
+
+  &.first {
+    border-top-width: 1;
+    border-top-color: #c7cdd1;
+  }
+
+  .angle {
+    font-size: 22;
+  }
+}
+
+.autocomplete {
+  font-size: 14;
+  margin-top: 10;
+  margin-left: 10;
+  border-bottom-width: 0.8;
+  border-bottom-color: #c7cdd1;
+
+  .label {
+    font-weight: bold;
+    font-style: italic;
+    color: #757575;
+  }
+
+  .item {
+    margin: 0;
+    background-color: #dee4e9;
+    padding: 18 8;
+  }
+
+  .error-message {
+    font-size: 12;
+    color: red;
+  }
+}

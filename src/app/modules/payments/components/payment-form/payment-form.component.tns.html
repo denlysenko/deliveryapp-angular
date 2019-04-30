@@ -1,0 +1,208 @@
+<ActionBar class="action-bar">
+  <NavigationButton text="Payments"></NavigationButton>
+  <Label class="action-bar-title"
+         [text]="payment ? 'Payment # ' + payment.id : 'New Order'"></Label>
+  <ActionItem *ngIf="!isClient"
+              ios.systemIcon="3"
+              ios.position="right"
+              android.position="actionBar"
+              android.systemIcon="ic_menu_save"
+              (tap)="submitForm()"></ActionItem>
+</ActionBar>
+<ScrollView>
+  <StackLayout class="p-b-10">
+    <RadDataForm #dataForm
+                 [source]="form">
+      <TKEntityProperty tkDataFormProperty
+                        name="id"
+                        displayName="Num. "
+                        index="0"
+                        readOnly="true">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="Number">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="total"
+                        displayName="Total, $"
+                        index="1"
+                        [readOnly]="isClient">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="Number">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+        <TKNonEmptyValidator tkEntityPropertyValidators
+                             errorMessage="Required field"></TKNonEmptyValidator>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="dueDate"
+                        displayName="Due Date"
+                        index="2"
+                        [readOnly]="isClient">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="DatePicker">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+        <TKNonEmptyValidator tkEntityPropertyValidators
+                             errorMessage="Required field"></TKNonEmptyValidator>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="paymentAmount"
+                        displayName="Payment Amount"
+                        index="3"
+                        [readOnly]="isClient">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="Number">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="paymentDate"
+                        displayName="Payment Date"
+                        index="4"
+                        [readOnly]="isClient">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="DatePicker">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="method"
+                        displayName="Payment Method"
+                        index="5"
+                        [valuesProvider]="methods"
+                        [readOnly]="isClient">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="Picker">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="status"
+                        displayName="Paid"
+                        index="6"
+                        [readOnly]="isClient">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="Switch">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="description"
+                        displayName="Description"
+                        index="7"
+                        [readOnly]="isClient">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="MultilineText">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="notes"
+                        displayName="Notes"
+                        index="8"
+                        [readOnly]="isClient">
+        <TKPropertyEditor tkEntityPropertyEditor
+                          type="MultilineText">
+          <TKPropertyEditorStyle tkPropertyEditorStyle
+                                 labelTextSize="14"
+                                 labelFontStyle="BoldItalic"
+                                 labelPosition="Top"
+                                 labelTextColor="#757575"></TKPropertyEditorStyle>
+        </TKPropertyEditor>
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="clientId"
+                        [hidden]="true">
+      </TKEntityProperty>
+      <TKEntityProperty tkDataFormProperty
+                        name="orders"
+                        [hidden]="true">
+      </TKEntityProperty>
+    </RadDataForm>
+    <StackLayout class="autocomplete">
+      <Label class="label"
+             text="Orders"></Label>
+      <RadAutoCompleteTextView #ordersAutocomplete
+                               noResultsText="Not found!"
+                               suggestMode="Suggest"
+                               displayMode="Tokens"
+                               [readOnly]="isClient"
+                               (loaded)="populateOrders()"
+                               (textChanged)="ordersFieldValid = true"
+                               (didAutoComplete)="addOrder($event)"
+                               (tokenRemoved)="removeOrder($event)">
+        <SuggestionView tkAutoCompleteSuggestionView
+                        suggestionViewHeight="110">
+          <ng-template tkSuggestionItemTemplate
+                       let-item="item">
+            <StackLayout class="item">
+              <Label [text]="item.text"></Label>
+            </StackLayout>
+          </ng-template>
+        </SuggestionView>
+      </RadAutoCompleteTextView>
+      <Label *ngIf="!ordersFieldValid"
+             class="error-message"
+             text="Required field"></Label>
+    </StackLayout>
+    <StackLayout class="autocomplete">
+      <Label class="label"
+             text="Client"></Label>
+      <RadAutoCompleteTextView #clientAutocomplete
+                               noResultsText="Not found!"
+                               suggestMode="Suggest"
+                               displayMode="Plain"
+                               [readOnly]="isClient"
+                               (loaded)="populateClient()"
+                               (textChanged)="onClientTextChange($event)"
+                               (didAutoComplete)="selectClient($event)">
+        <SuggestionView tkAutoCompleteSuggestionView
+                        suggestionViewHeight="110">
+          <ng-template tkSuggestionItemTemplate
+                       let-item="item">
+            <StackLayout class="item">
+              <Label [text]="item.text"></Label>
+            </StackLayout>
+          </ng-template>
+        </SuggestionView>
+      </RadAutoCompleteTextView>
+      <Label *ngIf="!clientFieldValid"
+             class="error-message"
+             text="Required field"></Label>
+    </StackLayout>
+  </StackLayout>
+</ScrollView>

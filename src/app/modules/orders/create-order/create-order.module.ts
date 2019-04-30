@@ -5,8 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputMaskModule } from '@ui/inputmask';
 
 import {
+  AutoCompleteModule,
   ButtonModule,
-  DropdownModule,
   InputTextareaModule,
   InputTextModule,
   SpinnerModule,
@@ -37,7 +37,7 @@ import {
     ReactiveFormsModule,
     StepsModule,
     SpinnerModule,
-    DropdownModule,
+    AutoCompleteModule,
     InputTextModule,
     InputTextareaModule,
     ButtonModule,

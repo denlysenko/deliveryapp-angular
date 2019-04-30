@@ -2,10 +2,13 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValidationError } from '@common/models';
+
 import { FeedbackService } from '@core/services';
 
-import { CargoFormComponent } from '../cargo-form/cargo-form.component';
+import { UsersService } from '@users/services/users.service';
+
 import { ERROR_MESSAGE } from '../../constants';
+import { CargoFormComponent } from '../cargo-form/cargo-form.component';
 import { DestinationFormComponent } from '../destination-form/destination-form.component';
 import { SenderFormComponent } from '../sender-form/sender-form.component';
 import { CreateOrderFormComponent } from './create-order-form.component';
@@ -57,6 +60,10 @@ describe('CreateOrderFormComponent', () => {
         {
           provide: FeedbackService,
           useValue: feedbackServiceStub
+        },
+        {
+          provide: UsersService,
+          useValue: {}
         }
       ]
     }).compileComponents();
@@ -80,7 +87,8 @@ describe('CreateOrderFormComponent', () => {
         cityTo: null,
         addressFrom: null,
         addressTo: null,
-        additionalData: null
+        additionalData: null,
+        clientId: null
       },
       [component.formGroupKeys.cargoForm]: {
         cargoName: null,
@@ -106,6 +114,7 @@ describe('CreateOrderFormComponent', () => {
         addressFrom: null,
         addressTo: null,
         additionalData: null,
+        clientId: null,
         cargoName: null,
         cargoWeight: null,
         cargoVolume: null,

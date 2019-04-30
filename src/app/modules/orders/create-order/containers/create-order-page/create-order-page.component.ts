@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { CoreFacade } from '@core/store';
-
-import { map } from 'rxjs/operators';
 
 import { Order } from '../../../models';
 import { OrdersFacade } from '../../../store';
@@ -16,13 +13,11 @@ import { OrdersFacade } from '../../../store';
 export class CreateOrderPageComponent {
   loading$ = this.ordersFacade.loading$;
   error$ = this.ordersFacade.error$;
-  clients$ = this.route.data.pipe(map(data => data.clients));
   role$ = this.coreFacade.role$;
 
   constructor(
     private ordersFacade: OrdersFacade,
-    private coreFacade: CoreFacade,
-    private route: ActivatedRoute
+    private coreFacade: CoreFacade
   ) {}
 
   create(order: Order) {

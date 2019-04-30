@@ -16,6 +16,7 @@ import {
   CreateOrderSuccess,
   OrdersActionTypes,
   UpdateOrder,
+  UpdateOrderFail,
   UpdateOrderSuccess
 } from '../actions';
 
@@ -54,7 +55,7 @@ export class OrdersEffects {
         role === Roles.CLIENT ? 'updateOrderSelf' : 'updateOrder'
       ](order.id, order).pipe(
         map(() => new UpdateOrderSuccess()),
-        catchError(err => of(new CreateOrderFail(err)))
+        catchError(err => of(new UpdateOrderFail(err)))
       );
     })
   );
