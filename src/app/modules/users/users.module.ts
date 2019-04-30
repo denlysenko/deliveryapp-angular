@@ -4,13 +4,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 
+import { components } from './components';
+import { containers } from './containers';
 import { UsersResolver } from './resolvers/users.resolver';
 import { UsersService } from './services/users.service';
 import { UsersFacade, usersReducer } from './store';
 import { UsersRoutingModule } from './users-routing.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [...containers, ...components],
   imports: [
     CommonModule,
     StoreModule.forFeature('users', usersReducer),
