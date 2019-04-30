@@ -1,6 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { NativeScriptUIAutoCompleteTextViewModule } from 'nativescript-ui-autocomplete/angular';
 import { NativeScriptUIDataFormModule } from 'nativescript-ui-dataform/angular';
 
 import { CreateOrderFormComponent } from './components/create-order-form/create-order-form.component.tns';
@@ -15,6 +16,7 @@ import {
   imports: [
     NativeScriptCommonModule,
     NativeScriptUIDataFormModule,
+    NativeScriptUIAutoCompleteTextViewModule,
     CreateOrderRoutingModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
