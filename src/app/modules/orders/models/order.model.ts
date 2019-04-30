@@ -1,4 +1,4 @@
-import { User } from '@auth/models';
+import { User } from '@users/models';
 
 export interface Order {
   id?: number;

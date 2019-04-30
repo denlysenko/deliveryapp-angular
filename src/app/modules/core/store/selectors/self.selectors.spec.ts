@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { User } from '@auth/models';
+import { User } from '@users/models';
 
 import {
   LoadSelf,

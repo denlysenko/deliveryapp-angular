@@ -8,7 +8,8 @@ import {
   Output
 } from '@angular/core';
 
-import { User } from '@auth/models';
+import { User } from '@users/models';
+
 import { MenuItem } from 'primeng/primeng';
 
 @Component({

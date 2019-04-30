@@ -5,8 +5,10 @@ import {
 } from '@angular/common/http/testing';
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 
-import { User } from '@auth/models';
 import { ApiService } from '@core/services/api.service';
+
+import { User } from '@users/models';
+
 import { environment } from '~/environments/environment';
 
 import { UserSelfService } from './user-self.service';

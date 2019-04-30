@@ -5,11 +5,11 @@ import {
   OnInit
 } from '@angular/core';
 
-import { User } from '@auth/models';
-
 import { ORDER_STATUSES } from '@common/constants';
 
 import { FeedbackService, LoaderService } from '@core/services';
+
+import { User } from '@users/models';
 
 import { PropertyConverter } from 'nativescript-ui-dataform';
 
