@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { User } from '@auth/models';
-
 import { FeedbackService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
 import { InputMaskModule } from '@ui/inputmask';
+
+import { User } from '@users/models';
 
 import { of, throwError } from 'rxjs';
 

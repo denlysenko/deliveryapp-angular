@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { User } from '@auth/models';
-
 import { BaseFormComponent } from '@base/BaseFormComponent';
 
 import { Roles } from '@common/enums';
 
+import { User } from '@users/models';
 import { UsersService } from '@users/services/users.service';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+
 import { map } from 'rxjs/operators';
 
 @Component({

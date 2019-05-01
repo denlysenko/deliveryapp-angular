@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
-
-import { User } from '@auth/models';
 import { ApiService } from '@core/services/api.service';
+
+import { User } from '@users/models';
+
+import { Observable } from 'rxjs';
 
 // tslint:disable-next-line:no-commented-code
 // import { Message } from '../../lib/messages/Message';

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { User } from '@auth/models';
-
 import { ValidationError } from '@common/models';
 
 import { FeedbackService } from '@core/services';
 import { CoreFacade } from '@core/store';
+
+import { User } from '@users/models';
 
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';

@@ -1,5 +1,6 @@
-import { User } from '@auth/models';
 import { Order } from '@orders/models';
+
+import { User } from '@users/models';
 
 export interface Payment {
   id?: number;

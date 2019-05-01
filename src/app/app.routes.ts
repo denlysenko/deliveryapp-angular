@@ -22,5 +22,11 @@ export const routes: Routes = [
     path: 'payments',
     loadChildren: './modules/payments/payments.module#PaymentsModule',
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'users',
+    loadChildren: './modules/users/users.module#UsersModule',
+    // TODO: add RolesGuard
+    canLoad: [AuthGuard]
   }
 ];

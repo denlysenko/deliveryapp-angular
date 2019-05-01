@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 
-import { User } from '@auth/models';
-
 import { CoreFacade } from '@core/store';
+
+import { User } from '@users/models';
 
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';

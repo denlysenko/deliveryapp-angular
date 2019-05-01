@@ -1,0 +1,15 @@
+<div [formGroup]="form"
+     class="users-filter ui-g">
+  <div class="ui-inputgroup ui-g-12 ui-md-6">
+    <span class="ui-inputgroup-addon">
+      <i class="fa fa-search"></i>
+    </span>
+    <input type="text"
+           pInputText
+           placeholder="Search..."
+           formControlName="search">
+  </div>
+  <p-dropdown class="ui-g-12 ui-md-6"
+              [options]="options"
+              formControlName="selectedFilter"></p-dropdown>
+</div>

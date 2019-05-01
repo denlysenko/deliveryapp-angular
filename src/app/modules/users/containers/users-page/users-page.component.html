@@ -1,0 +1,37 @@
+<div class="ui-g">
+  <div class="ui-lg-3 ui-md-4">
+    <div class="card">
+      <da-user-form [user]="current$ | async"
+                    [loading]="loading$ | async"
+                    [error]="error$ | async"
+                    (submitted)="save($event)"></da-user-form>
+    </div>
+  </div>
+  <div class="ui-lg-9 ui-md-8">
+    <div class="card">
+      <div class="topbar ui-g">
+        <da-users-filter class="ui-md-8 ui-g-12"
+                         [filter]="filter$ | async"
+                         (filterChanged)="handleFilterChange($event)"></da-users-filter>
+        <div class="button ui-md-4 ui-g-12">
+          <button pButton
+                  type="button"
+                  label="Create user"
+                  icon="fa fa-plus"
+                  iconPos="left"
+                  class="raised-btn"
+                  (click)="selectUser(null)"></button>
+        </div>
+      </div>
+      <div class="list">
+        <da-users-list [users]="users"
+                       [count]="count"
+                       [pagination]="pagination$ | async"
+                       [sorting]="sorting$ | async"
+                       (sortingChanged)="handleSortingChange($event)"
+                       (paginationChanged)="handlePageChange($event)"
+                       (userSelected)="selectUser($event)"></da-users-list>
+      </div>
+    </div>
+  </div>
+</div>

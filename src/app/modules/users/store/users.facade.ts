@@ -1,0 +1,47 @@
+import { Injectable } from '@angular/core';
+
+import {
+  FilterChangeEvent,
+  PageChangeEvent,
+  SortingChangeEvent
+} from '@common/models';
+
+import { select, Store } from '@ngrx/store';
+
+import { User } from '../models';
+import { FilterChange, PageChange, SelectUser, SortingChange } from './actions';
+import { UsersState } from './reducers';
+import {
+  getAllFilters,
+  getCurrent,
+  getFilter,
+  getPagination,
+  getSorting
+} from './selectors';
+
+@Injectable()
+export class UsersFacade {
+  current$ = this.store.pipe(select(getCurrent));
+  filter$ = this.store.pipe(select(getFilter));
+  sorting$ = this.store.pipe(select(getSorting));
+  pagination$ = this.store.pipe(select(getPagination));
+  allFilters$ = this.store.pipe(select(getAllFilters));
+
+  constructor(private store: Store<UsersState>) {}
+
+  doFiltering(filter: FilterChangeEvent) {
+    this.store.dispatch(new FilterChange(filter));
+  }
+
+  sort(sorting: SortingChangeEvent) {
+    this.store.dispatch(new SortingChange(sorting));
+  }
+
+  paginate(pagination: PageChangeEvent) {
+    this.store.dispatch(new PageChange(pagination));
+  }
+
+  select(user: User) {
+    this.store.dispatch(new SelectUser(user));
+  }
+}

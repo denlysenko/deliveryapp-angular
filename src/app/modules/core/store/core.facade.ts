@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { User } from '@auth/models';
-
 import { select, Store } from '@ngrx/store';
+
+import { User } from '@users/models';
 
 import { filter } from 'rxjs/operators';
 

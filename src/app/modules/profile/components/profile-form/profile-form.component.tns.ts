@@ -8,12 +8,12 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { User } from '@auth/models';
-
 import { Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
 
 import { LoaderService } from '@core/services';
+
+import { User } from '@users/models';
 
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 

@@ -1,10 +1,11 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { of } from 'rxjs';
-
-import { User } from '@auth/models';
 import { CoreFacade } from '@core/store';
+
+import { User } from '@users/models';
+
+import { of } from 'rxjs';
 
 import { AppShellComponent } from './app-shell.component';
 

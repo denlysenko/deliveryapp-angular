@@ -1,14 +1,12 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  Output,
-  ChangeDetectorRef
+  Output
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { User } from '@auth/models';
 
 import { BaseFormComponent } from '@base/BaseFormComponent';
 
@@ -17,6 +15,7 @@ import { ValidationError } from '@common/models';
 
 import { OrdersService } from '@orders/services/orders.service';
 
+import { User } from '@users/models';
 import { UsersService } from '@users/services/users.service';
 
 import { SelectItem } from 'primeng/primeng';
