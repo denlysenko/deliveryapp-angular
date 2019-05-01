@@ -64,7 +64,7 @@ describe('Users Service', () => {
         count: 1
       };
 
-      const filter: UsersFilter = {
+      const filter: Partial<UsersFilter> = {
         'filter[id]': 1,
         'order[firstName]': 'asc'
       };
@@ -162,10 +162,11 @@ describe('Users Service', () => {
     it('should send PATCH request', fakeAsync(() => {
       const http = TestBed.get(HttpTestingController);
       const payload: User = {
+        id: 1,
         email: 'test@test.com'
       };
 
-      service.updateUser(1, payload).subscribe(res => {
+      service.updateUser(payload).subscribe(res => {
         expect(res).toEqual(payload);
       });
 
@@ -185,10 +186,11 @@ describe('Users Service', () => {
         message: 'ERR'
       };
       const payload: User = {
+        id: 1,
         email: 'test@test.com'
       };
 
-      service.updateUser(1, payload).subscribe(
+      service.updateUser(payload).subscribe(
         () => {},
         err => {
           expect(err.status).toEqual(422);

@@ -24,7 +24,8 @@ export class UsersService {
     return this.apiService.post('/users', user);
   }
 
-  updateUser(userId: number, user: User): Observable<User> {
-    return this.apiService.patch(`/users/${userId}`, user);
+  updateUser(user: User): Observable<User> {
+    const { id } = user;
+    return this.apiService.patch(`/users/${id}`, user);
   }
 }

@@ -47,7 +47,7 @@ export function usersReducer(
       return {
         ...state,
         filter: {
-          ...state.filter,
+          ...initialState.filter,
           ...action.payload
         },
         pagination: {

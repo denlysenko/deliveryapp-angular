@@ -10,7 +10,7 @@ export const routes: Routes = [
     path: '',
     component: UsersPageComponent,
     resolve: {
-      payments: UsersResolver
+      users: UsersResolver
     },
     // TODO: add RolesGuard
     canActivate: [AuthGuard]
