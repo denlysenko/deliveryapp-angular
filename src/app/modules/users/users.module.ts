@@ -4,7 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 
-import { ButtonModule, DropdownModule, InputTextModule } from 'primeng/primeng';
+import {
+  ButtonModule,
+  DropdownModule,
+  InputTextModule,
+  PaginatorModule
+} from 'primeng/primeng';
+import { TableModule } from 'primeng/table';
 
 import { components } from './components';
 import { containers } from './containers';
@@ -22,7 +28,9 @@ import { UsersRoutingModule } from './users-routing.module';
     UsersRoutingModule,
     ButtonModule,
     DropdownModule,
-    InputTextModule
+    InputTextModule,
+    TableModule,
+    PaginatorModule
   ],
   providers: [UsersService, UsersResolver, UsersFacade]
 })
