@@ -1,3 +1,52 @@
-<p>
-  company-address-form works!
-</p>
+<div class="ui-g">
+  <form [formGroup]="form"
+        class="ui-g-6"
+        autocomplete="off"
+        novalidate
+        (submit)="submitForm()">
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="country">
+        <label>Country</label>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="city">
+        <label>City</label>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="street">
+        <label>Street</label>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="house">
+        <label>House</label>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <button type="submit"
+              pButton
+              label="Save"
+              class="blue-btn raised-btn"
+              [disabled]="loading">
+      </button>
+    </div>
+  </form>
+</div>
