@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 
 import { ACCESS_TOKEN } from '@common/constants';
+
 import { StorageService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
@@ -15,7 +16,7 @@ export class AuthenticatedGuard implements CanActivate {
   canActivate(): boolean {
     if (this.storageService.getItem(ACCESS_TOKEN)) {
       this.coreFacade.navigate({
-        path: [''],
+        path: ['/orders'],
         extras: {
           clearHistory: true
         }

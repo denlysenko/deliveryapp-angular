@@ -4,15 +4,15 @@ import { Roles } from '@common/enums';
 
 import { AuthGuard, RolesGuard } from '@core/guards';
 
-import { UsersPageComponent } from './containers/users-page/users-page.component';
-import { UsersResolver } from './resolvers/users.resolver';
+import { SettingsPageComponent } from './containers/settings-page/settings-page.component';
+import { SettingsResolver } from './resolvers/settings.resolver';
 
 export const routes: Routes = [
   {
     path: '',
-    component: UsersPageComponent,
+    component: SettingsPageComponent,
     resolve: {
-      users: UsersResolver
+      settings: SettingsResolver
     },
     canActivate: [AuthGuard, RolesGuard],
     data: {

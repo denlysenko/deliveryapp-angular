@@ -1,0 +1,52 @@
+<div class="ui-g">
+  <form [formGroup]="form"
+        class="ui-g-12 ui-md-6"
+        autocomplete="off"
+        novalidate
+        (submit)="submitForm()">
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="name">
+        <label>Name</label>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="accountNumber">
+        <label>Account Number</label>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="bin">
+        <label>BIN</label>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <div class="input-wrapper ui-float-label">
+        <input type="text"
+               autocomplete="off"
+               pInputText
+               formControlName="swift">
+        <label>SWIFT</label>
+      </div>
+    </div>
+    <div class="ui-g-12 row">
+      <button type="submit"
+              pButton
+              label="Save"
+              class="blue-btn raised-btn"
+              [disabled]="loading">
+      </button>
+    </div>
+  </form>
+</div>
