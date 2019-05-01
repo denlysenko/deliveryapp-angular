@@ -32,5 +32,13 @@ export const routes: Routes = [
     data: {
       allowedRoles: [Roles.ADMIN]
     }
+  },
+  {
+    path: 'settings',
+    loadChildren: './modules/settings/settings.module#SettingsModule',
+    canLoad: [AuthGuard, RolesGuard],
+    data: {
+      allowedRoles: [Roles.ADMIN]
+    }
   }
 ];
