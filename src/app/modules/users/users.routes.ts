@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
-import { AuthGuard } from '@core/guards';
+import { Roles } from '@common/enums';
+
+import { AuthGuard, RolesGuard } from '@core/guards';
 
 import { UsersPageComponent } from './containers/users-page/users-page.component';
 import { UsersResolver } from './resolvers/users.resolver';
@@ -12,7 +14,9 @@ export const routes: Routes = [
     resolve: {
       users: UsersResolver
     },
-    // TODO: add RolesGuard
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RolesGuard],
+    data: {
+      allowedRoles: [Roles.ADMIN]
+    }
   }
 ];
