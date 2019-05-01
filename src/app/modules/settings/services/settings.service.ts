@@ -15,7 +15,7 @@ export class SettingsService {
   }
 
   getBankDetails(): Observable<CompanyBankDetails> {
-    return this.apiService.get('/settings/bankDetails');
+    return this.apiService.get('/settings/bank-details');
   }
 
   createAddress(address: CompanyAddress): Observable<CompanyAddress> {
@@ -25,7 +25,7 @@ export class SettingsService {
   createBankDetails(
     bankDetails: CompanyBankDetails
   ): Observable<CompanyBankDetails> {
-    return this.apiService.post('/settings/bankDetails', bankDetails);
+    return this.apiService.post('/settings/bank-details', bankDetails);
   }
 
   updateAddress(
@@ -39,6 +39,6 @@ export class SettingsService {
     id: number,
     bankDetails: CompanyBankDetails
   ): Observable<CompanyBankDetails> {
-    return this.apiService.patch(`/settings/bankDetails/${id}`, bankDetails);
+    return this.apiService.patch(`/settings/bank-details/${id}`, bankDetails);
   }
 }

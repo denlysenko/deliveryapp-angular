@@ -63,7 +63,7 @@ describe('SettingsService', () => {
         expect(res).toEqual(payload);
       });
 
-      const req = http.expectOne(`${environment.apiUrl}/settings/bankDetails`);
+      const req = http.expectOne(`${environment.apiUrl}/settings/bank-details`);
 
       expect(req.request.method).toBe('GET');
 
@@ -138,7 +138,7 @@ describe('SettingsService', () => {
         expect(res).toEqual(payload);
       });
 
-      const req = http.expectOne(`${environment.apiUrl}/settings/bankDetails`);
+      const req = http.expectOne(`${environment.apiUrl}/settings/bank-details`);
 
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(payload);
@@ -165,7 +165,7 @@ describe('SettingsService', () => {
       });
 
       const req = http.expectOne(
-        `${environment.apiUrl}/settings/bankDetails/1`
+        `${environment.apiUrl}/settings/bank-details/1`
       );
 
       expect(req.request.method).toBe('PATCH');
