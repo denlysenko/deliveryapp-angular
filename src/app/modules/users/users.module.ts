@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 
+import { InputMaskModule } from '@ui/inputmask';
+
 import {
   ButtonModule,
   DropdownModule,
@@ -30,7 +32,8 @@ import { UsersRoutingModule } from './users-routing.module';
     DropdownModule,
     InputTextModule,
     TableModule,
-    PaginatorModule
+    PaginatorModule,
+    InputMaskModule
   ],
   providers: [UsersService, UsersResolver, UsersFacade]
 })
