@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { CoreFacade } from '../store';
 
@@ -29,14 +29,22 @@ export class RolesGuard implements CanActivate, CanLoad {
     route: Route | ActivatedRouteSnapshot
   ): Observable<boolean> {
     return this.coreFacade.self$.pipe(
-      filter(user => !!user),
       map(user => {
-        const role = route.data['role'];
+        const roles = route.data['allowedRoles'];
 
-        if (role !== user.role) {
+        if (!roles.includes(user.role)) {
           this.coreFacade.navigate({
-            path: ['']
+            path: ['auth'],
+            extras: {
+              clearHistory: true,
+              transition: {
+                name: 'flip',
+                duration: 300,
+                curve: 'linear'
+              }
+            }
           });
+
           return false;
         }
 

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { AuthGuard } from '@core/guards';
+import { Roles } from '@common/enums';
+
+import { AuthGuard, RolesGuard } from '@core/guards';
 
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
@@ -23,8 +25,10 @@ import { PaymentsResolver } from './resolvers/payments.resolver';
       {
         path: 'create',
         component: PaymentPageComponent,
-        // TODO: add Roles guard
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard, RolesGuard],
+        data: {
+          allowedRoles: [Roles.MANAGER, Roles.ADMIN]
+        }
       },
       {
         path: ':id',
@@ -32,7 +36,6 @@ import { PaymentsResolver } from './resolvers/payments.resolver';
         resolve: {
           payment: PaymentResolver
         },
-        // TODO: add Roles guard
         canActivate: [AuthGuard]
       }
     ])

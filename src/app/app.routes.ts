@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
-import { AuthGuard } from '@core/guards';
+import { Roles } from '@common/enums';
+
+import { AuthGuard, RolesGuard } from '@core/guards';
 
 export const routes: Routes = [
   {
@@ -26,7 +28,9 @@ export const routes: Routes = [
   {
     path: 'users',
     loadChildren: './modules/users/users.module#UsersModule',
-    // TODO: add RolesGuard
-    canLoad: [AuthGuard]
+    canLoad: [AuthGuard, RolesGuard],
+    data: {
+      allowedRoles: [Roles.ADMIN]
+    }
   }
 ];
