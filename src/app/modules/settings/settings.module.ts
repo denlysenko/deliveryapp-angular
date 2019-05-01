@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { ButtonModule, InputTextModule } from 'primeng/primeng';
+import { ButtonModule, InputTextModule, TabViewModule } from 'primeng/primeng';
 
 import { components } from './components';
 import { containers } from './containers';
@@ -17,7 +17,8 @@ import { SettingsRoutingModule } from './settings-routing.module';
     SettingsRoutingModule,
     ReactiveFormsModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    TabViewModule
   ],
   providers: [SettingsService, SettingsResolver]
 })

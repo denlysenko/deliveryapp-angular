@@ -28,17 +28,15 @@ export class SettingsService {
     return this.apiService.post('/settings/bank-details', bankDetails);
   }
 
-  updateAddress(
-    id: number,
-    address: CompanyAddress
-  ): Observable<CompanyAddress> {
+  updateAddress(address: CompanyAddress): Observable<CompanyAddress> {
+    const { id } = address;
     return this.apiService.patch(`/settings/address/${id}`, address);
   }
 
   updateBankDetails(
-    id: number,
     bankDetails: CompanyBankDetails
   ): Observable<CompanyBankDetails> {
+    const { id } = bankDetails;
     return this.apiService.patch(`/settings/bank-details/${id}`, bankDetails);
   }
 }

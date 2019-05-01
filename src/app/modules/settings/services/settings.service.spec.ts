@@ -109,7 +109,7 @@ describe('SettingsService', () => {
         house: 'House'
       };
 
-      service.updateAddress(1, payload).subscribe(res => {
+      service.updateAddress(payload).subscribe(res => {
         expect(res).toEqual(payload);
       });
 
@@ -160,7 +160,7 @@ describe('SettingsService', () => {
         swift: 'swift'
       };
 
-      service.updateBankDetails(1, payload).subscribe(res => {
+      service.updateBankDetails(payload).subscribe(res => {
         expect(res).toEqual(payload);
       });
 
