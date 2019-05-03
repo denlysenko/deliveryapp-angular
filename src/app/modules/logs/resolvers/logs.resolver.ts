@@ -10,6 +10,7 @@ import { switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { Log, LogsFilter } from '../models';
 import { LogsService } from '../services/logs.service';
+import { LogsFacade } from '../store';
 
 @Injectable()
 export class LogsResolver implements Resolve<ListResponse<Log>> {

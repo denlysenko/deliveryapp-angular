@@ -67,7 +67,7 @@ describe('LogsService', () => {
         count: 1
       };
 
-      const filter: LogsFilter = {
+      const filter: Partial<LogsFilter> = {
         'filter[action]': 1,
         'order[createdAt]': 'asc'
       };

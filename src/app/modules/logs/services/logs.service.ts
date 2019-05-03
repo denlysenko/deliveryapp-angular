@@ -12,7 +12,7 @@ import { Log, LogsFilter } from '../models';
 export class LogsService {
   constructor(private apiService: ApiService) {}
 
-  getLogs(query?: LogsFilter): Observable<ListResponse<Log>> {
+  getLogs(query?: Partial<LogsFilter>): Observable<ListResponse<Log>> {
     return this.apiService.get('/logs', query);
   }
 }
