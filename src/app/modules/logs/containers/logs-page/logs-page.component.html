@@ -1,0 +1,19 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card">
+      <div class="topbar ui-g">
+        <da-logs-filter class="ui-md-8 ui-g-12"
+                        [filter]="filter$ | async"
+                        (filterChanged)="handleFilterChange($event)"></da-logs-filter>
+      </div>
+      <div class="list">
+        <da-logs-list [logs]="logs"
+                      [sorting]="sorting$ | async"
+                      [pagination]="pagination$ | async"
+                      [count]="count"
+                      (sortingChanged)="handleSortingChange($event)"
+                      (paginationChanged)="handlePageChange($event)"></da-logs-list>
+      </div>
+    </div>
+  </div>
+</div>
