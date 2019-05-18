@@ -21,8 +21,10 @@
       <td>{{ log.createdAt | date: 'dd.MM.yyyy' }}</td>
       <td>{{ actions[log.action] }}</td>
       <td>
-        <a href="javascript:void(0)"
-           (click)="showUser($event, log.userId)">{{ log.userId }}</a>
+        <a href="javascript:void(0)">{{ log.userId }}</a>
+      </td>
+      <td>
+        <span *ngIf="log.data">ID: {{ log.data.id }}</span>
       </td>
     </tr>
   </ng-template>

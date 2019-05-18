@@ -40,5 +40,13 @@ export const routes: Routes = [
     data: {
       allowedRoles: [Roles.ADMIN]
     }
+  },
+  {
+    path: 'logs',
+    loadChildren: './modules/logs/logs.module#LogsModule',
+    canLoad: [AuthGuard, RolesGuard],
+    data: {
+      allowedRoles: [Roles.ADMIN]
+    }
   }
 ];
