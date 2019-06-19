@@ -11,7 +11,12 @@ import { clearState, CoreFacade, reducers } from './store';
 import { effects } from './store/effects';
 
 export const importDeclarations: any[] = [
-  StoreModule.forRoot(reducers, { metaReducers: [clearState] }),
+  StoreModule.forRoot(reducers, {
+    metaReducers: [clearState],
+    runtimeChecks: {
+      strictStateImmutability: false
+    }
+  }),
   EffectsModule.forRoot(effects),
   AuthModule
 ];

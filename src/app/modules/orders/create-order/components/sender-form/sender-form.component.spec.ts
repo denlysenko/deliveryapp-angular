@@ -8,7 +8,7 @@ import {
   Validators
 } from '@angular/forms';
 
-import { InputMaskModule } from 'primeng/primeng';
+import { InputMaskModule } from '@ui/inputmask';
 
 import { SenderFormComponent } from './sender-form.component';
 

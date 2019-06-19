@@ -13,7 +13,7 @@ import { BaseComponent } from '@base/BaseComponent';
 import { actionNames } from '@common/enums';
 import { FilterChangeEvent } from '@common/models';
 
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem } from 'primeng/api';
 
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 

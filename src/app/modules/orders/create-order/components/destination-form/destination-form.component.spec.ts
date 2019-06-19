@@ -12,7 +12,7 @@ import { Roles } from '@common/enums';
 
 import { UsersService } from '@users/services/users.service';
 
-import { DropdownModule } from 'primeng/primeng';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { of } from 'rxjs';
 

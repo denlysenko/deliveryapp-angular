@@ -3,7 +3,7 @@ import { EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PageChangeEvent, SortingChangeEvent } from '@common/models';
 import { extractSortFieldAndOrder } from '@common/utils';
 
-import { SortEvent } from 'primeng/primeng';
+import { SortEvent } from 'primeng/api';
 
 export abstract class BaseListComponent implements OnInit {
   sortField: string;

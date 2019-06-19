@@ -14,7 +14,7 @@ import { roleNames, Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
 import { emailValidator, passwordMatchValidator } from '@common/validators';
 
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem } from 'primeng/api';
 
 import { User } from '../../models';
 

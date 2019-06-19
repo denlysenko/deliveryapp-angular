@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { InputMaskModule } from '@ui/inputmask';
-import { ButtonModule, InputTextModule } from 'primeng/primeng';
+
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { ContactsFormComponent } from './components/contacts-form/contacts-form.component';
 import { PasswordFormComponent } from './components/password-form/password-form.component';

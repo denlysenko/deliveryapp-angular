@@ -19,9 +19,16 @@ describe('LogsFacade', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({
-          logs: logsReducer
-        })
+        StoreModule.forRoot(
+          {
+            logs: logsReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
+          }
+        )
       ],
       providers: [LogsFacade]
     }).compileComponents();

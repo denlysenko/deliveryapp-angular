@@ -22,9 +22,16 @@ describe('UsersFacade', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({
-          users: usersReducer
-        })
+        StoreModule.forRoot(
+          {
+            users: usersReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
+          }
+        )
       ],
       providers: [UsersFacade]
     }).compileComponents();

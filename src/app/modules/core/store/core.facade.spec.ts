@@ -22,7 +22,13 @@ describe('CoreFacade', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(reducers)],
+      imports: [
+        StoreModule.forRoot(reducers, {
+          runtimeChecks: {
+            strictStateImmutability: false
+          }
+        })
+      ],
       providers: [CoreFacade]
     }).compileComponents();
   }));

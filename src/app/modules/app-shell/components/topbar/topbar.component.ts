@@ -10,7 +10,7 @@ import {
 
 import { User } from '@users/models';
 
-import { MenuItem } from 'primeng/primeng';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'da-topbar',

@@ -31,9 +31,16 @@ describe('Users Selectors', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({
-          users: usersReducer
-        })
+        StoreModule.forRoot(
+          {
+            users: usersReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
+          }
+        )
       ]
     });
 

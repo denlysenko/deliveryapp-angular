@@ -1,6 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 
-import { MessageService } from 'primeng/primeng';
+import { MessageService } from 'primeng/api';
 
 import { FeedbackService } from './feedback.service';
 

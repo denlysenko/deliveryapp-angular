@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { MessageService } from 'primeng/primeng';
+import { MessageService } from 'primeng/api';
 
 import { Feedback } from './Feedback';
 

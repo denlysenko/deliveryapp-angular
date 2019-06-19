@@ -4,14 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { InputMaskModule } from '@ui/inputmask';
 
-import {
-  ButtonModule,
-  CalendarModule,
-  DropdownModule,
-  InputTextareaModule,
-  InputTextModule,
-  SpinnerModule
-} from 'primeng/primeng';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SpinnerModule } from 'primeng/spinner';
 
 import { UpdateOrderFormComponent } from './components/update-order-form/update-order-form.component';
 import { UpdateOrderRoutingModule } from './update-order-routing.module';
