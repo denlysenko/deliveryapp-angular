@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 import { BaseListComponent } from '@base/BaseListComponent';
 
@@ -19,4 +25,6 @@ export class OrdersListComponent extends BaseListComponent {
 
   @Input() role: number;
   @Input() orders: Order[];
+
+  @Output() userSelected = new EventEmitter<number>();
 }

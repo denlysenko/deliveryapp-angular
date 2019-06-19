@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { UserViewModule } from '@user-view/user-view.module';
+
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -27,7 +29,8 @@ import { importDeclarations, providerDeclarations } from './orders-list.common';
     PaginatorModule,
     InputTextModule,
     ButtonModule,
-    DropdownModule
+    DropdownModule,
+    UserViewModule
   ],
   providers: [...providerDeclarations]
 })
