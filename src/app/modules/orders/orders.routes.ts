@@ -4,12 +4,18 @@ import { AuthGuard } from '@core/guards';
 export const routes: Routes = [
   {
     path: 'create',
-    loadChildren: './create-order/create-order.module#CreateOrderModule',
+    loadChildren: () =>
+      import('./create-order/create-order.module').then(
+        m => m.CreateOrderModule
+      ),
     canLoad: [AuthGuard]
   },
   {
     path: ':id',
-    loadChildren: './update-order/update-order.module#UpdateOrderModule',
+    loadChildren: () =>
+      import('./update-order/update-order.module').then(
+        m => m.UpdateOrderModule
+      ),
     canLoad: [AuthGuard]
   }
 ];

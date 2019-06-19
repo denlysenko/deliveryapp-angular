@@ -10,7 +10,7 @@
   "rules": {
     "prettier": true,
     // tslint-angular
-    "use-view-encapsulation": false,
+    "use-component-view-encapsulation": false,
     "no-duplicate-string": false,
     "no-hardcoded-credentials": false,
     "max-classes-per-file": false,
