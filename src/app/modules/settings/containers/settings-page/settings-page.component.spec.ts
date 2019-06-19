@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { FeedbackService } from '@core/services';
 
-import { TabViewModule } from 'primeng/primeng';
+import { TabViewModule } from 'primeng/tabview';
 
 import { of } from 'rxjs';
 

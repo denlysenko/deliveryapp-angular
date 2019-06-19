@@ -8,7 +8,8 @@ import {
 } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { DropdownModule } from 'primeng/primeng';
+import { DropdownModule } from 'primeng/dropdown';
+
 import { UsersFilterComponent } from './users-filter.component';
 
 describe('UsersFilterComponent', () => {

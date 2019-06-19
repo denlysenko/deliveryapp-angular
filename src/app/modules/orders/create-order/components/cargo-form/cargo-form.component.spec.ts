@@ -8,7 +8,7 @@ import {
   Validators
 } from '@angular/forms';
 
-import { SpinnerModule } from 'primeng/primeng';
+import { SpinnerModule } from 'primeng/spinner';
 
 import { CargoFormComponent } from './cargo-form.component';
 

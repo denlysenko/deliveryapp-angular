@@ -4,9 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppShellModule } from '@app-shell/app-shell.module';
+
 import { CoreModule } from '@core/core.module';
+
 import { SpinnerModule } from '@ui/spinner';
-import { MessageService } from 'primeng/primeng';
+
+import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';

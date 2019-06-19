@@ -30,9 +30,16 @@ describe('Payments Selectors', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({
-          payments: paymentsReducer
-        })
+        StoreModule.forRoot(
+          {
+            payments: paymentsReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
+          }
+        )
       ]
     });
 

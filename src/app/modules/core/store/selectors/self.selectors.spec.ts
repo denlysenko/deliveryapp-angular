@@ -24,7 +24,13 @@ describe('Self Selectors', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(reducers)]
+      imports: [
+        StoreModule.forRoot(reducers, {
+          runtimeChecks: {
+            strictStateImmutability: false
+          }
+        })
+      ]
     });
 
     store = TestBed.get(Store);

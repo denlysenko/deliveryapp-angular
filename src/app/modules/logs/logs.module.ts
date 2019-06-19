@@ -4,7 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 
-import { DropdownModule, PaginatorModule } from 'primeng/primeng';
+import { DropdownModule } from 'primeng/dropdown';
+import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 
 import { components } from './components';

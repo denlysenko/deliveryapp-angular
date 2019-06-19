@@ -15,7 +15,7 @@ import { ValidationError } from '@common/models';
 
 import { FeedbackService } from '@core/services';
 
-import { MenuItem } from 'primeng/primeng';
+import { MenuItem } from 'primeng/api';
 
 import { Order } from '../../../models';
 import {

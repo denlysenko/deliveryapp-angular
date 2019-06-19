@@ -6,12 +6,10 @@ import { StoreModule } from '@ngrx/store';
 
 import { InputMaskModule } from '@ui/inputmask';
 
-import {
-  ButtonModule,
-  DropdownModule,
-  InputTextModule,
-  PaginatorModule
-} from 'primeng/primeng';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 
 import { components } from './components';

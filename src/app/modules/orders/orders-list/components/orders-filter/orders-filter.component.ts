@@ -11,8 +11,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from '@base/BaseComponent';
+
 import { FilterChangeEvent } from '@common/models';
-import { SelectItem } from 'primeng/primeng';
+
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'da-orders-filter',

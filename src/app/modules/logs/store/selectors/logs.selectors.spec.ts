@@ -23,9 +23,16 @@ describe('Logs Selectors', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({
-          logs: logsReducer
-        })
+        StoreModule.forRoot(
+          {
+            logs: logsReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
+          }
+        )
       ]
     });
 

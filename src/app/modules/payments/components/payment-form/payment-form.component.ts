@@ -18,7 +18,7 @@ import { OrdersService } from '@orders/services/orders.service';
 import { User } from '@users/models';
 import { UsersService } from '@users/services/users.service';
 
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem } from 'primeng/api';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

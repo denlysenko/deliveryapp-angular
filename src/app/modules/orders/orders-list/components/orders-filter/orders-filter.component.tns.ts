@@ -6,7 +6,7 @@ import { extractSortFieldAndOrder } from '@common/utils';
 
 import { ModalDialogParams } from 'nativescript-angular/modal-dialog';
 
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem } from 'primeng/api';
 
 import { ListPicker } from 'tns-core-modules/ui/list-picker';
 

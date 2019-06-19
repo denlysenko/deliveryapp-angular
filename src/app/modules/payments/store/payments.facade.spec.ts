@@ -26,9 +26,16 @@ describe('PaymentsFacade', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({
-          payments: paymentsReducer
-        })
+        StoreModule.forRoot(
+          {
+            payments: paymentsReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
+          }
+        )
       ],
       providers: [PaymentsFacade]
     }).compileComponents();
