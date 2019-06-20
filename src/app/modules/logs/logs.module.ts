@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 
+import { UserViewModule } from '@user-view/user-view.module';
+
 import { DropdownModule } from 'primeng/dropdown';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
@@ -24,7 +26,8 @@ import { LogsFacade, logsReducer } from './store';
     LogsRoutingModule,
     DropdownModule,
     TableModule,
-    PaginatorModule
+    PaginatorModule,
+    UserViewModule
   ],
   providers: [LogsService, LogsResolver, LogsFacade]
 })

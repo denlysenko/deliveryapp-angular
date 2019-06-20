@@ -11,6 +11,8 @@ import {
 
 import { LoaderService } from '@core/services';
 
+import { UserViewService } from '@user-view/user-view.service';
+
 import { BehaviorSubject, of } from 'rxjs';
 
 import { Log } from '../../models';
@@ -56,6 +58,10 @@ const loaderServiceStub = {
   stop: jest.fn()
 };
 
+const userViewServiceStub = {
+  show: jest.fn()
+};
+
 describe('LogsPageComponent', () => {
   let component: LogsPageComponent;
   let fixture: ComponentFixture<LogsPageComponent>;
@@ -80,6 +86,10 @@ describe('LogsPageComponent', () => {
         {
           provide: LoaderService,
           useValue: loaderServiceStub
+        },
+        {
+          provide: UserViewService,
+          useValue: userViewServiceStub
         }
       ]
     }).compileComponents();
@@ -198,6 +208,17 @@ describe('LogsPageComponent', () => {
 
       expect(component.logs).toEqual([log]);
       expect(component.count).toEqual(1);
+    });
+  });
+
+  describe('showUser()', () => {
+    it('should call userViewService.show()', () => {
+      const userViewService: UserViewService = TestBed.get(UserViewService);
+      const userId = 1;
+
+      component.showUser(userId);
+
+      expect(userViewService.show).toHaveBeenCalledWith(userId);
     });
   });
 });

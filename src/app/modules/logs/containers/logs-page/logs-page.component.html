@@ -12,7 +12,8 @@
                       [pagination]="pagination$ | async"
                       [count]="count"
                       (sortingChanged)="handleSortingChange($event)"
-                      (paginationChanged)="handlePageChange($event)"></da-logs-list>
+                      (paginationChanged)="handlePageChange($event)"
+                      (userSelected)="showUser($event)"></da-logs-list>
       </div>
     </div>
   </div>
