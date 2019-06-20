@@ -17,6 +17,7 @@ import { Order } from '../../../models';
 import { OrdersService } from '../../../services/orders.service';
 import { OrdersFacade } from '../../../store';
 import { OrdersPageComponent } from './orders-page.component';
+import { UserViewService } from '@user-view/user-view.service';
 
 const allFilters = new BehaviorSubject(null);
 const role = new BehaviorSubject(null);
@@ -75,6 +76,10 @@ const loaderServiceStub = {
   stop: jasmine.createSpy('stop')
 };
 
+const userViewServiceStub = {
+  show: jasmine.createSpy('show')
+};
+
 describe('OrdersPageComponent', () => {
   let component: OrdersPageComponent;
   let fixture: ComponentFixture<OrdersPageComponent>;
@@ -103,6 +108,10 @@ describe('OrdersPageComponent', () => {
         {
           provide: LoaderService,
           useValue: loaderServiceStub
+        },
+        {
+          provide: UserViewService,
+          useValue: userViewServiceStub
         }
       ]
     }).compileComponents();
@@ -239,6 +248,17 @@ describe('OrdersPageComponent', () => {
 
       expect(component.orders).toEqual([order]);
       expect(component.count).toEqual(1);
+    });
+  });
+
+  describe('showUser()', () => {
+    it('should call userViewService.show()', () => {
+      const userViewService: UserViewService = TestBed.get(UserViewService);
+      const userId = 1;
+
+      component.showUser(userId);
+
+      expect(userViewService.show).toHaveBeenCalledWith(userId);
     });
   });
 });
