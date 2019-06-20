@@ -11,8 +11,7 @@ import { DynamicDialogConfig } from 'primeng/api';
 })
 export class UserViewComponent {
   readonly roles = Roles;
-
-  user = this.config.data;
+  readonly user = this.config.data;
 
   constructor(private config: DynamicDialogConfig) {}
 }

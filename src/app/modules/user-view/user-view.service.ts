@@ -18,7 +18,7 @@ export class UserViewService {
 
     return this.dialogService.open(UserViewComponent, {
       data: user,
-      height: '480px'
+      styleClass: 'user-view'
     });
   }
 }
