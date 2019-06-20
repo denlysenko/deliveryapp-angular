@@ -22,7 +22,8 @@
                         [count]="count"
                         [role]="role$ | async"
                         (sortingChanged)="handleSortingChange($event)"
-                        (paginationChanged)="handlePageChange($event)"></da-orders-list>
+                        (paginationChanged)="handlePageChange($event)"
+                        (userSelected)="showUser($event)"></da-orders-list>
       </div>
     </div>
   </div>

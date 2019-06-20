@@ -34,7 +34,8 @@
       <td>{{ payment.dueDate | date: 'dd.MM.yyyy' }}</td>
       <td>{{ payment.createdAt | date: 'dd.MM.yyyy' }}</td>
       <td *ngIf="role !== roles.CLIENT">
-        <a href="#">{{ payment.client?.email }}</a>
+        <a href="javascript:void(0)"
+           (click)="userSelected.emit(payment.client?.id)">{{ payment.client?.email }}</a>
       </td>
     </tr>
   </ng-template>

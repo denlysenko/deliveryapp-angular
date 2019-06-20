@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { UserViewModule } from '@user-view/user-view.module';
+
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -37,7 +39,8 @@ import { importDeclarations, providerDeclarations } from './payments.common';
     DropdownModule,
     SpinnerModule,
     CalendarModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    UserViewModule
   ],
   providers: [...providerDeclarations]
 })

@@ -11,6 +11,8 @@ import {
 
 import { LoaderService } from '@core/services';
 
+import { UserViewService } from '@user-view/user-view.service';
+
 import { EMPTY } from 'rxjs';
 import { catchError, skip, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -35,7 +37,8 @@ export class LogsPageComponent extends BaseComponent implements OnInit {
     private logsFacade: LogsFacade,
     private route: ActivatedRoute,
     private logsService: LogsService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private userViewService: UserViewService
   ) {
     super();
   }
@@ -56,6 +59,10 @@ export class LogsPageComponent extends BaseComponent implements OnInit {
 
   handlePageChange(event: PageChangeEvent) {
     this.logsFacade.paginate(event);
+  }
+
+  showUser(id: number) {
+    this.userViewService.show(id);
   }
 
   private subscribeToFiltersChanges() {

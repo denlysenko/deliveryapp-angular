@@ -45,7 +45,8 @@
       <td>{{ statuses[order.status] }}</td>
       <td>{{ order.paid ? 'Yes' : 'No' }}</td>
       <td *ngIf="role !== roles.CLIENT">
-        <a href="#">{{ order.client?.email }}</a>
+        <a href="javascript:void(0)"
+           (click)="userSelected.emit(order.client?.id)">{{ order.client?.email }}</a>
       </td>
     </tr>
   </ng-template>

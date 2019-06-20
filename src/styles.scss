@@ -73,3 +73,12 @@ body {
 .ng-dirty.ng-invalid:not(form) .ui-inputtext {
   border-color: #e17576;
 }
+
+.user-view {
+  width: 90%;
+
+  @media (min-width: 641px) {
+    width: 50%;
+    height: 480px;
+  }
+}
