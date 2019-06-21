@@ -21,8 +21,10 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const {
   NativeScriptWorkerPlugin
 } = require('nativescript-worker-loader/NativeScriptWorkerPlugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const {
+  getAngularCompilerPlugin
+} = require('nativescript-dev-webpack/plugins/NativeScriptAngularCompilerPlugin');
 const hashSalt = Date.now().toString();
 
 module.exports = env => {
@@ -37,6 +39,7 @@ module.exports = env => {
     throw new Error('You need to provide a target platform!');
   }
 
+  const AngularCompilerPlugin = getAngularCompilerPlugin(platform);
   const projectRoot = __dirname;
 
   // Default destination inside platforms/<platform>/...
@@ -59,15 +62,17 @@ module.exports = env => {
     uglify, // --env.uglify
     report, // --env.report
     sourceMap, // --env.sourceMap
+    hiddenSourceMap, // --env.hiddenSourceMap
     hmr, // --env.hmr,
     unitTesting // --env.unitTesting
   } = env;
 
+  const isAnySourceMapEnabled = !!sourceMap || !!hiddenSourceMap;
   const externals = nsWebpack.getConvertedExternals(env.externals);
   const appFullPath = resolve(projectRoot, appPath);
   const appResourcesFullPath = resolve(projectRoot, appResourcesPath);
   const tsConfigName = 'tsconfig.tns.json';
-  const entryModule = `${nsWebpack.getEntryModule(appFullPath)}.ts`;
+  const entryModule = `${nsWebpack.getEntryModule(appFullPath, platform)}.ts`;
   const entryPath = `.${sep}${entryModule}`;
   const entries = { bundle: entryPath };
   if (platform === 'ios') {
@@ -107,14 +112,20 @@ module.exports = env => {
   const ngCompilerPlugin = new AngularCompilerPlugin({
     hostReplacementPaths: nsWebpack.getResolver([platform, 'tns']),
     platformTransformers: ngCompilerTransformers.map(t =>
-      t(() => ngCompilerPlugin, resolve(appFullPath, entryModule))
+      t(() => ngCompilerPlugin, resolve(appFullPath, entryModule), projectRoot)
     ),
-    mainPath: resolve(appPath, entryModule),
+    mainPath: join(appFullPath, entryModule),
     tsConfigPath: join(__dirname, tsConfigName),
     skipCodeGeneration: !aot,
-    sourceMap: !!sourceMap,
+    sourceMap: !!isAnySourceMapEnabled,
     additionalLazyModuleResources: additionalLazyModuleResources
   });
+
+  let sourceMapFilename = nsWebpack.getSourceMapFilename(
+    hiddenSourceMap,
+    __dirname,
+    dist
+  );
 
   const config = {
     mode: uglify ? 'production' : 'development',
@@ -132,6 +143,7 @@ module.exports = env => {
     output: {
       pathinfo: false,
       path: dist,
+      sourceMapFilename,
       libraryTarget: 'commonjs2',
       filename: '[name].js',
       globalObject: 'global',
@@ -162,7 +174,11 @@ module.exports = env => {
       fs: 'empty',
       __dirname: false
     },
-    devtool: sourceMap ? 'inline-source-map' : 'none',
+    devtool: hiddenSourceMap
+      ? 'hidden-source-map'
+      : sourceMap
+      ? 'inline-source-map'
+      : 'none',
     optimization: {
       runtimeChunk: 'single',
       splitChunks: {
@@ -185,12 +201,14 @@ module.exports = env => {
       },
       minimize: !!uglify,
       minimizer: [
-        new UglifyJsPlugin({
+        new TerserPlugin({
           parallel: true,
           cache: true,
-          uglifyOptions: {
+          sourceMap: isAnySourceMapEnabled,
+          terserOptions: {
             output: {
-              comments: false
+              comments: false,
+              semicolons: !isAnySourceMapEnabled
             },
             compress: {
               // The Android SBG has problems parsing the output
@@ -233,14 +251,14 @@ module.exports = env => {
           test: /[\/|\\]app\.css$/,
           use: [
             'nativescript-dev-webpack/style-hot-loader',
-            { loader: 'css-loader', options: { minimize: false, url: false } }
+            { loader: 'css-loader', options: { url: false } }
           ]
         },
         {
           test: /[\/|\\]app\.scss$/,
           use: [
             'nativescript-dev-webpack/style-hot-loader',
-            { loader: 'css-loader', options: { minimize: false, url: false } },
+            { loader: 'css-loader', options: { url: false } },
             'sass-loader'
           ]
         },

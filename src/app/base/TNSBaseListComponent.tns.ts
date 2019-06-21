@@ -18,12 +18,12 @@ import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as app from 'tns-core-modules/application';
 import { Color } from 'tns-core-modules/color/color';
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
-import { getViewById, Page } from 'tns-core-modules/ui/page';
+import { getViewById } from 'tns-core-modules/ui/page';
 
 export abstract class TNSBaseListComponent<T> {
   data: ObservableArray<T> | null = null;
 
-  @ViewChild('listView')
+  @ViewChild('listView', { static: true })
   listViewComponent: RadListViewComponent;
 
   get listView(): RadListView {
@@ -39,20 +39,6 @@ export abstract class TNSBaseListComponent<T> {
   @Output() sortingChanged = new EventEmitter<SortingChangeEvent>();
   @Output() paginationChanged = new EventEmitter<PageChangeEvent>();
   @Output() filterChanged = new EventEmitter<FilterChangeEvent>();
-
-  constructor(page: Page) {
-    page.on('unloaded', () => {
-      // wait until parent is destroyed(to remove subscription)
-      setTimeout(() => {
-        const { offset, limit } = this.pagination;
-
-        this.paginationChanged.emit({
-          limit: offset + limit,
-          offset: 0
-        });
-      });
-    });
-  }
 
   onDrawerButtonTap() {
     const sideDrawer = <RadSideDrawer>getViewById(app.getRootView(), 'drawer');

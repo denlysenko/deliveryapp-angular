@@ -38,7 +38,7 @@ export abstract class OrdersPageBase extends BaseComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private ordersFacade: OrdersFacade,
+    protected ordersFacade: OrdersFacade,
     private coreFacade: CoreFacade,
     private ordersService: OrdersService,
     private loaderService: LoaderService

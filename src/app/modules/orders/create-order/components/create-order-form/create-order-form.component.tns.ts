@@ -46,7 +46,7 @@ export class CreateOrderFormComponent extends TNSOrderFormBase
 
   clientFieldValid = true;
 
-  @ViewChild('clientAutocomplete')
+  @ViewChild('clientAutocomplete', { static: false })
   clientAutocomplete: RadAutoCompleteTextViewComponent;
 
   private clients: User[] = [];

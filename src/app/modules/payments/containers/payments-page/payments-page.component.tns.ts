@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+import { DEFAULT_LIMIT } from '@common/constants';
 
 import { LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
-
-import { Page } from 'tns-core-modules/ui/page';
 
 import { PaymentsPageBase } from '../../base/PaymentsPageBase';
 import { PaymentsService } from '../../services/payments.service';
@@ -14,16 +14,23 @@ import { PaymentsFacade } from '../../store';
   templateUrl: './payments-page.component.tns.html',
   styleUrls: ['./payments-page.component.scss']
 })
-export class PaymentsPageComponent extends PaymentsPageBase {
+export class PaymentsPageComponent extends PaymentsPageBase
+  implements OnDestroy {
   constructor(
     route: ActivatedRoute,
     paymentsFacade: PaymentsFacade,
     coreFacade: CoreFacade,
     paymentsService: PaymentsService,
-    loaderService: LoaderService,
-    page: Page
+    loaderService: LoaderService
   ) {
     super(route, paymentsFacade, coreFacade, paymentsService, loaderService);
-    page.on('unloaded', this.ngOnDestroy.bind(this));
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
+    this.paymentsFacade.paginate({
+      limit: DEFAULT_LIMIT,
+      offset: 0
+    });
   }
 }

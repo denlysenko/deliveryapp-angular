@@ -52,10 +52,10 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   ordersFieldValid = true;
   clientFieldValid = true;
 
-  @ViewChild('ordersAutocomplete')
+  @ViewChild('ordersAutocomplete', { static: true })
   ordersAutocomplete: RadAutoCompleteTextViewComponent;
 
-  @ViewChild('clientAutocomplete')
+  @ViewChild('clientAutocomplete', { static: true })
   clientAutocomplete: RadAutoCompleteTextViewComponent;
 
   @Input() role: number;

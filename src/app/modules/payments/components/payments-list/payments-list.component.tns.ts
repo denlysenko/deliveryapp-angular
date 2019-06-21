@@ -10,13 +10,12 @@ import { TNSBaseListComponent } from '@base/TNSBaseListComponent.tns';
 import { paymentMethodNames, Roles } from '@common/enums';
 
 import {
-  ModalDialogService,
-  ModalDialogOptions
+  ModalDialogOptions,
+  ModalDialogService
 } from 'nativescript-angular/modal-dialog';
 import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
 
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
-import { Page } from 'tns-core-modules/ui/page';
 
 import { Payment } from '../../models';
 import { PaymentsFilterComponent } from '../payments-filter/payments-filter.component.tns';
@@ -52,10 +51,9 @@ export class PaymentsListComponent extends TNSBaseListComponent<Payment> {
 
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private modalService: ModalDialogService,
-    page: Page
+    private modalService: ModalDialogService
   ) {
-    super(page);
+    super();
   }
 
   async onFilterButtonTap() {
@@ -77,6 +75,14 @@ export class PaymentsListComponent extends TNSBaseListComponent<Payment> {
     const { isSorting, isFiltering, ...event } = result;
 
     if (isSorting) {
+      const { offset, limit } = this.pagination;
+
+      // reset offset before sorting
+      this.paginationChanged.emit({
+        limit: offset + limit,
+        offset: 0
+      });
+
       this.sortingChanged.emit(event);
     }
 

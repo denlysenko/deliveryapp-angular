@@ -23,7 +23,7 @@ export class ContactsFormComponent extends TNSBaseFormComponent {
     }
   }
 
-  @ViewChild('dataForm') dataForm: RadDataFormComponent;
+  @ViewChild('dataForm', { static: true }) dataForm: RadDataFormComponent;
 
   constructor(protected feedbackService: FeedbackService) {
     super();

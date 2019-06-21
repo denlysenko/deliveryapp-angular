@@ -3,10 +3,10 @@
   "nativescript": {
     "id": "org.nativescript.deliveryapp",
     "tns-android": {
-      "version": "5.3.0"
+      "version": "5.4.0"
     },
     "tns-ios": {
-      "version": "5.3.0"
+      "version": "5.4.2"
     }
   },
   "version": "1.0.0",
@@ -61,7 +61,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.800.0",
     "@angular/cli": "^8.0.3",
-    "@angular/compiler-cli": "~8.0.1",
+    "@angular/compiler-cli": "8.0.0",
     "@nativescript/schematics": "~0.6.0",
     "@ngrx/schematics": "^8.0.1",
     "@ngrx/store-devtools": "^8.0.1",

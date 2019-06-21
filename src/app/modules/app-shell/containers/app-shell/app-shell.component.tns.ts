@@ -32,7 +32,7 @@ import { MessagesComponent } from '../../components/messages/messages.component.
   styleUrls: ['./app-shell.component.scss']
 })
 export class AppShellComponent extends AppShellBase implements AfterViewInit {
-  @ViewChild('drawer')
+  @ViewChild('drawer', { static: true })
   drawerComponent: RadSideDrawerComponent;
 
   private _sideDrawerTransition: DrawerTransitionBase;
