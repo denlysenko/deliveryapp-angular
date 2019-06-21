@@ -17,7 +17,6 @@ import {
 import { ListViewLoadOnDemandMode } from 'nativescript-ui-listview';
 
 import { ObservableArray } from 'tns-core-modules/data/observable-array';
-import { Page } from 'tns-core-modules/ui/page';
 
 import { Order } from '../../../models';
 import { OrdersFilterComponent } from '../orders-filter/orders-filter.component.tns';
@@ -53,10 +52,9 @@ export class OrdersListComponent extends TNSBaseListComponent<Order> {
 
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private modalService: ModalDialogService,
-    page: Page
+    private modalService: ModalDialogService
   ) {
-    super(page);
+    super();
   }
 
   async onFilterButtonTap() {
