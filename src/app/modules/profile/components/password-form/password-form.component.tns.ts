@@ -36,7 +36,7 @@ export class PasswordFormComponent extends TNSBaseFormComponent {
     }
   }
 
-  @ViewChild('dataForm') dataForm: RadDataFormComponent;
+  @ViewChild('dataForm', { static: true }) dataForm: RadDataFormComponent;
 
   @Output() passwordChanged = new EventEmitter<void>();
 

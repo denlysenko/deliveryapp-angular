@@ -51,7 +51,8 @@ export class ProfileFormComponent implements OnInit {
   @Output() profileUpdated = new EventEmitter<User>();
   @Output() passwordUpdated = new EventEmitter<PasswordPayload>();
 
-  @ViewChild(ContactsFormComponent) private contactsForm: ContactsFormComponent;
+  @ViewChild(ContactsFormComponent, { static: true })
+  private contactsForm: ContactsFormComponent;
 
   private _loading = false;
 

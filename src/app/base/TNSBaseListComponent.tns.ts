@@ -23,7 +23,7 @@ import { getViewById, Page } from 'tns-core-modules/ui/page';
 export abstract class TNSBaseListComponent<T> {
   data: ObservableArray<T> | null = null;
 
-  @ViewChild('listView')
+  @ViewChild('listView', { static: true })
   listViewComponent: RadListViewComponent;
 
   get listView(): RadListView {
