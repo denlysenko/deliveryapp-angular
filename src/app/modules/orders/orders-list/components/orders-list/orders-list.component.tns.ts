@@ -78,6 +78,14 @@ export class OrdersListComponent extends TNSBaseListComponent<Order> {
     const { isSorting, isFiltering, ...event } = result;
 
     if (isSorting) {
+      const { offset, limit } = this.pagination;
+
+      // reset offset before sorting
+      this.paginationChanged.emit({
+        limit: offset + limit,
+        offset: 0
+      });
+
       this.sortingChanged.emit(event);
     }
 
