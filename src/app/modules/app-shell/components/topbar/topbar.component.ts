@@ -8,8 +8,9 @@ import {
   Output
 } from '@angular/core';
 
-import { User } from '@auth/models';
-import { MenuItem } from 'primeng/primeng';
+import { User } from '@users/models';
+
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'da-topbar',

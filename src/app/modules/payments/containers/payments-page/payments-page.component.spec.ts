@@ -12,6 +12,8 @@ import {
 import { FeedbackService, LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
+import { UserViewService } from '@user-view/user-view.service';
+
 import { BehaviorSubject, of, throwError } from 'rxjs';
 
 import { Payment } from '../../models';
@@ -72,6 +74,10 @@ const feedbackServiceStub = {
   success: jest.fn()
 };
 
+const userViewServiceStub = {
+  show: jest.fn()
+};
+
 // tslint:disable-next-line:no-big-function
 describe('PaymentsPageComponent', () => {
   let component: PaymentsPageComponent;
@@ -107,6 +113,10 @@ describe('PaymentsPageComponent', () => {
         {
           provide: FeedbackService,
           useValue: feedbackServiceStub
+        },
+        {
+          provide: UserViewService,
+          useValue: userViewServiceStub
         }
       ]
     }).compileComponents();
@@ -302,6 +312,17 @@ describe('PaymentsPageComponent', () => {
 
       component.save(payment);
       expect(result).toEqual(error);
+    });
+  });
+
+  describe('showUser()', () => {
+    it('should call userViewService.show()', () => {
+      const userViewService: UserViewService = TestBed.get(UserViewService);
+      const userId = 1;
+
+      component.showUser(userId);
+
+      expect(userViewService.show).toHaveBeenCalledWith(userId);
     });
   });
 });

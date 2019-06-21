@@ -4,14 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { InputMaskModule } from '@ui/inputmask';
 
-import {
-  AutoCompleteModule,
-  ButtonModule,
-  InputTextareaModule,
-  InputTextModule,
-  SpinnerModule,
-  StepsModule
-} from 'primeng/primeng';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SpinnerModule } from 'primeng/spinner';
+import { StepsModule } from 'primeng/steps';
 
 import { CargoFormComponent } from './components/cargo-form/cargo-form.component';
 import { CreateOrderFormComponent } from './components/create-order-form/create-order-form.component';

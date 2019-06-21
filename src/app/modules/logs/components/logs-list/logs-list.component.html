@@ -1,0 +1,37 @@
+<p-table [lazy]="true"
+         [value]="logs"
+         [sortField]="sortField"
+         [sortOrder]="sortOrder"
+         [customSort]="true"
+         (onSort)="sort($event)">
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="createdAt">
+        Date
+        <p-sortIcon field="createdAt"></p-sortIcon>
+      </th>
+      <th>Action</th>
+      <th>User ID</th>
+      <th>Add. data</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body"
+               let-log>
+    <tr>
+      <td>{{ log.createdAt | date: 'dd.MM.yyyy' }}</td>
+      <td>{{ actions[log.action] }}</td>
+      <td>
+        <a href="javascript:void(0)"
+           (click)="userSelected.emit(log.userId)">{{ log.userId }}</a>
+      </td>
+      <td>
+        <span *ngIf="log.data">ID: {{ log.data.id }}</span>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator [rows]="pagination.limit"
+             [totalRecords]="count"
+             [first]="pagination.offset"
+             pageLinkSize="3"
+             (onPageChange)="paginate($event)"></p-paginator>

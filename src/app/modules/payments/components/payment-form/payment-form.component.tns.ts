@@ -8,8 +8,6 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { User } from '@auth/models';
-
 import { TNSBaseFormComponent } from '@base/TNSBaseFormComponent.tns';
 
 import { PaymentMethod, paymentMethodNames, Roles } from '@common/enums';
@@ -19,6 +17,7 @@ import { FeedbackService } from '@core/services';
 
 import { OrdersService } from '@orders/services/orders.service';
 
+import { User } from '@users/models';
 import { UsersService } from '@users/services/users.service';
 
 import { TokenModel } from 'nativescript-ui-autocomplete';
@@ -53,10 +52,10 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   ordersFieldValid = true;
   clientFieldValid = true;
 
-  @ViewChild('ordersAutocomplete')
+  @ViewChild('ordersAutocomplete', { static: true })
   ordersAutocomplete: RadAutoCompleteTextViewComponent;
 
-  @ViewChild('clientAutocomplete')
+  @ViewChild('clientAutocomplete', { static: true })
   clientAutocomplete: RadAutoCompleteTextViewComponent;
 
   @Input() role: number;

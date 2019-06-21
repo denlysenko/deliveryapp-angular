@@ -1,0 +1,140 @@
+<p-tabView>
+  <p-tabPanel header="Main Info">
+    <div class="ui-g">
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.id"
+                 readonly>
+          <label>ID</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.email"
+                 readonly>
+          <label>Email</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.phone"
+                 readonly>
+          <label>Phone</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.firstName"
+                 readonly>
+          <label>First Name</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.lastName"
+                 readonly>
+          <label>Last Name</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="roles[user.role]"
+                 readonly>
+          <label>Role</label>
+        </div>
+      </div>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Legal Address">
+    <div class="ui-g">
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.address && user.address.country || ''"
+                 readonly>
+          <label>Country</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.address && user.address.city || ''"
+                 readonly>
+          <label>City</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.address && user.address.street || ''"
+                 readonly>
+          <label>Street</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.address && user.address.house || ''"
+                 readonly>
+          <label>House</label>
+        </div>
+      </div>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Bank Details">
+    <div class="ui-g">
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.bankDetails && user.bankDetails.name || ''"
+                 readonly>
+          <label>Name</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.bankDetails && user.bankDetails.accountNumber || ''"
+                 readonly>
+          <label>Account Number</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.bankDetails && user.bankDetails.bin || ''"
+                 readonly>
+          <label>BIN</label>
+        </div>
+      </div>
+      <div class="ui-g-12 row">
+        <div class="input-wrapper ui-float-label">
+          <input type="text"
+                 pInputText
+                 [value]="user.bankDetails && user.bankDetails.swift || ''"
+                 readonly>
+          <label>SWIFT</label>
+        </div>
+      </div>
+    </div>
+  </p-tabPanel>
+</p-tabView>

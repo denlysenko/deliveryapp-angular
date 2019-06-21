@@ -1,0 +1,29 @@
+:host {
+  padding-left: 0;
+}
+
+.logs-filter {
+  .ui-md-6 {
+    padding: 0;
+  }
+
+  .ui-inputgroup {
+    align-items: center;
+
+    @media (max-width: 640px) {
+      margin-bottom: 16px;
+    }
+
+    input {
+      width: 100%;
+
+      @media (min-width: 641px) {
+        margin-right: 16px;
+      }
+    }
+
+    label {
+      margin-right: 16px;
+    }
+  }
+}

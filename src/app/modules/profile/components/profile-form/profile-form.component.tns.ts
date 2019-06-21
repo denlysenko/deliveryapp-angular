@@ -8,12 +8,12 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { User } from '@auth/models';
-
 import { Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
 
 import { LoaderService } from '@core/services';
+
+import { User } from '@users/models';
 
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 
@@ -51,7 +51,8 @@ export class ProfileFormComponent implements OnInit {
   @Output() profileUpdated = new EventEmitter<User>();
   @Output() passwordUpdated = new EventEmitter<PasswordPayload>();
 
-  @ViewChild(ContactsFormComponent) private contactsForm: ContactsFormComponent;
+  @ViewChild(ContactsFormComponent, { static: true })
+  private contactsForm: ContactsFormComponent;
 
   private _loading = false;
 

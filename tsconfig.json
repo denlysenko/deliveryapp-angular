@@ -1,12 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "module": "esnext",
     "outDir": "./dist/out-tsc",
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2015",
     "downlevelIteration": true,
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom", "es6", "es2015.iterable"],
@@ -21,6 +22,7 @@
       "@orders/*": ["src/app/modules/orders/*"],
       "@users/*": ["src/app/modules/users/*"],
       "@payments/*": ["src/app/modules/payments/*"],
+      "@user-view/*": ["src/app/modules/user-view/*"],
       "~/*": ["src/*"],
       "core-js/es7/reflect": [
         "./node_modules/core-js/proposals/reflect-metadata"

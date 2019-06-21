@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { User } from '@auth/models';
+import { User } from '@users/models';
 
 import { RouterPayload } from '../models/router-payload.model';
 import {
@@ -22,7 +22,13 @@ describe('CoreFacade', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(reducers)],
+      imports: [
+        StoreModule.forRoot(reducers, {
+          runtimeChecks: {
+            strictStateImmutability: false
+          }
+        })
+      ],
       providers: [CoreFacade]
     }).compileComponents();
   }));

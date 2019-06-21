@@ -6,6 +6,8 @@ import { ValidationError } from '@common/models';
 import { FeedbackService, LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
+import { UserViewService } from '@user-view/user-view.service';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -32,7 +34,8 @@ export class PaymentsPageComponent extends PaymentsPageBase {
     coreFacade: CoreFacade,
     paymentsService: PaymentsService,
     loaderService: LoaderService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private userViewService: UserViewService
   ) {
     super(route, paymentsFacade, coreFacade, paymentsService, loaderService);
   }
@@ -74,5 +77,9 @@ export class PaymentsPageComponent extends PaymentsPageBase {
           this.error.next(err);
         }
       );
+  }
+
+  showUser(id: number) {
+    this.userViewService.show(id);
   }
 }

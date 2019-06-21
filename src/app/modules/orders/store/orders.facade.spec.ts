@@ -28,9 +28,16 @@ describe('OrdersFacade', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({
-          orders: ordersReducer
-        })
+        StoreModule.forRoot(
+          {
+            orders: ordersReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
+          }
+        )
       ],
       providers: [OrdersFacade]
     }).compileComponents();

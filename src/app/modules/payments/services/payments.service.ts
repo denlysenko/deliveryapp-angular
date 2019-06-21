@@ -6,17 +6,17 @@ import { ApiService } from '@core/services/api.service';
 
 import { Observable } from 'rxjs';
 
-import { Payment } from '../models';
+import { Payment, PaymentsFilter } from '../models';
 
 @Injectable()
 export class PaymentsService {
   constructor(private apiService: ApiService) {}
 
-  getPaymentsSelf(query?: any): Observable<ListResponse<Payment>> {
+  getPaymentsSelf(query?: PaymentsFilter): Observable<ListResponse<Payment>> {
     return this.apiService.get('/users/self/payments', query);
   }
 
-  getPayments(query?: any): Observable<ListResponse<Payment>> {
+  getPayments(query?: PaymentsFilter): Observable<ListResponse<Payment>> {
     return this.apiService.get('/payments', query);
   }
 

@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import {
-  AutoCompleteModule,
-  ButtonModule,
-  CalendarModule,
-  DropdownModule,
-  InputTextareaModule,
-  InputTextModule,
-  PaginatorModule,
-  SpinnerModule
-} from 'primeng/primeng';
+import { UserViewModule } from '@user-view/user-view.module';
+
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { PaginatorModule } from 'primeng/paginator';
+import { SpinnerModule } from 'primeng/spinner';
 import { TableModule } from 'primeng/table';
 
 import { PaymentFormComponent } from './components/payment-form/payment-form.component';
@@ -39,7 +39,8 @@ import { importDeclarations, providerDeclarations } from './payments.common';
     DropdownModule,
     SpinnerModule,
     CalendarModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    UserViewModule
   ],
   providers: [...providerDeclarations]
 })

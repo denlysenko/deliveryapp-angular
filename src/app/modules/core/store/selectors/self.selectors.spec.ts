@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { User } from '@auth/models';
+import { User } from '@users/models';
 
 import {
   LoadSelf,
@@ -24,7 +24,13 @@ describe('Self Selectors', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(reducers)]
+      imports: [
+        StoreModule.forRoot(reducers, {
+          runtimeChecks: {
+            strictStateImmutability: false
+          }
+        })
+      ]
     });
 
     store = TestBed.get(Store);

@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { User } from '@auth/models';
-
 import { Roles } from '@common/enums';
 
 import { FeedbackService } from '@core/services';
 
 import { InputMaskModule } from '@ui/inputmask';
+
+import { User } from '@users/models';
 
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { BankDetailsFormComponent } from '../bank-details-form/bank-details-form.component';

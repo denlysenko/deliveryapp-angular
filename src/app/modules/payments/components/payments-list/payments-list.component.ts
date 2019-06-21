@@ -26,4 +26,5 @@ export class PaymentsListComponent extends BaseListComponent {
   @Input() role: number;
 
   @Output() paymentSelected = new EventEmitter<Payment>();
+  @Output() userSelected = new EventEmitter<number>();
 }

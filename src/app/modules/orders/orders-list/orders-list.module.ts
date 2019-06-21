@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import {
-  ButtonModule,
-  DropdownModule,
-  InputTextModule,
-  PaginatorModule
-} from 'primeng/primeng';
+import { UserViewModule } from '@user-view/user-view.module';
+
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 
 import { OrdersFilterComponent } from './components/orders-filter/orders-filter.component';
@@ -29,7 +29,8 @@ import { importDeclarations, providerDeclarations } from './orders-list.common';
     PaginatorModule,
     InputTextModule,
     ButtonModule,
-    DropdownModule
+    DropdownModule,
+    UserViewModule
   ],
   providers: [...providerDeclarations]
 })

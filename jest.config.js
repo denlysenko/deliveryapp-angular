@@ -12,6 +12,7 @@ module.exports = {
     '@orders/(.*)': '<rootDir>/src/app/modules/orders/$1',
     '@users/(.*)': '<rootDir>/src/app/modules/users/$1',
     '@payments/(.*)': '<rootDir>/src/app/modules/payments/$1',
+    '@user-view/(.*)': '<rootDir>/src/app/modules/user-view/$1',
     '~/(.*)': '<rootDir>/src/$1'
   }
 };

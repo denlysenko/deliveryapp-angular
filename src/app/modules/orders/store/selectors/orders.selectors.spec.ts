@@ -33,9 +33,16 @@ describe('Orders Selectors', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({
-          orders: ordersReducer
-        })
+        StoreModule.forRoot(
+          {
+            orders: ordersReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
+          }
+        )
       ]
     });
 

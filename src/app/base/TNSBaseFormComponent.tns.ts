@@ -11,7 +11,8 @@ export const ERROR_MESSAGE = 'Saving failed';
 export abstract class TNSBaseFormComponent {
   protected abstract feedbackService: FeedbackService;
 
-  @ViewChild('dataForm') dataForm: RadDataFormComponent;
+  @ViewChild('dataForm', /* TODO: check static flag */ { static: false })
+  dataForm: RadDataFormComponent;
 
   get dataform(): RadDataForm {
     return this.dataForm.dataForm;

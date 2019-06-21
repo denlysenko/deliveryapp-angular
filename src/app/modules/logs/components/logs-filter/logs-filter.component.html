@@ -1,0 +1,10 @@
+<div [formGroup]="form"
+     class="logs-filter ui-g">
+  <div class="ui-inputgroup ui-g-12 ui-md-6">
+    <label>Action</label>
+    <p-dropdown class="ui-g-12 ui-md-6"
+                [options]="actions"
+                placeholder="Action type"
+                formControlName="search"></p-dropdown>
+  </div>
+</div>

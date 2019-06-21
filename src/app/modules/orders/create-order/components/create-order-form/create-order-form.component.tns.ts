@@ -5,12 +5,11 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { User } from '@auth/models';
-
 import { Roles } from '@common/enums';
 
 import { FeedbackService, LoaderService } from '@core/services';
 
+import { User } from '@users/models';
 import { UsersService } from '@users/services/users.service';
 
 import { TokenModel } from 'nativescript-ui-autocomplete';
@@ -47,7 +46,7 @@ export class CreateOrderFormComponent extends TNSOrderFormBase
 
   clientFieldValid = true;
 
-  @ViewChild('clientAutocomplete')
+  @ViewChild('clientAutocomplete', { static: false })
   clientAutocomplete: RadAutoCompleteTextViewComponent;
 
   private clients: User[] = [];

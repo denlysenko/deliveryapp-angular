@@ -1,0 +1,50 @@
+<p-table [lazy]="true"
+         [value]="users"
+         [sortField]="sortField"
+         [sortOrder]="sortOrder"
+         [customSort]="true"
+         (onSort)="sort($event)">
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="id">
+        ID
+        <p-sortIcon field="id"></p-sortIcon>
+      </th>
+      <th pSortableColumn="email">
+        Email
+        <p-sortIcon field="email"></p-sortIcon>
+      </th>
+      <th pSortableColumn="firstName">
+        First Name
+        <p-sortIcon field="firstName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="lastName">
+        Last Name
+        <p-sortIcon field="lastName"></p-sortIcon>
+      </th>
+      <th>Phone</th>
+      <th>Role</th>
+      <th>Created At</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body"
+               let-user>
+    <tr>
+      <td>
+        <a href="javascript:void(0)"
+           (click)="userSelected.emit(user)">{{ user.id }}</a>
+      </td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.phone }}</td>
+      <td>{{ roleName[user.role] }}</td>
+      <td>{{ user.createdAt | date: 'dd.MM.yyyy' }}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-paginator [rows]="pagination.limit"
+             [totalRecords]="count"
+             [first]="pagination.offset"
+             pageLinkSize="3"
+             (onPageChange)="paginate($event)"></p-paginator>

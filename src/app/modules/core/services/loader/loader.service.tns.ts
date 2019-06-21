@@ -20,6 +20,9 @@ export class LoaderService implements Loader {
         dimBackground: true,
         color: '#3984b8',
         backgroundColor: '#ffffff'
+      },
+      android: {
+        color: '#3984b8'
       }
     };
 

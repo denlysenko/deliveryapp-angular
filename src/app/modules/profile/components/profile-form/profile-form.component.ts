@@ -8,13 +8,13 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { User } from '@auth/models';
-
 import { BaseFormComponent } from '@base/BaseFormComponent';
 
 import { Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
 import { emailValidator, passwordMatchValidator } from '@common/validators';
+
+import { User } from '@users/models';
 
 import { PasswordPayload } from '../../models';
 

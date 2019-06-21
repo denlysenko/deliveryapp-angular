@@ -8,12 +8,10 @@ import { OrdersService } from '@orders/services/orders.service';
 
 import { UsersService } from '@users/services/users.service';
 
-import {
-  AutoCompleteModule,
-  CalendarModule,
-  DropdownModule,
-  SpinnerModule
-} from 'primeng/primeng';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { SpinnerModule } from 'primeng/spinner';
 
 import { of } from 'rxjs';
 

@@ -16,7 +16,8 @@ import { Roles } from '@common/enums';
 import { ValidationError } from '@common/models';
 import { emailValidator } from '@common/validators';
 
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem } from 'primeng/api';
+
 import { Order } from '../../../models';
 
 @Component({

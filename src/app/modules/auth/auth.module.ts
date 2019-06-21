@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 
 import { InputMaskModule } from '@ui/inputmask';
 
-import { ButtonModule, InputTextModule } from 'primeng/primeng';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import {
