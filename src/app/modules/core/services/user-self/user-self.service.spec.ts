@@ -7,6 +7,8 @@ import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 
 import { ApiService } from '@core/services/api.service';
 
+import { Message } from '@messages/models';
+
 import { User } from '@users/models';
 
 import { environment } from '~/environments/environment';
@@ -83,11 +85,11 @@ describe('UserSelfService', () => {
       [UserSelfService],
       fakeAsync(authService => {
         const http = TestBed.get(HttpTestingController);
-        // TODO add Message type
-        const messageResponse: any = {
+        const messageResponse: Message = {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         };

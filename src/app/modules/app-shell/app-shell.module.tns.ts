@@ -6,11 +6,10 @@ import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 
 import { componentDeclarations } from './app-shell.common';
-import { MessagesComponent } from './components/messages/messages.component.tns';
 import { UserMenuComponent } from './components/user-menu/user-menu.component.tns';
 import { AppShellComponent } from './containers/app-shell/app-shell.component.tns';
 
-const components = [MessagesComponent, UserMenuComponent];
+const components = [UserMenuComponent];
 const containers = [AppShellComponent];
 
 @NgModule({
@@ -22,7 +21,7 @@ const containers = [AppShellComponent];
   ],
   declarations: [...componentDeclarations, ...containers, ...components],
   exports: [AppShellComponent],
-  entryComponents: [MessagesComponent],
+  entryComponents: [],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppShellModule {}
