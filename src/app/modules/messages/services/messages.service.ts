@@ -34,6 +34,8 @@ export class MessagesService {
     firebase.initializeApp(firebaseConfig);
     this.messaging = firebase.messaging();
     this.messaging.usePublicVapidKey(environment.firebasePublicKey);
+    // set onMessage handler after reload and previously was logged
+    this.unsubscribe = this.messaging.onMessage(this.onMessage.bind(this));
   }
 
   async subscribeToMessaging() {
@@ -46,7 +48,7 @@ export class MessagesService {
         await this.apiService
           .post('/messages/subscribe', { socketId: token })
           .toPromise();
-
+        // set onMessage handler after login
         this.unsubscribe = this.messaging.onMessage(this.onMessage.bind(this));
       } catch (err) {}
     }
@@ -60,6 +62,8 @@ export class MessagesService {
         await this.apiService
           .post('/messages/unsubscribe', { socketId: token })
           .toPromise();
+
+        await this.messaging.deleteToken(token);
 
         if (this.unsubscribe) {
           this.unsubscribe();
