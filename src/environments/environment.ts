@@ -7,7 +7,9 @@ export const environment = {
   // apiUrl: 'https://sheltered-escarpment-55326.herokuapp.com'
   apiUrl: 'http://localhost:3000',
   firebaseAppId: '1:910231972624:web:a6d5902a751779b2',
-  firebaseSenderId: '910231972624'
+  firebaseSenderId: '910231972624',
+  firebasePublicKey:
+    'BN6Wwlj7GMtvzbRu99ZHTm3LnOV2pocLbh1gXVXR7TmTens_7tY7g0RbY-wXe_RSu7UsZxZ4krTvu78u0V4jQhc'
 };
 
 /*

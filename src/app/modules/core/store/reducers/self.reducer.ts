@@ -2,9 +2,6 @@ import { User } from '@users/models';
 
 import { SelfActions, SelfActionTypes } from '../actions/self.actions';
 
-// tslint:disable-next-line:no-commented-code
-// import * as fromProfile from '../../../pages/profile/store/actions';
-
 export interface SelfState {
   loading: boolean;
   error: any | null;
@@ -20,7 +17,6 @@ export const initialState: SelfState = {
 export function selfReducer(
   state = initialState,
   action: SelfActions
-  // | fromProfile.ProfileActions
 ): SelfState {
   switch (action.type) {
     case SelfActionTypes.LOAD_SELF: {
@@ -39,13 +35,6 @@ export function selfReducer(
         user: action.payload
       };
     }
-
-    // case fromProfile.UPDATE_PROFILE_SUCCESS: {
-    //   return {
-    //     ...state,
-    //     user: action.payload
-    //   };
-    // }
 
     case SelfActionTypes.LOAD_SELF_FAIL: {
       return {

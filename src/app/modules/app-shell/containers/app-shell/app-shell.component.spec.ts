@@ -3,11 +3,15 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoreFacade } from '@core/store';
 
+import { Message } from '@messages/models';
+import { MessagesFacade } from '@messages/store';
+
 import { User } from '@users/models';
 
 import { of } from 'rxjs';
 
 import { AppShellComponent } from './app-shell.component';
+import { MessagesService } from '@messages/services';
 
 const USER: User = {
   id: 1,
@@ -19,12 +23,12 @@ const USER: User = {
   role: 1
 };
 
-// TODO add Message type
-const MESSAGES: any[] = [
+const MESSAGES: Message[] = [
   {
     _id: '1',
     text: 'message',
     read: false,
+    forEmployee: false,
     recipientId: null,
     createdAt: new Date().toISOString()
   }
@@ -34,10 +38,13 @@ const UNREAD_MESSAGES = 3;
 
 const coreFacadeStub = {
   self$: of(USER),
+  logout: jasmine.createSpy('logout')
+};
+
+const messagesFacadeStub = {
   unreadMessages$: of(UNREAD_MESSAGES),
   messages$: of(MESSAGES),
-  markMessageAsRead: jasmine.createSpy('markMessageAsRead'),
-  logout: jasmine.createSpy('logout')
+  markMessageAsRead: jasmine.createSpy('markMessageAsRead')
 };
 
 describe('AppShellComponent', () => {
@@ -51,6 +58,10 @@ describe('AppShellComponent', () => {
         {
           provide: CoreFacade,
           useValue: coreFacadeStub
+        },
+        {
+          provide: MessagesFacade,
+          useValue: messagesFacadeStub
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -99,11 +110,11 @@ describe('AppShellComponent', () => {
   });
 
   describe('markMessageAsRead()', () => {
-    it('should call CoreFacade.markMessageAsRead', () => {
-      const coreFacade = TestBed.get(CoreFacade);
+    it('should call MessagesFacade.markMessageAsRead', () => {
+      const messagesFacade = TestBed.get(MessagesFacade);
       const ID = '1';
       component.markMessageAsRead(ID);
-      expect(coreFacade.markMessageAsRead).toBeCalledWith(ID);
+      expect(messagesFacade.markMessageAsRead).toBeCalledWith(ID);
     });
   });
 

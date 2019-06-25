@@ -1,3 +1,4 @@
+import { Message } from '../../models/message.model';
 import {
   HandleMessageReceive,
   LoadMessages,
@@ -6,9 +7,6 @@ import {
   MarkAsReadSuccess
 } from '../actions/messages.actions';
 import { initialState, messagesReducer } from './messages.reducer';
-
-// tslint:disable-next-line:no-commented-code
-// import { Message } from '../../../lib/messages/Message';
 
 describe('MessagesReducer', () => {
   describe('undefined action', () => {
@@ -29,12 +27,12 @@ describe('MessagesReducer', () => {
 
   describe('LOAD_MESSAGES_SUCCESS action', () => {
     it('should map an array to entities and calculate unread number', () => {
-      // TODO add Message model
-      const messages: any[] = [
+      const messages: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         },
@@ -42,6 +40,7 @@ describe('MessagesReducer', () => {
           _id: '2',
           text: 'message',
           read: true,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         },
@@ -49,6 +48,7 @@ describe('MessagesReducer', () => {
           _id: '3',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }
@@ -83,11 +83,11 @@ describe('MessagesReducer', () => {
 
   describe('HANDLE_MESSAGE_RECEIVE action', () => {
     it('should set add new message', () => {
-      // TODO add Message model
-      const message: any = {
+      const message: Message = {
         _id: '1',
         text: 'message',
         read: false,
+        forEmployee: false,
         recipientId: null,
         createdAt: new Date().toISOString()
       };
@@ -101,12 +101,12 @@ describe('MessagesReducer', () => {
 
   describe('MARK_AS_READ_SUCCESS action', () => {
     it('should mark message as read and decrease unread count', () => {
-      // TODO add Message model
-      const messages: any[] = [
+      const messages: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }

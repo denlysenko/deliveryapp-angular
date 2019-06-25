@@ -1,3 +1,4 @@
+import { Message } from '../../models/message.model';
 import {
   HandleMessageReceive,
   LoadMessages,
@@ -6,11 +7,10 @@ import {
   MarkAsRead,
   MarkAsReadFail,
   MarkAsReadSuccess,
-  MessagesActionTypes
+  MessagesActionTypes,
+  SubscribeToMessages,
+  UnsubscribeFromMessages
 } from './messages.actions';
-
-// tslint:disable-next-line:no-commented-code
-// import { Message } from '../../../lib/messages/Message';
 
 describe('Messages Actions', () => {
   describe('LoadMessages', () => {
@@ -24,12 +24,12 @@ describe('Messages Actions', () => {
 
   describe('LoadMessagesSuccess', () => {
     it('should create an action', () => {
-      // TODO add Message model
-      const payload: any[] = [
+      const payload: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }
@@ -89,11 +89,11 @@ describe('Messages Actions', () => {
 
   describe('HandleMessageReceive', () => {
     it('should create an action', () => {
-      // TODO add Message model
-      const payload: any = {
+      const payload: Message = {
         _id: '1',
         text: 'message',
         read: false,
+        forEmployee: false,
         recipientId: null,
         createdAt: new Date().toISOString()
       };
@@ -102,6 +102,24 @@ describe('Messages Actions', () => {
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.HANDLE_MESSAGE_RECEIVE,
         payload
+      });
+    });
+  });
+
+  describe('SubscribeToMessages', () => {
+    it('should create an action', () => {
+      const action = new SubscribeToMessages();
+      expect({ ...action }).toEqual({
+        type: MessagesActionTypes.SUBSCRIBE_TO_MESSAGES
+      });
+    });
+  });
+
+  describe('UnsubscribeFromMessages', () => {
+    it('should create an action', () => {
+      const action = new UnsubscribeFromMessages();
+      expect({ ...action }).toEqual({
+        type: MessagesActionTypes.UNSUBSCRIBE_FROM_MESSAGES
       });
     });
   });

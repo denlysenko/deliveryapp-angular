@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
+import { importDeclarations } from './messages.common';
 import { MessagesService } from './services/messages.service';
+import { MessagesFacade } from './store';
 
 export function messagesInitializer(messagesService: MessagesService) {
   return () => {
@@ -11,9 +13,10 @@ export function messagesInitializer(messagesService: MessagesService) {
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [CommonModule, ...importDeclarations],
   providers: [
     MessagesService,
+    MessagesFacade,
     {
       provide: APP_INITIALIZER,
       useFactory: messagesInitializer,

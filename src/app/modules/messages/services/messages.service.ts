@@ -6,10 +6,13 @@ import { ApiService } from '@core/services/api.service';
 import * as firebase from 'firebase/app';
 import 'firebase/messaging';
 
-import { MessagePayload } from '../models/message-payload.model';
+import { Observable } from 'rxjs';
+
 import { environment } from '~/environments/environment';
 
-const ERROR = "You won't be able to receive push messages!";
+import { MessagePayload } from '../models/message-payload.model';
+import { Message } from '../models/message.model';
+import { MessagesFacade } from '../store';
 
 @Injectable()
 export class MessagesService {
@@ -18,7 +21,8 @@ export class MessagesService {
 
   constructor(
     private feedbackService: FeedbackService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private messagesFacade: MessagesFacade
   ) {}
 
   init() {
@@ -29,45 +33,22 @@ export class MessagesService {
 
     firebase.initializeApp(firebaseConfig);
     this.messaging = firebase.messaging();
-    this.messaging.usePublicVapidKey(
-      'BN6Wwlj7GMtvzbRu99ZHTm3LnOV2pocLbh1gXVXR7TmTens_7tY7g0RbY-wXe_RSu7UsZxZ4krTvu78u0V4jQhc'
-    );
-  }
-
-  async requestPermissions() {
-    try {
-      await this.messaging.requestPermission();
-    } catch (err) {
-      this.feedbackService.error(ERROR);
-    }
-  }
-
-  async getToken(): Promise<string | undefined> {
-    let token;
-
-    try {
-      token = await this.messaging.getToken();
-    } catch (err) {
-      console.error(err);
-    }
-
-    return token;
+    this.messaging.usePublicVapidKey(environment.firebasePublicKey);
   }
 
   async subscribeToMessaging() {
+    await this.requestPermissions();
+
     const token = await this.getToken();
 
     if (token) {
-      this.apiService
-        .post('/messages/subscribe', { socketId: token })
-        .subscribe(() => {
-          this.unsubscribe = this.messaging.onMessage(
-            (payload: MessagePayload) => {
-              // TODO: update messages array
-              this.feedbackService.info(payload.notification.body);
-            }
-          );
-        });
+      try {
+        await this.apiService
+          .post('/messages/subscribe', { socketId: token })
+          .toPromise();
+
+        this.unsubscribe = this.messaging.onMessage(this.onMessage.bind(this));
+      } catch (err) {}
     }
   }
 
@@ -75,17 +56,56 @@ export class MessagesService {
     const token = await this.getToken();
 
     if (token) {
-      this.apiService
-        .post('/messages/unsubscribe', { socketId: token })
-        .subscribe(() => {
-          if (this.unsubscribe) {
-            this.unsubscribe();
-          }
-        });
+      try {
+        await this.apiService
+          .post('/messages/unsubscribe', { socketId: token })
+          .toPromise();
+
+        if (this.unsubscribe) {
+          this.unsubscribe();
+        }
+      } catch (err) {}
     }
   }
 
-  markAsRead(id: string) {
+  markAsRead(id: string): Observable<Message> {
     return this.apiService.patch(`/messages/${id}`, {});
+  }
+
+  private async requestPermissions() {
+    try {
+      await this.messaging.requestPermission();
+    } catch (err) {}
+  }
+
+  private async getToken(): Promise<string | undefined> {
+    let token;
+
+    try {
+      token = await this.messaging.getToken();
+    } catch (err) {}
+
+    return token;
+  }
+
+  private onMessage(payload: MessagePayload) {
+    const {
+      _id,
+      recipientId,
+      text,
+      createdAt,
+      forEmployee,
+      read
+    } = payload.data;
+
+    this.feedbackService.info(payload.notification.body);
+    this.messagesFacade.handleMessageReceive({
+      _id,
+      recipientId: parseInt(recipientId, 10),
+      text,
+      createdAt,
+      forEmployee: forEmployee === 'true' ? true : false,
+      read: read === 'true' ? true : false
+    });
   }
 }

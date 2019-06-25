@@ -1,16 +1,16 @@
 import { Action } from '@ngrx/store';
-
-// tslint:disable-next-line:no-commented-code
-// import { Message } from '../../../lib/messages/Message';
+import { Message } from '../../models/message.model';
 
 export enum MessagesActionTypes {
-  LOAD_MESSAGES = '[Core] Load Messages',
-  LOAD_MESSAGES_SUCCESS = '[Core] Load Messages Success',
-  LOAD_MESSAGES_FAIL = '[Core] Load Messages Fail',
-  MARK_AS_READ = '[Core] Mark Message As Read',
-  MARK_AS_READ_SUCCESS = '[Core] Mark Message As Read Success',
-  MARK_AS_READ_FAIL = '[Core] Mark Message As Read Fail',
-  HANDLE_MESSAGE_RECEIVE = '[Core] Handle Message Receive'
+  LOAD_MESSAGES = '[Messages] Load Messages',
+  LOAD_MESSAGES_SUCCESS = '[Messages] Load Messages Success',
+  LOAD_MESSAGES_FAIL = '[Messages] Load Messages Fail',
+  MARK_AS_READ = '[Messages] Mark Message As Read',
+  MARK_AS_READ_SUCCESS = '[Messages] Mark Message As Read Success',
+  MARK_AS_READ_FAIL = '[Messages] Mark Message As Read Fail',
+  HANDLE_MESSAGE_RECEIVE = '[Messages] Handle Message Receive',
+  SUBSCRIBE_TO_MESSAGES = '[Messages] Subscribe To Messages',
+  UNSUBSCRIBE_FROM_MESSAGES = '[Messages] Unsubscribe From Messages'
 }
 
 export class LoadMessages implements Action {
@@ -20,8 +20,7 @@ export class LoadMessages implements Action {
 export class LoadMessagesSuccess implements Action {
   readonly type = MessagesActionTypes.LOAD_MESSAGES_SUCCESS;
 
-  // TODO add Message model
-  constructor(public payload: any[]) {}
+  constructor(public payload: Message[]) {}
 }
 
 export class LoadMessagesFail implements Action {
@@ -51,8 +50,15 @@ export class MarkAsReadFail implements Action {
 export class HandleMessageReceive implements Action {
   readonly type = MessagesActionTypes.HANDLE_MESSAGE_RECEIVE;
 
-  // TODO add Message model
-  constructor(public payload: any) {}
+  constructor(public payload: Message) {}
+}
+
+export class SubscribeToMessages implements Action {
+  readonly type = MessagesActionTypes.SUBSCRIBE_TO_MESSAGES;
+}
+
+export class UnsubscribeFromMessages implements Action {
+  readonly type = MessagesActionTypes.UNSUBSCRIBE_FROM_MESSAGES;
 }
 
 export type MessagesActions =
@@ -62,4 +68,6 @@ export type MessagesActions =
   | MarkAsRead
   | MarkAsReadSuccess
   | MarkAsReadFail
-  | HandleMessageReceive;
+  | HandleMessageReceive
+  | SubscribeToMessages
+  | UnsubscribeFromMessages;

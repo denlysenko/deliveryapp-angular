@@ -2,15 +2,12 @@ import {
   MessagesActions,
   MessagesActionTypes
 } from '../actions/messages.actions';
-
-// tslint:disable-next-line:no-commented-code
-// import { Message } from '../../../lib/messages/Message';
+import { Message } from '../../models/message.model';
 
 export interface MessageState {
   loading: boolean;
   error: any | null;
-  // TODO add Message model
-  entities: { [key: string]: any };
+  entities: { [key: string]: Message };
   unread: number;
 }
 
@@ -38,8 +35,7 @@ export function messagesReducer(
       let unread = state.unread;
 
       const entities = messages.reduce(
-        // TODO add Message model
-        (accumulator: { [id: string]: any }, message: any) => {
+        (accumulator: { [id: string]: any }, message: Message) => {
           if (!message.read) {
             unread++;
           }

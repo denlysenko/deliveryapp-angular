@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { ApiService } from '@core/services/api.service';
 
+import { Message } from '@messages/models';
+
 import { User } from '@users/models';
 
 import { Observable } from 'rxjs';
-
-// tslint:disable-next-line:no-commented-code
-// import { Message } from '../../lib/messages/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,7 @@ export class UserSelfService {
     return this.apiService.get('/users/self');
   }
 
-  // TODO add Message type
-  loadMessages(): Observable<any[]> {
+  loadMessages(): Observable<Message[]> {
     return this.apiService.get('/users/self/messages');
   }
 }
