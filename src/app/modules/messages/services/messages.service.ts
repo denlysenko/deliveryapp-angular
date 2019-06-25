@@ -104,8 +104,8 @@ export class MessagesService {
       recipientId: parseInt(recipientId, 10),
       text,
       createdAt,
-      forEmployee: forEmployee === 'true' ? true : false,
-      read: read === 'true' ? true : false
+      forEmployee: forEmployee === 'true',
+      read: read === 'true'
     });
   }
 }
