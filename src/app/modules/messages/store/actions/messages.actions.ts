@@ -1,10 +1,14 @@
+import { ListResponse } from '@common/models';
+
 import { Action } from '@ngrx/store';
+
 import { Message } from '../../models/message.model';
 
 export enum MessagesActionTypes {
   LOAD_MESSAGES = '[Messages] Load Messages',
   LOAD_MESSAGES_SUCCESS = '[Messages] Load Messages Success',
   LOAD_MESSAGES_FAIL = '[Messages] Load Messages Fail',
+  LOAD_MORE = '[Messages] Load More',
   MARK_AS_READ = '[Messages] Mark Message As Read',
   MARK_AS_READ_SUCCESS = '[Messages] Mark Message As Read Success',
   MARK_AS_READ_FAIL = '[Messages] Mark Message As Read Fail',
@@ -20,13 +24,19 @@ export class LoadMessages implements Action {
 export class LoadMessagesSuccess implements Action {
   readonly type = MessagesActionTypes.LOAD_MESSAGES_SUCCESS;
 
-  constructor(public payload: Message[]) {}
+  constructor(public payload: ListResponse<Message>) {}
 }
 
 export class LoadMessagesFail implements Action {
   readonly type = MessagesActionTypes.LOAD_MESSAGES_FAIL;
 
   constructor(public payload: any) {}
+}
+
+export class LoadMore implements Action {
+  readonly type = MessagesActionTypes.LOAD_MORE;
+
+  constructor(public payload: number) {}
 }
 
 export class MarkAsRead implements Action {
@@ -65,6 +75,7 @@ export type MessagesActions =
   | LoadMessages
   | LoadMessagesSuccess
   | LoadMessagesFail
+  | LoadMore
   | MarkAsRead
   | MarkAsReadSuccess
   | MarkAsReadFail

@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 
+import { DEFAULT_LIMIT } from '@common/constants';
+
 import { UserSelfService } from '@core/services';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { of, from } from 'rxjs';
+import { from, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { MessagesService } from '../../services/messages.service';
 import {
   LoadMessagesFail,
   LoadMessagesSuccess,
+  LoadMore,
   MarkAsRead,
   MarkAsReadFail,
   MarkAsReadSuccess,
@@ -30,9 +33,23 @@ export class MessagesEffects {
     ofType(MessagesActionTypes.LOAD_MESSAGES),
     switchMap(() => {
       return this.userSelfService.loadMessages().pipe(
-        map(messages => new LoadMessagesSuccess(messages)),
+        map(res => new LoadMessagesSuccess(res)),
         catchError(err => of(new LoadMessagesFail(err)))
       );
+    })
+  );
+
+  @Effect()
+  loadMore$ = this.actions$.pipe(
+    ofType(MessagesActionTypes.LOAD_MORE),
+    map((action: LoadMore) => action.payload),
+    switchMap(offset => {
+      return this.userSelfService
+        .loadMessages({ limit: DEFAULT_LIMIT, offset })
+        .pipe(
+          map(res => new LoadMessagesSuccess(res)),
+          catchError(err => of(new LoadMessagesFail(err)))
+        );
     })
   );
 

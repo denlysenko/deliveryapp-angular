@@ -7,6 +7,7 @@ import {
   HandleMessageReceive,
   LoadMessages,
   LoadMessagesSuccess,
+  LoadMore,
   MarkAsRead,
   SubscribeToMessages
 } from './actions';
@@ -61,7 +62,31 @@ describe('MessagesFacade', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
+      expect(result).toEqual(1);
+    });
+  });
+
+  describe('totalCount$', () => {
+    it('should return messages count', () => {
+      const messages: Message[] = [
+        {
+          _id: '1',
+          text: 'message',
+          read: false,
+          forEmployee: false,
+          recipientId: null,
+          createdAt: new Date().toISOString()
+        }
+      ];
+
+      let result;
+
+      facade.totalCount$.subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(1);
     });
   });
@@ -85,7 +110,7 @@ describe('MessagesFacade', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(messages);
     });
   });
@@ -95,6 +120,15 @@ describe('MessagesFacade', () => {
       const action = new LoadMessages();
 
       facade.loadMessages();
+      expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
+  });
+
+  describe('loadMore()', () => {
+    it('should dispatch a LoadMore action', () => {
+      const action = new LoadMore(10);
+
+      facade.loadMore(10);
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });

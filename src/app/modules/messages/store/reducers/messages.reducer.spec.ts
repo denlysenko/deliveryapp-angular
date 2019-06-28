@@ -60,7 +60,7 @@ describe('MessagesReducer', () => {
         '3': messages[2]
       };
 
-      const action = new LoadMessagesSuccess(messages);
+      const action = new LoadMessagesSuccess({ rows: messages, count: 3 });
       const { loading, entities, unread } = messagesReducer(
         initialState,
         action
@@ -93,9 +93,13 @@ describe('MessagesReducer', () => {
       };
 
       const action = new HandleMessageReceive(message);
-      const { entities, unread } = messagesReducer(initialState, action);
+      const { entities, unread, totalCount } = messagesReducer(
+        initialState,
+        action
+      );
       expect(entities['1']).toEqual(message);
       expect(unread).toEqual(1);
+      expect(totalCount).toEqual(1);
     });
   });
 
@@ -112,7 +116,7 @@ describe('MessagesReducer', () => {
         }
       ];
 
-      const loadAction = new LoadMessagesSuccess(messages);
+      const loadAction = new LoadMessagesSuccess({ rows: messages, count: 1 });
       const state = messagesReducer(initialState, loadAction);
       const markAsReadAction = new MarkAsReadSuccess('1');
       const { entities, unread } = messagesReducer(state, markAsReadAction);

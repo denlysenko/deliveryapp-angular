@@ -1,9 +1,12 @@
+import { ListResponse } from '@common/models';
+
 import { Message } from '../../models/message.model';
 import {
   HandleMessageReceive,
   LoadMessages,
   LoadMessagesFail,
   LoadMessagesSuccess,
+  LoadMore,
   MarkAsRead,
   MarkAsReadFail,
   MarkAsReadSuccess,
@@ -24,16 +27,19 @@ describe('Messages Actions', () => {
 
   describe('LoadMessagesSuccess', () => {
     it('should create an action', () => {
-      const payload: Message[] = [
-        {
-          _id: '1',
-          text: 'message',
-          read: false,
-          forEmployee: false,
-          recipientId: null,
-          createdAt: new Date().toISOString()
-        }
-      ];
+      const payload: ListResponse<Message> = {
+        rows: [
+          {
+            _id: '1',
+            text: 'message',
+            read: false,
+            forEmployee: false,
+            recipientId: null,
+            createdAt: new Date().toISOString()
+          }
+        ],
+        count: 1
+      };
 
       const action = new LoadMessagesSuccess(payload);
       expect({ ...action }).toEqual({
@@ -49,6 +55,17 @@ describe('Messages Actions', () => {
       const action = new LoadMessagesFail(payload);
       expect({ ...action }).toEqual({
         type: MessagesActionTypes.LOAD_MESSAGES_FAIL,
+        payload
+      });
+    });
+  });
+
+  describe('LoadMore', () => {
+    it('should create an action', () => {
+      const payload = 10;
+      const action = new LoadMore(payload);
+      expect({ ...action }).toEqual({
+        type: MessagesActionTypes.LOAD_MORE,
         payload
       });
     });

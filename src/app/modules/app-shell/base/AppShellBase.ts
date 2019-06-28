@@ -6,6 +6,7 @@ export abstract class AppShellBase extends BaseComponent {
   user$ = this.coreFacade.self$;
   unreadMessages$ = this.messagesFacade.unreadMessages$;
   messages$ = this.messagesFacade.messages$;
+  messagesCount$ = this.messagesFacade.totalCount$;
 
   constructor(
     private coreFacade: CoreFacade,

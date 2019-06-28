@@ -14,7 +14,8 @@ import {
   getMessageEntities,
   getMessagesError,
   getMessagesLoading,
-  getUnreadMessages
+  getUnreadMessages,
+  getMessagesCount
 } from './messages.selectors';
 
 describe('Messages Selectors', () => {
@@ -71,7 +72,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(false);
     });
   });
@@ -116,7 +117,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(entities);
     });
   });
@@ -140,7 +141,31 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
+      expect(result).toEqual(1);
+    });
+  });
+
+  describe('getMessagesCount', () => {
+    it('should return messages count', () => {
+      const messages: Message[] = [
+        {
+          _id: '1',
+          text: 'message',
+          read: false,
+          forEmployee: false,
+          recipientId: null,
+          createdAt: new Date().toISOString()
+        }
+      ];
+
+      let result;
+
+      store.select(getMessagesCount).subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(1);
     });
   });
@@ -164,7 +189,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(messages);
     });
   });
