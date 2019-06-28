@@ -5,11 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { User } from '@users/models';
 
 import { RouterPayload } from '../models/router-payload.model';
-import {
-  LoadMessages,
-  LoadMessagesSuccess,
-  MarkAsRead
-} from './actions/messages.actions';
+
 import { Back, Forward, Go } from './actions/router.actions';
 import { LoadSelf, LoadSelfSuccess, Logout } from './actions/self.actions';
 import { CoreFacade } from './core.facade';
@@ -94,54 +90,6 @@ describe('CoreFacade', () => {
     });
   });
 
-  describe('unreadMessages$', () => {
-    it('should return unread messages count', () => {
-      // TODO add Message type
-      const messages: any[] = [
-        {
-          _id: '1',
-          text: 'message',
-          read: false,
-          recipientId: null,
-          createdAt: new Date().toISOString()
-        }
-      ];
-
-      let result;
-
-      facade.unreadMessages$.subscribe(value => {
-        result = value;
-      });
-
-      store.dispatch(new LoadMessagesSuccess(messages));
-      expect(result).toEqual(1);
-    });
-  });
-
-  describe('messages$', () => {
-    it('should return all messages array', () => {
-      // TODO add Message type
-      const messages: any[] = [
-        {
-          _id: '1',
-          text: 'message',
-          read: false,
-          recipientId: null,
-          createdAt: new Date().toISOString()
-        }
-      ];
-
-      let result;
-
-      facade.messages$.subscribe(value => {
-        result = value;
-      });
-
-      store.dispatch(new LoadMessagesSuccess(messages));
-      expect(result).toEqual(messages);
-    });
-  });
-
   describe('loadSelf()', () => {
     it('should dispatch a LoadSelf action', () => {
       const action = new LoadSelf();
@@ -165,15 +113,6 @@ describe('CoreFacade', () => {
       const action = new LoadSelfSuccess(payload);
 
       facade.updateSelf(payload);
-      expect(store.dispatch).toHaveBeenCalledWith(action);
-    });
-  });
-
-  describe('loadMessages()', () => {
-    it('should dispatch a LoadMessages action', () => {
-      const action = new LoadMessages();
-
-      facade.loadMessages();
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });
@@ -204,15 +143,6 @@ describe('CoreFacade', () => {
       const action = new Forward();
 
       facade.navigateForward();
-      expect(store.dispatch).toHaveBeenCalledWith(action);
-    });
-  });
-
-  describe('markMessageAsRead', () => {
-    it('should dispatch MarkAsRead action', () => {
-      const payload = '1';
-      const action = new MarkAsRead(payload);
-      facade.markMessageAsRead(payload);
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });

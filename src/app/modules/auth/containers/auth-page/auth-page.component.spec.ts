@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoreFacade } from '@core/store';
 
+import { MessagesFacade } from '@messages/store';
+
 import { of, throwError } from 'rxjs';
 
 import { AuthForm } from '../../models';
@@ -18,6 +20,10 @@ const authServiceStub = {
 
 const coreFacadeStub = {
   navigate: jest.fn()
+};
+
+const messagesFacadeStub = {
+  subscribeToMessages: jest.fn()
 };
 
 describe('AuthPageComponent', () => {
@@ -36,6 +42,10 @@ describe('AuthPageComponent', () => {
         {
           provide: CoreFacade,
           useValue: coreFacadeStub
+        },
+        {
+          provide: MessagesFacade,
+          useValue: messagesFacadeStub
         }
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -83,6 +93,13 @@ describe('AuthPageComponent', () => {
 
       component.doAuth(formValue);
       expect(coreFacade.navigate).toHaveBeenCalled();
+    });
+
+    it('should subscribe to messages', () => {
+      const messagesFacade: MessagesFacade = TestBed.get(MessagesFacade);
+
+      component.doAuth(formValue);
+      expect(messagesFacade.subscribeToMessages).toHaveBeenCalled();
     });
 
     it('should send error to error$', () => {

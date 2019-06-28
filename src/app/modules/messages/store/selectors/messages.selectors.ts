@@ -23,7 +23,18 @@ export const getUnreadMessages = createSelector(
   fromMessages.getUnreadMessages
 );
 
+export const getMessagesCount = createSelector(
+  getMessagesState,
+  fromMessages.getMessagesCount
+);
+
 export const getAllMessages = createSelector(
   getMessageEntities,
-  entities => Object.keys(entities).map(id => entities[id])
+  entities =>
+    Object.keys(entities)
+      .map(id => entities[id])
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+      )
 );

@@ -7,22 +7,10 @@ import { User } from '@users/models';
 import { filter } from 'rxjs/operators';
 
 import { RouterPayload } from '../models';
-import {
-  LoadMessages,
-  LoadSelf,
-  LoadSelfSuccess,
-  Logout,
-  MarkAsRead
-} from './actions';
+import { LoadSelf, LoadSelfSuccess, Logout } from './actions';
 import { Back, Forward, Go } from './actions/router.actions';
 import { CoreState } from './reducers';
-import {
-  getAllMessages,
-  getLoggedIn,
-  getSelf,
-  getSelfRole,
-  getUnreadMessages
-} from './selectors';
+import { getLoggedIn, getSelf, getSelfRole } from './selectors';
 
 @Injectable()
 export class CoreFacade {
@@ -32,8 +20,6 @@ export class CoreFacade {
     filter(user => !!user)
   );
   role$ = this.store.pipe(select(getSelfRole));
-  unreadMessages$ = this.store.pipe(select(getUnreadMessages));
-  messages$ = this.store.pipe(select(getAllMessages));
 
   constructor(private store: Store<CoreState>) {}
 
@@ -43,10 +29,6 @@ export class CoreFacade {
 
   updateSelf(user: User) {
     this.store.dispatch(new LoadSelfSuccess(user));
-  }
-
-  loadMessages() {
-    this.store.dispatch(new LoadMessages());
   }
 
   navigate(payload: RouterPayload) {
@@ -59,10 +41,6 @@ export class CoreFacade {
 
   navigateForward() {
     this.store.dispatch(new Forward());
-  }
-
-  markMessageAsRead(id: string) {
-    this.store.dispatch(new MarkAsRead(id));
   }
 
   logout() {

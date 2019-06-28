@@ -1,0 +1,19 @@
+<div class="card">
+  <da-infinite-scroll *ngIf="messages.length > 0"
+                      (scrolled)="loadMore()">
+    <div *ngFor="let message of messages"
+         class="ui-message ui-widget ui-corner-all ui-messages-info"
+         [class.read]="message.read">
+      <span class="status-icon"
+            pTooltip="Mark As Read"
+            tooltipZIndex="12000"
+            (click)="markAsRead(message._id)"></span>
+      <p class="text">{{ message.text }}</p>
+      <span class="date">{{ message.createdAt | date: 'dd.MM.yyyy HH:mm' }}</span>
+    </div>
+
+  </da-infinite-scroll>
+  <p *ngIf="messages.length === 0">
+    You don't have any message yet
+  </p>
+</div>

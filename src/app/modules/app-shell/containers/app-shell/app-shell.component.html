@@ -14,6 +14,7 @@
            position="right"
            [baseZIndex]="10000">
   <da-messages [messages]="messages$ | async"
+               [count]="messagesCount$ | async"
                (messageMarked)="markMessageAsRead($event)"></da-messages>
   <button pButton
           type="button"
