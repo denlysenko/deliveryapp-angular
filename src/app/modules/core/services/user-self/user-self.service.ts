@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { ListResponse } from '@common/models';
+
 import { ApiService } from '@core/services/api.service';
 
 import { Message } from '@messages/models';
@@ -18,7 +20,7 @@ export class UserSelfService {
     return this.apiService.get('/users/self');
   }
 
-  loadMessages(): Observable<Message[]> {
-    return this.apiService.get('/users/self/messages');
+  loadMessages(query?: any): Observable<ListResponse<Message>> {
+    return this.apiService.get('/users/self/messages', query);
   }
 }
