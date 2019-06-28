@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
+import { InfiniteScrollModule } from '@ui/infinite-scroll';
+
+import { TooltipModule } from 'primeng/tooltip';
+
 import { MessagesComponent } from './components/messages/messages.component';
 import { importDeclarations } from './messages.common';
 import { MessagesService } from './services/messages.service';
@@ -14,7 +18,12 @@ export function messagesInitializer(messagesService: MessagesService) {
 
 @NgModule({
   declarations: [MessagesComponent],
-  imports: [CommonModule, ...importDeclarations],
+  imports: [
+    CommonModule,
+    ...importDeclarations,
+    InfiniteScrollModule,
+    TooltipModule
+  ],
   exports: [MessagesComponent],
   providers: [
     MessagesService,
