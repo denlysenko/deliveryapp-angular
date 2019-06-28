@@ -5,8 +5,7 @@ import {
   EventEmitter,
   OnDestroy,
   Output,
-  ViewChild,
-  ViewEncapsulation
+  ViewChild
 } from '@angular/core';
 
 @Component({
@@ -14,8 +13,7 @@ import {
   template: `
     <ng-content></ng-content>
     <div #anchor></div>
-  `,
-  encapsulation: ViewEncapsulation.None
+  `
 })
 export class InfiniteScrollComponent implements AfterViewInit, OnDestroy {
   @Output() scrolled = new EventEmitter<void>();

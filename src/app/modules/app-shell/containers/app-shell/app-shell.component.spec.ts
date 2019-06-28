@@ -11,7 +11,6 @@ import { User } from '@users/models';
 import { of } from 'rxjs';
 
 import { AppShellComponent } from './app-shell.component';
-import { MessagesService } from '@messages/services';
 
 const USER: User = {
   id: 1,
