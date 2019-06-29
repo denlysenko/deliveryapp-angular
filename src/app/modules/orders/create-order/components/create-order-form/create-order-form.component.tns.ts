@@ -102,7 +102,12 @@ export class CreateOrderFormComponent extends TNSOrderFormBase
     }
 
     const isValid = await this.dataform.validateAll();
-    const isClientValid = this.validateClient();
+
+    let isClientValid = true;
+
+    if (this.role !== Roles.CLIENT) {
+      isClientValid = this.validateClient();
+    }
 
     if (isValid && isClientValid) {
       this.submitted.emit(this.order);
