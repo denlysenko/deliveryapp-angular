@@ -2,11 +2,11 @@
   "name": "deliveryapp-angular",
   "nativescript": {
     "id": "org.nativescript.deliveryapp",
-    "tns-android": {
-      "version": "5.4.0"
-    },
     "tns-ios": {
       "version": "5.4.2"
+    },
+    "tns-android": {
+      "version": "5.4.0"
     }
   },
   "version": "1.0.0",
@@ -46,6 +46,7 @@
     "nativescript-iqkeyboardmanager": "^1.5.1",
     "nativescript-loading-indicator": "^2.5.2",
     "nativescript-ngx-fonticon": "^4.2.1",
+    "nativescript-plugin-firebase": "^9.0.1",
     "nativescript-theme-core": "~1.0.6",
     "nativescript-ui-autocomplete": "^4.1.0",
     "nativescript-ui-dataform": "^4.0.1",

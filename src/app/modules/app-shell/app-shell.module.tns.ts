@@ -5,7 +5,7 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 
-import { componentDeclarations } from './app-shell.common';
+import { componentDeclarations, importDeclarations } from './app-shell.common';
 import { UserMenuComponent } from './components/user-menu/user-menu.component.tns';
 import { AppShellComponent } from './containers/app-shell/app-shell.component.tns';
 
@@ -17,7 +17,8 @@ const containers = [AppShellComponent];
     NativeScriptCommonModule,
     TNSFontIconModule,
     NativeScriptUISideDrawerModule,
-    NativeScriptRouterModule
+    NativeScriptRouterModule,
+    ...importDeclarations
   ],
   declarations: [...componentDeclarations, ...containers, ...components],
   exports: [AppShellComponent],

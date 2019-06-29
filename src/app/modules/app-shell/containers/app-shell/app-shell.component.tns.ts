@@ -8,6 +8,9 @@ import { NavigationEnd, Router } from '@angular/router';
 
 import { CoreFacade } from '@core/store';
 
+import { MessagesComponent } from '@messages/components';
+import { MessagesFacade } from '@messages/store';
+
 import {
   ModalDialogOptions,
   ModalDialogService
@@ -24,7 +27,6 @@ import {
 import { takeUntil } from 'rxjs/operators';
 
 import { AppShellBase } from '../../base/AppShellBase';
-import { MessagesComponent } from '../../components/messages/messages.component.tns';
 
 @Component({
   selector: 'da-app-shell',
@@ -43,11 +45,12 @@ export class AppShellComponent extends AppShellBase implements AfterViewInit {
 
   constructor(
     coreFacade: CoreFacade,
+    messagesFacade: MessagesFacade,
     private router: Router,
     private viewContainerRef: ViewContainerRef,
     private modalService: ModalDialogService
   ) {
-    super(coreFacade);
+    super(coreFacade, messagesFacade);
 
     this._sideDrawerTransition = new SlideAlongTransition();
 
