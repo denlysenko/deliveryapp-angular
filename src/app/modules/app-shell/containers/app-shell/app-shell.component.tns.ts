@@ -8,7 +8,7 @@ import { NavigationEnd, Router } from '@angular/router';
 
 import { CoreFacade } from '@core/store';
 
-import { MessagesComponent } from '@messages/components';
+import { MessagesComponent } from '@messages/components/messages/messages.component.tns';
 import { MessagesFacade } from '@messages/store';
 
 import {
@@ -77,7 +77,6 @@ export class AppShellComponent extends AppShellBase implements AfterViewInit {
 
   async showMessages() {
     const options: ModalDialogOptions = {
-      context: { messages$: this.messages$ },
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     };

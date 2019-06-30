@@ -22,7 +22,6 @@ const containers = [AppShellComponent];
   ],
   declarations: [...componentDeclarations, ...containers, ...components],
   exports: [AppShellComponent],
-  entryComponents: [],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppShellModule {}
