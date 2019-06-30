@@ -83,8 +83,7 @@ export function messagesReducer(
 
     case MessagesActionTypes.MARK_AS_READ_SUCCESS: {
       const messageId = action.payload;
-      const updatedMessage = state.entities[messageId];
-      updatedMessage.read = true;
+      const updatedMessage = { ...state.entities[messageId], read: true };
 
       return {
         ...state,
