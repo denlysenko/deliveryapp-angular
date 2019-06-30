@@ -11,6 +11,7 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import {
   AppStorageService,
+  LoaderService,
   StorageService,
   UserSelfService
 } from '../../services';
@@ -29,7 +30,8 @@ export class SelfEffects {
     private userSelfService: UserSelfService,
     private storageService: StorageService,
     private appStorageService: AppStorageService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private loaderService: LoaderService
   ) {}
 
   @Effect()
@@ -53,8 +55,10 @@ export class SelfEffects {
   logout$ = this.actions$.pipe(
     ofType(SelfActionTypes.LOGOUT),
     switchMap(() => {
+      this.loaderService.start();
       return from(this.messagesService.unsubscribeFromMessaging()).pipe(
         tap(() => {
+          this.loaderService.stop();
           this.storageService.removeItem(ACCESS_TOKEN);
           this.appStorageService.removeItem(USER_LOADED_KEY);
         }),

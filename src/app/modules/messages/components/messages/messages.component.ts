@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
-import { DEFAULT_LIMIT } from '@common/constants';
+import { takeUntil } from 'rxjs/operators';
 
-import { Message } from '../../models';
+import { BaseMessagesComponent } from '../../base/BaseMessagesComponent';
 import { MessagesFacade } from '../../store';
 
 @Component({
@@ -11,24 +11,18 @@ import { MessagesFacade } from '../../store';
   styleUrls: ['./messages.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MessagesComponent {
-  @Input() count: number;
-  @Input() messages: Message[] = [];
-
-  constructor(private messagesFacade: MessagesFacade) {}
-
-  private offset = 0;
-
-  markAsRead(id: string) {
-    this.messagesFacade.markMessageAsRead(id);
+export class MessagesComponent extends BaseMessagesComponent implements OnInit {
+  constructor(messagesFacade: MessagesFacade) {
+    super(messagesFacade);
   }
 
-  loadMore() {
-    if (this.messages.length >= this.count) {
-      return;
-    }
+  ngOnInit() {
+    this.messagesFacade.messages$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(messages => (this.messages = messages));
 
-    this.offset += DEFAULT_LIMIT;
-    this.messagesFacade.loadMore(this.offset);
+    this.messagesFacade.totalCount$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(count => (this.count = count));
   }
 }

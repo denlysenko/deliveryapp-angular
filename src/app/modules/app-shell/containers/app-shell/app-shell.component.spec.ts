@@ -41,9 +41,7 @@ const coreFacadeStub = {
 };
 
 const messagesFacadeStub = {
-  unreadMessages$: of(UNREAD_MESSAGES),
-  messages$: of(MESSAGES),
-  markMessageAsRead: jasmine.createSpy('markMessageAsRead')
+  unreadMessages$: of(UNREAD_MESSAGES)
 };
 
 describe('AppShellComponent', () => {
@@ -95,26 +93,8 @@ describe('AppShellComponent', () => {
     expect(result).toEqual(UNREAD_MESSAGES);
   });
 
-  it('should have `messages$` defined', () => {
-    let result;
-    expect(component.messages$).toBeDefined();
-    component.messages$.subscribe(msg => {
-      result = msg;
-    });
-    expect(result).toEqual(MESSAGES);
-  });
-
   it('should have `showMessages = false` by default', () => {
     expect(component.showMessages).toBeFalsy();
-  });
-
-  describe('markMessageAsRead()', () => {
-    it('should call MessagesFacade.markMessageAsRead', () => {
-      const messagesFacade = TestBed.get(MessagesFacade);
-      const ID = '1';
-      component.markMessageAsRead(ID);
-      expect(messagesFacade.markMessageAsRead).toBeCalledWith(ID);
-    });
   });
 
   describe('logout()', () => {

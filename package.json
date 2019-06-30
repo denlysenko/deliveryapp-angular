@@ -2,11 +2,11 @@
   "name": "deliveryapp-angular",
   "nativescript": {
     "id": "org.nativescript.deliveryapp",
-    "tns-android": {
-      "version": "5.4.0"
-    },
     "tns-ios": {
       "version": "5.4.2"
+    },
+    "tns-android": {
+      "version": "5.4.0"
     }
   },
   "version": "1.0.0",
