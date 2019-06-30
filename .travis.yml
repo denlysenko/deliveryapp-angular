@@ -6,9 +6,6 @@ branches:
   only:
     - develop
 
-before_install:
-  - npm install -g nativescript
-
 script:
   - npm install
   - npm run lint
