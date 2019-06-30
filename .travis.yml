@@ -6,6 +6,9 @@ branches:
   only:
     - develop
 
+before_script:
+  - sudo npm install -g nativescript
+
 script:
   - npm install
   - npm run lint
