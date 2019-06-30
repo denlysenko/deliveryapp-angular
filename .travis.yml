@@ -6,7 +6,7 @@ branches:
   only:
     - develop
 
-before_script:
+before_install:
   - npm install -g nativescript
 
 script:
