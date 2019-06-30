@@ -7,7 +7,7 @@ import { MessagePayload } from '../models/message-payload.model';
 import { Message } from '../models/message.model';
 import { MessagesFacade } from '../store';
 
-export abstract class MessagesServiceBase {
+export abstract class BaseMessagesService {
   protected abstract readonly firebaseConfig: any;
 
   constructor(

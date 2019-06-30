@@ -3,17 +3,16 @@ import { Injectable } from '@angular/core';
 import { FeedbackService } from '@core/services';
 import { ApiService } from '@core/services/api.service';
 
-import { MessagesServiceBase } from '@messages/base/MessagesServiceBase';
-
 import * as firebase from 'firebase/app';
 import 'firebase/messaging';
 
 import { environment } from '~/environments/environment';
 
+import { BaseMessagesService } from '../base/BaseMessagesService';
 import { MessagesFacade } from '../store';
 
 @Injectable()
-export class MessagesService extends MessagesServiceBase {
+export class MessagesService extends BaseMessagesService {
   protected readonly firebaseConfig = {
     messagingSenderId: environment.firebaseSenderId,
     appId: environment.firebaseAppId

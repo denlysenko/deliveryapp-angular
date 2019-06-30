@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { FeedbackService } from '@core/services';
 import { ApiService } from '@core/services/api.service';
 
-import { MessagesServiceBase } from '../base/MessagesServiceBase';
+import { BaseMessagesService } from '../base/BaseMessagesService';
 import { MessagesFacade } from '../store';
 
 const firebase = require('nativescript-plugin-firebase');
 
 @Injectable()
-export class MessagesService extends MessagesServiceBase {
+export class MessagesService extends BaseMessagesService {
   protected readonly firebaseConfig = {
     onMessageReceivedCallback: this.onMessage.bind(this),
     showNotifications: false,
