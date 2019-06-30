@@ -7,7 +7,7 @@ branches:
     - develop
 
 before_script:
-  - sudo npm install -g nativescript
+  - npm install -g nativescript
 
 script:
   - npm install
