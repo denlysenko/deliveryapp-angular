@@ -37,7 +37,7 @@ export function messagesReducer(
       let unread = state.unread;
 
       const entities = rows.reduce(
-        (accumulator: { [id: string]: any }, message: Message) => {
+        (accumulator: { [id: string]: Message }, message: Message) => {
           if (!message.read) {
             unread++;
           }

@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-
-import { takeUntil } from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
 
 import { BaseMessagesComponent } from '../../base/BaseMessagesComponent';
 import { MessagesFacade } from '../../store';
@@ -12,17 +15,7 @@ import { MessagesFacade } from '../../store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessagesComponent extends BaseMessagesComponent implements OnInit {
-  constructor(messagesFacade: MessagesFacade) {
-    super(messagesFacade);
-  }
-
-  ngOnInit() {
-    this.messagesFacade.messages$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(messages => (this.messages = messages));
-
-    this.messagesFacade.totalCount$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(count => (this.count = count));
+  constructor(messagesFacade: MessagesFacade, cdr: ChangeDetectorRef) {
+    super(messagesFacade, cdr);
   }
 }
