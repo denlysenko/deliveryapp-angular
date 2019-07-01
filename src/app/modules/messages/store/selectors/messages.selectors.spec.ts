@@ -2,34 +2,38 @@ import { TestBed } from '@angular/core/testing';
 
 import { Store, StoreModule } from '@ngrx/store';
 
+import { Message } from '../../models/message.model';
 import {
   LoadMessages,
   LoadMessagesFail,
   LoadMessagesSuccess
 } from '../actions/messages.actions';
-import { CoreState, reducers } from '../reducers';
+import { messagesReducer, MessageState } from '../reducers';
 import {
   getAllMessages,
   getMessageEntities,
   getMessagesError,
   getMessagesLoading,
-  getUnreadMessages
+  getUnreadMessages,
+  getMessagesCount
 } from './messages.selectors';
 
-// tslint:disable-next-line:no-commented-code
-// import { Message } from '../../../lib/messages/Message';
-
 describe('Messages Selectors', () => {
-  let store: Store<CoreState>;
+  let store: Store<MessageState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot(reducers, {
-          runtimeChecks: {
-            strictStateImmutability: false
+        StoreModule.forRoot(
+          {
+            messages: messagesReducer
+          },
+          {
+            runtimeChecks: {
+              strictStateImmutability: false
+            }
           }
-        })
+        )
       ]
     });
 
@@ -51,12 +55,12 @@ describe('Messages Selectors', () => {
     });
 
     it('should return false', () => {
-      // TODO add Message type
-      const messages: any[] = [
+      const messages: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }
@@ -68,7 +72,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(false);
     });
   });
@@ -92,12 +96,12 @@ describe('Messages Selectors', () => {
 
   describe('getMessageEntities', () => {
     it('should return message entities', () => {
-      // TODO add Message type
-      const messages: any[] = [
+      const messages: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }
@@ -113,19 +117,19 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(entities);
     });
   });
 
   describe('getUnreadMessages', () => {
     it('should return unread messages count', () => {
-      // TODO add Message type
-      const messages: any[] = [
+      const messages: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }
@@ -137,19 +141,43 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
+      expect(result).toEqual(1);
+    });
+  });
+
+  describe('getMessagesCount', () => {
+    it('should return messages count', () => {
+      const messages: Message[] = [
+        {
+          _id: '1',
+          text: 'message',
+          read: false,
+          forEmployee: false,
+          recipientId: null,
+          createdAt: new Date().toISOString()
+        }
+      ];
+
+      let result;
+
+      store.select(getMessagesCount).subscribe(value => {
+        result = value;
+      });
+
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(1);
     });
   });
 
   describe('getAllMessages', () => {
     it('should return all messages array', () => {
-      // TODO add Message type
-      const messages: any[] = [
+      const messages: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }
@@ -161,7 +189,7 @@ describe('Messages Selectors', () => {
         result = value;
       });
 
-      store.dispatch(new LoadMessagesSuccess(messages));
+      store.dispatch(new LoadMessagesSuccess({ rows: messages, count: 1 }));
       expect(result).toEqual(messages);
     });
   });

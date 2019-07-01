@@ -13,8 +13,7 @@
 <p-sidebar [(visible)]="showMessages"
            position="right"
            [baseZIndex]="10000">
-  <da-messages [messages]="messages$ | async"
-               (messageMarked)="markMessageAsRead($event)"></da-messages>
+  <da-messages></da-messages>
   <button pButton
           type="button"
           (click)="showMessages = false"

@@ -5,6 +5,8 @@ import { ACCESS_TOKEN, USER_LOADED_KEY } from '@common/constants';
 
 import { AppStorageService, StorageService } from '@core/services';
 
+import { MessagesFacade } from '@messages/store';
+
 import { Observable, of } from 'rxjs';
 import { map, mergeMap, take } from 'rxjs/operators';
 
@@ -16,6 +18,7 @@ import { CoreFacade } from '../store';
 export class AuthGuard implements CanActivate, CanLoad {
   constructor(
     private coreFacade: CoreFacade,
+    private messagesFacade: MessagesFacade,
     private storageService: StorageService,
     private appStorageService: AppStorageService
   ) {}
@@ -70,7 +73,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 
     if (!this.appStorageService.getItem(USER_LOADED_KEY)) {
       this.coreFacade.loadSelf();
-      this.coreFacade.loadMessages();
+      this.messagesFacade.loadMessages();
       this.appStorageService.setItem(USER_LOADED_KEY, true);
     }
 

@@ -1,9 +1,11 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { AuthModule } from '@auth/auth.module';
+
+import { MessagesModule } from '@messages/messages.module';
+
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-
-import { AuthModule } from '@auth/auth.module';
 
 import { ErrorsInterceptor } from './interceptors/errors.interceptor';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
@@ -18,7 +20,8 @@ export const importDeclarations: any[] = [
     }
   }),
   EffectsModule.forRoot(effects),
-  AuthModule
+  AuthModule,
+  MessagesModule
 ];
 
 export const providerDeclarations: any[] = [

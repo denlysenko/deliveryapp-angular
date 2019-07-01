@@ -2,11 +2,11 @@
   "name": "deliveryapp-angular",
   "nativescript": {
     "id": "org.nativescript.deliveryapp",
-    "tns-android": {
-      "version": "5.4.0"
-    },
     "tns-ios": {
       "version": "5.4.2"
+    },
+    "tns-android": {
+      "version": "5.4.0"
     }
   },
   "version": "1.0.0",
@@ -37,6 +37,7 @@
     "@ngrx/router-store": "^8.0.1",
     "@ngrx/store": "^8.0.1",
     "core-js": "^3.1.4",
+    "firebase": "^6.2.2",
     "font-awesome": "^4.7.0",
     "inputmask": "^4.0.8",
     "inputmask.phone": "^1.0.4",

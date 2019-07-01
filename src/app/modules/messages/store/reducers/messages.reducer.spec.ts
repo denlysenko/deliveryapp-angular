@@ -1,3 +1,4 @@
+import { Message } from '../../models/message.model';
 import {
   HandleMessageReceive,
   LoadMessages,
@@ -6,9 +7,6 @@ import {
   MarkAsReadSuccess
 } from '../actions/messages.actions';
 import { initialState, messagesReducer } from './messages.reducer';
-
-// tslint:disable-next-line:no-commented-code
-// import { Message } from '../../../lib/messages/Message';
 
 describe('MessagesReducer', () => {
   describe('undefined action', () => {
@@ -29,12 +27,12 @@ describe('MessagesReducer', () => {
 
   describe('LOAD_MESSAGES_SUCCESS action', () => {
     it('should map an array to entities and calculate unread number', () => {
-      // TODO add Message model
-      const messages: any[] = [
+      const messages: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         },
@@ -42,6 +40,7 @@ describe('MessagesReducer', () => {
           _id: '2',
           text: 'message',
           read: true,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         },
@@ -49,6 +48,7 @@ describe('MessagesReducer', () => {
           _id: '3',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }
@@ -60,7 +60,7 @@ describe('MessagesReducer', () => {
         '3': messages[2]
       };
 
-      const action = new LoadMessagesSuccess(messages);
+      const action = new LoadMessagesSuccess({ rows: messages, count: 3 });
       const { loading, entities, unread } = messagesReducer(
         initialState,
         action
@@ -83,36 +83,40 @@ describe('MessagesReducer', () => {
 
   describe('HANDLE_MESSAGE_RECEIVE action', () => {
     it('should set add new message', () => {
-      // TODO add Message model
-      const message: any = {
+      const message: Message = {
         _id: '1',
         text: 'message',
         read: false,
+        forEmployee: false,
         recipientId: null,
         createdAt: new Date().toISOString()
       };
 
       const action = new HandleMessageReceive(message);
-      const { entities, unread } = messagesReducer(initialState, action);
+      const { entities, unread, totalCount } = messagesReducer(
+        initialState,
+        action
+      );
       expect(entities['1']).toEqual(message);
       expect(unread).toEqual(1);
+      expect(totalCount).toEqual(1);
     });
   });
 
   describe('MARK_AS_READ_SUCCESS action', () => {
     it('should mark message as read and decrease unread count', () => {
-      // TODO add Message model
-      const messages: any[] = [
+      const messages: Message[] = [
         {
           _id: '1',
           text: 'message',
           read: false,
+          forEmployee: false,
           recipientId: null,
           createdAt: new Date().toISOString()
         }
       ];
 
-      const loadAction = new LoadMessagesSuccess(messages);
+      const loadAction = new LoadMessagesSuccess({ rows: messages, count: 1 });
       const state = messagesReducer(initialState, loadAction);
       const markAsReadAction = new MarkAsReadSuccess('1');
       const { entities, unread } = messagesReducer(state, markAsReadAction);

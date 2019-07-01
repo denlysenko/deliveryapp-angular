@@ -1,3 +1,4 @@
+import { Payment } from '@payments/models';
 import { User } from '@users/models';
 
 export interface Order {
@@ -21,8 +22,7 @@ export interface Order {
   paid?: boolean;
   paymentDate?: Date;
   invoiceId?: number;
-  // TODO Payment interface
-  payment?: any;
+  payment?: Payment;
   clientId?: number;
   client?: User;
   creatorId?: number;

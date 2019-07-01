@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 
 import { ACCESS_TOKEN, USER_LOADED_KEY } from '@common/constants';
 
+import { MessagesService } from '@messages/services';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { from, of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import {
   AppStorageService,
+  LoaderService,
   StorageService,
   UserSelfService
 } from '../../services';
@@ -20,16 +23,15 @@ import {
   SelfActionTypes
 } from '../actions/self.actions';
 
-// tslint:disable-next-line:no-commented-code
-// import { MessagesService } from '../../../lib/messages/messages.service';
-
 @Injectable()
 export class SelfEffects {
   constructor(
     private actions$: Actions,
     private userSelfService: UserSelfService,
     private storageService: StorageService,
-    private appStorageService: AppStorageService // private messagesService: MessagesService
+    private appStorageService: AppStorageService,
+    private messagesService: MessagesService,
+    private loaderService: LoaderService
   ) {}
 
   @Effect()
@@ -43,16 +45,6 @@ export class SelfEffects {
     })
   );
 
-  @Effect({ dispatch: false })
-  loadSelfSuccess$ = this.actions$.pipe(
-    ofType(SelfActionTypes.LOAD_SELF_SUCCESS),
-    map((action: LoadSelfSuccess) => action.payload),
-    tap(user => {
-      // tslint:disable-next-line:no-commented-code
-      // this.messagesService.join(this.storageService.getItem('lg_access_token'));
-    })
-  );
-
   @Effect()
   loadSelfFail$ = this.actions$.pipe(
     ofType(SelfActionTypes.LOAD_SELF_FAIL),
@@ -62,24 +54,29 @@ export class SelfEffects {
   @Effect()
   logout$ = this.actions$.pipe(
     ofType(SelfActionTypes.LOGOUT),
-    tap(() => {
-      // tslint:disable-next-line:no-commented-code
-      // this.messagesService.leave(this.storageService.getItem('lg_access_token'));
-      this.storageService.removeItem(ACCESS_TOKEN);
-      this.appStorageService.removeItem(USER_LOADED_KEY);
-    }),
-    mergeMap(() => [
-      new Go({
-        path: ['auth'],
-        extras: {
-          clearHistory: true,
-          transition: {
-            name: 'flip',
-            duration: 300,
-            curve: 'linear'
-          }
-        }
-      })
-    ])
+    switchMap(() => {
+      this.loaderService.start();
+      return from(this.messagesService.unsubscribeFromMessaging()).pipe(
+        tap(() => {
+          this.loaderService.stop();
+          this.storageService.removeItem(ACCESS_TOKEN);
+          this.appStorageService.removeItem(USER_LOADED_KEY);
+        }),
+        map(
+          () =>
+            new Go({
+              path: ['auth'],
+              extras: {
+                clearHistory: true,
+                transition: {
+                  name: 'flip',
+                  duration: 300,
+                  curve: 'linear'
+                }
+              }
+            })
+        )
+      );
+    })
   );
 }

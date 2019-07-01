@@ -4,6 +4,8 @@ import { ValidationError } from '@common/models';
 import { StorageService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
+import { MessagesFacade } from '@messages/store';
+
 import { BehaviorSubject } from 'rxjs';
 
 import { AuthForm, LoginError } from '../models';
@@ -18,7 +20,8 @@ export abstract class AuthPageBase {
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
-    private coreFacade: CoreFacade
+    private coreFacade: CoreFacade,
+    private messagesFacade: MessagesFacade
   ) {}
 
   doAuth(formValue: AuthForm) {
@@ -41,6 +44,7 @@ export abstract class AuthPageBase {
             }
           }
         });
+        this.messagesFacade.subscribeToMessages();
       },
       err => {
         this.error$.next(err);

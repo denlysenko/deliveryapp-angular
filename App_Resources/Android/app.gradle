@@ -9,7 +9,7 @@ android {
   defaultConfig {  
     generatedDensities = []
     applicationId = "org.nativescript.deliveryapp" 
-    
+    multiDexEnabled true
     //override supported platforms
     // ndk {
     //       abiFilters.clear()

@@ -1,17 +1,18 @@
 import { BaseComponent } from '@base/BaseComponent';
+
 import { CoreFacade } from '@core/store';
+
+import { MessagesFacade } from '@messages/store';
 
 export abstract class AppShellBase extends BaseComponent {
   user$ = this.coreFacade.self$;
-  unreadMessages$ = this.coreFacade.unreadMessages$;
-  messages$ = this.coreFacade.messages$;
+  unreadMessages$ = this.messagesFacade.unreadMessages$;
 
-  constructor(private coreFacade: CoreFacade) {
+  constructor(
+    private coreFacade: CoreFacade,
+    private messagesFacade: MessagesFacade
+  ) {
     super();
-  }
-
-  markMessageAsRead(id: string) {
-    this.coreFacade.markMessageAsRead(id);
   }
 
   logout() {

@@ -1,0 +1,29 @@
+<GridLayout class="container"
+            rows="*, auto">
+  <GridLayout row="0"
+              class="card">
+    <ListView [items]="messages"
+              class="list-group"
+              rowHeight="80"
+              (loadMoreItems)="loadMore()">
+      <ng-template let-message="item">
+        <StackLayout class="list-group-item"
+                     [class.unread]="!message.read"
+                     (tap)="markAsRead(message._id)">
+          <Label class="list-group-item-heading"
+                 [text]="message.text"
+                 textWrap="true"></Label>
+          <Label class="list-group-item-text"
+                 [text]="message.createdAt | date: 'dd.MM.yyyy HH:mm'"></Label>
+        </StackLayout>
+      </ng-template>
+    </ListView>
+    <Label *ngIf="!messages.length"
+           text="You don't have any message yet">
+    </Label>
+  </GridLayout>
+  <Button row="1"
+          class="btn btn-primary btn-active"
+          text="Close"
+          (tap)="close()"></Button>
+</GridLayout>

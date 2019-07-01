@@ -1,0 +1,24 @@
+import { ChangeDetectorRef, Component } from '@angular/core';
+
+import { ModalDialogParams } from 'nativescript-angular/modal-dialog';
+
+import { BaseMessagesComponent } from '../../base/BaseMessagesComponent';
+import { MessagesFacade } from '../../store';
+
+@Component({
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.scss']
+})
+export class MessagesComponent extends BaseMessagesComponent {
+  constructor(
+    messagesFacade: MessagesFacade,
+    cdr: ChangeDetectorRef,
+    private params: ModalDialogParams
+  ) {
+    super(messagesFacade, cdr);
+  }
+
+  close() {
+    this.params.closeCallback(null);
+  }
+}

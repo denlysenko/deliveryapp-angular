@@ -11,6 +11,8 @@
 # NativeScript
 /hooks
 /platforms
+/App_Resources/Android/google-services.json
+/App_Resources/iOS/GoogleService-Info.plist
 
 # IDEs and editors
 /.idea
