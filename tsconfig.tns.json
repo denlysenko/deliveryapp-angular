@@ -3,5 +3,34 @@
   "compilerOptions": {
     "moduleResolution": "node"
   },
-  "exclude": ["**/*.spec.ts"]
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.tns.ts",
+    "**/*.android.ts",
+    "**/*.ios.ts",
+    "src/app/modules/app-shell/components/topbar/topbar.component.ts",
+    "src/app/modules/app-shell/containers/app-shell/app-shell.component.ts",
+    "src/app/modules/auth/containers/auth-page/auth-page.component.ts",
+    "src/app/modules/messages/components/messages/messages.component.ts",
+    "src/app/modules/messages/services/messages.service.ts",
+    "src/app/modules/orders/create-order/components/cargo-form/cargo-form.component.ts",
+    "src/app/modules/orders/create-order/components/create-order-form/create-order-form.component.ts",
+    "src/app/modules/orders/create-order/components/destination-form/destination-form.component.ts",
+    "src/app/modules/orders/create-order/components/sender-form/sender-form.component.ts",
+    "src/app/modules/orders/orders-list/components/orders-filter/orders-filter.component.ts",
+    "src/app/modules/orders/orders-list/components/orders-list/orders-list.component.ts",
+    "src/app/modules/orders/orders-list/containers/orders-page/orders-page.component.ts",
+    "src/app/modules/orders/update-order/components/update-order-form/update-order-form.component.ts",
+    "src/app/modules/payments/components/payment-form/payment-form.component.ts",
+    "src/app/modules/payments/components/payments-filter/payments-filter.component.ts",
+    "src/app/modules/payments/components/payments-list/payments-list.component.ts",
+    "src/app/modules/payments/containers/payments-page/payments-page.component.ts",
+    "src/app/modules/profile/components/contacts-form/contacts-form.component.ts",
+    "src/app/modules/profile/components/password-form/password-form.component.ts",
+    "src/app/modules/profile/components/profile-form/profile-form.component.ts",
+    "src/app/modules/ui/**/*.ts",
+    "src/app/modules/core/services/feedback/feedback.service.ts",
+    "src/app/modules/core/services/loader/loader.service.ts",
+    "src/app/modules/core/services/storage/storage.service.ts"
+  ]
 }

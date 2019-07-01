@@ -160,7 +160,6 @@
                                noResultsText="Not found!"
                                suggestMode="Suggest"
                                displayMode="Tokens"
-                               [readOnly]="isClient"
                                (loaded)="populateOrders()"
                                (textChanged)="ordersFieldValid = true"
                                (didAutoComplete)="addOrder($event)"
@@ -186,7 +185,6 @@
                                noResultsText="Not found!"
                                suggestMode="Suggest"
                                displayMode="Plain"
-                               [readOnly]="isClient"
                                (loaded)="populateClient()"
                                (textChanged)="onClientTextChange($event)"
                                (didAutoComplete)="selectClient($event)">

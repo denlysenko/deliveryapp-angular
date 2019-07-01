@@ -6,8 +6,8 @@ import { BaseMessagesComponent } from '../../base/BaseMessagesComponent';
 import { MessagesFacade } from '../../store';
 
 @Component({
-  templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss']
+  templateUrl: './messages.component.tns.html',
+  styleUrls: ['./messages.component.tns.scss']
 })
 export class MessagesComponent extends BaseMessagesComponent {
   constructor(

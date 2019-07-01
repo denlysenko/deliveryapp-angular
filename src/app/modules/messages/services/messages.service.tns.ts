@@ -25,7 +25,7 @@ export class MessagesService extends BaseMessagesService {
   }
 
   init() {
-    firebase.init(this.firebaseConfig);
+    firebase.init(this.firebaseConfig).catch(err => console.log(err));
   }
 
   protected async getToken(): Promise<string | undefined> {

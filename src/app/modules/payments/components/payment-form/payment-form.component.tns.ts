@@ -128,6 +128,10 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   }
 
   populateOrders() {
+    if (this.isClient) {
+      this.ordersAutocomplete.autoCompleteTextView.readOnly = true;
+    }
+
     if (this.payment && this.payment.orders && this.payment.orders.length) {
       this.payment.orders.forEach(order =>
         this.ordersAutocomplete.autoCompleteTextView.addToken(
@@ -151,6 +155,10 @@ export class PaymentFormComponent extends TNSBaseFormComponent
   }
 
   populateClient() {
+    if (this.isClient) {
+      this.clientAutocomplete.autoCompleteTextView.readOnly = true;
+    }
+
     if (this.payment && this.payment.client) {
       this.clientAutocomplete.autoCompleteTextView.addToken(
         new TokenModel(this.payment.client.email, null)
