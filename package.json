@@ -20,7 +20,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "android": "tns run android",
-    "ios": "tns run ios --device E8988397-E42D-4653-8414-8E0F5E5F8D02"
+    "ios": "tns run ios --device E8988397-E42D-4653-8414-8E0F5E5F8D02",
+    "build:android": "tns build android --bundle --no-hmr --env.uglify --env.aot --env.snapshot",
+    "prepare:ios": "tns prepare ios --bundle --no-hmr --env.uglify --env.aot"
   },
   "private": true,
   "dependencies": {
