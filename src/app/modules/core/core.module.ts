@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, DefaultRouterStateSerializer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { environment } from '~/environments/environment';
@@ -11,7 +11,7 @@ import { RouterExtensions } from './services/router-extensions/router-extensions
 @NgModule({
   imports: [
     ...importDeclarations,
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer }),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production
     })
