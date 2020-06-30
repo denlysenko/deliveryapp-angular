@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, OnInit } from '@angular/core';
+import { ChangeDetectorRef, OnInit, Directive } from '@angular/core';
 
 import { BaseComponent } from '@base/BaseComponent';
 
@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Message } from '../models';
 import { MessagesFacade } from '../store';
 
+@Directive()
 export abstract class BaseMessagesComponent extends BaseComponent
   implements OnInit {
   count: number;

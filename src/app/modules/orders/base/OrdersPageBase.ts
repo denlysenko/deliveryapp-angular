@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { BaseComponent } from '@base/BaseComponent';
@@ -27,6 +27,7 @@ import { Order, OrdersFilter } from '../models';
 import { OrdersService } from '../services/orders.service';
 import { OrdersFacade } from '../store';
 
+@Directive()
 export abstract class OrdersPageBase extends BaseComponent implements OnInit {
   orders: Order[];
   count: number;

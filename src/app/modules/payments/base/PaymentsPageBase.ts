@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { BaseComponent } from '@base/BaseComponent';
@@ -28,6 +28,7 @@ import { Payment, PaymentsFilter } from '../models';
 import { PaymentsService } from '../services/payments.service';
 import { PaymentsFacade } from '../store';
 
+@Directive()
 export abstract class PaymentsPageBase extends BaseComponent implements OnInit {
   readonly roles = Roles;
 

@@ -8,6 +8,9 @@
   ],
   "rulesDirectory": ["node_modules/codelyzer"],
   "rules": {
+    "deprecation": {
+      "severity": "warning"
+    },
     "prettier": true,
     // tslint-angular
     "use-component-view-encapsulation": false,
