@@ -18,7 +18,7 @@ describe('SettingsService', () => {
       providers: [SettingsService]
     });
 
-    service = TestBed.get(SettingsService);
+    service = TestBed.inject(SettingsService);
   });
 
   it('should be created', () => {
@@ -27,7 +27,7 @@ describe('SettingsService', () => {
 
   describe('getAddress()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyAddress = {
         country: 'Country',
         city: 'City',
@@ -51,7 +51,7 @@ describe('SettingsService', () => {
 
   describe('getBankDetails()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyBankDetails = {
         name: 'Name',
         accountNumber: 'Account Number',
@@ -75,7 +75,7 @@ describe('SettingsService', () => {
 
   describe('createAddress()', () => {
     it('should send POST request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyAddress = {
         country: 'Country',
         city: 'City',
@@ -100,7 +100,7 @@ describe('SettingsService', () => {
 
   describe('updateAddress()', () => {
     it('should send PATCH request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyAddress = {
         id: 1,
         country: 'Country',
@@ -126,7 +126,7 @@ describe('SettingsService', () => {
 
   describe('createBankDetail()', () => {
     it('should send POST request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyBankDetails = {
         name: 'Name',
         accountNumber: 'Account Number',
@@ -151,7 +151,7 @@ describe('SettingsService', () => {
 
   describe('updateBankDetails()', () => {
     it('should send PATCH request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyBankDetails = {
         id: 1,
         name: 'Name',

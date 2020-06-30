@@ -24,7 +24,7 @@ describe('ProfileService', () => {
     it('should update profile', inject(
       [ProfileService],
       fakeAsync(profileService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: User = {
           email: 'test@test.com',
           phone: '1234'
@@ -46,7 +46,7 @@ describe('ProfileService', () => {
     it('should return error if update failed', inject(
       [ProfileService],
       fakeAsync(profileService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const error = {
           message: 'INVALID_PASSWORD_ERR'
         };
@@ -77,7 +77,7 @@ describe('ProfileService', () => {
     it('should update password', inject(
       [ProfileService],
       fakeAsync(profileService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: PasswordPayload = {
           oldPassword: 'password',
           newPassword: '1234'
@@ -99,7 +99,7 @@ describe('ProfileService', () => {
     it('should return error if update failed', inject(
       [ProfileService],
       fakeAsync(profileService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const error = {
           message: 'INVALID_PASSWORD_ERR'
         };

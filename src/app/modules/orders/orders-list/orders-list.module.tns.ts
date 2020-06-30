@@ -24,7 +24,6 @@ import { importDeclarations, providerDeclarations } from './orders-list.common';
     ...importDeclarations
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [...providerDeclarations],
-  entryComponents: [OrdersFilterComponent]
+  providers: [...providerDeclarations]
 })
 export class OrdersListModule {}

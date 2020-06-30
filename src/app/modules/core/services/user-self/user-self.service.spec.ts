@@ -24,7 +24,7 @@ describe('UserSelfService', () => {
   );
 
   it('should be created', () => {
-    const service: UserSelfService = TestBed.get(UserSelfService);
+    const service: UserSelfService = TestBed.inject(UserSelfService);
     expect(service).toBeTruthy();
   });
 
@@ -32,7 +32,7 @@ describe('UserSelfService', () => {
     it('should return logged user', inject(
       [UserSelfService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const userResponse: User = {
           id: 1,
           email: 'test@test.com',
@@ -58,7 +58,7 @@ describe('UserSelfService', () => {
     it('should return error if load user failed', inject(
       [UserSelfService],
       fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const userError = {
           message: 'Error'
         };
@@ -84,7 +84,7 @@ describe('UserSelfService', () => {
     it('should return messages', inject(
       [UserSelfService],
       fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const messageResponse: Message = {
           _id: '1',
           text: 'message',
@@ -109,7 +109,7 @@ describe('UserSelfService', () => {
     it('should return error if load messages failed', inject(
       [UserSelfService],
       fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const userError = {
           message: 'Error'
         };

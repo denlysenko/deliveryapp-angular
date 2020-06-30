@@ -22,7 +22,6 @@ import { UserViewService } from './user-view.service';
     DynamicDialogModule
   ],
   exports: [UserViewComponent],
-  entryComponents: [UserViewComponent],
   providers: [UsersService, DialogService, UserViewService]
 })
 export class UserViewModule {}

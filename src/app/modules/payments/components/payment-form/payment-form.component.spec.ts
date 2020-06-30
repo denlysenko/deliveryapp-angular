@@ -166,7 +166,7 @@ describe('PaymentFormComponent', () => {
 
   describe('searchOrder()', () => {
     it('should call ordersService.getOrders()', () => {
-      const ordersService: OrdersService = TestBed.get(OrdersService);
+      const ordersService: OrdersService = TestBed.inject(OrdersService);
       component.searchOrder({ query: 1 });
       expect(ordersService.getOrders).toHaveBeenCalledWith({
         'filter[id]': 1
@@ -176,7 +176,7 @@ describe('PaymentFormComponent', () => {
 
   describe('searchClient()', () => {
     it('should call usersService.getUsers()', () => {
-      const usersService: UsersService = TestBed.get(UsersService);
+      const usersService: UsersService = TestBed.inject(UsersService);
       component.searchClient({ query: 'test' });
       expect(usersService.getUsers).toHaveBeenCalledWith({
         'filter[role]': Roles.CLIENT,

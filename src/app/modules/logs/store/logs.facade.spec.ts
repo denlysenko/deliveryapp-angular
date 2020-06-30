@@ -35,8 +35,8 @@ describe('LogsFacade', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
-    facade = TestBed.get(LogsFacade);
+    store = TestBed.inject(Store);
+    facade = TestBed.inject(LogsFacade);
     spyOn(store, 'dispatch').and.callThrough();
   });
 

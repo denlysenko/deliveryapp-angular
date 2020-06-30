@@ -20,7 +20,7 @@ describe('LogsService', () => {
       providers: [LogsService]
     });
 
-    service = TestBed.get(LogsService);
+    service = TestBed.inject(LogsService);
   });
 
   it('should be created', () => {
@@ -29,7 +29,7 @@ describe('LogsService', () => {
 
   describe('getLogs()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Log> = {
         rows: [
           {
@@ -55,7 +55,7 @@ describe('LogsService', () => {
     }));
 
     it('should build correct query string and send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Log> = {
         rows: [
           {

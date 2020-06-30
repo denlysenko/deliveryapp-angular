@@ -141,7 +141,7 @@ describe('LogsPageComponent', () => {
       const payload: FilterChangeEvent = {
         'order[smth]': 'desc'
       };
-      const logsFacade: LogsFacade = TestBed.get(LogsFacade);
+      const logsFacade: LogsFacade = TestBed.inject(LogsFacade);
 
       component.handleFilterChange(payload);
       expect(logsFacade.doFiltering).toHaveBeenCalledWith(payload);
@@ -153,7 +153,7 @@ describe('LogsPageComponent', () => {
       const payload: SortingChangeEvent = {
         'order[smth]': 'desc'
       };
-      const logsFacade: LogsFacade = TestBed.get(LogsFacade);
+      const logsFacade: LogsFacade = TestBed.inject(LogsFacade);
 
       component.handleSortingChange(payload);
       expect(logsFacade.sort).toHaveBeenCalledWith(payload);
@@ -166,7 +166,7 @@ describe('LogsPageComponent', () => {
         limit: 10,
         offset: 10
       };
-      const logsFacade: LogsFacade = TestBed.get(LogsFacade);
+      const logsFacade: LogsFacade = TestBed.inject(LogsFacade);
 
       component.handlePageChange(payload);
       expect(logsFacade.paginate).toHaveBeenCalledWith(payload);
@@ -180,7 +180,7 @@ describe('LogsPageComponent', () => {
     };
 
     it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
 
       allFilters.next({
         limit: 10,
@@ -190,14 +190,14 @@ describe('LogsPageComponent', () => {
     });
 
     it('should call getLogs()', () => {
-      const logsService: LogsService = TestBed.get(LogsService);
+      const logsService: LogsService = TestBed.inject(LogsService);
 
       allFilters.next(filter);
       expect(logsService.getLogs).toHaveBeenCalledWith(filter);
     });
 
     it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
 
       allFilters.next(filter);
       expect(loaderService.stop).toHaveBeenCalled();
@@ -213,7 +213,7 @@ describe('LogsPageComponent', () => {
 
   describe('showUser()', () => {
     it('should call userViewService.show()', () => {
-      const userViewService: UserViewService = TestBed.get(UserViewService);
+      const userViewService: UserViewService = TestBed.inject(UserViewService);
       const userId = 1;
 
       component.showUser(userId);

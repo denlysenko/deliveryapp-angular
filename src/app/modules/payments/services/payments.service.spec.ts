@@ -22,7 +22,7 @@ describe('PaymentsService', () => {
       providers: [PaymentsService]
     });
 
-    service = TestBed.get(PaymentsService);
+    service = TestBed.inject(PaymentsService);
   });
 
   it('should create', () => {
@@ -31,7 +31,7 @@ describe('PaymentsService', () => {
 
   describe('getPaymentsSelf()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Payment> = {
         rows: [
           {
@@ -57,7 +57,7 @@ describe('PaymentsService', () => {
     }));
 
     it('should send GET request with correct query string', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Payment> = {
         rows: [
           {
@@ -96,7 +96,7 @@ describe('PaymentsService', () => {
 
   describe('getPayments()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Payment> = {
         rows: [
           {
@@ -122,7 +122,7 @@ describe('PaymentsService', () => {
     }));
 
     it('should send GET request with correct query string', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Payment> = {
         rows: [
           {
@@ -161,7 +161,7 @@ describe('PaymentsService', () => {
 
   describe('getPayment()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const id = 1;
       const payload: Payment = {
         id,
@@ -186,7 +186,7 @@ describe('PaymentsService', () => {
 
   describe('createPayment()', () => {
     it('should send POST request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: Payment = {
         total: 5000,
         status: false,
@@ -208,7 +208,7 @@ describe('PaymentsService', () => {
     }));
 
     it('should return error if creation failed', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const error = {
         message: 'ERR'
       };
@@ -238,7 +238,7 @@ describe('PaymentsService', () => {
 
   describe('updatePayment()', () => {
     it('should send PATCH request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: Payment = {
         id: 1,
         total: 5000,
@@ -261,7 +261,7 @@ describe('PaymentsService', () => {
     }));
 
     it('should return error if updating failed', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const error = {
         message: 'ERR'
       };

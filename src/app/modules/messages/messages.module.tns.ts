@@ -9,7 +9,6 @@ import { importDeclarations, providerDeclarations } from './messages.common';
   declarations: [MessagesComponent],
   imports: [NativeScriptCommonModule, ...importDeclarations],
   exports: [MessagesComponent],
-  entryComponents: [MessagesComponent],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [...providerDeclarations]
 })

@@ -23,7 +23,7 @@ describe('AuthService', () => {
     it('should log in existing user', inject(
       [AuthService],
       fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const loginResponse = { token: 'JWT token' };
         const body = {
           email: 'test@example.com',
@@ -46,7 +46,7 @@ describe('AuthService', () => {
     it('should return error if login failed', inject(
       [AuthService],
       fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const loginError = {
           message: 'INVALID_PASSWORD_ERR',
           fields: ['password']
@@ -78,7 +78,7 @@ describe('AuthService', () => {
     it('should register new user', inject(
       [AuthService],
       fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const loginResponse = { token: 'JWT token' };
         const body = {
           email: 'test@example.com',
@@ -101,7 +101,7 @@ describe('AuthService', () => {
     it('should return error if registration failed', inject(
       [AuthService],
       fakeAsync(authService => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const registerError = {
           name: 'SequelizeValidationError',
           errors: [

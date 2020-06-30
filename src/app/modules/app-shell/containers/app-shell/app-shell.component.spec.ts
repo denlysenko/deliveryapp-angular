@@ -99,7 +99,7 @@ describe('AppShellComponent', () => {
 
   describe('logout()', () => {
     it('should call CoreFacade.logout', () => {
-      const coreFacade = TestBed.get(CoreFacade);
+      const coreFacade = TestBed.inject(CoreFacade);
       component.logout();
       expect(coreFacade.logout).toBeCalled();
     });

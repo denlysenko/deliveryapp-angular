@@ -49,7 +49,7 @@ describe('MessagesComponent', () => {
 
   describe('markAsRead()', () => {
     it('should call facade service', () => {
-      const facade: MessagesFacade = TestBed.get(MessagesFacade);
+      const facade: MessagesFacade = TestBed.inject(MessagesFacade);
       component.markAsRead('1');
       expect(facade.markMessageAsRead).toHaveBeenCalledWith('1');
     });
@@ -57,7 +57,7 @@ describe('MessagesComponent', () => {
 
   describe('loadMore()', () => {
     it('should call facade service', () => {
-      const facade: MessagesFacade = TestBed.get(MessagesFacade);
+      const facade: MessagesFacade = TestBed.inject(MessagesFacade);
       component.loadMore();
       expect(facade.loadMore).toHaveBeenCalled();
     });

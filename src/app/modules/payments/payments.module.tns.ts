@@ -35,7 +35,6 @@ import { PaymentResolver } from './resolvers/payment.resolver';
     ...importDeclarations
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  entryComponents: [PaymentsFilterComponent],
   providers: [...providerDeclarations, PaymentResolver]
 })
 export class PaymentsModule {}

@@ -135,7 +135,7 @@ describe('DestinationFormComponent', () => {
 
   describe('searchClient()', () => {
     it('should call usersService.getUsers()', () => {
-      const usersService: UsersService = TestBed.get(UsersService);
+      const usersService: UsersService = TestBed.inject(UsersService);
       component.searchClient({ query: 'test' });
       expect(usersService.getUsers).toHaveBeenCalledWith({
         'filter[role]': Roles.CLIENT,

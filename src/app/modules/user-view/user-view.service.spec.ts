@@ -36,7 +36,7 @@ describe('UserViewService', () => {
       ]
     });
 
-    service = TestBed.get(UserViewService);
+    service = TestBed.inject(UserViewService);
   });
 
   it('should be created', () => {
@@ -49,12 +49,12 @@ describe('UserViewService', () => {
     });
 
     it('should get user by id', () => {
-      const usersService: UsersService = TestBed.get(UsersService);
+      const usersService: UsersService = TestBed.inject(UsersService);
       expect(usersService.getById).toBeCalledWith(USER_ID);
     });
 
     it('should open dialog', () => {
-      const dialogService: DialogService = TestBed.get(DialogService);
+      const dialogService: DialogService = TestBed.inject(DialogService);
       expect(dialogService.open).toBeCalled();
     });
   });

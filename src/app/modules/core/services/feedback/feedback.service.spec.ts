@@ -28,7 +28,7 @@ describe('[Web] Feedback Service', () => {
   });
 
   beforeEach(() => {
-    messageService = TestBed.get(MessageService);
+    messageService = TestBed.inject(MessageService);
   });
 
   describe('success()', () => {

@@ -163,7 +163,7 @@ describe('CreateOrderFormComponent', () => {
     });
 
     it('should show error toast', () => {
-      const feedbackService: FeedbackService = TestBed.get(FeedbackService);
+      const feedbackService: FeedbackService = TestBed.inject(FeedbackService);
       expect(feedbackService.error).toHaveBeenCalledWith(ERROR_MESSAGE);
     });
   });

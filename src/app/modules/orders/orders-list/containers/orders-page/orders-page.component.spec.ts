@@ -168,7 +168,7 @@ describe('OrdersPageComponent', () => {
       const payload: FilterChangeEvent = {
         'order[smth]': 'desc'
       };
-      const ordersFacade: OrdersFacade = TestBed.get(OrdersFacade);
+      const ordersFacade: OrdersFacade = TestBed.inject(OrdersFacade);
 
       component.handleFilterChange(payload);
       expect(ordersFacade.doFiltering).toHaveBeenCalledWith(payload);
@@ -180,7 +180,7 @@ describe('OrdersPageComponent', () => {
       const payload: SortingChangeEvent = {
         'order[smth]': 'desc'
       };
-      const ordersFacade: OrdersFacade = TestBed.get(OrdersFacade);
+      const ordersFacade: OrdersFacade = TestBed.inject(OrdersFacade);
 
       component.handleSortingChange(payload);
       expect(ordersFacade.sort).toHaveBeenCalledWith(payload);
@@ -193,7 +193,7 @@ describe('OrdersPageComponent', () => {
         limit: 10,
         offset: 10
       };
-      const ordersFacade: OrdersFacade = TestBed.get(OrdersFacade);
+      const ordersFacade: OrdersFacade = TestBed.inject(OrdersFacade);
 
       component.handlePageChange(payload);
       expect(ordersFacade.paginate).toHaveBeenCalledWith(payload);
@@ -212,7 +212,7 @@ describe('OrdersPageComponent', () => {
     });
 
     it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
 
       allFilters.next({
         limit: 10,
@@ -222,14 +222,14 @@ describe('OrdersPageComponent', () => {
     });
 
     it('should call getOrdersSelf() for Roles.CLIENT', () => {
-      const ordersService: OrdersService = TestBed.get(OrdersService);
+      const ordersService: OrdersService = TestBed.inject(OrdersService);
 
       allFilters.next(filter);
       expect(ordersService.getOrdersSelf).toHaveBeenCalledWith(filter);
     });
 
     it('should call getOrders() for !Roles.CLIENT', () => {
-      const ordersService: OrdersService = TestBed.get(OrdersService);
+      const ordersService: OrdersService = TestBed.inject(OrdersService);
 
       role.next(Roles.MANAGER);
       allFilters.next(filter);
@@ -237,7 +237,7 @@ describe('OrdersPageComponent', () => {
     });
 
     it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
 
       allFilters.next(filter);
       expect(loaderService.stop).toHaveBeenCalled();
@@ -253,7 +253,7 @@ describe('OrdersPageComponent', () => {
 
   describe('showUser()', () => {
     it('should call userViewService.show()', () => {
-      const userViewService: UserViewService = TestBed.get(UserViewService);
+      const userViewService: UserViewService = TestBed.inject(UserViewService);
       const userId = 1;
 
       component.showUser(userId);

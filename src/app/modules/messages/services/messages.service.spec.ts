@@ -55,7 +55,7 @@ describe('MessagesService', () => {
       ]
     });
 
-    service = TestBed.get(MessagesService);
+    service = TestBed.inject(MessagesService);
     service.init();
   });
 
@@ -77,7 +77,7 @@ describe('MessagesService', () => {
     });
 
     it('should send subscribe request', () => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload = { socketId: token };
 
       const req = http.expectOne(`${environment.apiUrl}/messages/subscribe`);
@@ -99,7 +99,7 @@ describe('MessagesService', () => {
     });
 
     it('should send unsubscribe request', () => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload = { socketId: token };
 
       const req = http.expectOne(`${environment.apiUrl}/messages/unsubscribe`);
@@ -117,7 +117,7 @@ describe('MessagesService', () => {
 
   describe('markAsRead()', () => {
     it('should send request', () => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const id = 'message_id';
 
       service.markAsRead(id).subscribe();

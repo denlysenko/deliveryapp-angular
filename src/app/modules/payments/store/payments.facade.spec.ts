@@ -42,8 +42,8 @@ describe('PaymentsFacade', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
-    facade = TestBed.get(PaymentsFacade);
+    store = TestBed.inject(Store);
+    facade = TestBed.inject(PaymentsFacade);
     spyOn(store, 'dispatch').and.callThrough();
   });
 

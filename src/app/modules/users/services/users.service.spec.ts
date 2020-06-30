@@ -21,7 +21,7 @@ describe('Users Service', () => {
       providers: [UsersService]
     });
 
-    service = TestBed.get(UsersService);
+    service = TestBed.inject(UsersService);
   });
 
   it('should create', () => {
@@ -30,7 +30,7 @@ describe('Users Service', () => {
 
   describe('getUsers()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<User> = {
         rows: [
           {
@@ -54,7 +54,7 @@ describe('Users Service', () => {
     }));
 
     it('should send GET request with correct query string', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<User> = {
         rows: [
           {
@@ -91,7 +91,7 @@ describe('Users Service', () => {
 
   describe('getById()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: User = {
         email: 'test@test.com'
       };
@@ -112,7 +112,7 @@ describe('Users Service', () => {
 
   describe('createUser()', () => {
     it('should send PSOT request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: User = {
         email: 'test@test.com'
       };
@@ -132,7 +132,7 @@ describe('Users Service', () => {
     }));
 
     it('should return error if creation failed', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const error = {
         message: 'ERR'
       };
@@ -160,7 +160,7 @@ describe('Users Service', () => {
 
   describe('updateUser()', () => {
     it('should send PATCH request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: User = {
         id: 1,
         email: 'test@test.com'
@@ -181,7 +181,7 @@ describe('Users Service', () => {
     }));
 
     it('should return error if updating failed', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const error = {
         message: 'ERR'
       };

@@ -103,8 +103,8 @@ describe('UsersPageComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     allFilters.next({ limit: 10, offset: 0 });
-    usersFacade = TestBed.get(UsersFacade);
-    usersService = TestBed.get(UsersService);
+    usersFacade = TestBed.inject(UsersFacade);
+    usersService = TestBed.inject(UsersService);
   });
 
   it('should create', () => {
@@ -193,7 +193,7 @@ describe('UsersPageComponent', () => {
     };
 
     it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       allFilters.next(filter);
       expect(loaderService.start).toHaveBeenCalled();
     });
@@ -204,7 +204,7 @@ describe('UsersPageComponent', () => {
     });
 
     it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       allFilters.next(filter);
       expect(loaderService.stop).toHaveBeenCalled();
     });
@@ -235,7 +235,7 @@ describe('UsersPageComponent', () => {
     });
 
     it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       component.save(user);
       expect(loaderService.start).toHaveBeenCalled();
     });
@@ -249,13 +249,13 @@ describe('UsersPageComponent', () => {
     });
 
     it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       component.save(user);
       expect(loaderService.stop).toHaveBeenCalled();
     });
 
     it('should show success message', () => {
-      const feedbackService: FeedbackService = TestBed.get(FeedbackService);
+      const feedbackService: FeedbackService = TestBed.inject(FeedbackService);
       component.save(user);
       expect(feedbackService.success).toHaveBeenCalled();
     });
@@ -263,7 +263,7 @@ describe('UsersPageComponent', () => {
     it('should send error to error$', () => {
       const error = { message: 'error' };
       // tslint:disable-next-line:no-shadowed-variable
-      const usersService: UsersService = TestBed.get(UsersService);
+      const usersService: UsersService = TestBed.inject(UsersService);
 
       usersService.updateUser = jest.fn().mockReturnValue(throwError(error));
 

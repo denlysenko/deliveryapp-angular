@@ -38,8 +38,8 @@ describe('MessagesFacade', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
-    facade = TestBed.get(MessagesFacade);
+    store = TestBed.inject(Store);
+    facade = TestBed.inject(MessagesFacade);
     spyOn(store, 'dispatch').and.callThrough();
   });
 

@@ -26,7 +26,7 @@ describe('OrdersService', () => {
     it('should send GET request', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: ListResponse<Order> = {
           rows: [
             {
@@ -58,7 +58,7 @@ describe('OrdersService', () => {
     it('should send GET request with correct query string', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: ListResponse<Order> = {
           rows: [
             {
@@ -104,7 +104,7 @@ describe('OrdersService', () => {
     it('should send GET request', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: ListResponse<Order> = {
           rows: [
             {
@@ -136,7 +136,7 @@ describe('OrdersService', () => {
     it('should send GET request with correct query string', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: ListResponse<Order> = {
           rows: [
             {
@@ -182,7 +182,7 @@ describe('OrdersService', () => {
     it('should send GET request', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: Order = {
           cityFrom: 'test',
           cityTo: 'test',
@@ -212,7 +212,7 @@ describe('OrdersService', () => {
     it('should send POST request', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: Order = {
           cityFrom: 'test',
           cityTo: 'test',
@@ -240,7 +240,7 @@ describe('OrdersService', () => {
     it('should return error if creation failed', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const error = {
           message: 'ERR'
         };
@@ -276,7 +276,7 @@ describe('OrdersService', () => {
     it('should send POST request', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: Order = {
           cityFrom: 'test',
           cityTo: 'test',
@@ -304,7 +304,7 @@ describe('OrdersService', () => {
     it('should return error if creation failed', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const error = {
           message: 'ERR'
         };
@@ -340,7 +340,7 @@ describe('OrdersService', () => {
     it('should send PATCH request', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: Order = {
           cityFrom: 'test',
           cityTo: 'test',
@@ -371,7 +371,7 @@ describe('OrdersService', () => {
     it('should return error if updating failed', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const error = {
           message: 'ERR'
         };
@@ -410,7 +410,7 @@ describe('OrdersService', () => {
     it('should send PATCH request', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const payload: Order = {
           cityFrom: 'test',
           cityTo: 'test',
@@ -439,7 +439,7 @@ describe('OrdersService', () => {
     it('should return error if updating failed', inject(
       [OrdersService],
       fakeAsync(service => {
-        const http = TestBed.get(HttpTestingController);
+        const http = TestBed.inject(HttpTestingController);
         const error = {
           message: 'ERR'
         };

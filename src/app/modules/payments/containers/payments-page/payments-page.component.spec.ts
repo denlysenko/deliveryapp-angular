@@ -128,8 +128,8 @@ describe('PaymentsPageComponent', () => {
     fixture.detectChanges();
     allFilters.next({ limit: 10, offset: 0 });
     role.next(Roles.MANAGER);
-    paymentsFacade = TestBed.get(PaymentsFacade);
-    paymentsService = TestBed.get(PaymentsService);
+    paymentsFacade = TestBed.inject(PaymentsFacade);
+    paymentsService = TestBed.inject(PaymentsService);
   });
 
   it('should create', () => {
@@ -222,7 +222,7 @@ describe('PaymentsPageComponent', () => {
     };
 
     it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       allFilters.next(filter);
       expect(loaderService.start).toHaveBeenCalled();
     });
@@ -239,7 +239,7 @@ describe('PaymentsPageComponent', () => {
     });
 
     it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       allFilters.next(filter);
       expect(loaderService.stop).toHaveBeenCalled();
     });
@@ -270,7 +270,7 @@ describe('PaymentsPageComponent', () => {
     });
 
     it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       component.save(payment);
       expect(loaderService.start).toHaveBeenCalled();
     });
@@ -284,13 +284,13 @@ describe('PaymentsPageComponent', () => {
     });
 
     it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       component.save(payment);
       expect(loaderService.stop).toHaveBeenCalled();
     });
 
     it('should show success message', () => {
-      const feedbackService: FeedbackService = TestBed.get(FeedbackService);
+      const feedbackService: FeedbackService = TestBed.inject(FeedbackService);
       component.save(payment);
       expect(feedbackService.success).toHaveBeenCalled();
     });
@@ -298,7 +298,7 @@ describe('PaymentsPageComponent', () => {
     it('should send error to error$', () => {
       const error = { message: 'error' };
       // tslint:disable-next-line:no-shadowed-variable
-      const paymentsService: PaymentsService = TestBed.get(PaymentsService);
+      const paymentsService: PaymentsService = TestBed.inject(PaymentsService);
 
       paymentsService.updatePayment = jest
         .fn()
@@ -317,7 +317,7 @@ describe('PaymentsPageComponent', () => {
 
   describe('showUser()', () => {
     it('should call userViewService.show()', () => {
-      const userViewService: UserViewService = TestBed.get(UserViewService);
+      const userViewService: UserViewService = TestBed.inject(UserViewService);
       const userId = 1;
 
       component.showUser(userId);
