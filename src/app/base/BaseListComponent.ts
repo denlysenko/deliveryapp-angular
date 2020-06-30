@@ -1,10 +1,11 @@
-import { EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter, Input, OnInit, Output, Directive } from '@angular/core';
 
 import { PageChangeEvent, SortingChangeEvent } from '@common/models';
 import { extractSortFieldAndOrder } from '@common/utils';
 
 import { SortEvent } from 'primeng/api';
 
+@Directive()
 export abstract class BaseListComponent implements OnInit {
   sortField: string;
   sortOrder: number;
