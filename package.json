@@ -22,7 +22,9 @@
     "android": "tns run android",
     "ios": "tns run ios --device E8988397-E42D-4653-8414-8E0F5E5F8D02",
     "build:android": "tns build android --bundle --no-hmr --env.uglify --env.aot --env.snapshot",
-    "prepare:ios": "tns prepare ios --bundle --no-hmr --env.uglify --env.aot"
+    "prepare:ios": "tns prepare ios --bundle --no-hmr --env.uglify --env.aot",
+    "api-dev:up": "docker-compose -f \"docker-compose.yml\" --env-file .env up -d",
+    "api-dev:down": "docker-compose -f \"docker-compose.yml\" down"
   },
   "private": true,
   "dependencies": {
