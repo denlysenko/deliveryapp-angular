@@ -28,13 +28,11 @@ export const getMessagesCount = createSelector(
   fromMessages.getMessagesCount
 );
 
-export const getAllMessages = createSelector(
-  getMessageEntities,
-  entities =>
-    Object.keys(entities)
-      .map(id => entities[id])
-      .sort(
-        (a, b) =>
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-      )
+export const getAllMessages = createSelector(getMessageEntities, (entities) =>
+  Object.keys(entities)
+    .map((id) => entities[id])
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+    )
 );

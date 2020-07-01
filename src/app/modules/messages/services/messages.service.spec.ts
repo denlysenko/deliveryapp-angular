@@ -7,7 +7,7 @@ import { TestBed } from '@angular/core/testing';
 import { FeedbackService } from '@core/services';
 import { ApiService } from '@core/services/api.service';
 
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 
 import { environment } from '~/environments/environment';
 
@@ -22,7 +22,6 @@ jest.mock('firebase/app', () => {
     messaging: jest.fn(() => {
       return {
         usePublicVapidKey: jest.fn(),
-        requestPermission: jest.fn(() => Promise.resolve(true)),
         getToken: jest.fn(() => Promise.resolve(token)),
         onMessage: jest.fn(),
         deleteToken: jest.fn(() => Promise.resolve(true))
@@ -30,6 +29,10 @@ jest.mock('firebase/app', () => {
     })
   };
 });
+
+function MockNotification() {}
+MockNotification.requestPermission = jest.fn().mockResolvedValue('granted');
+(window as any).Notification = MockNotification;
 
 describe('MessagesService', () => {
   let service: MessagesService;
@@ -69,7 +72,9 @@ describe('MessagesService', () => {
     });
 
     it('should request permissions', () => {
-      expect(firebase.messaging().requestPermission()).resolves.toEqual(true);
+      expect(window.Notification.requestPermission()).resolves.toEqual(
+        'granted'
+      );
     });
 
     it('should get token', () => {

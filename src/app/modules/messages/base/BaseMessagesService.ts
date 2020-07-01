@@ -1,3 +1,5 @@
+import { BaseFilter, ListResponse } from '@common/models';
+
 import { FeedbackService } from '@core/services';
 import { ApiService } from '@core/services/api.service';
 
@@ -11,14 +13,18 @@ export abstract class BaseMessagesService {
   protected abstract readonly firebaseConfig: any;
 
   constructor(
-    private feedbackService: FeedbackService,
-    private apiService: ApiService,
-    private messagesFacade: MessagesFacade
+    private readonly feedbackService: FeedbackService,
+    private readonly apiService: ApiService,
+    private readonly messagesFacade: MessagesFacade
   ) {}
 
   abstract init(): void;
 
-  markAsRead(id: string): Observable<Message> {
+  loadMessages(query: BaseFilter): Observable<ListResponse<Message>> {
+    return this.apiService.get('/messages', query);
+  }
+
+  markAsRead(id: string): Observable<void> {
     return this.apiService.patch(`/messages/${id}`, {});
   }
 

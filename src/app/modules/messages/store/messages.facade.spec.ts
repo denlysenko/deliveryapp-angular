@@ -56,9 +56,9 @@ describe('MessagesFacade', () => {
         }
       ];
 
-      let result;
+      let result: number;
 
-      facade.unreadMessages$.subscribe(value => {
+      facade.unreadMessages$.subscribe((value) => {
         result = value;
       });
 
@@ -80,9 +80,9 @@ describe('MessagesFacade', () => {
         }
       ];
 
-      let result;
+      let result: number;
 
-      facade.totalCount$.subscribe(value => {
+      facade.totalCount$.subscribe((value) => {
         result = value;
       });
 
@@ -104,9 +104,9 @@ describe('MessagesFacade', () => {
         }
       ];
 
-      let result;
+      let result: Message[];
 
-      facade.messages$.subscribe(value => {
+      facade.messages$.subscribe((value) => {
         result = value;
       });
 

@@ -1,48 +1,36 @@
-import { ChangeDetectorRef, OnInit, Directive } from '@angular/core';
-
-import { BaseComponent } from '@base/BaseComponent';
+import { Directive } from '@angular/core';
 
 import { DEFAULT_LIMIT } from '@common/constants';
 
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Message } from '../models';
 import { MessagesFacade } from '../store';
 
 @Directive()
-export abstract class BaseMessagesComponent extends BaseComponent
-  implements OnInit {
-  count: number;
-  messages: Message[] = [];
+// tslint:disable-next-line: directive-class-suffix
+export abstract class BaseMessagesComponent {
+  messages$: Observable<Message[]> = this.messagesFacade.messages$.pipe(
+    tap((messages) => (this.count = messages.length))
+  );
 
+  totalCount$: Observable<number> = this.messagesFacade.totalCount$.pipe(
+    tap((totalCount) => (this.totalCount = totalCount))
+  );
+
+  private count: number;
+  private totalCount: number;
   private offset = 0;
 
-  constructor(
-    protected messagesFacade: MessagesFacade,
-    private cdr: ChangeDetectorRef
-  ) {
-    super();
-  }
-
-  ngOnInit() {
-    this.messagesFacade.messages$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(messages => {
-        this.messages = messages;
-        this.cdr.detectChanges();
-      });
-
-    this.messagesFacade.totalCount$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(count => (this.count = count));
-  }
+  constructor(protected readonly messagesFacade: MessagesFacade) {}
 
   markAsRead(id: string) {
     this.messagesFacade.markMessageAsRead(id);
   }
 
   loadMore() {
-    if (this.messages.length >= this.count) {
+    if (this.count >= this.totalCount) {
       return;
     }
 

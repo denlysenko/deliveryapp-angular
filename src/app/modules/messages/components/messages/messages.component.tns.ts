@@ -12,10 +12,9 @@ import { MessagesFacade } from '../../store';
 export class MessagesComponent extends BaseMessagesComponent {
   constructor(
     messagesFacade: MessagesFacade,
-    cdr: ChangeDetectorRef,
     private params: ModalDialogParams
   ) {
-    super(messagesFacade, cdr);
+    super(messagesFacade);
   }
 
   close() {

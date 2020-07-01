@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { BaseMessagesComponent } from '../../base/BaseMessagesComponent';
 import { MessagesFacade } from '../../store';
@@ -14,8 +9,8 @@ import { MessagesFacade } from '../../store';
   styleUrls: ['./messages.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MessagesComponent extends BaseMessagesComponent implements OnInit {
-  constructor(messagesFacade: MessagesFacade, cdr: ChangeDetectorRef) {
-    super(messagesFacade, cdr);
+export class MessagesComponent extends BaseMessagesComponent {
+  constructor(messagesFacade: MessagesFacade) {
+    super(messagesFacade);
   }
 }
