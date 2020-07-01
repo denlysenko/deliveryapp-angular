@@ -12,7 +12,6 @@
       "severity": "warning"
     },
     "prettier": true,
-    // tslint-angular
     "use-component-view-encapsulation": false,
     "no-duplicate-string": false,
     "no-hardcoded-credentials": false,
