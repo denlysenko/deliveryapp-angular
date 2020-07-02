@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -7,6 +6,7 @@ import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ApiService } from '@core/services/api.service';
+
 import { environment } from '~/environments/environment';
 
 import { AuthService } from './auth.service';
@@ -22,7 +22,7 @@ describe('AuthService', () => {
   describe('login()', () => {
     it('should log in existing user', inject(
       [AuthService],
-      fakeAsync(authService => {
+      fakeAsync((authService: AuthService) => {
         const http = TestBed.inject(HttpTestingController);
         const loginResponse = { token: 'JWT token' };
         const body = {
@@ -30,7 +30,7 @@ describe('AuthService', () => {
           password: '111'
         };
 
-        authService.login(body).subscribe(res => {
+        authService.login(body).subscribe((res) => {
           expect(res).toEqual(loginResponse);
         });
 
@@ -45,7 +45,7 @@ describe('AuthService', () => {
 
     it('should return error if login failed', inject(
       [AuthService],
-      fakeAsync(authService => {
+      fakeAsync((authService: AuthService) => {
         const http = TestBed.inject(HttpTestingController);
         const loginError = {
           message: 'INVALID_PASSWORD_ERR',
@@ -59,7 +59,8 @@ describe('AuthService', () => {
           })
           .subscribe(
             () => {},
-            err => {
+            (err) => {
+              console.log(err);
               expect(err.status).toEqual(401);
               expect(err.error).toEqual(loginError);
             }
@@ -67,7 +68,7 @@ describe('AuthService', () => {
 
         const req = http.expectOne(`${environment.apiUrl}/auth/login`);
         expect(req.request.method).toBe('POST');
-        req.error(new HttpErrorResponse({ error: loginError, status: 401 }));
+        req.flush({ error: loginError, status: 401 }, { statusText: 'Error' });
 
         tick();
       })
@@ -77,7 +78,7 @@ describe('AuthService', () => {
   describe('register()', () => {
     it('should register new user', inject(
       [AuthService],
-      fakeAsync(authService => {
+      fakeAsync((authService: AuthService) => {
         const http = TestBed.inject(HttpTestingController);
         const loginResponse = { token: 'JWT token' };
         const body = {
@@ -85,7 +86,7 @@ describe('AuthService', () => {
           password: '111'
         };
 
-        authService.register(body).subscribe(res => {
+        authService.register(body).subscribe((res) => {
           expect(res).toEqual(loginResponse);
         });
 
@@ -100,7 +101,7 @@ describe('AuthService', () => {
 
     it('should return error if registration failed', inject(
       [AuthService],
-      fakeAsync(authService => {
+      fakeAsync((authService: AuthService) => {
         const http = TestBed.inject(HttpTestingController);
         const registerError = {
           name: 'SequelizeValidationError',
@@ -125,7 +126,7 @@ describe('AuthService', () => {
           })
           .subscribe(
             () => {},
-            err => {
+            (err) => {
               expect(err.status).toEqual(422);
               expect(err.error).toEqual(registerError);
             }
@@ -133,7 +134,10 @@ describe('AuthService', () => {
 
         const req = http.expectOne(`${environment.apiUrl}/auth/register`);
         expect(req.request.method).toBe('POST');
-        req.error(new HttpErrorResponse({ error: registerError, status: 422 }));
+        req.flush(
+          { error: registerError, status: 422 },
+          { statusText: 'Error' }
+        );
 
         tick();
       })

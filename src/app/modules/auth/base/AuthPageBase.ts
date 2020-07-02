@@ -18,10 +18,10 @@ export abstract class AuthPageBase {
   error$ = new BehaviorSubject<LoginError | ValidationError | null>(null);
 
   constructor(
-    private authService: AuthService,
-    private storageService: StorageService,
-    private coreFacade: CoreFacade,
-    private messagesFacade: MessagesFacade
+    private readonly authService: AuthService,
+    private readonly storageService: StorageService,
+    private readonly coreFacade: CoreFacade,
+    private readonly messagesFacade: MessagesFacade
   ) {}
 
   doAuth(formValue: AuthForm) {
@@ -46,7 +46,7 @@ export abstract class AuthPageBase {
         });
         this.messagesFacade.subscribeToMessages();
       },
-      err => {
+      (err) => {
         this.error$.next(err);
         this.loading$.next(false);
       }

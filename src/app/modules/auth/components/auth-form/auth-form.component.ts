@@ -54,8 +54,8 @@ export class AuthFormComponent extends BaseFormComponent {
   formSubmitted = new EventEmitter<AuthForm>();
 
   constructor(
-    private fb: FormBuilder,
-    protected feedbackService: FeedbackService
+    private readonly fb: FormBuilder,
+    protected readonly feedbackService: FeedbackService
   ) {
     super();
     this.initForm();
@@ -94,13 +94,13 @@ export class AuthFormComponent extends BaseFormComponent {
   }
 
   private disableFields() {
-    REGISTER_FIELDS.forEach(field => {
+    REGISTER_FIELDS.forEach((field) => {
       this.form.get(field).disable();
     });
   }
 
   private enableFields() {
-    REGISTER_FIELDS.forEach(field => {
+    REGISTER_FIELDS.forEach((field) => {
       this.form.get(field).enable();
     });
   }

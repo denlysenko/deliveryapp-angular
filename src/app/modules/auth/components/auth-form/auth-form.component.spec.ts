@@ -8,7 +8,7 @@ import { FeedbackService } from '@core/services';
 import { AuthFormComponent, REGISTER_FIELDS } from './auth-form.component';
 
 const feedbackServiceStub = {
-  error: jasmine.createSpy('error')
+  error: jest.fn()
 };
 
 describe('AuthFormComponent', () => {
@@ -46,14 +46,14 @@ describe('AuthFormComponent', () => {
   describe('isLoggingIn', () => {
     it('[`isLoggingIn = true`] should disable register fields', () => {
       component.isLoggingIn = true;
-      REGISTER_FIELDS.forEach(field => {
+      REGISTER_FIELDS.forEach((field) => {
         expect(component.form.get(field).disabled).toBeTruthy();
       });
     });
 
     it('[`isLoggingIn = false`] should enable register fields', () => {
       component.isLoggingIn = false;
-      REGISTER_FIELDS.forEach(field => {
+      REGISTER_FIELDS.forEach((field) => {
         expect(component.form.get(field).disabled).toBeFalsy();
       });
     });
