@@ -9,8 +9,8 @@ export abstract class AppShellBase extends BaseComponent {
   unreadMessages$ = this.messagesFacade.unreadMessages$;
 
   constructor(
-    private coreFacade: CoreFacade,
-    private messagesFacade: MessagesFacade
+    private readonly coreFacade: CoreFacade,
+    private readonly messagesFacade: MessagesFacade
   ) {
     super();
   }
