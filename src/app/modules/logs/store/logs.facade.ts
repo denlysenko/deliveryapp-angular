@@ -24,7 +24,7 @@ export class LogsFacade {
   pagination$ = this.store.pipe(select(getPagination));
   allFilters$ = this.store.pipe(select(getAllFilters));
 
-  constructor(private store: Store<LogsState>) {}
+  constructor(private readonly store: Store<LogsState>) {}
 
   doFiltering(filter: FilterChangeEvent) {
     this.store.dispatch(new FilterChange(filter));

@@ -18,7 +18,7 @@ describe('LogsListComponent', () => {
     fixture = TestBed.createComponent(LogsListComponent);
     component = fixture.componentInstance;
     component.sorting = {
-      'order[createdAt]': 'asc'
+      createdAt: 'asc'
     };
     component.pagination = {
       limit: 10,
@@ -46,7 +46,7 @@ describe('LogsListComponent', () => {
       });
 
       expect(component.sortingChanged.emit).toHaveBeenCalledWith({
-        'order[createdAt]': 'desc'
+        createdAt: 'desc'
       });
     });
   });

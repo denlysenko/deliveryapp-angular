@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { BaseComponent } from '@base/BaseComponent';
 
 import {
   FilterChangeEvent,
+  ListResponse,
   PageChangeEvent,
   SortingChangeEvent
 } from '@common/models';
@@ -13,8 +12,8 @@ import { LoaderService } from '@core/services';
 
 import { UserViewService } from '@user-view/user-view.service';
 
-import { EMPTY } from 'rxjs';
-import { catchError, skip, switchMap, takeUntil } from 'rxjs/operators';
+import { EMPTY, merge, Observable } from 'rxjs';
+import { catchError, finalize, map, skip, switchMap } from 'rxjs/operators';
 
 import { Log } from '../../models';
 import { LogsService } from '../../services/logs.service';
@@ -23,31 +22,35 @@ import { LogsFacade } from '../../store';
 @Component({
   selector: 'da-logs-page',
   templateUrl: './logs-page.component.html',
-  styleUrls: ['./logs-page.component.scss']
+  styleUrls: ['./logs-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LogsPageComponent extends BaseComponent implements OnInit {
-  logs: Log[];
-  count: number;
+export class LogsPageComponent {
+  data$: Observable<ListResponse<Log>> = merge(
+    this.route.data.pipe(map((data: { logs: ListResponse<Log> }) => data.logs)),
+    this.logsFacade.allFilters$.pipe(
+      skip(1),
+      switchMap((logsFilter) => {
+        this.loaderService.start();
+        return this.logsService.getLogs(logsFilter).pipe(
+          catchError(() => EMPTY),
+          finalize(() => this.loaderService.stop())
+        );
+      })
+    )
+  );
 
   filter$ = this.logsFacade.filter$;
   sorting$ = this.logsFacade.sorting$;
   pagination$ = this.logsFacade.pagination$;
 
   constructor(
-    private logsFacade: LogsFacade,
-    private route: ActivatedRoute,
-    private logsService: LogsService,
-    private loaderService: LoaderService,
-    private userViewService: UserViewService
-  ) {
-    super();
-  }
-
-  ngOnInit() {
-    this.count = this.route.snapshot.data.logs.count;
-    this.logs = this.route.snapshot.data.logs.rows;
-    this.subscribeToFiltersChanges();
-  }
+    private readonly logsFacade: LogsFacade,
+    private readonly route: ActivatedRoute,
+    private readonly logsService: LogsService,
+    private readonly loaderService: LoaderService,
+    private readonly userViewService: UserViewService
+  ) {}
 
   handleFilterChange(event: FilterChangeEvent) {
     this.logsFacade.doFiltering(event);
@@ -63,27 +66,5 @@ export class LogsPageComponent extends BaseComponent implements OnInit {
 
   showUser(id: number) {
     this.userViewService.show(id);
-  }
-
-  private subscribeToFiltersChanges() {
-    this.logsFacade.allFilters$
-      .pipe(
-        skip(1),
-        switchMap(logsFilter => {
-          this.loaderService.start();
-          return this.logsService.getLogs(logsFilter).pipe(
-            catchError(() => {
-              this.loaderService.stop();
-              return EMPTY;
-            })
-          );
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(({ count, rows }) => {
-        this.loaderService.stop();
-        this.logs = rows;
-        this.count = count;
-      });
   }
 }

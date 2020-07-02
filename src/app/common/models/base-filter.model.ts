@@ -1,4 +1,4 @@
 export interface BaseFilter {
-  offset?: number;
-  limit?: number;
+  offset: number;
+  limit: number;
 }

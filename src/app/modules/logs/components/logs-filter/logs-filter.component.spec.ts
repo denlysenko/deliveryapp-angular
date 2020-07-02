@@ -41,7 +41,7 @@ describe('LogsFilterComponent', () => {
 
   it('should init form with filter value', () => {
     component.filter = {
-      'filter[action]': '2'
+      action: '2'
     };
     component.ngOnInit();
     expect(component.form.get('search').value).toEqual('2');
@@ -56,7 +56,7 @@ describe('LogsFilterComponent', () => {
     component.form.setValue(formValue);
     tick(500);
     expect(component.filterChanged.emit).toHaveBeenCalledWith({
-      'filter[action]': '1'
+      action: '1'
     });
   }));
 });

@@ -7,10 +7,11 @@
                         (filterChanged)="handleFilterChange($event)"></da-logs-filter>
       </div>
       <div class="list">
-        <da-logs-list [logs]="logs"
+        <da-logs-list *ngIf="data$ | async as data"
+                      [logs]="data.rows"
                       [sorting]="sorting$ | async"
                       [pagination]="pagination$ | async"
-                      [count]="count"
+                      [count]="data.count"
                       (sortingChanged)="handleSortingChange($event)"
                       (paginationChanged)="handlePageChange($event)"
                       (userSelected)="showUser($event)"></da-logs-list>

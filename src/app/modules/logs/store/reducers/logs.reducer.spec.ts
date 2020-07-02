@@ -19,7 +19,7 @@ describe('LogsReducer', () => {
   describe('FILTER_CHANGE action', () => {
     it('should set filter value to payload', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
       const action = new FilterChange(payload);
       const { filter } = logsReducer(initialState, action);
@@ -31,12 +31,12 @@ describe('LogsReducer', () => {
   describe('SORTING_CHANGE Action', () => {
     it('should set sorting value to payload', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
       const action = new SortingChange(payload);
-      const { sorting } = logsReducer(initialState, action);
+      const { order } = logsReducer(initialState, action);
 
-      expect(sorting).toEqual(payload);
+      expect(order).toEqual(payload);
     });
   });
 

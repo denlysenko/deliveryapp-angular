@@ -17,7 +17,7 @@ import { SelectItem } from 'primeng/api';
 
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
-const selectedFilter = 'filter[action]';
+const selectedFilter = 'action';
 
 @Component({
   selector: 'da-logs-filter',
@@ -38,7 +38,7 @@ export class LogsFilterComponent extends BaseComponent implements OnInit {
 
   @Output() filterChanged = new EventEmitter<FilterChangeEvent>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder) {
     super();
   }
 
@@ -47,18 +47,14 @@ export class LogsFilterComponent extends BaseComponent implements OnInit {
   }
 
   private initForm() {
-    const keys = Object.keys(this.filter); // we know that filter in store contains only one key
+    const keys = Object.keys(this.filter);
 
     this.form = this.fb.group({
       search: [keys.length ? this.filter[keys[0]] : '']
     });
 
     this.form.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
+      .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe(({ search }) => {
         this.filterChanged.emit({
           [selectedFilter]: search

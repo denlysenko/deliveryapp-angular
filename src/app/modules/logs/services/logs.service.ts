@@ -10,9 +10,9 @@ import { Log, LogsFilter } from '../models';
 
 @Injectable()
 export class LogsService {
-  constructor(private apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService) {}
 
-  getLogs(query?: Partial<LogsFilter>): Observable<ListResponse<Log>> {
+  getLogs(query?: LogsFilter): Observable<ListResponse<Log>> {
     return this.apiService.get('/logs', query);
   }
 }
