@@ -16,7 +16,7 @@ import { StorageService } from '../services/storage/storage.service';
 export class JwtInterceptor implements HttpInterceptor {
   headerName = AUTHORIZATION_HEADER;
 
-  constructor(private storageService: StorageService) {}
+  constructor(private readonly storageService: StorageService) {}
 
   intercept(
     request: HttpRequest<any>,

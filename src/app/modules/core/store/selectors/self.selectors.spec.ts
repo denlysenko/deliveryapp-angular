@@ -41,7 +41,7 @@ describe('Self Selectors', () => {
     it('should return true when LoadSelf was dispatched', () => {
       let result;
 
-      store.select(getSelfLoading).subscribe(value => {
+      store.select(getSelfLoading).subscribe((value) => {
         result = value;
       });
 
@@ -62,7 +62,7 @@ describe('Self Selectors', () => {
         role: 1
       };
 
-      store.select(getSelfLoading).subscribe(value => {
+      store.select(getSelfLoading).subscribe((value) => {
         result = value;
       });
 
@@ -79,7 +79,7 @@ describe('Self Selectors', () => {
 
       let result;
 
-      store.select(getSelfError).subscribe(value => {
+      store.select(getSelfError).subscribe((value) => {
         result = value;
       });
 
@@ -101,7 +101,7 @@ describe('Self Selectors', () => {
         role: 1
       };
 
-      store.select(getSelf).subscribe(value => {
+      store.select(getSelf).subscribe((value) => {
         result = value;
       });
 
@@ -112,7 +112,7 @@ describe('Self Selectors', () => {
     it('should return null when logout was dispatched', () => {
       let result;
 
-      store.select(getSelf).subscribe(value => {
+      store.select(getSelf).subscribe((value) => {
         result = value;
       });
 
@@ -134,7 +134,7 @@ describe('Self Selectors', () => {
         role: 1
       };
 
-      store.select(getLoggedIn).subscribe(value => {
+      store.select(getLoggedIn).subscribe((value) => {
         result = value;
       });
 
@@ -145,7 +145,7 @@ describe('Self Selectors', () => {
     it('should return false when logout was dispatched', () => {
       let result;
 
-      store.select(getLoggedIn).subscribe(value => {
+      store.select(getLoggedIn).subscribe((value) => {
         result = value;
       });
 
@@ -168,7 +168,7 @@ describe('Self Selectors', () => {
       };
       store.dispatch(new LoadSelfSuccess(payload));
 
-      store.select(getSelfRole).subscribe(value => {
+      store.select(getSelfRole).subscribe((value) => {
         result = value;
       });
 

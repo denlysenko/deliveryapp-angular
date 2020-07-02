@@ -7,8 +7,8 @@ import { ExtendedNavigationExtras } from '../../models/router-payload.model';
 @Injectable()
 export class RouterExtensions {
   constructor(
-    private router: Router,
-    private locationStrategy: LocationStrategy
+    private readonly router: Router,
+    private readonly locationStrategy: LocationStrategy
   ) {}
 
   navigate(

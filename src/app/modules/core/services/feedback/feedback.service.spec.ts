@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { FeedbackService } from './feedback.service';
 
 const messageServiceStub = {
-  add: jasmine.createSpy('add')
+  add: jest.fn()
 };
 
 const SUCCESS_MESSAGE = 'success';

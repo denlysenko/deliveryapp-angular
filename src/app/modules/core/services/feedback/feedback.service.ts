@@ -8,7 +8,7 @@ import { Feedback } from './Feedback';
   providedIn: 'root'
 })
 export class FeedbackService implements Feedback {
-  constructor(private messageService: MessageService) {}
+  constructor(private readonly messageService: MessageService) {}
 
   success(message: string) {
     this.messageService.add({

@@ -17,10 +17,10 @@ import { CoreFacade } from '../store';
 })
 export class AuthGuard implements CanActivate, CanLoad {
   constructor(
-    private coreFacade: CoreFacade,
-    private messagesFacade: MessagesFacade,
-    private storageService: StorageService,
-    private appStorageService: AppStorageService
+    private readonly coreFacade: CoreFacade,
+    private readonly messagesFacade: MessagesFacade,
+    private readonly storageService: StorageService,
+    private readonly appStorageService: AppStorageService
   ) {}
 
   canActivate(): Observable<boolean> {
@@ -33,14 +33,14 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   private checkIfLoggedIn(): Observable<boolean> {
     return this.checkStore().pipe(
-      mergeMap(loggedIn => {
+      mergeMap((loggedIn) => {
         if (loggedIn) {
           return of(true);
         }
 
         return this.checkStorage();
       }),
-      map(loggedIn => {
+      map((loggedIn) => {
         if (!loggedIn) {
           this.coreFacade.navigate({
             path: ['auth'],

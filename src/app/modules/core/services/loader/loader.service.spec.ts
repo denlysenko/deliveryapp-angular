@@ -13,9 +13,9 @@ describe('[Web] Loader Service', () => {
     it('should send true to subscribers', inject(
       [LoaderService],
       (service: LoaderService) => {
-        let result;
+        let result: boolean;
 
-        service.isLoading$.subscribe(loading => {
+        service.isLoading$.subscribe((loading) => {
           result = loading;
         });
 
@@ -29,9 +29,9 @@ describe('[Web] Loader Service', () => {
     it('should send false to subscribers', inject(
       [LoaderService],
       (service: LoaderService) => {
-        let result;
+        let result: boolean;
 
-        service.isLoading$.subscribe(loading => {
+        service.isLoading$.subscribe((loading) => {
           result = loading;
         });
 

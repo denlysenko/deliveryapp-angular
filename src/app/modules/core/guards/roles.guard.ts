@@ -15,7 +15,7 @@ import { CoreFacade } from '../store';
   providedIn: 'root'
 })
 export class RolesGuard implements CanActivate, CanLoad {
-  constructor(private coreFacade: CoreFacade) {}
+  constructor(private readonly coreFacade: CoreFacade) {}
 
   canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {
     return this.checkRole(next);
@@ -29,7 +29,7 @@ export class RolesGuard implements CanActivate, CanLoad {
     route: Route | ActivatedRouteSnapshot
   ): Observable<boolean> {
     return this.coreFacade.self$.pipe(
-      map(user => {
+      map((user) => {
         const roles = route.data['allowedRoles'];
 
         if (!roles.includes(user.role)) {

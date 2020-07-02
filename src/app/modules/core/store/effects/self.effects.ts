@@ -6,14 +6,15 @@ import { MessagesService } from '@messages/services';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
+import { UsersService } from '@users/services/users.service';
+
 import { from, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import {
   AppStorageService,
   LoaderService,
-  StorageService,
-  UserSelfService
+  StorageService
 } from '../../services';
 import { Go } from '../actions/router.actions';
 import {
@@ -26,21 +27,21 @@ import {
 @Injectable()
 export class SelfEffects {
   constructor(
-    private actions$: Actions,
-    private userSelfService: UserSelfService,
-    private storageService: StorageService,
-    private appStorageService: AppStorageService,
-    private messagesService: MessagesService,
-    private loaderService: LoaderService
+    private readonly actions$: Actions,
+    private readonly usersService: UsersService,
+    private readonly storageService: StorageService,
+    private readonly appStorageService: AppStorageService,
+    private readonly messagesService: MessagesService,
+    private readonly loaderService: LoaderService
   ) {}
 
   @Effect()
   loadSelf$ = this.actions$.pipe(
     ofType(SelfActionTypes.LOAD_SELF),
     switchMap(() => {
-      return this.userSelfService.loadSelf().pipe(
-        map(response => new LoadSelfSuccess(response)),
-        catchError(err => of(new LoadSelfFail(err)))
+      return this.usersService.loadSelf().pipe(
+        map((response) => new LoadSelfSuccess(response)),
+        catchError((err) => of(new LoadSelfFail(err)))
       );
     })
   );
