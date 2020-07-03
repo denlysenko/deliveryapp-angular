@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -40,7 +39,7 @@ describe('Users Service', () => {
         count: 1
       };
 
-      service.getUsers().subscribe(res => {
+      service.getUsers().subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -65,15 +64,19 @@ describe('Users Service', () => {
       };
 
       const filter: Partial<UsersFilter> = {
-        'filter[id]': 1,
-        'order[firstName]': 'asc'
+        filter: {
+          id: 1
+        },
+        order: {
+          firstName: 'asc'
+        }
       };
 
       const encodedQueryString = `${encodeURIComponent(
         'filter[id]'
       )}=1&${encodeURIComponent('order[firstName]')}=asc`;
 
-      service.getUsers(filter).subscribe(res => {
+      service.getUsers(filter).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -96,7 +99,7 @@ describe('Users Service', () => {
         email: 'test@test.com'
       };
 
-      service.getById(1).subscribe(res => {
+      service.getById(1).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -117,7 +120,7 @@ describe('Users Service', () => {
         email: 'test@test.com'
       };
 
-      service.createUser(payload).subscribe(res => {
+      service.createUser(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -142,7 +145,7 @@ describe('Users Service', () => {
 
       service.createUser(payload).subscribe(
         () => {},
-        err => {
+        (err) => {
           expect(err.status).toEqual(422);
           expect(err.error).toEqual(error);
         }
@@ -152,7 +155,7 @@ describe('Users Service', () => {
 
       expect(req.request.method).toBe('POST');
 
-      req.error(new HttpErrorResponse({ error: error, status: 422 }));
+      req.flush({ error: error, status: 422 }, { statusText: 'Error' });
 
       tick();
     }));
@@ -166,7 +169,7 @@ describe('Users Service', () => {
         email: 'test@test.com'
       };
 
-      service.updateUser(payload).subscribe(res => {
+      service.updateUser(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -192,7 +195,7 @@ describe('Users Service', () => {
 
       service.updateUser(payload).subscribe(
         () => {},
-        err => {
+        (err) => {
           expect(err.status).toEqual(422);
           expect(err.error).toEqual(error);
         }
@@ -202,7 +205,7 @@ describe('Users Service', () => {
 
       expect(req.request.method).toBe('PATCH');
 
-      req.error(new HttpErrorResponse({ error: error, status: 422 }));
+      req.flush({ error: error, status: 422 }, { statusText: 'Error' });
 
       tick();
     }));

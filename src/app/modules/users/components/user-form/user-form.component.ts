@@ -60,10 +60,6 @@ export class UserFormComponent extends BaseFormComponent implements OnInit {
 
   private _user: User;
 
-  constructor() {
-    super();
-  }
-
   ngOnInit() {
     this.initForm();
   }

@@ -18,7 +18,7 @@ describe('UsersListComponent', () => {
     fixture = TestBed.createComponent(UsersListComponent);
     component = fixture.componentInstance;
     component.sorting = {
-      'order[id]': 'asc'
+      id: 'asc'
     };
     component.pagination = {
       limit: 10,
@@ -46,7 +46,7 @@ describe('UsersListComponent', () => {
       });
 
       expect(component.sortingChanged.emit).toHaveBeenCalledWith({
-        'order[id]': 'desc'
+        id: 'desc'
       });
     });
   });

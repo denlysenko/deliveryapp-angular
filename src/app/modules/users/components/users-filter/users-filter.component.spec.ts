@@ -8,6 +8,8 @@ import {
 } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { Roles } from '@common/enums';
+
 import { DropdownModule } from 'primeng/dropdown';
 
 import { UsersFilterComponent } from './users-filter.component';
@@ -45,26 +47,25 @@ describe('UsersFilterComponent', () => {
 
   it('should init form with filter value', () => {
     component.filter = {
-      'filter[role][0]': '1',
-      'filter[role][1]': '2',
-      'filter[id]': '2'
+      role: [Roles.ADMIN, Roles.MANAGER],
+      id: 2
     };
     component.ngOnInit();
-    expect(component.form.get('search').value).toEqual('2');
-    expect(component.form.get('selectedFilter').value).toEqual('filter[id]');
+    expect(component.form.get('search').value).toEqual(2);
+    expect(component.form.get('selectedFilter').value).toEqual('id');
   });
 
   it('should emit filterChanged event', fakeAsync(() => {
     spyOn(component.filterChanged, 'emit');
     const formValue = {
-      selectedFilter: 'filter[email]',
+      selectedFilter: 'email',
       search: 'test'
     };
 
     component.form.setValue(formValue);
     tick(500);
     expect(component.filterChanged.emit).toHaveBeenCalledWith({
-      'filter[email]': 'test'
+      email: 'test'
     });
   }));
 });

@@ -29,8 +29,8 @@ export const getAllFilters = createSelector(
   getPagination,
   (filter, sorting, pagination) => {
     return {
-      ...filter,
-      ...sorting,
+      filter,
+      order: sorting,
       ...pagination
     };
   }

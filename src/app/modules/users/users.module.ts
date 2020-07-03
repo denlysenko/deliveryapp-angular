@@ -15,7 +15,6 @@ import { TableModule } from 'primeng/table';
 import { components } from './components';
 import { containers } from './containers';
 import { UsersResolver } from './resolvers/users.resolver';
-import { UsersService } from './services/users.service';
 import { UsersFacade, usersReducer } from './store';
 import { UsersRoutingModule } from './users-routing.module';
 
@@ -33,6 +32,6 @@ import { UsersRoutingModule } from './users-routing.module';
     PaginatorModule,
     InputMaskModule
   ],
-  providers: [UsersService, UsersResolver, UsersFacade]
+  providers: [UsersResolver, UsersFacade]
 })
 export class UsersModule {}

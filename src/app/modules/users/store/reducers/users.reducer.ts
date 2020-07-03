@@ -1,29 +1,24 @@
 import { DEFAULT_LIMIT } from '@common/constants';
 import { Roles } from '@common/enums';
-import {
-  FilterChangeEvent,
-  PageChangeEvent,
-  SortingChangeEvent
-} from '@common/models';
+import { PageChangeEvent } from '@common/models';
 
-import { User } from '../../models';
+import { User, UsersFilter } from '../../models';
 import { UsersActions, UsersActionTypes } from '../actions';
 
 export interface UsersState {
   current: User | null;
-  filter: FilterChangeEvent;
-  sorting: SortingChangeEvent;
+  filter: UsersFilter['filter'];
+  order: UsersFilter['order'];
   pagination: PageChangeEvent;
 }
 
 export const initialState: UsersState = {
   current: null,
   filter: {
-    'filter[role][0]': Roles.MANAGER.toString(),
-    'filter[role][1]': Roles.ADMIN.toString()
+    role: [Roles.MANAGER, Roles.ADMIN]
   },
-  sorting: {
-    'order[id]': 'asc'
+  order: {
+    id: 'desc'
   },
   pagination: {
     offset: 0,
@@ -60,7 +55,7 @@ export function usersReducer(
     case UsersActionTypes.SORTING_CHANGE: {
       return {
         ...state,
-        sorting: action.payload
+        order: action.payload
       };
     }
 
@@ -73,12 +68,23 @@ export function usersReducer(
         }
       };
     }
-  }
 
-  return state;
+    case UsersActionTypes.RELOAD: {
+      return {
+        ...state,
+        filter: {
+          ...state.filter
+        }
+      };
+    }
+
+    default: {
+      return state;
+    }
+  }
 }
 
 export const getCurrent = (state: UsersState) => state.current;
 export const getFilter = (state: UsersState) => state.filter;
-export const getSorting = (state: UsersState) => state.sorting;
+export const getSorting = (state: UsersState) => state.order;
 export const getPagination = (state: UsersState) => state.pagination;
