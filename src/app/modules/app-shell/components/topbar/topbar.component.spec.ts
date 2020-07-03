@@ -39,7 +39,7 @@ describe('TopbarComponent', () => {
 
     it('should emit logout event', () => {
       const logoutItem = component.items.find(
-        item => item.label === LOGOUT_LABEL
+        (item) => item.label === LOGOUT_LABEL
       );
       logoutItem.command();
       expect(component.logout.emit).toBeCalled();
@@ -53,7 +53,7 @@ describe('TopbarComponent', () => {
 
     it('should emit openSidebar event', () => {
       const messagesItem = component.items.find(
-        item => item.label === MESSAGES_LABEL
+        (item) => item.label === MESSAGES_LABEL
       );
       messagesItem.command();
       expect(component.openSidebar.emit).toBeCalled();

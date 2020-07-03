@@ -16,7 +16,7 @@ import {
 })
 export class AppComponent {
   constructor(public loaderService: LoaderService, private router: Router) {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.loaderService.start();
       }

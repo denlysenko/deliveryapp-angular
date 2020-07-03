@@ -45,7 +45,7 @@ describe('Messages Selectors', () => {
     it('should return true', () => {
       let result;
 
-      store.select(getMessagesLoading).subscribe(value => {
+      store.select(getMessagesLoading).subscribe((value) => {
         result = value;
       });
 
@@ -68,7 +68,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(getMessagesLoading).subscribe(value => {
+      store.select(getMessagesLoading).subscribe((value) => {
         result = value;
       });
 
@@ -85,7 +85,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(getMessagesError).subscribe(value => {
+      store.select(getMessagesError).subscribe((value) => {
         result = value;
       });
 
@@ -113,7 +113,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(getMessageEntities).subscribe(value => {
+      store.select(getMessageEntities).subscribe((value) => {
         result = value;
       });
 
@@ -137,7 +137,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(getUnreadMessages).subscribe(value => {
+      store.select(getUnreadMessages).subscribe((value) => {
         result = value;
       });
 
@@ -161,7 +161,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(getMessagesCount).subscribe(value => {
+      store.select(getMessagesCount).subscribe((value) => {
         result = value;
       });
 
@@ -185,7 +185,7 @@ describe('Messages Selectors', () => {
 
       let result;
 
-      store.select(getAllMessages).subscribe(value => {
+      store.select(getAllMessages).subscribe((value) => {
         result = value;
       });
 
