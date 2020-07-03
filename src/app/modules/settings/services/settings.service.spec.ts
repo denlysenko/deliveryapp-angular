@@ -35,7 +35,7 @@ describe('SettingsService', () => {
         house: 'House'
       };
 
-      service.getAddress().subscribe(res => {
+      service.getAddress().subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -59,7 +59,7 @@ describe('SettingsService', () => {
         swift: 'swift'
       };
 
-      service.getBankDetails().subscribe(res => {
+      service.getBankDetails().subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -83,7 +83,7 @@ describe('SettingsService', () => {
         house: 'House'
       };
 
-      service.createAddress(payload).subscribe(res => {
+      service.createAddress(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -109,7 +109,7 @@ describe('SettingsService', () => {
         house: 'House'
       };
 
-      service.updateAddress(payload).subscribe(res => {
+      service.updateAddress(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -134,7 +134,7 @@ describe('SettingsService', () => {
         swift: 'swift'
       };
 
-      service.createBankDetails(payload).subscribe(res => {
+      service.createBankDetails(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -160,7 +160,7 @@ describe('SettingsService', () => {
         swift: 'swift'
       };
 
-      service.updateBankDetails(payload).subscribe(res => {
+      service.updateBankDetails(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ValidationError } from '@common/models';
@@ -15,7 +15,8 @@ const SUCCESS_MESSAGE = 'Settings saved!';
 @Component({
   selector: 'da-settings-page',
   templateUrl: './settings-page.component.html',
-  styleUrls: ['./settings-page.component.scss']
+  styleUrls: ['./settings-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsPageComponent implements OnInit {
   address: CompanyAddress;
@@ -25,9 +26,9 @@ export class SettingsPageComponent implements OnInit {
   private error = new BehaviorSubject<ValidationError | null>(null);
 
   constructor(
-    private route: ActivatedRoute,
-    private settingsService: SettingsService,
-    private feedbackService: FeedbackService
+    private readonly route: ActivatedRoute,
+    private readonly settingsService: SettingsService,
+    private readonly feedbackService: FeedbackService
   ) {}
 
   get loading$(): Observable<boolean> {
@@ -55,7 +56,7 @@ export class SettingsPageComponent implements OnInit {
         this.loading.next(false);
         this.feedbackService.success(SUCCESS_MESSAGE);
       },
-      err => {
+      (err) => {
         this.loading.next(false);
         this.error.next(err);
       }
@@ -73,7 +74,7 @@ export class SettingsPageComponent implements OnInit {
         this.loading.next(false);
         this.feedbackService.success(SUCCESS_MESSAGE);
       },
-      err => {
+      (err) => {
         this.loading.next(false);
         this.error.next(err);
       }

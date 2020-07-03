@@ -9,7 +9,7 @@ import { SettingsService } from '../services/settings.service';
 @Injectable()
 export class SettingsResolver
   implements Resolve<Observable<[CompanyAddress, CompanyBankDetails]>> {
-  constructor(private settingsService: SettingsService) {}
+  constructor(private readonly settingsService: SettingsService) {}
 
   resolve(): Observable<[CompanyAddress, CompanyBankDetails]> {
     return forkJoin([
