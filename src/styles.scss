@@ -82,3 +82,8 @@ body {
     height: 480px;
   }
 }
+
+body .ui-widget-overlay {
+  background-color: rgba(66, 66, 66, 0.7);
+  opacity: 1;
+}

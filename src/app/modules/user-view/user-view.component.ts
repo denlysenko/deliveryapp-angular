@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Roles } from '@common/enums';
 
-import { DynamicDialogConfig } from 'primeng/api';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'da-user-view',
@@ -13,5 +13,5 @@ export class UserViewComponent {
   readonly roles = Roles;
   readonly user = this.config.data;
 
-  constructor(private config: DynamicDialogConfig) {}
+  constructor(private readonly config: DynamicDialogConfig) {}
 }

@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 
 import { UsersService } from '@users/services/users.service';
 
-import { DialogService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { UserViewComponent } from './user-view.component';
 
 @Injectable()
 export class UserViewService {
   constructor(
-    private dialogService: DialogService,
-    private usersService: UsersService
+    private readonly dialogService: DialogService,
+    private readonly usersService: UsersService
   ) {}
 
   async show(id: number) {

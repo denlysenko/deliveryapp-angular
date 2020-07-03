@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { UsersService } from '@users/services/users.service';
 
-import { DialogService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';

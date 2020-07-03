@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { UsersService } from '@users/services/users.service';
 
-import { DialogService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { of } from 'rxjs';
 
