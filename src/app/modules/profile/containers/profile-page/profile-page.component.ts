@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ValidationError } from '@common/models';
@@ -20,30 +20,31 @@ const PASSWORD_UPDATED_MESSAGE = 'Password updated';
 @Component({
   selector: 'da-profile-page',
   templateUrl: './profile-page.component.html',
-  styleUrls: ['./profile-page.component.scss']
+  styleUrls: ['./profile-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfilePageComponent {
-  profile$ = this.route.data.pipe(map(data => data.profile));
+  profile$ = this.route.data.pipe(map((data) => data.profile));
   loading$ = new BehaviorSubject<boolean>(false);
   profileError$ = new BehaviorSubject<ValidationError | null>(null);
   passwordError$ = new BehaviorSubject<ValidationError | null>(null);
 
   constructor(
-    private route: ActivatedRoute,
-    private profileService: ProfileService,
-    private coreFacade: CoreFacade,
-    private feedbackService: FeedbackService
+    private readonly route: ActivatedRoute,
+    private readonly profileService: ProfileService,
+    private readonly coreFacade: CoreFacade,
+    private readonly feedbackService: FeedbackService
   ) {}
 
   updateProfile(profile: User) {
     this.loading$.next(true);
     this.profileService.updateProfile(profile).subscribe(
-      res => {
+      (res) => {
         this.loading$.next(false);
         this.coreFacade.updateSelf(res);
         this.feedbackService.success(PROFILE_UPDATED_MESSAGE);
       },
-      err => {
+      (err) => {
         this.loading$.next(false);
         this.profileError$.next(err);
       }
@@ -57,7 +58,7 @@ export class ProfilePageComponent {
         this.loading$.next(false);
         this.feedbackService.success(PASSWORD_UPDATED_MESSAGE);
       },
-      err => {
+      (err) => {
         this.loading$.next(false);
         this.passwordError$.next(err);
       }

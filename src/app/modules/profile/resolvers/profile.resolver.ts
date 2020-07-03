@@ -10,7 +10,7 @@ import { take } from 'rxjs/operators';
 
 @Injectable()
 export class ProfileResolver implements Resolve<User> {
-  constructor(private coreFacade: CoreFacade) {}
+  constructor(private readonly coreFacade: CoreFacade) {}
 
   resolve(): Observable<User> {
     return this.coreFacade.self$.pipe(take(1));

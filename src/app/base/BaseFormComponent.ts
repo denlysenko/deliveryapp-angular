@@ -10,7 +10,7 @@ export abstract class BaseFormComponent {
 
   protected handleError(error: any) {
     if (error.errors && error.errors.length) {
-      error.errors.forEach(field => {
+      error.errors.forEach((field) => {
         this.form.get(field.path).setErrors({ serverError: true });
         this.errors[field.path] = field.message;
       });
@@ -20,7 +20,7 @@ export abstract class BaseFormComponent {
   }
 
   protected validateAllFormFields(formGroup: FormGroup = this.form) {
-    Object.keys(formGroup.controls).forEach(field => {
+    Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });

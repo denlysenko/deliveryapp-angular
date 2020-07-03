@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -23,14 +22,14 @@ describe('ProfileService', () => {
   describe('updateProfile()', () => {
     it('should update profile', inject(
       [ProfileService],
-      fakeAsync(profileService => {
+      fakeAsync((profileService: ProfileService) => {
         const http = TestBed.inject(HttpTestingController);
         const payload: User = {
           email: 'test@test.com',
           phone: '1234'
         };
 
-        profileService.updateProfile(payload).subscribe(res => {
+        profileService.updateProfile(payload).subscribe((res) => {
           expect(res).toEqual(payload);
         });
 
@@ -45,7 +44,7 @@ describe('ProfileService', () => {
 
     it('should return error if update failed', inject(
       [ProfileService],
-      fakeAsync(profileService => {
+      fakeAsync((profileService: ProfileService) => {
         const http = TestBed.inject(HttpTestingController);
         const error = {
           message: 'INVALID_PASSWORD_ERR'
@@ -58,7 +57,7 @@ describe('ProfileService', () => {
           })
           .subscribe(
             () => {},
-            err => {
+            (err) => {
               expect(err.status).toEqual(422);
               expect(err.error).toEqual(error);
             }
@@ -66,7 +65,7 @@ describe('ProfileService', () => {
 
         const req = http.expectOne(`${environment.apiUrl}/users/self`);
         expect(req.request.method).toBe('PATCH');
-        req.error(new HttpErrorResponse({ error: error, status: 422 }));
+        req.flush({ error: error, status: 422 }, { statusText: 'Error' });
 
         tick();
       })
@@ -76,14 +75,14 @@ describe('ProfileService', () => {
   describe('updatePassword()', () => {
     it('should update password', inject(
       [ProfileService],
-      fakeAsync(profileService => {
+      fakeAsync((profileService: ProfileService) => {
         const http = TestBed.inject(HttpTestingController);
         const payload: PasswordPayload = {
           oldPassword: 'password',
           newPassword: '1234'
         };
 
-        profileService.updatePassword(payload).subscribe(res => {
+        profileService.updatePassword(payload).subscribe((res) => {
           expect(res).toEqual(payload);
         });
 
@@ -98,7 +97,7 @@ describe('ProfileService', () => {
 
     it('should return error if update failed', inject(
       [ProfileService],
-      fakeAsync(profileService => {
+      fakeAsync((profileService: ProfileService) => {
         const http = TestBed.inject(HttpTestingController);
         const error = {
           message: 'INVALID_PASSWORD_ERR'
@@ -111,7 +110,7 @@ describe('ProfileService', () => {
           })
           .subscribe(
             () => {},
-            err => {
+            (err) => {
               expect(err.status).toEqual(400);
               expect(err.error).toEqual(error);
             }
@@ -119,7 +118,7 @@ describe('ProfileService', () => {
 
         const req = http.expectOne(`${environment.apiUrl}/users/self/password`);
         expect(req.request.method).toBe('PATCH');
-        req.error(new HttpErrorResponse({ error: error, status: 400 }));
+        req.flush({ error: error, status: 400 }, { statusText: 'Error' });
 
         tick();
       })

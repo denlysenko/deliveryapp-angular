@@ -22,7 +22,7 @@ export class ContactsFormComponent extends BaseFormComponent {
     }
   }
 
-  constructor(protected feedbackService: FeedbackService) {
+  constructor(protected readonly feedbackService: FeedbackService) {
     super();
   }
 }

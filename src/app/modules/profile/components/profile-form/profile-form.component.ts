@@ -4,7 +4,8 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
+  ChangeDetectorRef
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -37,6 +38,10 @@ export class ProfileFormComponent extends BaseFormComponent implements OnInit {
 
   @Output() profileUpdated = new EventEmitter<User>();
   @Output() passwordUpdated = new EventEmitter<PasswordPayload>();
+
+  constructor(private readonly cdr: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit() {
     this.initProfileForm();
@@ -110,6 +115,11 @@ export class ProfileFormComponent extends BaseFormComponent implements OnInit {
       this.profileForm.addControl('address', address);
       this.profileForm.addControl('bankDetails', bankDetails);
     }
+
+    // to fix float label overlapping on inputs with native value property
+    setTimeout(() => {
+      this.cdr.markForCheck();
+    });
   }
 
   private initPasswordForm() {
