@@ -8,10 +8,11 @@ import {
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { Payment } from '../models';
+import { Payment, PaymentsFilter } from '../models';
 import {
   FilterChange,
   PageChange,
+  ReloadPayments,
   SelectPayment,
   SortingChange
 } from './actions';
@@ -49,14 +50,14 @@ describe('PaymentsFacade', () => {
 
   describe('current$', () => {
     it('should return current$', () => {
-      let result;
+      let result: Payment;
       const payload: Payment = {
         total: 5000,
         status: false,
         dueDate: new Date()
       };
 
-      facade.current$.subscribe(value => {
+      facade.current$.subscribe((value) => {
         result = value;
       });
 
@@ -67,12 +68,12 @@ describe('PaymentsFacade', () => {
 
   describe('filter$', () => {
     it('should return current filter$', () => {
-      let result;
+      let result: PaymentsFilter['filter'];
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      facade.filter$.subscribe(value => {
+      facade.filter$.subscribe((value) => {
         result = value;
       });
 
@@ -83,12 +84,12 @@ describe('PaymentsFacade', () => {
 
   describe('sorting$', () => {
     it('should return current sorting$', () => {
-      let result;
+      let result: PaymentsFilter['order'];
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
-      facade.sorting$.subscribe(value => {
+      facade.sorting$.subscribe((value) => {
         result = value;
       });
 
@@ -99,13 +100,13 @@ describe('PaymentsFacade', () => {
 
   describe('pagination$', () => {
     it('should return current pagination$', () => {
-      let result;
+      let result: PageChangeEvent;
       const payload: PageChangeEvent = {
         limit: 10,
         offset: 10
       };
 
-      facade.pagination$.subscribe(value => {
+      facade.pagination$.subscribe((value) => {
         result = value;
       });
 
@@ -116,19 +117,22 @@ describe('PaymentsFacade', () => {
 
   describe('allFilters$', () => {
     it('should return current allFilters$', () => {
-      let result;
+      let result: PaymentsFilter;
       const payload: PageChangeEvent = {
         limit: 10,
         offset: 10
       };
 
-      facade.allFilters$.subscribe(value => {
+      facade.allFilters$.subscribe((value) => {
         result = value;
       });
 
       store.dispatch(new PageChange(payload));
       expect(result).toEqual({
-        'order[id]': 'asc',
+        filter: {},
+        order: {
+          id: 'desc'
+        },
         offset: 10,
         limit: 10
       });
@@ -138,7 +142,7 @@ describe('PaymentsFacade', () => {
   describe('doFiltering()', () => {
     it('should dispatch a FilterChange action', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'filter'
+        smth: 'filter'
       };
       const action = new FilterChange(payload);
 
@@ -150,7 +154,7 @@ describe('PaymentsFacade', () => {
   describe('sort()', () => {
     it('should dispatch a SortingChange action', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
       const action = new SortingChange(payload);
 
@@ -183,6 +187,15 @@ describe('PaymentsFacade', () => {
       const action = new SelectPayment(payload);
 
       facade.select(payload);
+      expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
+  });
+
+  describe('reload()', () => {
+    it('should dispatch a ReloadPayments action', () => {
+      const action = new ReloadPayments();
+
+      facade.reload();
       expect(store.dispatch).toHaveBeenCalledWith(action);
     });
   });

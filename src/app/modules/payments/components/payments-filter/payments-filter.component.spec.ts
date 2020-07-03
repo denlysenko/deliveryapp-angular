@@ -39,7 +39,7 @@ describe('PaymentsFilterComponent', () => {
 
   it('should init form with filter value', () => {
     component.filter = {
-      'filter[id]': '2'
+      id: '2'
     };
     component.ngOnInit();
     expect(component.form.get('search').value).toEqual('2');
@@ -54,7 +54,7 @@ describe('PaymentsFilterComponent', () => {
     component.form.setValue(formValue);
     tick(500);
     expect(component.filterChanged.emit).toHaveBeenCalledWith({
-      'filter[id]': '1'
+      id: '1'
     });
   }));
 });

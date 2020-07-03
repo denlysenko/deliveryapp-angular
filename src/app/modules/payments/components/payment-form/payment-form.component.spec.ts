@@ -169,7 +169,9 @@ describe('PaymentFormComponent', () => {
       const ordersService: OrdersService = TestBed.inject(OrdersService);
       component.searchOrder({ query: 1 });
       expect(ordersService.getOrders).toHaveBeenCalledWith({
-        'filter[id]': 1
+        filter: {
+          id: 1
+        }
       });
     });
   });
@@ -179,8 +181,10 @@ describe('PaymentFormComponent', () => {
       const usersService: UsersService = TestBed.inject(UsersService);
       component.searchClient({ query: 'test' });
       expect(usersService.getUsers).toHaveBeenCalledWith({
-        'filter[role]': Roles.CLIENT,
-        'filter[email]': 'test'
+        filter: {
+          role: [Roles.CLIENT],
+          email: 'test'
+        }
       });
     });
   });

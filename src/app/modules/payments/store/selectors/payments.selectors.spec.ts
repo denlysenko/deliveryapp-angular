@@ -8,7 +8,7 @@ import {
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { Payment } from '../../models';
+import { Payment, PaymentsFilter } from '../../models';
 import {
   FilterChange,
   PageChange,
@@ -55,9 +55,9 @@ describe('Payments Selectors', () => {
         dueDate: new Date()
       };
 
-      let result;
+      let result: Payment;
 
-      store.select(getCurrent).subscribe(value => {
+      store.select(getCurrent).subscribe((value) => {
         result = value;
       });
 
@@ -69,12 +69,12 @@ describe('Payments Selectors', () => {
   describe('getFilter', () => {
     it('should return filter value', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      let result;
+      let result: PaymentsFilter['filter'];
 
-      store.select(getFilter).subscribe(value => {
+      store.select(getFilter).subscribe((value) => {
         result = value;
       });
 
@@ -86,12 +86,12 @@ describe('Payments Selectors', () => {
   describe('getSorting', () => {
     it('should return sorting value', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
-      let result;
+      let result: PaymentsFilter['order'];
 
-      store.select(getSorting).subscribe(value => {
+      store.select(getSorting).subscribe((value) => {
         result = value;
       });
 
@@ -107,9 +107,9 @@ describe('Payments Selectors', () => {
         offset: 10
       };
 
-      let result;
+      let result: PageChangeEvent;
 
-      store.select(getPagination).subscribe(value => {
+      store.select(getPagination).subscribe((value) => {
         result = value;
       });
 
@@ -121,19 +121,24 @@ describe('Payments Selectors', () => {
   describe('getAllFilters', () => {
     it('should return combined filter value', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      let result;
+      let result: PaymentsFilter;
 
-      store.select(getAllFilters).subscribe(value => {
+      store.select(getAllFilters).subscribe((value) => {
         result = value;
       });
 
       store.dispatch(new FilterChange(payload));
       expect(result).toEqual({
-        'filter[smth]': 'test',
-        'order[id]': 'asc',
+        filter: {
+          smth: 'test'
+        },
+        order: {
+          id: 'desc'
+        },
+
         offset: 0,
         limit: 10
       });

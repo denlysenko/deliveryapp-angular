@@ -15,14 +15,15 @@ import { CoreFacade } from '@core/store';
 import { UserViewService } from '@user-view/user-view.service';
 
 import { BehaviorSubject, of, throwError } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { Payment } from '../../models';
 import { PaymentsService } from '../../services/payments.service';
 import { PaymentsFacade } from '../../store';
 import { PaymentsPageComponent } from './payments-page.component';
 
-const allFilters = new BehaviorSubject(null);
-const role = new BehaviorSubject(null);
+const allFilters = new BehaviorSubject({ limit: 10, offset: 0 });
+const role = new BehaviorSubject(Roles.MANAGER);
 
 const payment: Payment = {
   id: 1,
@@ -32,14 +33,12 @@ const payment: Payment = {
 };
 
 const activatedRouteStub = {
-  snapshot: {
-    data: {
-      payments: {
-        count: 0,
-        rows: []
-      }
+  data: of({
+    payments: {
+      count: 1,
+      rows: [payment]
     }
-  }
+  })
 };
 
 const paymentsFacadeStub = {
@@ -51,7 +50,8 @@ const paymentsFacadeStub = {
   sort: jest.fn(),
   paginate: jest.fn(),
   doFiltering: jest.fn(),
-  select: jest.fn()
+  select: jest.fn(),
+  reload: jest.fn()
 };
 
 const coreFacadeStub = {
@@ -126,8 +126,6 @@ describe('PaymentsPageComponent', () => {
     fixture = TestBed.createComponent(PaymentsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    allFilters.next({ limit: 10, offset: 0 });
-    role.next(Roles.MANAGER);
     paymentsFacade = TestBed.inject(PaymentsFacade);
     paymentsService = TestBed.inject(PaymentsService);
   });
@@ -156,28 +154,18 @@ describe('PaymentsPageComponent', () => {
     expect(component.role$).toBeDefined();
   });
 
-  describe('OnInit()', () => {
-    beforeEach(() => {
-      component.ngOnInit();
-    });
-
-    it('should have payments from activatedRoute', () => {
-      expect(component.payments).toEqual(
-        activatedRouteStub.snapshot.data.payments.rows
-      );
-    });
-
-    it('should have count from activatedRoute', () => {
-      expect(component.count).toEqual(
-        activatedRouteStub.snapshot.data.payments.count
-      );
+  it('should have payments and count from activatedRoute', (done) => {
+    component.data$.pipe(take(1)).subscribe((data) => {
+      expect(data.rows).toEqual([payment]);
+      expect(data.count).toEqual(1);
+      done();
     });
   });
 
   describe('handleFilterChange()', () => {
     it('should call PaymentsFacade.doFiltering()', () => {
       const payload: FilterChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
       component.handleFilterChange(payload);
@@ -188,7 +176,7 @@ describe('PaymentsPageComponent', () => {
   describe('handleSortingChange()', () => {
     it('should call PaymentsFacade.sort()', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
       component.handleSortingChange(payload);
@@ -227,13 +215,7 @@ describe('PaymentsPageComponent', () => {
       expect(loaderService.start).toHaveBeenCalled();
     });
 
-    it('should call getPaymentsSelf() for Roles.CLIENT', () => {
-      role.next(Roles.CLIENT);
-      allFilters.next(filter);
-      expect(paymentsService.getPaymentsSelf).toHaveBeenCalledWith(filter);
-    });
-
-    it('should call getPayments() for !Roles.CLIENT', () => {
+    it('should call getPayments() ', () => {
       allFilters.next(filter);
       expect(paymentsService.getPayments).toHaveBeenCalledWith(filter);
     });
@@ -242,12 +224,6 @@ describe('PaymentsPageComponent', () => {
       const loaderService: LoaderService = TestBed.inject(LoaderService);
       allFilters.next(filter);
       expect(loaderService.stop).toHaveBeenCalled();
-    });
-
-    it('should save new payments and count', () => {
-      allFilters.next(filter);
-      expect(component.payments).toEqual([payment]);
-      expect(component.count).toEqual(1);
     });
   });
 
@@ -269,26 +245,6 @@ describe('PaymentsPageComponent', () => {
       expect(paymentsService.createPayment).toHaveBeenCalledWith(newPayment);
     });
 
-    it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.inject(LoaderService);
-      component.save(payment);
-      expect(loaderService.start).toHaveBeenCalled();
-    });
-
-    it('should call getPayments()', () => {
-      component.save(payment);
-      expect(paymentsService.getPayments).toHaveBeenCalledWith({
-        limit: 10,
-        offset: 0
-      });
-    });
-
-    it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.inject(LoaderService);
-      component.save(payment);
-      expect(loaderService.stop).toHaveBeenCalled();
-    });
-
     it('should show success message', () => {
       const feedbackService: FeedbackService = TestBed.inject(FeedbackService);
       component.save(payment);
@@ -304,9 +260,9 @@ describe('PaymentsPageComponent', () => {
         .fn()
         .mockReturnValue(throwError(error));
 
-      let result;
+      let result: any;
 
-      component.error$.subscribe(err => {
+      component.error$.subscribe((err) => {
         result = err;
       });
 

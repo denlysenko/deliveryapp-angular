@@ -39,7 +39,7 @@ describe('PaymentsReducer', () => {
   describe('FILTER_CHANGE action', () => {
     it('should set filter value to payload', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
       const action = new FilterChange(payload);
       const { filter } = paymentsReducer(initialState, action);
@@ -51,12 +51,12 @@ describe('PaymentsReducer', () => {
   describe('SORTING_CHANGE Action', () => {
     it('should set sorting value to payload', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
       const action = new SortingChange(payload);
-      const { sorting } = paymentsReducer(initialState, action);
+      const { order } = paymentsReducer(initialState, action);
 
-      expect(sorting).toEqual(payload);
+      expect(order).toEqual(payload);
     });
   });
 

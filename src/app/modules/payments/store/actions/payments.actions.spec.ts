@@ -9,6 +9,7 @@ import {
   FilterChange,
   PageChange,
   PaymentsActionTypes,
+  ReloadPayments,
   SelectPayment,
   SortingChange
 } from './payments.actions';
@@ -33,7 +34,7 @@ describe('Payments Actions', () => {
   describe('FilterChange', () => {
     it('should create an action', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
       const action = new FilterChange(payload);
@@ -47,7 +48,7 @@ describe('Payments Actions', () => {
   describe('SortingChange', () => {
     it('should create an action', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
       const action = new SortingChange(payload);
@@ -66,6 +67,15 @@ describe('Payments Actions', () => {
       expect({ ...action }).toEqual({
         type: PaymentsActionTypes.PAGE_CHANGE,
         payload
+      });
+    });
+  });
+
+  describe('ReloadPayments', () => {
+    it('should create an action', () => {
+      const action = new ReloadPayments();
+      expect({ ...action }).toEqual({
+        type: PaymentsActionTypes.RELOAD
       });
     });
   });
