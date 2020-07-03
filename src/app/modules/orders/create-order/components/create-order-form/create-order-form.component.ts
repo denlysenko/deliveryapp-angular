@@ -63,7 +63,7 @@ export class CreateOrderFormComponent extends BaseFormComponent
 
   @Output() submitted = new EventEmitter<Order>();
 
-  constructor(protected feedbackService: FeedbackService) {
+  constructor(protected readonly feedbackService: FeedbackService) {
     super();
   }
 
@@ -114,7 +114,7 @@ export class CreateOrderFormComponent extends BaseFormComponent
 
   protected handleError(error: ValidationError) {
     if (error.errors && error.errors.length) {
-      error.errors.forEach(field => {
+      error.errors.forEach((field) => {
         let path = field.path;
 
         if (destinationFormRequiredFields.has(field.path)) {

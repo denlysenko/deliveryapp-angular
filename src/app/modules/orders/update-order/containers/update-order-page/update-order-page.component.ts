@@ -14,16 +14,16 @@ import { OrdersFacade } from '../../../store';
   styleUrls: ['./update-order-page.component.scss']
 })
 export class UpdateOrderPageComponent {
-  order$ = this.route.data.pipe(map(data => data.order));
+  order$ = this.route.data.pipe(map((data) => data.order));
 
   loading$ = this.ordersFacade.loading$;
   error$ = this.ordersFacade.error$;
   role$ = this.coreFacade.role$;
 
   constructor(
-    private route: ActivatedRoute,
-    private ordersFacade: OrdersFacade,
-    private coreFacade: CoreFacade
+    private readonly route: ActivatedRoute,
+    private readonly ordersFacade: OrdersFacade,
+    private readonly coreFacade: CoreFacade
   ) {}
 
   back() {

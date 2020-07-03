@@ -8,7 +8,7 @@ import {
   SortingChangeEvent
 } from '@common/models';
 
-import { Order } from '../../models/order.model';
+import { Order, OrdersFilter } from '../../models/';
 import {
   CreateOrder,
   CreateOrderFail,
@@ -63,9 +63,9 @@ describe('Orders Selectors', () => {
         senderPhone: '1232123'
       };
 
-      let result;
+      let result: boolean;
 
-      store.select(getLoading).subscribe(value => {
+      store.select(getLoading).subscribe((value) => {
         result = value;
       });
 
@@ -75,9 +75,9 @@ describe('Orders Selectors', () => {
     });
 
     it('should return false when CreateOrderSuccess was dispatched', () => {
-      let result;
+      let result: boolean;
 
-      store.select(getLoading).subscribe(value => {
+      store.select(getLoading).subscribe((value) => {
         result = value;
       });
 
@@ -92,9 +92,9 @@ describe('Orders Selectors', () => {
         message: 'Error'
       } as any;
 
-      let result;
+      let result: any;
 
-      store.select(getError).subscribe(value => {
+      store.select(getError).subscribe((value) => {
         result = value;
       });
 
@@ -106,12 +106,12 @@ describe('Orders Selectors', () => {
   describe('getFilter', () => {
     it('should return filter value', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      let result;
+      let result: OrdersFilter['filter'];
 
-      store.select(getFilter).subscribe(value => {
+      store.select(getFilter).subscribe((value) => {
         result = value;
       });
 
@@ -123,12 +123,12 @@ describe('Orders Selectors', () => {
   describe('getSorting', () => {
     it('should return sorting value', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
-      let result;
+      let result: OrdersFilter['order'];
 
-      store.select(getSorting).subscribe(value => {
+      store.select(getSorting).subscribe((value) => {
         result = value;
       });
 
@@ -144,9 +144,9 @@ describe('Orders Selectors', () => {
         offset: 10
       };
 
-      let result;
+      let result: PageChangeEvent;
 
-      store.select(getPagination).subscribe(value => {
+      store.select(getPagination).subscribe((value) => {
         result = value;
       });
 
@@ -158,19 +158,23 @@ describe('Orders Selectors', () => {
   describe('getAllFilters', () => {
     it('should return combined filter value', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      let result;
+      let result: OrdersFilter;
 
-      store.select(getAllFilters).subscribe(value => {
+      store.select(getAllFilters).subscribe((value) => {
         result = value;
       });
 
       store.dispatch(new FilterChange(payload));
       expect(result).toEqual({
-        'filter[smth]': 'test',
-        'order[id]': 'asc',
+        filter: {
+          smth: 'test'
+        },
+        order: {
+          id: 'desc'
+        },
         offset: 0,
         limit: 10
       });

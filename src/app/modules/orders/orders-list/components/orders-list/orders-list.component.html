@@ -26,8 +26,14 @@
           rowspan="2">Client</th>
     </tr>
     <tr>
-      <th>From</th>
-      <th>To</th>
+      <th pSortableColumn="cityFrom">
+        From
+        <p-sortIcon field="cityFrom"></p-sortIcon>
+      </th>
+      <th pSortableColumn="cityTo">
+        To
+        <p-sortIcon field="cityTo"></p-sortIcon>
+      </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body"

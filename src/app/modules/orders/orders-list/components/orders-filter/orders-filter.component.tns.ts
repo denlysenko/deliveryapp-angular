@@ -23,23 +23,23 @@ export class OrdersFilterComponent extends TNSBaseFilterComponent
   options: SelectItem[] = [
     {
       label: 'Order number',
-      value: 'filter[id]'
+      value: 'id'
     },
     {
       label: 'Cargo Name',
-      value: 'filter[cargoName]'
+      value: 'cargoName'
     },
     {
       label: 'From',
-      value: 'filter[cityFrom]'
+      value: 'cityFrom'
     },
     {
       label: 'To',
-      value: 'filter[cityTo]'
+      value: 'cityTo'
     }
   ];
 
-  items: string[] = this.options.map(item => item.label);
+  items: string[] = this.options.map((item) => item.label);
 
   constructor(protected params: ModalDialogParams) {
     super();
@@ -56,7 +56,7 @@ export class OrdersFilterComponent extends TNSBaseFilterComponent
       const keys = Object.keys(filter); // we know that filter in store contains only one key
 
       this.selectedFilter = this.options.findIndex(
-        option => option.value === keys[0]
+        (option) => option.value === keys[0]
       );
       this.search = filter[keys[0]];
     }

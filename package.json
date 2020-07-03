@@ -73,6 +73,7 @@
     "@nativescript/schematics": "~9.0.0",
     "@ngrx/schematics": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
+    "@types/inputmask": "^4.0.1",
     "@types/jest": "^26.0.3",
     "@types/lodash-es": "^4.17.3",
     "@types/node": "^14.0.14",

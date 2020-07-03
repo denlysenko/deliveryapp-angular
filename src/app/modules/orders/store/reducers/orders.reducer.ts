@@ -1,18 +1,14 @@
 import { DEFAULT_LIMIT } from '@common/constants';
-import {
-  FilterChangeEvent,
-  PageChangeEvent,
-  SortingChangeEvent,
-  ValidationError
-} from '@common/models';
+import { PageChangeEvent, ValidationError } from '@common/models';
 
+import { OrdersFilter } from '../../models';
 import { OrdersActions, OrdersActionTypes } from '../actions';
 
 export interface OrdersState {
   loading: boolean;
   error: ValidationError | null;
-  filter: FilterChangeEvent;
-  sorting: SortingChangeEvent;
+  filter: OrdersFilter['filter'];
+  order: OrdersFilter['order'];
   pagination: PageChangeEvent;
 }
 
@@ -20,8 +16,8 @@ export const initialState: OrdersState = {
   loading: false,
   error: null,
   filter: {},
-  sorting: {
-    'order[id]': 'asc'
+  order: {
+    id: 'desc'
   },
   pagination: {
     offset: 0,
@@ -74,7 +70,7 @@ export function ordersReducer(
     case OrdersActionTypes.SORTING_CHANGE: {
       return {
         ...state,
-        sorting: action.payload
+        order: action.payload
       };
     }
 
@@ -87,13 +83,15 @@ export function ordersReducer(
         }
       };
     }
-  }
 
-  return state;
+    default: {
+      return state;
+    }
+  }
 }
 
 export const getLoading = (state: OrdersState) => state.loading;
 export const getError = (state: OrdersState) => state.error;
 export const getFilter = (state: OrdersState) => state.filter;
-export const getSorting = (state: OrdersState) => state.sorting;
+export const getSorting = (state: OrdersState) => state.order;
 export const getPagination = (state: OrdersState) => state.pagination;

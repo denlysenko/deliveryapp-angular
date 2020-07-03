@@ -45,26 +45,24 @@ describe('OrdersFilterComponent', () => {
 
   it('should init form with filter value', () => {
     component.filter = {
-      'filter[cargoName]': 'test'
+      cargoName: 'test'
     };
     component.ngOnInit();
     expect(component.form.get('search').value).toEqual('test');
-    expect(component.form.get('selectedFilter').value).toEqual(
-      'filter[cargoName]'
-    );
+    expect(component.form.get('selectedFilter').value).toEqual('cargoName');
   });
 
   it('should emit filterChanged event', fakeAsync(() => {
     spyOn(component.filterChanged, 'emit');
     const formValue = {
-      selectedFilter: 'filter[cargoName]',
+      selectedFilter: 'cargoName',
       search: 'test'
     };
 
     component.form.setValue(formValue);
     tick(500);
     expect(component.filterChanged.emit).toHaveBeenCalledWith({
-      'filter[cargoName]': 'test'
+      cargoName: 'test'
     });
   }));
 });

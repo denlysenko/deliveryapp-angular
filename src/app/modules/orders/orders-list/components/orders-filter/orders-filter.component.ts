@@ -26,19 +26,19 @@ export class OrdersFilterComponent extends BaseComponent implements OnInit {
   options: SelectItem[] = [
     {
       label: 'Order number',
-      value: 'filter[id]'
+      value: 'id'
     },
     {
       label: 'Cargo Name',
-      value: 'filter[cargoName]'
+      value: 'cargoName'
     },
     {
       label: 'From',
-      value: 'filter[cityFrom]'
+      value: 'cityFrom'
     },
     {
       label: 'To',
-      value: 'filter[cityTo]'
+      value: 'cityTo'
     }
   ];
 
@@ -47,7 +47,7 @@ export class OrdersFilterComponent extends BaseComponent implements OnInit {
   @Input() filter: FilterChangeEvent;
   @Output() filterChanged = new EventEmitter<FilterChangeEvent>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder) {
     super();
   }
 
@@ -64,11 +64,7 @@ export class OrdersFilterComponent extends BaseComponent implements OnInit {
     });
 
     this.form.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
+      .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe(({ selectedFilter, search }) => {
         this.filterChanged.emit({
           [selectedFilter]: search

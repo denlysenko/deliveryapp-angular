@@ -138,8 +138,10 @@ describe('DestinationFormComponent', () => {
       const usersService: UsersService = TestBed.inject(UsersService);
       component.searchClient({ query: 'test' });
       expect(usersService.getUsers).toHaveBeenCalledWith({
-        'filter[role]': Roles.CLIENT,
-        'filter[email]': 'test'
+        filter: {
+          role: [Roles.CLIENT],
+          email: 'test'
+        }
       });
     });
   });

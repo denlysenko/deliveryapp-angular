@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { CoreFacade } from '@core/store';
 
@@ -8,7 +8,8 @@ import { OrdersFacade } from '../../../store';
 @Component({
   selector: 'da-create-order-page',
   templateUrl: './create-order-page.component.html',
-  styleUrls: ['./create-order-page.component.scss']
+  styleUrls: ['./create-order-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateOrderPageComponent {
   loading$ = this.ordersFacade.loading$;
@@ -16,8 +17,8 @@ export class CreateOrderPageComponent {
   role$ = this.coreFacade.role$;
 
   constructor(
-    private ordersFacade: OrdersFacade,
-    private coreFacade: CoreFacade
+    private readonly ordersFacade: OrdersFacade,
+    private readonly coreFacade: CoreFacade
   ) {}
 
   create(order: Order) {

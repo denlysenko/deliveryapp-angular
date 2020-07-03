@@ -16,10 +16,11 @@
         </div>
       </div>
       <div class="list">
-        <da-orders-list [orders]="orders"
+        <da-orders-list *ngIf="data$ | async as data"
+                        [orders]="data.rows"
                         [sorting]="sorting$ | async"
                         [pagination]="pagination$ | async"
-                        [count]="count"
+                        [count]="data.count"
                         [role]="role$ | async"
                         (sortingChanged)="handleSortingChange($event)"
                         (paginationChanged)="handlePageChange($event)"

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 
-import { Roles } from '@common/enums';
 import { ListResponse } from '@common/models';
 
 import { CoreFacade } from '@core/store';
-
-import { User } from '@users/models';
 
 import { Observable } from 'rxjs';
 import { switchMap, take, withLatestFrom } from 'rxjs/operators';
@@ -18,18 +15,16 @@ import { OrdersFacade } from '../../store';
 @Injectable()
 export class OrdersResolver implements Resolve<ListResponse<Order>> {
   constructor(
-    private ordersService: OrdersService,
-    private ordersFacade: OrdersFacade,
-    private coreFacade: CoreFacade
+    private readonly ordersService: OrdersService,
+    private readonly ordersFacade: OrdersFacade,
+    private readonly coreFacade: CoreFacade
   ) {}
 
   resolve(): Observable<ListResponse<Order>> {
     return this.coreFacade.self$.pipe(
       withLatestFrom(this.ordersFacade.allFilters$),
-      switchMap(([user, ordersFilter]: [User, OrdersFilter]) =>
-        this.ordersService[
-          user.role === Roles.CLIENT ? 'getOrdersSelf' : 'getOrders'
-        ](ordersFilter)
+      switchMap(([_, ordersFilter]: [never, OrdersFilter]) =>
+        this.ordersService.getOrders(ordersFilter)
       ),
       take(1)
     );

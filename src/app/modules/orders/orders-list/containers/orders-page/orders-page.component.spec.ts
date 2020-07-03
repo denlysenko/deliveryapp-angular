@@ -2,25 +2,28 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { of, BehaviorSubject } from 'rxjs';
-
 import { Roles } from '@common/enums';
 import {
   FilterChangeEvent,
   PageChangeEvent,
   SortingChangeEvent
 } from '@common/models';
+
 import { LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
+
+import { UserViewService } from '@user-view/user-view.service';
+
+import { BehaviorSubject, of } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { Order } from '../../../models';
 import { OrdersService } from '../../../services/orders.service';
 import { OrdersFacade } from '../../../store';
 import { OrdersPageComponent } from './orders-page.component';
-import { UserViewService } from '@user-view/user-view.service';
 
-const allFilters = new BehaviorSubject(null);
-const role = new BehaviorSubject(null);
+const allFilters = new BehaviorSubject({});
+const role = new BehaviorSubject(Roles.CLIENT);
 
 const order: Order = {
   cityFrom: 'test',
@@ -34,18 +37,17 @@ const order: Order = {
 };
 
 const activatedRouteStub = {
-  snapshot: {
-    data: {
-      orders: {
-        count: 1,
-        rows: [
-          {
-            client: {}
-          }
-        ]
-      }
+  data: of({
+    orders: {
+      count: 1,
+      rows: [
+        {
+          ...order,
+          client: {}
+        }
+      ]
     }
-  }
+  })
 };
 
 const ordersFacadeStub = {
@@ -53,9 +55,9 @@ const ordersFacadeStub = {
   sorting$: of({}),
   pagination$: of({}),
   allFilters$: allFilters.asObservable(),
-  sort: jasmine.createSpy('sort'),
-  paginate: jasmine.createSpy('paginate'),
-  doFiltering: jasmine.createSpy('doFiltering')
+  sort: jest.fn(),
+  paginate: jest.fn(),
+  doFiltering: jest.fn()
 };
 
 const coreFacadeStub = {
@@ -63,21 +65,16 @@ const coreFacadeStub = {
 };
 
 const ordersServiceStub = {
-  getOrdersSelf: jasmine
-    .createSpy('getOrdersSelf')
-    .and.returnValue(of({ rows: [order], count: 1 })),
-  getOrders: jasmine
-    .createSpy('getOrders')
-    .and.returnValue(of({ rows: [order], count: 1 }))
+  getOrders: jest.fn().mockReturnValue(of({ rows: [order], count: 1 }))
 };
 
 const loaderServiceStub = {
-  start: jasmine.createSpy('start'),
-  stop: jasmine.createSpy('stop')
+  start: jest.fn(),
+  stop: jest.fn()
 };
 
 const userViewServiceStub = {
-  show: jasmine.createSpy('show')
+  show: jest.fn()
 };
 
 describe('OrdersPageComponent', () => {
@@ -121,8 +118,10 @@ describe('OrdersPageComponent', () => {
     fixture = TestBed.createComponent(OrdersPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    allFilters.next({});
-    role.next(Roles.CLIENT);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('should create', () => {
@@ -145,28 +144,23 @@ describe('OrdersPageComponent', () => {
     expect(component.role$).toBeDefined();
   });
 
-  describe('OnInit()', () => {
-    beforeEach(() => {
-      component.ngOnInit();
-    });
-
-    it('should have orders from activatedRoute', () => {
-      expect(component.orders).toEqual(
-        activatedRouteStub.snapshot.data.orders.rows
-      );
-    });
-
-    it('should have count from activatedRoute', () => {
-      expect(component.count).toEqual(
-        activatedRouteStub.snapshot.data.orders.count
-      );
+  it('should have orders from activatedRoute', (done) => {
+    component.data$.pipe(take(1)).subscribe((data) => {
+      expect(data.rows).toEqual([
+        {
+          ...order,
+          client: {}
+        }
+      ]);
+      expect(data.count).toEqual(1);
+      done();
     });
   });
 
   describe('handleFilterChange()', () => {
     it('should call OrdersFacade.doFiltering()', () => {
       const payload: FilterChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
       const ordersFacade: OrdersFacade = TestBed.inject(OrdersFacade);
 
@@ -178,7 +172,7 @@ describe('OrdersPageComponent', () => {
   describe('handleSortingChange()', () => {
     it('should call OrdersFacade.sort()', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
       const ordersFacade: OrdersFacade = TestBed.inject(OrdersFacade);
 
@@ -206,11 +200,6 @@ describe('OrdersPageComponent', () => {
       offset: 10
     };
 
-    beforeEach(() => {
-      ordersServiceStub.getOrders.calls.reset();
-      ordersServiceStub.getOrdersSelf.calls.reset();
-    });
-
     it('should start loader', () => {
       const loaderService: LoaderService = TestBed.inject(LoaderService);
 
@@ -221,17 +210,9 @@ describe('OrdersPageComponent', () => {
       expect(loaderService.start).toHaveBeenCalled();
     });
 
-    it('should call getOrdersSelf() for Roles.CLIENT', () => {
+    it('should call getOrders()', () => {
       const ordersService: OrdersService = TestBed.inject(OrdersService);
 
-      allFilters.next(filter);
-      expect(ordersService.getOrdersSelf).toHaveBeenCalledWith(filter);
-    });
-
-    it('should call getOrders() for !Roles.CLIENT', () => {
-      const ordersService: OrdersService = TestBed.inject(OrdersService);
-
-      role.next(Roles.MANAGER);
       allFilters.next(filter);
       expect(ordersService.getOrders).toHaveBeenCalledWith(filter);
     });
@@ -241,13 +222,6 @@ describe('OrdersPageComponent', () => {
 
       allFilters.next(filter);
       expect(loaderService.stop).toHaveBeenCalled();
-    });
-
-    it('should save new orders and count', () => {
-      allFilters.next(filter);
-
-      expect(component.orders).toEqual([order]);
-      expect(component.count).toEqual(1);
     });
   });
 

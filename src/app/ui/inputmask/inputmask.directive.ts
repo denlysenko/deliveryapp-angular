@@ -4,7 +4,7 @@ import 'inputmask.phone/dist/inputmask.phone/phone-codes/phone';
 
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
-import * as Inputmask from 'inputmask';
+import Inputmask from 'inputmask';
 
 @Directive({
   selector: '[daInputMask]'

@@ -35,7 +35,7 @@ export class OrdersFacade {
   pagination$ = this.store.pipe(select(getPagination));
   allFilters$ = this.store.pipe(select(getAllFilters));
 
-  constructor(private store: Store<OrdersState>) {}
+  constructor(private readonly store: Store<OrdersState>) {}
 
   doFiltering(filter: FilterChangeEvent) {
     this.store.dispatch(new FilterChange(filter));

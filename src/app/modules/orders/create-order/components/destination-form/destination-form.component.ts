@@ -26,9 +26,9 @@ export class DestinationFormComponent extends BaseFormComponent {
 
   @Output() next = new EventEmitter<void>();
 
-  private clientProviders = new BehaviorSubject<User[] | null>(null);
+  private readonly clientProviders = new BehaviorSubject<User[] | null>(null);
 
-  constructor(private usersService: UsersService) {
+  constructor(private readonly usersService: UsersService) {
     super();
   }
 
@@ -38,9 +38,9 @@ export class DestinationFormComponent extends BaseFormComponent {
 
   searchClient({ query }) {
     this.usersService
-      .getUsers({ 'filter[role]': Roles.CLIENT, 'filter[email]': query })
-      .pipe(map(response => response.rows))
-      .subscribe(users => this.clientProviders.next(users));
+      .getUsers({ filter: { role: [Roles.CLIENT], email: query } })
+      .pipe(map((response) => response.rows))
+      .subscribe((users) => this.clientProviders.next(users));
   }
 
   selectClient({ id }) {
