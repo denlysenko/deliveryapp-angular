@@ -60,15 +60,15 @@
     "primeng": "^9.1.2",
     "qs": "^6.9.4",
     "reflect-metadata": "~0.1.13",
-    "rxjs": "^6.5.5",
+    "rxjs": "^6.6.0",
     "socket.io-client": "^2.3.0",
     "tns-core-modules": "^6.5.8",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1000.0",
-    "@angular/cli": "^10.0.0",
+    "@angular-devkit/build-angular": "~0.1000.1",
+    "@angular/cli": "^10.0.1",
     "@angular/compiler-cli": "10.0.2",
     "@nativescript/schematics": "~9.0.0",
     "@ngrx/schematics": "^9.2.0",
@@ -79,7 +79,7 @@
     "@types/node": "^14.0.14",
     "@types/qs": "^6.9.3",
     "@types/socket.io-client": "^1.4.33",
-    "codelyzer": "^5.2.2",
+    "codelyzer": "^6.0.0",
     "jest": "^26.1.0",
     "jest-preset-angular": "^8.2.1",
     "jest-zone-patch": "0.0.10",
@@ -94,6 +94,6 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.3.0",
     "tslint-sonarts": "^1.9.0",
-    "typescript": "~3.9.5"
+    "typescript": "~3.9.6"
   }
 }
