@@ -6,7 +6,7 @@ This is client for https://github.com/denlysenko/deliveryapp-api
 
 Web app can be found here:
 
-https://deliveryapp-angular.netlify.com
+https://deliveryapp-angular.netlify.app
 
 Native apps some screenshots:
 
