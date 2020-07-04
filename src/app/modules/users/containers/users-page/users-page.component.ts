@@ -16,6 +16,7 @@ import {
   catchError,
   finalize,
   map,
+  shareReplay,
   skip,
   switchMap,
   tap
@@ -54,7 +55,7 @@ export class UsersPageComponent {
   filter$ = this.usersFacade.filter$;
   sorting$ = this.usersFacade.sorting$;
   pagination$ = this.usersFacade.pagination$;
-  current$ = this.usersFacade.current$;
+  current$ = this.usersFacade.current$.pipe(shareReplay(1));
 
   private loading = new BehaviorSubject<boolean>(false);
   private error = new BehaviorSubject<ValidationError | null>(null);

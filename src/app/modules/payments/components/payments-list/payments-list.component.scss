@@ -2,6 +2,6 @@
   border: none;
 }
 
-/deep/ .ui-datatable-data td a:hover {
-  text-decoration: underline;
+.ui-state-highlight a {
+  color: #ffffff;
 }

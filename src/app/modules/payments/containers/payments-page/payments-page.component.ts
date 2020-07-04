@@ -9,7 +9,7 @@ import { CoreFacade } from '@core/store';
 import { UserViewService } from '@user-view/user-view.service';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { shareReplay, tap } from 'rxjs/operators';
 
 import { PaymentsPageBase } from '../../base/PaymentsPageBase';
 import { Payment } from '../../models';
@@ -24,7 +24,7 @@ const SUCCESS_MESSAGE = 'Payment saved!';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentsPageComponent extends PaymentsPageBase {
-  current$ = this.paymentsFacade.current$;
+  current$ = this.paymentsFacade.current$.pipe(shareReplay(1));
 
   private loading = new BehaviorSubject<boolean>(false);
   private error = new BehaviorSubject<ValidationError | null>(null);

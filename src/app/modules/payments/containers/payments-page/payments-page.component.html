@@ -33,6 +33,7 @@
                             [pagination]="pagination$ | async"
                             [sorting]="sorting$ | async"
                             [role]="role"
+                            [selectedPayment]="current$ | async"
                             (sortingChanged)="handleSortingChange($event)"
                             (paginationChanged)="handlePageChange($event)"
                             (paymentSelected)="selectPayment($event)"
