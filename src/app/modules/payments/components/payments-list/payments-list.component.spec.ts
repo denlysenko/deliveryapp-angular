@@ -18,7 +18,7 @@ describe('PaymentsListComponent', () => {
     fixture = TestBed.createComponent(PaymentsListComponent);
     component = fixture.componentInstance;
     component.sorting = {
-      'order[id]': 'asc'
+      id: 'asc'
     };
     component.pagination = {
       limit: 10,
@@ -46,7 +46,7 @@ describe('PaymentsListComponent', () => {
       });
 
       expect(component.sortingChanged.emit).toHaveBeenCalledWith({
-        'order[id]': 'desc'
+        id: 'desc'
       });
     });
   });

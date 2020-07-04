@@ -1,25 +1,21 @@
 import { DEFAULT_LIMIT } from '@common/constants';
-import {
-  FilterChangeEvent,
-  PageChangeEvent,
-  SortingChangeEvent
-} from '@common/models';
+import { PageChangeEvent } from '@common/models';
 
-import { Payment } from '../../models';
+import { Payment, PaymentsFilter } from '../../models';
 import { PaymentsActions, PaymentsActionTypes } from '../actions';
 
 export interface PaymentsState {
   current: Payment | null;
-  filter: FilterChangeEvent;
-  sorting: SortingChangeEvent;
+  filter: PaymentsFilter['filter'];
+  order: PaymentsFilter['order'];
   pagination: PageChangeEvent;
 }
 
 export const initialState: PaymentsState = {
   current: null,
   filter: {},
-  sorting: {
-    'order[id]': 'asc'
+  order: {
+    id: 'desc'
   },
   pagination: {
     offset: 0,
@@ -53,7 +49,7 @@ export function paymentsReducer(
     case PaymentsActionTypes.SORTING_CHANGE: {
       return {
         ...state,
-        sorting: action.payload
+        order: action.payload
       };
     }
 
@@ -66,12 +62,23 @@ export function paymentsReducer(
         }
       };
     }
-  }
 
-  return state;
+    case PaymentsActionTypes.RELOAD: {
+      return {
+        ...state,
+        filter: {
+          ...state.filter
+        }
+      };
+    }
+
+    default: {
+      return state;
+    }
+  }
 }
 
 export const getCurrent = (state: PaymentsState) => state.current;
 export const getFilter = (state: PaymentsState) => state.filter;
-export const getSorting = (state: PaymentsState) => state.sorting;
+export const getSorting = (state: PaymentsState) => state.order;
 export const getPagination = (state: PaymentsState) => state.pagination;

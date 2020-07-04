@@ -30,8 +30,8 @@ describe('CoreFacade', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
-    facade = TestBed.get(CoreFacade);
+    store = TestBed.inject(Store);
+    facade = TestBed.inject(CoreFacade);
     spyOn(store, 'dispatch').and.callThrough();
   });
 
@@ -48,7 +48,7 @@ describe('CoreFacade', () => {
         role: 1
       };
 
-      facade.loggedIn$.subscribe(value => {
+      facade.loggedIn$.subscribe((value) => {
         result = value;
       });
 
@@ -59,7 +59,7 @@ describe('CoreFacade', () => {
     it('should return false when logout was dispatched', () => {
       let result;
 
-      facade.loggedIn$.subscribe(value => {
+      facade.loggedIn$.subscribe((value) => {
         result = value;
       });
 
@@ -81,7 +81,7 @@ describe('CoreFacade', () => {
         role: 1
       };
 
-      facade.self$.subscribe(value => {
+      facade.self$.subscribe((value) => {
         result = value;
       });
 

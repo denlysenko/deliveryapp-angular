@@ -38,14 +38,13 @@ describe('UsersReducer', () => {
   describe('FILTER_CHANGE action', () => {
     it('should set filter value to payload', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
       const action = new FilterChange(payload);
       const { filter } = usersReducer(initialState, action);
 
       expect(filter).toEqual({
-        'filter[role][0]': Roles.MANAGER.toString(),
-        'filter[role][1]': Roles.ADMIN.toString(),
+        role: [Roles.MANAGER, Roles.ADMIN],
         ...payload
       });
     });
@@ -54,12 +53,12 @@ describe('UsersReducer', () => {
   describe('SORTING_CHANGE Action', () => {
     it('should set sorting value to payload', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
       const action = new SortingChange(payload);
-      const { sorting } = usersReducer(initialState, action);
+      const { order } = usersReducer(initialState, action);
 
-      expect(sorting).toEqual(payload);
+      expect(order).toEqual(payload);
     });
   });
 

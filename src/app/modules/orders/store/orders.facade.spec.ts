@@ -8,7 +8,7 @@ import {
   SortingChangeEvent
 } from '@common/models';
 
-import { Order } from '../models';
+import { Order, OrdersFilter } from '../models';
 import {
   CreateOrder,
   CreateOrderFail,
@@ -44,14 +44,14 @@ describe('OrdersFacade', () => {
   }));
 
   beforeEach(() => {
-    store = TestBed.get(Store);
-    facade = TestBed.get(OrdersFacade);
+    store = TestBed.inject(Store);
+    facade = TestBed.inject(OrdersFacade);
     spyOn(store, 'dispatch').and.callThrough();
   });
 
   describe('loading$', () => {
     it('should return current loading$', () => {
-      let result;
+      let result: boolean;
       const payload: Order = {
         cityFrom: 'test',
         cityTo: 'test',
@@ -63,7 +63,7 @@ describe('OrdersFacade', () => {
         senderPhone: '1232123'
       };
 
-      facade.loading$.subscribe(value => {
+      facade.loading$.subscribe((value) => {
         result = value;
       });
 
@@ -75,12 +75,12 @@ describe('OrdersFacade', () => {
 
   describe('error$', () => {
     it('should return current error$', () => {
-      let result;
+      let result: any;
       const payload: any = {
         message: 'error'
       };
 
-      facade.error$.subscribe(value => {
+      facade.error$.subscribe((value) => {
         result = value;
       });
 
@@ -92,12 +92,12 @@ describe('OrdersFacade', () => {
 
   describe('filter$', () => {
     it('should return current filter$', () => {
-      let result;
+      let result: OrdersFilter['filter'];
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      facade.filter$.subscribe(value => {
+      facade.filter$.subscribe((value) => {
         result = value;
       });
 
@@ -108,12 +108,12 @@ describe('OrdersFacade', () => {
 
   describe('sorting$', () => {
     it('should return current sorting$', () => {
-      let result;
+      let result: OrdersFilter['order'];
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
-      facade.sorting$.subscribe(value => {
+      facade.sorting$.subscribe((value) => {
         result = value;
       });
 
@@ -124,13 +124,13 @@ describe('OrdersFacade', () => {
 
   describe('pagination$', () => {
     it('should return current pagination$', () => {
-      let result;
+      let result: PageChangeEvent;
       const payload: PageChangeEvent = {
         limit: 10,
         offset: 10
       };
 
-      facade.pagination$.subscribe(value => {
+      facade.pagination$.subscribe((value) => {
         result = value;
       });
 
@@ -141,19 +141,22 @@ describe('OrdersFacade', () => {
 
   describe('allFilters$', () => {
     it('should return current allFilters$', () => {
-      let result;
+      let result: OrdersFilter;
       const payload: PageChangeEvent = {
         limit: 10,
         offset: 10
       };
 
-      facade.allFilters$.subscribe(value => {
+      facade.allFilters$.subscribe((value) => {
         result = value;
       });
 
       store.dispatch(new PageChange(payload));
       expect(result).toEqual({
-        'order[id]': 'asc',
+        filter: {},
+        order: {
+          id: 'desc'
+        },
         offset: 10,
         limit: 10
       });
@@ -163,7 +166,7 @@ describe('OrdersFacade', () => {
   describe('doFiltering()', () => {
     it('should dispatch a FilterChange action', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'filter'
+        smth: 'filter'
       };
       const action = new FilterChange(payload);
 
@@ -175,7 +178,7 @@ describe('OrdersFacade', () => {
   describe('sort()', () => {
     it('should dispatch a SortingChange action', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
       const action = new SortingChange(payload);
 

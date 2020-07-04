@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -34,6 +35,10 @@ export class CompanyBankDetailsFormComponent extends BaseFormComponent
 
   @Output() formSubmitted = new EventEmitter<CompanyBankDetails>();
 
+  constructor(private readonly cdr: ChangeDetectorRef) {
+    super();
+  }
+
   ngOnInit() {
     this.initForm();
   }
@@ -66,5 +71,10 @@ export class CompanyBankDetailsFormComponent extends BaseFormComponent
       },
       { updateOn: 'submit' }
     );
+
+    // to fix float label overlapping on inputs with native value property
+    setTimeout(() => {
+      this.cdr.markForCheck();
+    });
   }
 }

@@ -3,6 +3,9 @@
          [sortField]="sortField"
          [sortOrder]="sortOrder"
          [customSort]="true"
+         selectionMode="single"
+         [selection]="selectedPayment"
+         (onRowSelect)="paymentSelected.emit($event.data)"
          (onSort)="sort($event)">
   <ng-template pTemplate="header">
     <tr>
@@ -23,11 +26,8 @@
   </ng-template>
   <ng-template pTemplate="body"
                let-payment>
-    <tr>
-      <td>
-        <a href="javascript:void(0)"
-           (click)="paymentSelected.emit(payment)">{{ payment.id }}</a>
-      </td>
+    <tr [pSelectableRow]="payment">
+      <td>{{ payment.id }}</td>
       <td>{{ payment.total | currency }}</td>
       <td>{{ methods[payment.method] }}</td>
       <td>{{ payment.status ? 'Paid' : 'Not Paid' }}</td>

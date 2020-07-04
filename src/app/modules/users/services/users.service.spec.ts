@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -21,7 +20,7 @@ describe('Users Service', () => {
       providers: [UsersService]
     });
 
-    service = TestBed.get(UsersService);
+    service = TestBed.inject(UsersService);
   });
 
   it('should create', () => {
@@ -30,7 +29,7 @@ describe('Users Service', () => {
 
   describe('getUsers()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<User> = {
         rows: [
           {
@@ -40,7 +39,7 @@ describe('Users Service', () => {
         count: 1
       };
 
-      service.getUsers().subscribe(res => {
+      service.getUsers().subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -54,7 +53,7 @@ describe('Users Service', () => {
     }));
 
     it('should send GET request with correct query string', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<User> = {
         rows: [
           {
@@ -65,15 +64,19 @@ describe('Users Service', () => {
       };
 
       const filter: Partial<UsersFilter> = {
-        'filter[id]': 1,
-        'order[firstName]': 'asc'
+        filter: {
+          id: 1
+        },
+        order: {
+          firstName: 'asc'
+        }
       };
 
       const encodedQueryString = `${encodeURIComponent(
         'filter[id]'
       )}=1&${encodeURIComponent('order[firstName]')}=asc`;
 
-      service.getUsers(filter).subscribe(res => {
+      service.getUsers(filter).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -91,12 +94,12 @@ describe('Users Service', () => {
 
   describe('getById()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: User = {
         email: 'test@test.com'
       };
 
-      service.getById(1).subscribe(res => {
+      service.getById(1).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -112,12 +115,12 @@ describe('Users Service', () => {
 
   describe('createUser()', () => {
     it('should send PSOT request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: User = {
         email: 'test@test.com'
       };
 
-      service.createUser(payload).subscribe(res => {
+      service.createUser(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -132,7 +135,7 @@ describe('Users Service', () => {
     }));
 
     it('should return error if creation failed', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const error = {
         message: 'ERR'
       };
@@ -142,7 +145,7 @@ describe('Users Service', () => {
 
       service.createUser(payload).subscribe(
         () => {},
-        err => {
+        (err) => {
           expect(err.status).toEqual(422);
           expect(err.error).toEqual(error);
         }
@@ -152,7 +155,7 @@ describe('Users Service', () => {
 
       expect(req.request.method).toBe('POST');
 
-      req.error(new HttpErrorResponse({ error: error, status: 422 }));
+      req.flush({ error: error, status: 422 }, { statusText: 'Error' });
 
       tick();
     }));
@@ -160,13 +163,13 @@ describe('Users Service', () => {
 
   describe('updateUser()', () => {
     it('should send PATCH request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: User = {
         id: 1,
         email: 'test@test.com'
       };
 
-      service.updateUser(payload).subscribe(res => {
+      service.updateUser(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -181,7 +184,7 @@ describe('Users Service', () => {
     }));
 
     it('should return error if updating failed', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const error = {
         message: 'ERR'
       };
@@ -192,7 +195,7 @@ describe('Users Service', () => {
 
       service.updateUser(payload).subscribe(
         () => {},
-        err => {
+        (err) => {
           expect(err.status).toEqual(422);
           expect(err.error).toEqual(error);
         }
@@ -202,7 +205,7 @@ describe('Users Service', () => {
 
       expect(req.request.method).toBe('PATCH');
 
-      req.error(new HttpErrorResponse({ error: error, status: 422 }));
+      req.flush({ error: error, status: 422 }, { statusText: 'Error' });
 
       tick();
     }));

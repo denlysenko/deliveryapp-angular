@@ -12,7 +12,8 @@ export enum UsersActionTypes {
   SELECT = '[Users] Select',
   FILTER_CHANGE = '[Users] Filter Change',
   SORTING_CHANGE = '[Users] Sorting Change',
-  PAGE_CHANGE = '[Users] Page Change'
+  PAGE_CHANGE = '[Users] Page Change',
+  RELOAD = '[Users] Reload'
 }
 
 export class SelectUser implements Action {
@@ -39,8 +40,13 @@ export class PageChange implements Action {
   constructor(public payload: PageChangeEvent) {}
 }
 
+export class ReloadUsers implements Action {
+  readonly type = UsersActionTypes.RELOAD;
+}
+
 export type UsersActions =
   | SelectUser
   | FilterChange
   | SortingChange
-  | PageChange;
+  | PageChange
+  | ReloadUsers;

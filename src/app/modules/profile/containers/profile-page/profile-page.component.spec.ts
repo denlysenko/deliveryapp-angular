@@ -85,7 +85,7 @@ describe('ProfilePageComponent', () => {
     let profileService: ProfileService;
 
     beforeEach(() => {
-      profileService = TestBed.get(ProfileService);
+      profileService = TestBed.inject(ProfileService);
     });
 
     it('should call ProfileService.updateProfile()', () => {
@@ -95,14 +95,14 @@ describe('ProfilePageComponent', () => {
     });
 
     it('should call CoreFacade.updateSelf()', () => {
-      const coreFacade: CoreFacade = TestBed.get(CoreFacade);
+      const coreFacade: CoreFacade = TestBed.inject(CoreFacade);
       spyOn(profileService, 'updateProfile').and.returnValue(of(payload));
       component.updateProfile(payload);
       expect(coreFacade.updateSelf).toHaveBeenCalledWith(payload);
     });
 
     it('should call FeedbackService.success()', () => {
-      const feedbackService: FeedbackService = TestBed.get(FeedbackService);
+      const feedbackService: FeedbackService = TestBed.inject(FeedbackService);
       spyOn(profileService, 'updateProfile').and.returnValue(of(payload));
       component.updateProfile(payload);
       expect(feedbackService.success).toHaveBeenCalled();
@@ -125,7 +125,7 @@ describe('ProfilePageComponent', () => {
     let profileService: ProfileService;
 
     beforeEach(() => {
-      profileService = TestBed.get(ProfileService);
+      profileService = TestBed.inject(ProfileService);
     });
 
     it('should call ProfileService.updatePassword()', () => {
@@ -135,7 +135,7 @@ describe('ProfilePageComponent', () => {
     });
 
     it('should call FeedbackService.success()', () => {
-      const feedbackService: FeedbackService = TestBed.get(FeedbackService);
+      const feedbackService: FeedbackService = TestBed.inject(FeedbackService);
       spyOn(profileService, 'updatePassword').and.returnValue(of(true));
       component.updatePassword(payload);
       expect(feedbackService.success).toHaveBeenCalled();

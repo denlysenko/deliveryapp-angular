@@ -29,14 +29,12 @@ const log: Log = {
 };
 
 const activatedRouteStub = {
-  snapshot: {
-    data: {
-      logs: {
-        count: 1,
-        rows: [{}]
-      }
+  data: of({
+    logs: {
+      count: 1,
+      rows: [log]
     }
-  }
+  })
 };
 
 const logsFacadeStub = {
@@ -118,30 +116,20 @@ describe('LogsPageComponent', () => {
     expect(component.pagination$).toBeDefined();
   });
 
-  describe('OnInit()', () => {
-    beforeEach(() => {
-      component.ngOnInit();
-    });
-
-    it('should have orders from activatedRoute', () => {
-      expect(component.logs).toEqual(
-        activatedRouteStub.snapshot.data.logs.rows
-      );
-    });
-
-    it('should have count from activatedRoute', () => {
-      expect(component.count).toEqual(
-        activatedRouteStub.snapshot.data.logs.count
-      );
+  it('should have logs and count from activatedRoute', (done) => {
+    component.data$.subscribe((data) => {
+      expect(data.rows).toEqual([log]);
+      expect(data.count).toEqual(1);
+      done();
     });
   });
 
   describe('handleFilterChange()', () => {
     it('should call LogsFacade.doFiltering()', () => {
       const payload: FilterChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
-      const logsFacade: LogsFacade = TestBed.get(LogsFacade);
+      const logsFacade: LogsFacade = TestBed.inject(LogsFacade);
 
       component.handleFilterChange(payload);
       expect(logsFacade.doFiltering).toHaveBeenCalledWith(payload);
@@ -151,9 +139,9 @@ describe('LogsPageComponent', () => {
   describe('handleSortingChange()', () => {
     it('should call LogsFacade.sort()', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
-      const logsFacade: LogsFacade = TestBed.get(LogsFacade);
+      const logsFacade: LogsFacade = TestBed.inject(LogsFacade);
 
       component.handleSortingChange(payload);
       expect(logsFacade.sort).toHaveBeenCalledWith(payload);
@@ -166,7 +154,7 @@ describe('LogsPageComponent', () => {
         limit: 10,
         offset: 10
       };
-      const logsFacade: LogsFacade = TestBed.get(LogsFacade);
+      const logsFacade: LogsFacade = TestBed.inject(LogsFacade);
 
       component.handlePageChange(payload);
       expect(logsFacade.paginate).toHaveBeenCalledWith(payload);
@@ -180,7 +168,7 @@ describe('LogsPageComponent', () => {
     };
 
     it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
 
       allFilters.next({
         limit: 10,
@@ -190,30 +178,23 @@ describe('LogsPageComponent', () => {
     });
 
     it('should call getLogs()', () => {
-      const logsService: LogsService = TestBed.get(LogsService);
+      const logsService: LogsService = TestBed.inject(LogsService);
 
       allFilters.next(filter);
       expect(logsService.getLogs).toHaveBeenCalledWith(filter);
     });
 
     it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
 
       allFilters.next(filter);
       expect(loaderService.stop).toHaveBeenCalled();
-    });
-
-    it('should save new orders and count', () => {
-      allFilters.next(filter);
-
-      expect(component.logs).toEqual([log]);
-      expect(component.count).toEqual(1);
     });
   });
 
   describe('showUser()', () => {
     it('should call userViewService.show()', () => {
-      const userViewService: UserViewService = TestBed.get(UserViewService);
+      const userViewService: UserViewService = TestBed.inject(UserViewService);
       const userId = 1;
 
       component.showUser(userId);

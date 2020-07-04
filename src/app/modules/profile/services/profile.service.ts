@@ -10,7 +10,7 @@ import { PasswordPayload } from '../models';
 
 @Injectable()
 export class ProfileService {
-  constructor(private apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService) {}
 
   updateProfile(profile: User): Observable<User> {
     return this.apiService.patch('/users/self', profile);

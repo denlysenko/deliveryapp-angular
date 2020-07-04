@@ -1,12 +1,18 @@
-export interface OrdersFilter {
-  'order[cargoName]'?: 'desc' | 'asc';
-  'order[cityTo]'?: 'desc' | 'asc';
-  'order[cityFrom]'?: 'desc' | 'asc';
-  'order[id]'?: 'desc' | 'asc';
-  'filter[cargoName]'?: string;
-  'filter[cityTo]'?: string;
-  'filter[cityFrom]'?: string;
-  'filter[id]'?: number;
-  offset?: number;
-  limit?: number;
+import { BaseFilter } from '@common/models';
+
+type OrderField = 'cargoName' | 'cityTo' | 'cityFrom' | 'id';
+
+export interface OrdersFilter extends BaseFilter {
+  filter: {
+    clientId?: number;
+    cargoName?: string;
+    cityTo?: string;
+    cityFrom?: string;
+    id?: number;
+  };
+  order: Partial<
+    {
+      [key in OrderField]: 'desc' | 'asc';
+    }
+  >;
 }

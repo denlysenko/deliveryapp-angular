@@ -1,15 +1,13 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app"
   },
-  "exclude": [
-    "**/*.tns.ts",
-    "**/*.android.ts",
-    "**/*.ios.ts",
-    "**/*.spec.ts",
-    "./main.ns.aot.ts",
-    "./main.ns.ts",
-    "./vendor.ts"
+  "files": [
+    "main.ts",
+    "polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
   ]
 }

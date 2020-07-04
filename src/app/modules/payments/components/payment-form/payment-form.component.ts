@@ -86,9 +86,9 @@ export class PaymentFormComponent extends BaseFormComponent {
   private clients = new BehaviorSubject<User[] | null>(null);
 
   constructor(
-    private ordersService: OrdersService,
-    private usersService: UsersService,
-    private cdr: ChangeDetectorRef
+    private readonly ordersService: OrdersService,
+    private readonly usersService: UsersService,
+    private readonly cdr: ChangeDetectorRef
   ) {
     super();
   }
@@ -117,19 +117,19 @@ export class PaymentFormComponent extends BaseFormComponent {
 
   searchOrder({ query }) {
     this.ordersService
-      .getOrders({ 'filter[id]': query })
+      .getOrders({ filter: { id: query } })
       .pipe(
-        map(response => response.rows),
-        map(orders => orders.map(order => order.id))
+        map((response) => response.rows),
+        map((orders) => orders.map((order) => order.id))
       )
-      .subscribe(orders => this.orders.next(orders));
+      .subscribe((orders) => this.orders.next(orders));
   }
 
   searchClient({ query }) {
     this.usersService
-      .getUsers({ 'filter[role]': Roles.CLIENT, 'filter[email]': query })
-      .pipe(map(response => response.rows))
-      .subscribe(users => this.clients.next(users));
+      .getUsers({ filter: { role: [Roles.CLIENT], email: query } })
+      .pipe(map((response) => response.rows))
+      .subscribe((users) => this.clients.next(users));
   }
 
   selectClient({ id }) {
@@ -172,14 +172,15 @@ export class PaymentFormComponent extends BaseFormComponent {
           (this.payment && this.payment.description) || null
         ),
         clientId: new FormControl(
-          (this.payment && this.payment.clientId) || null,
+          (this.payment && this.payment.client && this.payment.client.id) ||
+            null,
           Validators.required
         ),
         orders: new FormControl(
           (this.payment &&
             this.payment.orders &&
             this.payment.orders.length &&
-            this.payment.orders.map(order => order.id)) ||
+            this.payment.orders.map((order) => order.id)) ||
             null,
           Validators.required
         )

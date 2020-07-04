@@ -8,9 +8,13 @@ import { User, UsersFilter } from '../models';
 
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UsersService {
-  constructor(private apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService) {}
+
+  loadSelf(): Observable<User> {
+    return this.apiService.get('/users/self');
+  }
 
   getUsers(query?: Partial<UsersFilter>): Observable<ListResponse<User>> {
     return this.apiService.get('/users', query);

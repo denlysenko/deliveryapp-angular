@@ -15,7 +15,7 @@ describe('Logs Actions', () => {
   describe('FilterChange', () => {
     it('should create an action', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
       const action = new FilterChange(payload);
@@ -29,7 +29,7 @@ describe('Logs Actions', () => {
   describe('SortingChange', () => {
     it('should create an action', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
       const action = new SortingChange(payload);

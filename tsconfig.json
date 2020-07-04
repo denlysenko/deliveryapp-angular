@@ -1,34 +1,17 @@
+/*
+  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
+  It is not intended to be used to perform a compilation.
+
+  To learn more about this file see: https://angular.io/config/solution-tsconfig.
+*/
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "module": "esnext",
-    "outDir": "./dist/out-tsc",
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2015",
-    "downlevelIteration": true,
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom", "es6", "es2015.iterable"],
-    "baseUrl": ".",
-    "paths": {
-      "@base/*": ["src/app/base/*"],
-      "@ui/*": ["src/app/ui/*"],
-      "@common/*": ["src/app/common/*"],
-      "@core/*": ["src/app/modules/core/*"],
-      "@app-shell/*": ["src/app/modules/app-shell/*"],
-      "@auth/*": ["src/app/modules/auth/*"],
-      "@orders/*": ["src/app/modules/orders/*"],
-      "@users/*": ["src/app/modules/users/*"],
-      "@payments/*": ["src/app/modules/payments/*"],
-      "@user-view/*": ["src/app/modules/user-view/*"],
-      "@messages/*": ["src/app/modules/messages/*"],
-      "~/*": ["src/*"],
-      "core-js/es7/reflect": [
-        "./node_modules/core-js/proposals/reflect-metadata"
-      ],
-      "*": ["./node_modules/tns-core-modules/*", "./node_modules/*"]
+  "files": [],
+  "references": [
+    {
+      "path": "./src/tsconfig.app.json"
+    },
+    {
+      "path": "./src/tsconfig.spec.json"
     }
-  }
+  ]
 }

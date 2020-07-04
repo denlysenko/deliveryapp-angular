@@ -1,10 +1,12 @@
-import { EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter, Input, OnInit, Output, Directive } from '@angular/core';
 
 import { PageChangeEvent, SortingChangeEvent } from '@common/models';
 import { extractSortFieldAndOrder } from '@common/utils';
 
 import { SortEvent } from 'primeng/api';
 
+@Directive()
+// tslint:disable-next-line: directive-class-suffix
 export abstract class BaseListComponent implements OnInit {
   sortField: string;
   sortOrder: number;
@@ -24,7 +26,7 @@ export abstract class BaseListComponent implements OnInit {
 
   sort(event: SortEvent) {
     this.sortingChanged.emit({
-      [`order[${event.field}]`]: event.order === 1 ? 'asc' : 'desc'
+      [event.field]: event.order === 1 ? 'asc' : 'desc'
     });
   }
 

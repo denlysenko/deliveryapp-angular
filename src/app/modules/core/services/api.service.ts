@@ -4,27 +4,29 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { stringify } from 'qs';
+
 import { environment } from '~/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   get<T>(url: string, query: any = {}): Observable<T> {
-    const params = this.setParams(query);
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
     return this.http
       .get<T>(`${environment.apiUrl}${url}`, {
-        params,
+        params: new HttpParams({
+          fromString: stringify(query)
+        }),
         headers
       })
-      .pipe(catchError(err => throwError(err.error)));
+      .pipe(catchError((err) => throwError(err.error)));
   }
 
   post<T>(url: string, body: any): Observable<T> {
@@ -34,7 +36,7 @@ export class ApiService {
 
     return this.http
       .post<T>(`${environment.apiUrl}${url}`, body, { headers })
-      .pipe(catchError(err => throwError(err.error)));
+      .pipe(catchError((err) => throwError(err.error)));
   }
 
   patch<T>(url: string, body: any): Observable<T> {
@@ -44,16 +46,6 @@ export class ApiService {
 
     return this.http
       .patch<T>(`${environment.apiUrl}${url}`, body, { headers })
-      .pipe(catchError(err => throwError(err.error)));
-  }
-
-  private setParams(params: { [key: string]: string }): HttpParams {
-    return Object.entries(params).reduce((param, [key, value]) => {
-      if (value !== null) {
-        return param.set(key, value);
-      }
-
-      return param;
-    }, new HttpParams());
+      .pipe(catchError((err) => throwError(err.error)));
   }
 }

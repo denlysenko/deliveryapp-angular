@@ -56,7 +56,7 @@ describe('AuthPageComponent', () => {
     fixture = TestBed.createComponent(AuthPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    authService = TestBed.get(AuthService);
+    authService = TestBed.inject(AuthService);
   });
 
   it('should create', () => {
@@ -89,14 +89,14 @@ describe('AuthPageComponent', () => {
     });
 
     it('should navigate if success', () => {
-      const coreFacade: CoreFacade = TestBed.get(CoreFacade);
+      const coreFacade: CoreFacade = TestBed.inject(CoreFacade);
 
       component.doAuth(formValue);
       expect(coreFacade.navigate).toHaveBeenCalled();
     });
 
     it('should subscribe to messages', () => {
-      const messagesFacade: MessagesFacade = TestBed.get(MessagesFacade);
+      const messagesFacade: MessagesFacade = TestBed.inject(MessagesFacade);
 
       component.doAuth(formValue);
       expect(messagesFacade.subscribeToMessages).toHaveBeenCalled();

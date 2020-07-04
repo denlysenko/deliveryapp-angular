@@ -3,6 +3,9 @@
          [sortField]="sortField"
          [sortOrder]="sortOrder"
          [customSort]="true"
+         selectionMode="single"
+         [selection]="selectedUser"
+         (onRowSelect)="userSelected.emit($event.data)"
          (onSort)="sort($event)">
   <ng-template pTemplate="header">
     <tr>
@@ -29,11 +32,8 @@
   </ng-template>
   <ng-template pTemplate="body"
                let-user>
-    <tr>
-      <td>
-        <a href="javascript:void(0)"
-           (click)="userSelected.emit(user)">{{ user.id }}</a>
-      </td>
+    <tr [pSelectableRow]="user">
+      <td>{{ user.id }}</td>
       <td>{{ user.email }}</td>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>

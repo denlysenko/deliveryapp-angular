@@ -15,9 +15,9 @@ import { UsersFacade } from '../store';
 @Injectable()
 export class UsersResolver implements Resolve<ListResponse<User>> {
   constructor(
-    private usersService: UsersService,
-    private usersFacade: UsersFacade,
-    private coreFacade: CoreFacade
+    private readonly usersService: UsersService,
+    private readonly usersFacade: UsersFacade,
+    private readonly coreFacade: CoreFacade
   ) {}
 
   resolve(): Observable<ListResponse<User>> {

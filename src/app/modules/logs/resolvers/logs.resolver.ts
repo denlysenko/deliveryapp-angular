@@ -15,9 +15,9 @@ import { LogsFacade } from '../store';
 @Injectable()
 export class LogsResolver implements Resolve<ListResponse<Log>> {
   constructor(
-    private logsService: LogsService,
-    private coreFacade: CoreFacade,
-    private logsFacade: LogsFacade
+    private readonly logsService: LogsService,
+    private readonly coreFacade: CoreFacade,
+    private readonly logsFacade: LogsFacade
   ) {}
 
   resolve(): Observable<ListResponse<Log>> {

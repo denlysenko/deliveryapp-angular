@@ -17,7 +17,7 @@ export class CoreFacade {
   loggedIn$ = this.store.pipe(select(getLoggedIn));
   self$ = this.store.pipe(
     select(getSelf),
-    filter(user => !!user)
+    filter((user) => !!user)
   );
   role$ = this.store.pipe(select(getSelfRole));
 

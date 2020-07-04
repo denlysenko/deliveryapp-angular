@@ -7,7 +7,7 @@ import { TestBed } from '@angular/core/testing';
 import { FeedbackService } from '@core/services';
 import { ApiService } from '@core/services/api.service';
 
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 
 import { environment } from '~/environments/environment';
 
@@ -22,7 +22,6 @@ jest.mock('firebase/app', () => {
     messaging: jest.fn(() => {
       return {
         usePublicVapidKey: jest.fn(),
-        requestPermission: jest.fn(() => Promise.resolve(true)),
         getToken: jest.fn(() => Promise.resolve(token)),
         onMessage: jest.fn(),
         deleteToken: jest.fn(() => Promise.resolve(true))
@@ -30,6 +29,10 @@ jest.mock('firebase/app', () => {
     })
   };
 });
+
+function MockNotification() {}
+MockNotification.requestPermission = jest.fn().mockResolvedValue('granted');
+(window as any).Notification = MockNotification;
 
 describe('MessagesService', () => {
   let service: MessagesService;
@@ -55,7 +58,7 @@ describe('MessagesService', () => {
       ]
     });
 
-    service = TestBed.get(MessagesService);
+    service = TestBed.inject(MessagesService);
     service.init();
   });
 
@@ -69,7 +72,9 @@ describe('MessagesService', () => {
     });
 
     it('should request permissions', () => {
-      expect(firebase.messaging().requestPermission()).resolves.toEqual(true);
+      expect(window.Notification.requestPermission()).resolves.toEqual(
+        'granted'
+      );
     });
 
     it('should get token', () => {
@@ -77,7 +82,7 @@ describe('MessagesService', () => {
     });
 
     it('should send subscribe request', () => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload = { socketId: token };
 
       const req = http.expectOne(`${environment.apiUrl}/messages/subscribe`);
@@ -99,7 +104,7 @@ describe('MessagesService', () => {
     });
 
     it('should send unsubscribe request', () => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload = { socketId: token };
 
       const req = http.expectOne(`${environment.apiUrl}/messages/unsubscribe`);
@@ -117,7 +122,7 @@ describe('MessagesService', () => {
 
   describe('markAsRead()', () => {
     it('should send request', () => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const id = 'message_id';
 
       service.markAsRead(id).subscribe();

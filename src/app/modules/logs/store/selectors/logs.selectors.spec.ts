@@ -8,6 +8,7 @@ import {
 
 import { Store, StoreModule } from '@ngrx/store';
 
+import { LogsFilter } from '../../models';
 import { FilterChange, PageChange, SortingChange } from '../actions';
 import { logsReducer, LogsState } from '../reducers';
 import {
@@ -36,19 +37,19 @@ describe('Logs Selectors', () => {
       ]
     });
 
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     spyOn(store, 'dispatch').and.callThrough();
   });
 
   describe('getFilter', () => {
     it('should return filter value', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      let result;
+      let result: LogsFilter['filter'];
 
-      store.select(getFilter).subscribe(value => {
+      store.select(getFilter).subscribe((value) => {
         result = value;
       });
 
@@ -60,12 +61,12 @@ describe('Logs Selectors', () => {
   describe('getSorting', () => {
     it('should return sorting value', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
-      let result;
+      let result: LogsFilter['order'];
 
-      store.select(getSorting).subscribe(value => {
+      store.select(getSorting).subscribe((value) => {
         result = value;
       });
 
@@ -81,9 +82,9 @@ describe('Logs Selectors', () => {
         offset: 10
       };
 
-      let result;
+      let result: { limit: number; offset: number };
 
-      store.select(getPagination).subscribe(value => {
+      store.select(getPagination).subscribe((value) => {
         result = value;
       });
 
@@ -95,19 +96,23 @@ describe('Logs Selectors', () => {
   describe('getAllFilters', () => {
     it('should return combined filter value', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      let result;
+      let result: LogsFilter;
 
-      store.select(getAllFilters).subscribe(value => {
+      store.select(getAllFilters).subscribe((value) => {
         result = value;
       });
 
       store.dispatch(new FilterChange(payload));
       expect(result).toEqual({
-        'filter[smth]': 'test',
-        'order[createdAt]': 'desc',
+        filter: {
+          smth: 'test'
+        },
+        order: {
+          createdAt: 'desc'
+        },
         offset: 0,
         limit: 10
       });

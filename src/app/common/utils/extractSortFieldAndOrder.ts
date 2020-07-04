@@ -8,7 +8,8 @@ interface SortData {
 export function extractSortFieldAndOrder(
   sorting: SortingChangeEvent
 ): SortData {
-  const keys = Object.keys(sorting); // we know that store can contain only one key
+  const keys = Object.keys(sorting);
+  const values = Object.values(sorting);
 
   if (!keys.length) {
     throw new Error(
@@ -16,13 +17,8 @@ export function extractSortFieldAndOrder(
     );
   }
 
-  const sortOrder = sorting[keys[0]] === 'asc' ? 1 : -1;
-  const index = keys[0].indexOf('[');
-  const lastIndex = keys[0].indexOf(']');
-  const sortField = keys[0].slice(index + 1, lastIndex);
-
   return {
-    sortField,
-    sortOrder
+    sortField: keys[0],
+    sortOrder: values[0] === undefined ? -1 : values[0] === 'asc' ? 1 : -1
   };
 }

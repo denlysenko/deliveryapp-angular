@@ -1,7 +1,14 @@
-export interface LogsFilter {
-  'order[createdAt]'?: 'desc' | 'asc';
-  'filter[userId]'?: number;
-  'filter[action]'?: number;
-  offset: number;
-  limit: number;
+import { BaseFilter } from '@common/models';
+
+type OrderField = 'createdAt';
+
+export interface LogsFilter extends BaseFilter {
+  filter: {
+    action?: number;
+  };
+  order: Partial<
+    {
+      [key in OrderField]: 'desc' | 'asc';
+    }
+  >;
 }

@@ -11,13 +11,14 @@ import {
 import { FeedbackService, LoaderService } from '@core/services';
 
 import { BehaviorSubject, of, throwError } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { User } from '../../models';
 import { UsersService } from '../../services/users.service';
 import { UsersFacade } from '../../store';
 import { UsersPageComponent } from './users-page.component';
 
-const allFilters = new BehaviorSubject(null);
+const allFilters = new BehaviorSubject({ limit: 10, offset: 0 });
 
 const user: User = {
   id: 1,
@@ -25,14 +26,12 @@ const user: User = {
 };
 
 const activatedRouteStub = {
-  snapshot: {
-    data: {
-      users: {
-        count: 0,
-        rows: []
-      }
+  data: of({
+    users: {
+      count: 1,
+      rows: [user]
     }
-  }
+  })
 };
 
 const usersFacadeStub = {
@@ -44,7 +43,8 @@ const usersFacadeStub = {
   sort: jest.fn(),
   paginate: jest.fn(),
   doFiltering: jest.fn(),
-  select: jest.fn()
+  select: jest.fn(),
+  reload: jest.fn()
 };
 
 const usersServiceStub = {
@@ -102,9 +102,8 @@ describe('UsersPageComponent', () => {
     fixture = TestBed.createComponent(UsersPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    allFilters.next({ limit: 10, offset: 0 });
-    usersFacade = TestBed.get(UsersFacade);
-    usersService = TestBed.get(UsersService);
+    usersFacade = TestBed.inject(UsersFacade);
+    usersService = TestBed.inject(UsersService);
   });
 
   it('should create', () => {
@@ -127,28 +126,18 @@ describe('UsersPageComponent', () => {
     expect(component.pagination$).toBeDefined();
   });
 
-  describe('OnInit()', () => {
-    beforeEach(() => {
-      component.ngOnInit();
-    });
-
-    it('should have users from activatedRoute', () => {
-      expect(component.users).toEqual(
-        activatedRouteStub.snapshot.data.users.rows
-      );
-    });
-
-    it('should have count from activatedRoute', () => {
-      expect(component.count).toEqual(
-        activatedRouteStub.snapshot.data.users.count
-      );
+  it('should have users and count from activatedRoute', (done) => {
+    component.data$.pipe(take(1)).subscribe((data) => {
+      expect(data.rows).toEqual([user]);
+      expect(data.count).toEqual(1);
+      done();
     });
   });
 
   describe('handleFilterChange()', () => {
     it('should call UsersFacade.doFiltering()', () => {
       const payload: FilterChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
       component.handleFilterChange(payload);
@@ -159,7 +148,7 @@ describe('UsersPageComponent', () => {
   describe('handleSortingChange()', () => {
     it('should call UsersFacade.sort()', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
       component.handleSortingChange(payload);
@@ -193,7 +182,7 @@ describe('UsersPageComponent', () => {
     };
 
     it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       allFilters.next(filter);
       expect(loaderService.start).toHaveBeenCalled();
     });
@@ -204,15 +193,9 @@ describe('UsersPageComponent', () => {
     });
 
     it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
+      const loaderService: LoaderService = TestBed.inject(LoaderService);
       allFilters.next(filter);
       expect(loaderService.stop).toHaveBeenCalled();
-    });
-
-    it('should save new users and count', () => {
-      allFilters.next(filter);
-      expect(component.users).toEqual([user]);
-      expect(component.count).toEqual(1);
     });
   });
 
@@ -234,28 +217,8 @@ describe('UsersPageComponent', () => {
       expect(usersService.createUser).toHaveBeenCalledWith(newUser);
     });
 
-    it('should start loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
-      component.save(user);
-      expect(loaderService.start).toHaveBeenCalled();
-    });
-
-    it('should call getUsers()', () => {
-      component.save(user);
-      expect(usersService.getUsers).toHaveBeenCalledWith({
-        limit: 10,
-        offset: 0
-      });
-    });
-
-    it('should stop loader', () => {
-      const loaderService: LoaderService = TestBed.get(LoaderService);
-      component.save(user);
-      expect(loaderService.stop).toHaveBeenCalled();
-    });
-
     it('should show success message', () => {
-      const feedbackService: FeedbackService = TestBed.get(FeedbackService);
+      const feedbackService: FeedbackService = TestBed.inject(FeedbackService);
       component.save(user);
       expect(feedbackService.success).toHaveBeenCalled();
     });
@@ -263,13 +226,13 @@ describe('UsersPageComponent', () => {
     it('should send error to error$', () => {
       const error = { message: 'error' };
       // tslint:disable-next-line:no-shadowed-variable
-      const usersService: UsersService = TestBed.get(UsersService);
+      const usersService: UsersService = TestBed.inject(UsersService);
 
       usersService.updateUser = jest.fn().mockReturnValue(throwError(error));
 
-      let result;
+      let result: any;
 
-      component.error$.subscribe(err => {
+      component.error$.subscribe((err) => {
         result = err;
       });
 

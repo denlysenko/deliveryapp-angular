@@ -4,7 +4,7 @@ export function passwordMatchValidator(
   passwordKey: string,
   confirmationKey: string
 ) {
-  return function(group: FormGroup) {
+  return function (group: FormGroup) {
     const confirm = group.get(confirmationKey);
     const password = group.get(passwordKey);
 

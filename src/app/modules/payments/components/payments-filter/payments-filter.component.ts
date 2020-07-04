@@ -14,7 +14,7 @@ import { FilterChangeEvent } from '@common/models';
 
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
-const selectedFilter = 'filter[id]';
+const selectedFilter = 'id';
 
 @Component({
   selector: 'da-payments-filter',
@@ -29,7 +29,7 @@ export class PaymentsFilterComponent extends BaseComponent implements OnInit {
 
   @Output() filterChanged = new EventEmitter<FilterChangeEvent>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder) {
     super();
   }
 
@@ -45,11 +45,7 @@ export class PaymentsFilterComponent extends BaseComponent implements OnInit {
     });
 
     this.form.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
+      .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe(({ search }) => {
         this.filterChanged.emit({
           [selectedFilter]: search

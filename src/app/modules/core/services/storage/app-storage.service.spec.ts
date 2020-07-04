@@ -10,7 +10,7 @@ describe('AppStorageService', () => {
   );
 
   it('should be created', () => {
-    const service: AppStorageService = TestBed.get(AppStorageService);
+    const service: AppStorageService = TestBed.inject(AppStorageService);
     expect(service).toBeTruthy();
   });
 

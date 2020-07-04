@@ -20,7 +20,7 @@ describe('LogsService', () => {
       providers: [LogsService]
     });
 
-    service = TestBed.get(LogsService);
+    service = TestBed.inject(LogsService);
   });
 
   it('should be created', () => {
@@ -29,7 +29,7 @@ describe('LogsService', () => {
 
   describe('getLogs()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Log> = {
         rows: [
           {
@@ -41,7 +41,7 @@ describe('LogsService', () => {
         count: 1
       };
 
-      service.getLogs().subscribe(res => {
+      service.getLogs().subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -55,7 +55,7 @@ describe('LogsService', () => {
     }));
 
     it('should build correct query string and send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Log> = {
         rows: [
           {
@@ -67,21 +67,27 @@ describe('LogsService', () => {
         count: 1
       };
 
-      const filter: Partial<LogsFilter> = {
-        'filter[action]': 1,
-        'order[createdAt]': 'asc'
+      const filter: LogsFilter = {
+        filter: {
+          action: 1
+        },
+        order: {
+          createdAt: 'asc'
+        },
+        limit: 10,
+        offset: 0
       };
 
       const encodedQueryString = `${encodeURIComponent(
         'filter[action]'
       )}=1&${encodeURIComponent('order[createdAt]')}=asc`;
 
-      service.getLogs(filter).subscribe(res => {
+      service.getLogs(filter).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
       const req = http.expectOne(
-        `${environment.apiUrl}/logs?${encodedQueryString}`
+        `${environment.apiUrl}/logs?${encodedQueryString}&limit=10&offset=0`
       );
 
       expect(req.request.method).toBe('GET');

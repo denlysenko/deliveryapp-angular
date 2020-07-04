@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { LoaderService } from '@core/services';
@@ -12,7 +12,8 @@ import { OrdersFacade } from '../../../store';
 
 @Component({
   templateUrl: './orders-page.component.html',
-  styleUrls: ['./orders-page.component.scss']
+  styleUrls: ['./orders-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrdersPageComponent extends OrdersPageBase {
   constructor(

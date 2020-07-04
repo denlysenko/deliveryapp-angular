@@ -8,7 +8,7 @@ import { CompanyAddress, CompanyBankDetails } from '../models';
 
 @Injectable()
 export class SettingsService {
-  constructor(private apiService: ApiService) {}
+  constructor(private readonly apiService: ApiService) {}
 
   getAddress(): Observable<CompanyAddress> {
     return this.apiService.get('/settings/address');

@@ -12,6 +12,7 @@ import { Payment } from '../models';
 import {
   FilterChange,
   PageChange,
+  ReloadPayments,
   SelectPayment,
   SortingChange
 } from './actions';
@@ -48,5 +49,9 @@ export class PaymentsFacade {
 
   select(payment: Payment) {
     this.store.dispatch(new SelectPayment(payment));
+  }
+
+  reload() {
+    this.store.dispatch(new ReloadPayments());
   }
 }

@@ -21,14 +21,14 @@ import { FeedbackService } from '../services/feedback/feedback.service';
 
 @Injectable()
 export class ErrorsInterceptor implements HttpInterceptor {
-  constructor(private feedbackService: FeedbackService) {}
+  constructor(private readonly feedbackService: FeedbackService) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
-      retryWhen(errors =>
+      retryWhen((errors) =>
         errors.pipe(
           // Use concat map to keep the errors in order and make sure they
           // aren't executed in parallel
@@ -47,9 +47,9 @@ export class ErrorsInterceptor implements HttpInterceptor {
           delay(HTTP_RETRY_DELAY)
         )
       ),
-      catchError(event => {
+      catchError((event) => {
         if (event instanceof HttpErrorResponse) {
-          let msg;
+          let msg: string;
 
           switch (event.status) {
             case HTTP_STATUS.NO_CONNECTION:

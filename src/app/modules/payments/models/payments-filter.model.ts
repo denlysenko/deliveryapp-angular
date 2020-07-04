@@ -1,8 +1,14 @@
-export interface PaymentsFilter {
-  'filter[id]'?: number;
-  'order[createdAt]'?: 'asc' | 'desc';
-  'order[total]'?: 'asc' | 'desc';
-  'order[status]'?: 'asc' | 'desc';
-  limit?: number;
-  offset?: number;
+import { BaseFilter } from '@common/models';
+
+type OrderField = 'id' | 'createdAt' | 'total' | 'status';
+
+export interface PaymentsFilter extends BaseFilter {
+  filter: {
+    id?: number;
+  };
+  order: Partial<
+    {
+      [key in OrderField]: 'desc' | 'asc';
+    }
+  >;
 }

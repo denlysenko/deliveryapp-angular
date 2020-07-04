@@ -9,9 +9,13 @@ import {
   RouterReducerState,
   RouterStateSerializer
 } from '@ngrx/router-store';
-import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
+import {
+  ActionReducer,
+  ActionReducerMap,
+  createFeatureSelector
+} from '@ngrx/store';
 
-import { SelfActionTypes } from '../actions';
+import { SelfActions, SelfActionTypes } from '../actions';
 import { selfReducer, SelfState } from './self.reducer';
 
 export interface RouterStateUrl {
@@ -56,8 +60,8 @@ export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
   }
 }
 
-export function clearState(reducer) {
-  return function(state, action) {
+export function clearState(reducer: ActionReducer<CoreState, SelfActions>) {
+  return function (state: CoreState, action: SelfActions) {
     if (action.type === SelfActionTypes.LOGOUT) {
       state = undefined;
     }

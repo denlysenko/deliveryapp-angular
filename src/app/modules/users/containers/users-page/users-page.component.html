@@ -24,10 +24,12 @@
         </div>
       </div>
       <div class="list">
-        <da-users-list [users]="users"
-                       [count]="count"
+        <da-users-list *ngIf="data$ | async as data"
+                       [users]="data.rows"
+                       [count]="data.count"
                        [pagination]="pagination$ | async"
                        [sorting]="sorting$ | async"
+                       [selectedUser]="current$ | async"
                        (sortingChanged)="handleSortingChange($event)"
                        (paginationChanged)="handlePageChange($event)"
                        (userSelected)="selectUser($event)"></da-users-list>

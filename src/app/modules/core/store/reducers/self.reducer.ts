@@ -50,9 +50,11 @@ export function selfReducer(
         user: null
       };
     }
-  }
 
-  return state;
+    default: {
+      return state;
+    }
+  }
 }
 
 export const getSelfLoading = (state: SelfState) => state.loading;

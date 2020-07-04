@@ -23,6 +23,7 @@ export class PaymentsListComponent extends BaseListComponent {
   readonly methods = paymentMethodNames;
 
   @Input() payments: Payment[];
+  @Input() selectedPayment: Payment;
   @Input() role: number;
 
   @Output() paymentSelected = new EventEmitter<Payment>();

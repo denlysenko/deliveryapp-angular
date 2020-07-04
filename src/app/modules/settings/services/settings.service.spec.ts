@@ -18,7 +18,7 @@ describe('SettingsService', () => {
       providers: [SettingsService]
     });
 
-    service = TestBed.get(SettingsService);
+    service = TestBed.inject(SettingsService);
   });
 
   it('should be created', () => {
@@ -27,7 +27,7 @@ describe('SettingsService', () => {
 
   describe('getAddress()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyAddress = {
         country: 'Country',
         city: 'City',
@@ -35,7 +35,7 @@ describe('SettingsService', () => {
         house: 'House'
       };
 
-      service.getAddress().subscribe(res => {
+      service.getAddress().subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -51,7 +51,7 @@ describe('SettingsService', () => {
 
   describe('getBankDetails()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyBankDetails = {
         name: 'Name',
         accountNumber: 'Account Number',
@@ -59,7 +59,7 @@ describe('SettingsService', () => {
         swift: 'swift'
       };
 
-      service.getBankDetails().subscribe(res => {
+      service.getBankDetails().subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -75,7 +75,7 @@ describe('SettingsService', () => {
 
   describe('createAddress()', () => {
     it('should send POST request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyAddress = {
         country: 'Country',
         city: 'City',
@@ -83,7 +83,7 @@ describe('SettingsService', () => {
         house: 'House'
       };
 
-      service.createAddress(payload).subscribe(res => {
+      service.createAddress(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -100,7 +100,7 @@ describe('SettingsService', () => {
 
   describe('updateAddress()', () => {
     it('should send PATCH request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyAddress = {
         id: 1,
         country: 'Country',
@@ -109,7 +109,7 @@ describe('SettingsService', () => {
         house: 'House'
       };
 
-      service.updateAddress(payload).subscribe(res => {
+      service.updateAddress(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -126,7 +126,7 @@ describe('SettingsService', () => {
 
   describe('createBankDetail()', () => {
     it('should send POST request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyBankDetails = {
         name: 'Name',
         accountNumber: 'Account Number',
@@ -134,7 +134,7 @@ describe('SettingsService', () => {
         swift: 'swift'
       };
 
-      service.createBankDetails(payload).subscribe(res => {
+      service.createBankDetails(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -151,7 +151,7 @@ describe('SettingsService', () => {
 
   describe('updateBankDetails()', () => {
     it('should send PATCH request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: CompanyBankDetails = {
         id: 1,
         name: 'Name',
@@ -160,7 +160,7 @@ describe('SettingsService', () => {
         swift: 'swift'
       };
 
-      service.updateBankDetails(payload).subscribe(res => {
+      service.updateBankDetails(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 

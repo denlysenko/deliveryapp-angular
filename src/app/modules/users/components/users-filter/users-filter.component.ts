@@ -16,6 +16,8 @@ import { SelectItem } from 'primeng/api';
 
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
+import { UsersFilter } from '../../models';
+
 @Component({
   selector: 'da-users-filter',
   templateUrl: './users-filter.component.html',
@@ -26,29 +28,29 @@ export class UsersFilterComponent extends BaseComponent implements OnInit {
   readonly options: SelectItem[] = [
     {
       label: 'ID',
-      value: 'filter[id]'
+      value: 'id'
     },
     {
       label: 'Email',
-      value: 'filter[email]'
+      value: 'email'
     },
     {
       label: 'First Name',
-      value: 'filter[firstName]'
+      value: 'firstName'
     },
     {
       label: 'Last Name',
-      value: 'filter[lastName]'
+      value: 'lastName'
     }
   ];
 
   form: FormGroup;
 
-  @Input() filter: FilterChangeEvent;
+  @Input() filter: UsersFilter['filter'];
 
   @Output() filterChanged = new EventEmitter<FilterChangeEvent>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder) {
     super();
   }
 
@@ -58,19 +60,15 @@ export class UsersFilterComponent extends BaseComponent implements OnInit {
 
   private initForm() {
     const keys = Object.keys(this.filter);
-    // we know that filter in store always contains 2 fields (role[0], role[1]), which we can skip, and possibly one more, that is what we need
+    // we know that filter in store always contains 1 fields (role), which we can skip, and possibly one more, that is what we need
 
     this.form = this.fb.group({
-      search: [keys.length ? this.filter[keys[2]] : ''],
-      selectedFilter: [keys.length > 2 ? keys[2] : this.options[0].value]
+      search: [keys.length ? this.filter[keys[1]] : ''],
+      selectedFilter: [keys.length > 1 ? keys[1] : this.options[0].value]
     });
 
     this.form.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
+      .pipe(debounceTime(500), distinctUntilChanged(), takeUntil(this.destroy$))
       .subscribe(({ selectedFilter, search }) => {
         this.filterChanged.emit({
           [selectedFilter]: search

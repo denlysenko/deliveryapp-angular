@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoreFacade } from '@core/store';
 
-import { Message } from '@messages/models';
 import { MessagesFacade } from '@messages/store';
 
 import { User } from '@users/models';
@@ -21,17 +20,6 @@ const USER: User = {
   phone: '1(111) 111-11-11',
   role: 1
 };
-
-const MESSAGES: Message[] = [
-  {
-    _id: '1',
-    text: 'message',
-    read: false,
-    forEmployee: false,
-    recipientId: null,
-    createdAt: new Date().toISOString()
-  }
-];
 
 const UNREAD_MESSAGES = 3;
 
@@ -76,18 +64,18 @@ describe('AppShellComponent', () => {
   });
 
   it('should have `user$` defined', () => {
-    let result;
+    let result: User;
     expect(component.user$).toBeDefined();
-    component.user$.subscribe(user => {
+    component.user$.subscribe((user) => {
       result = user;
     });
     expect(result).toEqual(USER);
   });
 
   it('should have `unreadMessages$` defined', () => {
-    let result;
+    let result: number;
     expect(component.unreadMessages$).toBeDefined();
-    component.unreadMessages$.subscribe(msg => {
+    component.unreadMessages$.subscribe((msg) => {
       result = msg;
     });
     expect(result).toEqual(UNREAD_MESSAGES);
@@ -99,7 +87,7 @@ describe('AppShellComponent', () => {
 
   describe('logout()', () => {
     it('should call CoreFacade.logout', () => {
-      const coreFacade = TestBed.get(CoreFacade);
+      const coreFacade = TestBed.inject(CoreFacade);
       component.logout();
       expect(coreFacade.logout).toBeCalled();
     });

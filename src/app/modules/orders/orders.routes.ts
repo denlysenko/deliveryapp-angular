@@ -6,7 +6,7 @@ export const routes: Routes = [
     path: 'create',
     loadChildren: () =>
       import('./create-order/create-order.module').then(
-        m => m.CreateOrderModule
+        (m) => m.CreateOrderModule
       ),
     canLoad: [AuthGuard]
   },
@@ -14,7 +14,7 @@ export const routes: Routes = [
     path: ':id',
     loadChildren: () =>
       import('./update-order/update-order.module').then(
-        m => m.UpdateOrderModule
+        (m) => m.UpdateOrderModule
       ),
     canLoad: [AuthGuard]
   }

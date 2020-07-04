@@ -9,7 +9,13 @@ import {
 import { select, Store } from '@ngrx/store';
 
 import { User } from '../models';
-import { FilterChange, PageChange, SelectUser, SortingChange } from './actions';
+import {
+  FilterChange,
+  PageChange,
+  SelectUser,
+  SortingChange,
+  ReloadUsers
+} from './actions';
 import { UsersState } from './reducers';
 import {
   getAllFilters,
@@ -27,7 +33,7 @@ export class UsersFacade {
   pagination$ = this.store.pipe(select(getPagination));
   allFilters$ = this.store.pipe(select(getAllFilters));
 
-  constructor(private store: Store<UsersState>) {}
+  constructor(private readonly store: Store<UsersState>) {}
 
   doFiltering(filter: FilterChangeEvent) {
     this.store.dispatch(new FilterChange(filter));
@@ -43,5 +49,9 @@ export class UsersFacade {
 
   select(user: User) {
     this.store.dispatch(new SelectUser(user));
+  }
+
+  reload() {
+    this.store.dispatch(new ReloadUsers());
   }
 }

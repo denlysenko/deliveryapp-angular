@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ValidationError } from '@common/models';
@@ -9,7 +9,7 @@ import { CoreFacade } from '@core/store';
 import { UserViewService } from '@user-view/user-view.service';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { shareReplay, tap } from 'rxjs/operators';
 
 import { PaymentsPageBase } from '../../base/PaymentsPageBase';
 import { Payment } from '../../models';
@@ -20,10 +20,11 @@ const SUCCESS_MESSAGE = 'Payment saved!';
 
 @Component({
   templateUrl: './payments-page.component.html',
-  styleUrls: ['./payments-page.component.scss']
+  styleUrls: ['./payments-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentsPageComponent extends PaymentsPageBase {
-  current$ = this.paymentsFacade.current$;
+  current$ = this.paymentsFacade.current$.pipe(shareReplay(1));
 
   private loading = new BehaviorSubject<boolean>(false);
   private error = new BehaviorSubject<ValidationError | null>(null);
@@ -34,8 +35,8 @@ export class PaymentsPageComponent extends PaymentsPageBase {
     coreFacade: CoreFacade,
     paymentsService: PaymentsService,
     loaderService: LoaderService,
-    private feedbackService: FeedbackService,
-    private userViewService: UserViewService
+    private readonly feedbackService: FeedbackService,
+    private readonly userViewService: UserViewService
   ) {
     super(route, paymentsFacade, coreFacade, paymentsService, loaderService);
   }
@@ -61,18 +62,14 @@ export class PaymentsPageComponent extends PaymentsPageBase {
       .pipe(
         tap(() => {
           this.loading.next(false);
-        }),
-        withLatestFrom(this.role$),
-        withLatestFrom(this.paymentsFacade.allFilters$),
-        switchMap(([_, role], paymentsFilter) =>
-          this.fetchPayments(role, paymentsFilter)
-        )
+        })
       )
       .subscribe(
         () => {
+          this.paymentsFacade.reload();
           this.feedbackService.success(SUCCESS_MESSAGE);
         },
-        err => {
+        (err) => {
           this.loading.next(false);
           this.error.next(err);
         }

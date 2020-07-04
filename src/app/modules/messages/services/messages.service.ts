@@ -15,7 +15,9 @@ import { MessagesFacade } from '../store';
 export class MessagesService extends BaseMessagesService {
   protected readonly firebaseConfig = {
     messagingSenderId: environment.firebaseSenderId,
-    appId: environment.firebaseAppId
+    appId: environment.firebaseAppId,
+    projectId: environment.firebaseProjectId,
+    apiKey: environment.firebaseApiKey
   };
 
   private messaging: firebase.messaging.Messaging;
@@ -39,12 +41,12 @@ export class MessagesService extends BaseMessagesService {
 
   protected async requestPermissions() {
     try {
-      await this.messaging.requestPermission();
+      await Notification.requestPermission();
     } catch (err) {}
   }
 
   protected async getToken(): Promise<string | undefined> {
-    let token;
+    let token: string;
 
     try {
       token = await this.messaging.getToken();

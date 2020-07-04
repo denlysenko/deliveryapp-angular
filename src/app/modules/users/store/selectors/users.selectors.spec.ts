@@ -9,7 +9,7 @@ import {
 
 import { Store, StoreModule } from '@ngrx/store';
 
-import { User } from '../../models';
+import { User, UsersFilter } from '../../models';
 import {
   FilterChange,
   PageChange,
@@ -44,7 +44,7 @@ describe('Users Selectors', () => {
       ]
     });
 
-    store = TestBed.get(Store);
+    store = TestBed.inject(Store);
     spyOn(store, 'dispatch').and.callThrough();
   });
 
@@ -54,9 +54,9 @@ describe('Users Selectors', () => {
         email: 'new_user@test.com'
       };
 
-      let result;
+      let result: User;
 
-      store.select(getCurrent).subscribe(value => {
+      store.select(getCurrent).subscribe((value) => {
         result = value;
       });
 
@@ -68,19 +68,18 @@ describe('Users Selectors', () => {
   describe('getFilter', () => {
     it('should return filter value', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      let result;
+      let result: UsersFilter['filter'];
 
-      store.select(getFilter).subscribe(value => {
+      store.select(getFilter).subscribe((value) => {
         result = value;
       });
 
       store.dispatch(new FilterChange(payload));
       expect(result).toEqual({
-        'filter[role][0]': Roles.MANAGER.toString(),
-        'filter[role][1]': Roles.ADMIN.toString(),
+        role: [Roles.MANAGER, Roles.ADMIN],
         ...payload
       });
     });
@@ -89,12 +88,12 @@ describe('Users Selectors', () => {
   describe('getSorting', () => {
     it('should return sorting value', () => {
       const payload: SortingChangeEvent = {
-        'order[smth]': 'desc'
+        smth: 'desc'
       };
 
-      let result;
+      let result: UsersFilter['order'];
 
-      store.select(getSorting).subscribe(value => {
+      store.select(getSorting).subscribe((value) => {
         result = value;
       });
 
@@ -110,9 +109,9 @@ describe('Users Selectors', () => {
         offset: 10
       };
 
-      let result;
+      let result: PageChangeEvent;
 
-      store.select(getPagination).subscribe(value => {
+      store.select(getPagination).subscribe((value) => {
         result = value;
       });
 
@@ -124,21 +123,24 @@ describe('Users Selectors', () => {
   describe('getAllFilters', () => {
     it('should return combined filter value', () => {
       const payload: FilterChangeEvent = {
-        'filter[smth]': 'test'
+        smth: 'test'
       };
 
-      let result;
+      let result: UsersFilter;
 
-      store.select(getAllFilters).subscribe(value => {
+      store.select(getAllFilters).subscribe((value) => {
         result = value;
       });
 
       store.dispatch(new FilterChange(payload));
       expect(result).toEqual({
-        'filter[role][0]': Roles.MANAGER.toString(),
-        'filter[role][1]': Roles.ADMIN.toString(),
-        'filter[smth]': 'test',
-        'order[id]': 'asc',
+        filter: {
+          role: [Roles.MANAGER, Roles.ADMIN],
+          smth: 'test'
+        },
+        order: {
+          id: 'desc'
+        },
         offset: 0,
         limit: 10
       });

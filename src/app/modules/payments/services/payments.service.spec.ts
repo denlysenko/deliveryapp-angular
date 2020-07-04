@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -22,81 +21,16 @@ describe('PaymentsService', () => {
       providers: [PaymentsService]
     });
 
-    service = TestBed.get(PaymentsService);
+    service = TestBed.inject(PaymentsService);
   });
 
   it('should create', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('getPaymentsSelf()', () => {
-    it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
-      const payload: ListResponse<Payment> = {
-        rows: [
-          {
-            total: 5000,
-            status: false,
-            dueDate: new Date()
-          }
-        ],
-        count: 1
-      };
-
-      service.getPaymentsSelf().subscribe(res => {
-        expect(res).toEqual(payload);
-      });
-
-      const req = http.expectOne(`${environment.apiUrl}/users/self/payments`);
-
-      expect(req.request.method).toBe('GET');
-
-      req.flush(payload);
-
-      tick();
-    }));
-
-    it('should send GET request with correct query string', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
-      const payload: ListResponse<Payment> = {
-        rows: [
-          {
-            total: 5000,
-            status: false,
-            dueDate: new Date()
-          }
-        ],
-        count: 1
-      };
-
-      const filter: PaymentsFilter = {
-        'filter[id]': 1,
-        'order[createdAt]': 'asc'
-      };
-
-      const encodedQueryString = `${encodeURIComponent(
-        'filter[id]'
-      )}=1&${encodeURIComponent('order[createdAt]')}=asc`;
-
-      service.getPaymentsSelf(filter).subscribe(res => {
-        expect(res).toEqual(payload);
-      });
-
-      const req = http.expectOne(
-        `${environment.apiUrl}/users/self/payments?${encodedQueryString}`
-      );
-
-      expect(req.request.method).toBe('GET');
-
-      req.flush(payload);
-
-      tick();
-    }));
-  });
-
   describe('getPayments()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Payment> = {
         rows: [
           {
@@ -108,7 +42,7 @@ describe('PaymentsService', () => {
         count: 1
       };
 
-      service.getPayments().subscribe(res => {
+      service.getPayments().subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -122,7 +56,7 @@ describe('PaymentsService', () => {
     }));
 
     it('should send GET request with correct query string', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: ListResponse<Payment> = {
         rows: [
           {
@@ -135,15 +69,21 @@ describe('PaymentsService', () => {
       };
 
       const filter: PaymentsFilter = {
-        'filter[id]': 1,
-        'order[createdAt]': 'asc'
+        filter: {
+          id: 1
+        },
+        order: {
+          createdAt: 'asc'
+        },
+        limit: 10,
+        offset: 0
       };
 
       const encodedQueryString = `${encodeURIComponent(
         'filter[id]'
-      )}=1&${encodeURIComponent('order[createdAt]')}=asc`;
+      )}=1&${encodeURIComponent('order[createdAt]')}=asc&limit=10&offset=0`;
 
-      service.getPayments(filter).subscribe(res => {
+      service.getPayments(filter).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -161,7 +101,7 @@ describe('PaymentsService', () => {
 
   describe('getPayment()', () => {
     it('should send GET request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const id = 1;
       const payload: Payment = {
         id,
@@ -170,7 +110,7 @@ describe('PaymentsService', () => {
         dueDate: new Date()
       };
 
-      service.getPayment(id).subscribe(res => {
+      service.getPayment(id).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -186,14 +126,14 @@ describe('PaymentsService', () => {
 
   describe('createPayment()', () => {
     it('should send POST request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: Payment = {
         total: 5000,
         status: false,
         dueDate: new Date()
       };
 
-      service.createPayment(payload).subscribe(res => {
+      service.createPayment(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -208,7 +148,7 @@ describe('PaymentsService', () => {
     }));
 
     it('should return error if creation failed', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const error = {
         message: 'ERR'
       };
@@ -220,7 +160,7 @@ describe('PaymentsService', () => {
 
       service.createPayment(payload).subscribe(
         () => {},
-        err => {
+        (err) => {
           expect(err.status).toEqual(422);
           expect(err.error).toEqual(error);
         }
@@ -230,7 +170,7 @@ describe('PaymentsService', () => {
 
       expect(req.request.method).toBe('POST');
 
-      req.error(new HttpErrorResponse({ error: error, status: 422 }));
+      req.flush({ error: error, status: 422 }, { statusText: 'Error' });
 
       tick();
     }));
@@ -238,7 +178,7 @@ describe('PaymentsService', () => {
 
   describe('updatePayment()', () => {
     it('should send PATCH request', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const payload: Payment = {
         id: 1,
         total: 5000,
@@ -246,7 +186,7 @@ describe('PaymentsService', () => {
         dueDate: new Date()
       };
 
-      service.updatePayment(payload).subscribe(res => {
+      service.updatePayment(payload).subscribe((res) => {
         expect(res).toEqual(payload);
       });
 
@@ -261,7 +201,7 @@ describe('PaymentsService', () => {
     }));
 
     it('should return error if updating failed', fakeAsync(() => {
-      const http = TestBed.get(HttpTestingController);
+      const http = TestBed.inject(HttpTestingController);
       const error = {
         message: 'ERR'
       };
@@ -274,7 +214,7 @@ describe('PaymentsService', () => {
 
       service.updatePayment(payload).subscribe(
         () => {},
-        err => {
+        (err) => {
           expect(err.status).toEqual(422);
           expect(err.error).toEqual(error);
         }
@@ -282,7 +222,7 @@ describe('PaymentsService', () => {
 
       const req = http.expectOne(`${environment.apiUrl}/payments/1`);
       expect(req.request.method).toBe('PATCH');
-      req.error(new HttpErrorResponse({ error: error, status: 422 }));
+      req.flush({ error: error, status: 422 }, { statusText: 'Error' });
 
       tick();
     }));

@@ -32,7 +32,7 @@ export class PasswordFormComponent extends BaseFormComponent {
 
   @Output() passwordChanged = new EventEmitter<void>();
 
-  constructor(protected feedbackService: FeedbackService) {
+  constructor(protected readonly feedbackService: FeedbackService) {
     super();
   }
 

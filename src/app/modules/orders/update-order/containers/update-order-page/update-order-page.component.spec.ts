@@ -84,7 +84,7 @@ describe('UpdateOrderPageComponent', () => {
         senderEmail: 'test@test.com',
         senderPhone: '1232123'
       };
-      const ordersFacade: OrdersFacade = TestBed.get(OrdersFacade);
+      const ordersFacade: OrdersFacade = TestBed.inject(OrdersFacade);
 
       component.save(payload);
 

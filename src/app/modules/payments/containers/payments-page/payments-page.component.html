@@ -27,10 +27,13 @@
           </div>
         </div>
         <div class="list">
-          <da-payments-list [payments]="payments"
+          <da-payments-list *ngIf="data$ | async as data"
+                            [payments]="data.rows"
+                            [count]="data.count"
                             [pagination]="pagination$ | async"
                             [sorting]="sorting$ | async"
                             [role]="role"
+                            [selectedPayment]="current$ | async"
                             (sortingChanged)="handleSortingChange($event)"
                             (paginationChanged)="handlePageChange($event)"
                             (paymentSelected)="selectPayment($event)"

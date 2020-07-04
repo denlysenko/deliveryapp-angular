@@ -10,11 +10,7 @@ import { Payment, PaymentsFilter } from '../models';
 
 @Injectable()
 export class PaymentsService {
-  constructor(private apiService: ApiService) {}
-
-  getPaymentsSelf(query?: PaymentsFilter): Observable<ListResponse<Payment>> {
-    return this.apiService.get('/users/self/payments', query);
-  }
+  constructor(private readonly apiService: ApiService) {}
 
   getPayments(query?: PaymentsFilter): Observable<ListResponse<Payment>> {
     return this.apiService.get('/payments', query);

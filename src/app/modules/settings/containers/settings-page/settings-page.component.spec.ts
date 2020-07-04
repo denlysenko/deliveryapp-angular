@@ -58,7 +58,7 @@ describe('SettingsPageComponent', () => {
       ]
     }).compileComponents();
 
-    settingsService = TestBed.get(SettingsService);
+    settingsService = TestBed.inject(SettingsService);
   }));
 
   beforeEach(() => {

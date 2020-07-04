@@ -22,6 +22,7 @@ export class UsersListComponent extends BaseListComponent {
   readonly roleName = roleNames;
 
   @Input() users: User[];
+  @Input() selectedUser: User;
 
   @Output() userSelected = new EventEmitter<User>();
 }

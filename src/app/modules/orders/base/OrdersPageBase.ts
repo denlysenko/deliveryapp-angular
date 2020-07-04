@@ -1,11 +1,9 @@
-import { OnInit } from '@angular/core';
+import { Directive } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { BaseComponent } from '@base/BaseComponent';
-
-import { Roles } from '@common/enums';
 import {
   FilterChangeEvent,
+  ListResponse,
   PageChangeEvent,
   SortingChangeEvent
 } from '@common/models';
@@ -13,23 +11,31 @@ import {
 import { LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
-import { EMPTY } from 'rxjs';
-import {
-  catchError,
-  filter,
-  skip,
-  switchMap,
-  takeUntil,
-  withLatestFrom
-} from 'rxjs/operators';
+import { EMPTY, merge, Observable } from 'rxjs';
+import { catchError, finalize, map, skip, switchMap } from 'rxjs/operators';
 
-import { Order, OrdersFilter } from '../models';
+import { Order } from '../models';
 import { OrdersService } from '../services/orders.service';
 import { OrdersFacade } from '../store';
 
-export abstract class OrdersPageBase extends BaseComponent implements OnInit {
-  orders: Order[];
-  count: number;
+@Directive()
+// tslint:disable-next-line: directive-class-suffix
+export abstract class OrdersPageBase {
+  data$: Observable<ListResponse<Order>> = merge(
+    this.route.data.pipe(
+      map((data: { orders: ListResponse<Order> }) => data.orders)
+    ),
+    this.ordersFacade.allFilters$.pipe(
+      skip(1),
+      switchMap((ordersFilter) => {
+        this.loaderService.start();
+        return this.ordersService.getOrders(ordersFilter).pipe(
+          catchError(() => EMPTY),
+          finalize(() => this.loaderService.stop())
+        );
+      })
+    )
+  );
 
   filter$ = this.ordersFacade.filter$;
   sorting$ = this.ordersFacade.sorting$;
@@ -37,20 +43,12 @@ export abstract class OrdersPageBase extends BaseComponent implements OnInit {
   role$ = this.coreFacade.role$;
 
   constructor(
-    private route: ActivatedRoute,
-    protected ordersFacade: OrdersFacade,
-    private coreFacade: CoreFacade,
-    private ordersService: OrdersService,
-    private loaderService: LoaderService
-  ) {
-    super();
-  }
-
-  ngOnInit() {
-    this.count = this.route.snapshot.data.orders.count;
-    this.orders = this.route.snapshot.data.orders.rows;
-    this.subscribeToFiltersChanges();
-  }
+    private readonly route: ActivatedRoute,
+    protected readonly ordersFacade: OrdersFacade,
+    private readonly coreFacade: CoreFacade,
+    private readonly ordersService: OrdersService,
+    private readonly loaderService: LoaderService
+  ) {}
 
   handleFilterChange(event: FilterChangeEvent) {
     this.ordersFacade.doFiltering(event);
@@ -62,31 +60,5 @@ export abstract class OrdersPageBase extends BaseComponent implements OnInit {
 
   handlePageChange(event: PageChangeEvent) {
     this.ordersFacade.paginate(event);
-  }
-
-  private subscribeToFiltersChanges() {
-    this.ordersFacade.allFilters$
-      .pipe(
-        skip(1),
-        withLatestFrom(this.role$),
-        filter(([_, role]: [never, number]) => role !== null),
-        switchMap(([ordersFilter, role]: [OrdersFilter, number]) => {
-          this.loaderService.start();
-          return this.ordersService[
-            role === Roles.CLIENT ? 'getOrdersSelf' : 'getOrders'
-          ](ordersFilter).pipe(
-            catchError(() => {
-              this.loaderService.stop();
-              return EMPTY;
-            })
-          );
-        }),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(({ count, rows }) => {
-        this.loaderService.stop();
-        this.orders = rows;
-        this.count = count;
-      });
   }
 }

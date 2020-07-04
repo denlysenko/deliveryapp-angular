@@ -12,7 +12,8 @@ export enum PaymentsActionTypes {
   SELECT = '[Payments] Select',
   FILTER_CHANGE = '[Payments] Filter Change',
   SORTING_CHANGE = '[Payments] Sorting Change',
-  PAGE_CHANGE = '[Payments] Page Change'
+  PAGE_CHANGE = '[Payments] Page Change',
+  RELOAD = '[Payments] Reload'
 }
 
 export class SelectPayment implements Action {
@@ -39,8 +40,13 @@ export class PageChange implements Action {
   constructor(public payload: PageChangeEvent) {}
 }
 
+export class ReloadPayments implements Action {
+  readonly type = PaymentsActionTypes.RELOAD;
+}
+
 export type PaymentsActions =
   | SelectPayment
   | FilterChange
   | SortingChange
-  | PageChange;
+  | PageChange
+  | ReloadPayments;

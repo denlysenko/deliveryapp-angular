@@ -1,11 +1,10 @@
-import { OnInit } from '@angular/core';
+import { Directive } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { BaseComponent } from '@base/BaseComponent';
 
 import { Roles } from '@common/enums';
 import {
   FilterChangeEvent,
+  ListResponse,
   PageChangeEvent,
   SortingChangeEvent
 } from '@common/models';
@@ -13,26 +12,33 @@ import {
 import { LoaderService } from '@core/services';
 import { CoreFacade } from '@core/store';
 
-import { EMPTY } from 'rxjs';
-import {
-  catchError,
-  filter,
-  skip,
-  switchMap,
-  takeUntil,
-  tap,
-  withLatestFrom
-} from 'rxjs/operators';
+import { EMPTY, merge, Observable } from 'rxjs';
+import { catchError, finalize, map, skip, switchMap } from 'rxjs/operators';
 
-import { Payment, PaymentsFilter } from '../models';
+import { Payment } from '../models';
 import { PaymentsService } from '../services/payments.service';
 import { PaymentsFacade } from '../store';
 
-export abstract class PaymentsPageBase extends BaseComponent implements OnInit {
+@Directive()
+// tslint:disable-next-line: directive-class-suffix
+export abstract class PaymentsPageBase {
   readonly roles = Roles;
 
-  payments: Payment[];
-  count: number;
+  data$: Observable<ListResponse<Payment>> = merge(
+    this.route.data.pipe(
+      map((data: { payments: ListResponse<Payment> }) => data.payments)
+    ),
+    this.paymentsFacade.allFilters$.pipe(
+      skip(1),
+      switchMap((paymentsFilter) => {
+        this.loaderService.start();
+        return this.paymentsService.getPayments(paymentsFilter).pipe(
+          catchError(() => EMPTY),
+          finalize(() => this.loaderService.stop())
+        );
+      })
+    )
+  );
 
   filter$ = this.paymentsFacade.filter$;
   sorting$ = this.paymentsFacade.sorting$;
@@ -40,20 +46,12 @@ export abstract class PaymentsPageBase extends BaseComponent implements OnInit {
   role$ = this.coreFacade.role$;
 
   constructor(
-    private route: ActivatedRoute,
-    protected paymentsFacade: PaymentsFacade,
-    private coreFacade: CoreFacade,
-    protected paymentsService: PaymentsService,
-    private loaderService: LoaderService
-  ) {
-    super();
-  }
-
-  ngOnInit() {
-    this.count = this.route.snapshot.data.payments.count;
-    this.payments = this.route.snapshot.data.payments.rows;
-    this.subscribeToFiltersChanges();
-  }
+    private readonly route: ActivatedRoute,
+    protected readonly paymentsFacade: PaymentsFacade,
+    private readonly coreFacade: CoreFacade,
+    protected readonly paymentsService: PaymentsService,
+    private readonly loaderService: LoaderService
+  ) {}
 
   handleFilterChange(event: FilterChangeEvent) {
     this.paymentsFacade.doFiltering(event);
@@ -65,36 +63,5 @@ export abstract class PaymentsPageBase extends BaseComponent implements OnInit {
 
   handlePageChange(event: PageChangeEvent) {
     this.paymentsFacade.paginate(event);
-  }
-
-  protected fetchPayments(paymentsFilter: PaymentsFilter, role: number) {
-    this.loaderService.start();
-    return this.paymentsService[
-      role === Roles.CLIENT ? 'getPaymentsSelf' : 'getPayments'
-    ](paymentsFilter).pipe(
-      tap(({ count, rows }) => {
-        this.loaderService.stop();
-        this.payments = rows;
-        this.count = count;
-      }),
-      catchError(() => {
-        this.loaderService.stop();
-        return EMPTY;
-      })
-    );
-  }
-
-  private subscribeToFiltersChanges() {
-    this.paymentsFacade.allFilters$
-      .pipe(
-        skip(1),
-        withLatestFrom(this.role$),
-        filter(([_, role]: [never, number]) => role !== null),
-        switchMap(([paymentsFilter, role]: [PaymentsFilter, number]) =>
-          this.fetchPayments(paymentsFilter, role)
-        ),
-        takeUntil(this.destroy$)
-      )
-      .subscribe();
   }
 }

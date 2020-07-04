@@ -1,22 +1,19 @@
 import { DEFAULT_LIMIT } from '@common/constants';
-import {
-  FilterChangeEvent,
-  PageChangeEvent,
-  SortingChangeEvent
-} from '@common/models';
+import { PageChangeEvent } from '@common/models';
 
 import { LogsActions, LogsActionTypes } from '../actions';
+import { LogsFilter } from '../../models';
 
 export interface LogsState {
-  filter: FilterChangeEvent;
-  sorting: SortingChangeEvent;
+  filter: LogsFilter['filter'];
+  order: LogsFilter['order'];
   pagination: PageChangeEvent;
 }
 
 export const initialState: LogsState = {
   filter: {},
-  sorting: {
-    'order[createdAt]': 'desc'
+  order: {
+    createdAt: 'desc'
   },
   pagination: {
     offset: 0,
@@ -43,7 +40,7 @@ export function logsReducer(
     case LogsActionTypes.SORTING_CHANGE: {
       return {
         ...state,
-        sorting: action.payload
+        order: action.payload
       };
     }
 
@@ -56,11 +53,13 @@ export function logsReducer(
         }
       };
     }
-  }
 
-  return state;
+    default: {
+      return state;
+    }
+  }
 }
 
 export const getFilter = (state: LogsState) => state.filter;
-export const getSorting = (state: LogsState) => state.sorting;
+export const getSorting = (state: LogsState) => state.order;
 export const getPagination = (state: LogsState) => state.pagination;
