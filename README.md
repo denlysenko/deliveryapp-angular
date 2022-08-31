@@ -4,10 +4,6 @@ DeliveryApp (Angular, Nativescript-Angular)
 
 This is client for https://github.com/denlysenko/deliveryapp-api
 
-Web app can be found here:
-
-https://deliveryapp-angular.netlify.app
-
 Native apps some screenshots:
 
 <img src="screenshots/ios/screenshot_3.png" height="378px" /> <img src="screenshots/android/Screenshot_3.png" height="378px" />
