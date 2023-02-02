@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1000.1",
-    "@angular/cli": "^10.0.1",
+    "@angular/cli": "^15.1.4",
     "@angular/compiler-cli": "10.0.2",
     "@nativescript/schematics": "~9.0.0",
     "@ngrx/schematics": "^9.2.0",
